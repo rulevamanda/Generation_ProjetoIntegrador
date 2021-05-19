@@ -1,7 +1,7 @@
 <h1 align = center> Projeto Integrador</h1>
 <h2 align = center>Desenvolvimento de projeto final na Generation</h2>
 
-<p align = justify> Projeto de encerramento do bootcamp de desenvolvedor júnior da Generation.<p>
+<p align = justify> Projeto de encerramento do bootcamp de Desenvolvedor Java Júnior da Generation.<p>
   
 <br>
 
