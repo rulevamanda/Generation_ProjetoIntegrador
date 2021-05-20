@@ -1,11 +1,14 @@
-<mxfile host="app.diagrams.net" modified="2021-05-20T17:50:11.601Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" etag="cbwWV0UXsIcXkwBcGEl3" version="14.6.13" type="github">
+<mxfile host="app.diagrams.net" modified="2021-05-20T18:12:33.599Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" etag="FCHCPpuRGv6QdM03Qcjf" version="14.6.13" type="github">
   <diagram id="qKChcE6apgKH_elndteP" name="Page-1">
-    <mxGraphModel dx="1039" dy="490" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="717" dy="338" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="T4Fg_e-ghym8PTzIXcVu-1" value="&lt;ul&gt;&lt;li&gt;Nome&lt;/li&gt;&lt;li&gt;data de nascimento&lt;/li&gt;&lt;li&gt;gênero&lt;/li&gt;&lt;li&gt;email&lt;/li&gt;&lt;li&gt;telefone&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" vertex="1" parent="1">
-          <mxGeometry x="80" y="40" width="140" height="130" as="geometry" />
+        <mxCell id="T4Fg_e-ghym8PTzIXcVu-1" value="&lt;ul&gt;&lt;li&gt;Nome&lt;/li&gt;&lt;li&gt;data de nascimento&lt;/li&gt;&lt;li&gt;gênero&lt;/li&gt;&lt;li&gt;email&lt;/li&gt;&lt;li&gt;telefone&lt;/li&gt;&lt;li&gt;orientação sexual&lt;/li&gt;&lt;li&gt;localização&lt;/li&gt;&lt;/ul&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="T4Fg_e-ghym8PTzIXcVu-4" value="&lt;ul&gt;&lt;li&gt;Nome&lt;/li&gt;&lt;li&gt;data de nascimento&lt;/li&gt;&lt;li&gt;gênero&lt;/li&gt;&lt;li&gt;email&lt;/li&gt;&lt;li&gt;telefone&lt;/li&gt;&lt;li&gt;orientação sexual&lt;/li&gt;&lt;li&gt;localização&lt;/li&gt;&lt;li&gt;CRM&lt;/li&gt;&lt;li&gt;endereço da clínica&lt;/li&gt;&lt;li&gt;certificações&lt;/li&gt;&lt;/ul&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="324" y="40" width="156" height="170" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
