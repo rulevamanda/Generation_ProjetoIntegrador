@@ -1,14 +1,29 @@
-<mxfile host="app.diagrams.net" modified="2021-05-20T18:12:33.599Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" etag="FCHCPpuRGv6QdM03Qcjf" version="14.6.13" type="github">
+<mxfile host="app.diagrams.net" modified="2021-05-20T22:25:08.304Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" etag="OqEnQzYAeH-lFIiRRXkY" version="14.6.13" type="github">
   <diagram id="qKChcE6apgKH_elndteP" name="Page-1">
     <mxGraphModel dx="717" dy="338" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="T4Fg_e-ghym8PTzIXcVu-1" value="&lt;ul&gt;&lt;li&gt;Nome&lt;/li&gt;&lt;li&gt;data de nascimento&lt;/li&gt;&lt;li&gt;gênero&lt;/li&gt;&lt;li&gt;email&lt;/li&gt;&lt;li&gt;telefone&lt;/li&gt;&lt;li&gt;orientação sexual&lt;/li&gt;&lt;li&gt;localização&lt;/li&gt;&lt;/ul&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" vertex="1" parent="1">
-          <mxGeometry x="80" y="40" width="160" height="150" as="geometry" />
+        <mxCell id="pfuMVHevhrawYUNwaYXX-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="T4Fg_e-ghym8PTzIXcVu-1" target="T4Fg_e-ghym8PTzIXcVu-4">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="T4Fg_e-ghym8PTzIXcVu-4" value="&lt;ul&gt;&lt;li&gt;Nome&lt;/li&gt;&lt;li&gt;data de nascimento&lt;/li&gt;&lt;li&gt;gênero&lt;/li&gt;&lt;li&gt;email&lt;/li&gt;&lt;li&gt;telefone&lt;/li&gt;&lt;li&gt;orientação sexual&lt;/li&gt;&lt;li&gt;localização&lt;/li&gt;&lt;li&gt;CRM&lt;/li&gt;&lt;li&gt;endereço da clínica&lt;/li&gt;&lt;li&gt;certificações&lt;/li&gt;&lt;/ul&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" vertex="1" parent="1">
-          <mxGeometry x="324" y="40" width="156" height="170" as="geometry" />
+        <mxCell id="pfuMVHevhrawYUNwaYXX-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="T4Fg_e-ghym8PTzIXcVu-1" target="pfuMVHevhrawYUNwaYXX-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="T4Fg_e-ghym8PTzIXcVu-1" value="&lt;ul&gt;&lt;li&gt;USUÁRIO&lt;/li&gt;&lt;li&gt;Nome&lt;/li&gt;&lt;li&gt;data de nascimento&lt;/li&gt;&lt;li&gt;gênero&lt;/li&gt;&lt;li&gt;email&lt;/li&gt;&lt;li&gt;telefone&lt;/li&gt;&lt;li&gt;orientação sexual&lt;/li&gt;&lt;li&gt;localização&lt;/li&gt;&lt;li&gt;CPF&lt;/li&gt;&lt;li&gt;id_usuario&lt;/li&gt;&lt;li&gt;tema (true/false)(escuro/claro)&lt;/li&gt;&lt;li&gt;pontuação&lt;/li&gt;&lt;li&gt;profissional (true/false)&lt;/li&gt;&lt;/ul&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" parent="1" vertex="1">
+          <mxGeometry x="80" y="40" width="210" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="T4Fg_e-ghym8PTzIXcVu-4" value="&lt;ul&gt;&lt;li&gt;PROFISSONAL&lt;/li&gt;&lt;li&gt;&lt;span&gt;CRM&lt;/span&gt;&lt;br&gt;&lt;/li&gt;&lt;li&gt;endereço da clínica&lt;/li&gt;&lt;li&gt;certificações&lt;/li&gt;&lt;li&gt;id_profissional&lt;/li&gt;&lt;li&gt;id_usuario&lt;/li&gt;&lt;/ul&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" parent="1" vertex="1">
+          <mxGeometry x="380" y="70" width="156" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="pfuMVHevhrawYUNwaYXX-1" value="&lt;ul&gt;&lt;li&gt;POSTS&lt;/li&gt;&lt;li&gt;título&lt;/li&gt;&lt;li&gt;tema&lt;/li&gt;&lt;li&gt;conteúdo&lt;/li&gt;&lt;li&gt;opção anônima&lt;/li&gt;&lt;li&gt;data&lt;/li&gt;&lt;li&gt;id_usuário&lt;/li&gt;&lt;li&gt;upvote&lt;/li&gt;&lt;/ul&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="334" y="270" width="160" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="pfuMVHevhrawYUNwaYXX-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="pfuMVHevhrawYUNwaYXX-2" target="T4Fg_e-ghym8PTzIXcVu-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pfuMVHevhrawYUNwaYXX-2" value="&lt;ul&gt;&lt;li&gt;PONTUAÇÃO&lt;/li&gt;&lt;li&gt;ícones&lt;/li&gt;&lt;li&gt;medalhas&lt;/li&gt;&lt;li&gt;badges&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;" vertex="1" parent="1">
+          <mxGeometry x="110" y="300" width="150" height="100" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
