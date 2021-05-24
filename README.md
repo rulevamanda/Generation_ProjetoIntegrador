@@ -42,7 +42,7 @@ O usuário com resposta será um profissional verificado que também irá acessa
    <br>
    <br>
    
-<h3>Os integrantes são: </h3>
+<h3>Desenvolvedores: </h3>
 
 <br>
   
