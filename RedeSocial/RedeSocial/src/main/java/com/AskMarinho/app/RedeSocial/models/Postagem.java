@@ -1,4 +1,4 @@
-package com.AskMarinho.app.RedeSocial.Models;
+package com.AskMarinho.app.RedeSocial.models;
 
 import java.util.Date;
 
