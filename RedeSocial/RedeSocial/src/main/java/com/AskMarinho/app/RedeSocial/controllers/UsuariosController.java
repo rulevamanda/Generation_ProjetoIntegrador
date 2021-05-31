@@ -3,8 +3,9 @@ package com.AskMarinho.app.RedeSocial.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -63,28 +64,29 @@ public class UsuariosController {
 		return ResponseEntity.ok(repository.findByTelephoneContaining(telefone));
 	}
 	
-	@PostMapping
+	@PostMapping ("/novo")
 	public ResponseEntity<Object> CadastrarUsuarios (@RequestBody UsuariosModel novoUsuario, @RequestBody UsuariosModel novoEmail){
 		return services.cadastrarUsuario(novoUsuario, novoEmail)
 				.map(newUser -> ResponseEntity.status(201).body(newUser))
 				.orElse(ResponseEntity.status(400).body("Oops...parece que esse cadastro já existe!"));
 	}
 	
-	@PutMapping
+	@PutMapping ("/{id_usuario}/atualizar")
 	public ResponseEntity<UsuariosModel> put (@RequestBody UsuariosModel id_usuario, @RequestBody UsuariosModel updateUsuario){
 		return services.atualizarUsuario(id_usuario, updateUsuario)
 				.map(updateUser -> ResponseEntity.status(201).body(updateUser))
 				.orElse(ResponseEntity.status(400).build());
 	}
 	
-	@PatchMapping
-	public ResponseEntity<UsuariosModel> patch (@RequestBody UsuariosModel id_usuarios){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(id_usuarios));
+	@PatchMapping ("/{id_usuario}/user/atualizar")
+	public ResponseEntity<Object> atualizarUsername (@Valid @RequestBody UsuariosModel novoUsername){
+		return services.atualizarUsername(novoUsername)
+				.map(newUsername -> ResponseEntity.status(201).body(newUsername))
+				.orElse(ResponseEntity.status(400).build());
 	}
 	
-	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id_usuarios) {
+	public void delete(@PathVariable Long id_usuarios) {
 		repository.deleteById(id_usuarios);
 	}
 	
