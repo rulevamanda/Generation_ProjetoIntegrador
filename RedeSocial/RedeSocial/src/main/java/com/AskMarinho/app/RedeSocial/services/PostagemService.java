@@ -23,7 +23,7 @@ public class PostagemService {
 	public Optional<Postagem> cadastrarPostagem (Postagem novaPostagem){
 		Optional<Postagem> postagemExistente = repository.findByTitulo(novaPostagem.getTitulo());
 		
-		if(!postagemExistente.isPresent()) {
+		if(postagemExistente.isEmpty()) {
 			return Optional.ofNullable(repository.save(novaPostagem));
 		}
 		else {
