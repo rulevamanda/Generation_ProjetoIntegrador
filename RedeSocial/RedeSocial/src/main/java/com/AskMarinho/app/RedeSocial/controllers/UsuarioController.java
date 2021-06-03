@@ -40,7 +40,7 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/nome/pesquisar")
-	public ResponseEntity<Object> buscarPorNome(@RequestParam(defaultValue = "") String nome) {
+	public ResponseEntity<Object> buscarPorNome(@RequestParam (defaultValue = "") String nome) {
 		List<Usuario> listaDeNomes = repository.findAllByNomeContainingIgnoreCase(nome);
 
 		if (!listaDeNomes.isEmpty()) {
@@ -71,7 +71,7 @@ public class UsuarioController {
 		return services.atualizarUsuario(id, atualizacaoUsuario)
 				.map(atualizarUsuario -> ResponseEntity.status(201)
 						.body("Usuario: " + atualizacaoUsuario.getNomeUsuario() + "\nEmail: "
-								+ atualizacaoUsuario.getEmail() + "\nAtualizado"))
+								+ atualizacaoUsuario.getEmail() + "\nATUALIZADO"))
 				.orElse(ResponseEntity.status(400).body(
 						"Erro ao atualizar. Usuário não existe ou o nome de Usuário ou Email já está sendo utilizado."));
 	}

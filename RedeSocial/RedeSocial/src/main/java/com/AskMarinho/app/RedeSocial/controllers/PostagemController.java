@@ -30,7 +30,7 @@ public class PostagemController {
 	@Autowired
 	private PostagemRepository repository;
 	@Autowired
-	PostagemService service;
+	private PostagemService service;
 
 	/**
 	 * Método para buscar todas as postagens
