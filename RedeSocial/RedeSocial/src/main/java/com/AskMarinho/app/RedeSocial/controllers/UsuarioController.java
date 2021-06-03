@@ -5,13 +5,11 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.AskMarinho.app.RedeSocial.models.Postagem;
 import com.AskMarinho.app.RedeSocial.models.Usuario;
 import com.AskMarinho.app.RedeSocial.repositories.UsuarioRepository;
 import com.AskMarinho.app.RedeSocial.services.UsuarioService;
@@ -61,18 +58,20 @@ public class UsuarioController {
 	}
 	
 	@PostMapping ("/cadastrar")
-	public ResponseEntity<Object> cadastrarUsuario (@Valid @RequestBody Usuario novoUsuario){
+	public ResponseEntity<String> cadastrarUsuario (@Valid @RequestBody Usuario novoUsuario){
 		return services.cadastrarUsuario(novoUsuario)
-				.map(emailCadastrado -> ResponseEntity.status(201).body(emailCadastrado))
-				.orElse(ResponseEntity.status(400).body("Ooops.. parece que esse email já está cadastrado!"));
+				.map(emailCadastrado -> ResponseEntity.status(201).body("Usuario: "+novoUsuario.getNomeUsuario()+"\nEmail: "
+						+ novoUsuario.getEmail()+"\nCADASTRADO"))
+				.orElse(ResponseEntity.status(400).body("Erro ao cadastrar. Nome de Usuário ou Email já está sendo utilizado."));
 	}
 	
 	@PutMapping ("/{id_usuario}/atualizar")
-	public ResponseEntity <Usuario> atualizarUsuario (@Valid @RequestBody Usuario atualizacaoUsuario, 
+	public ResponseEntity <String> atualizarUsuario (@Valid @RequestBody Usuario atualizacaoUsuario, 
 			@Valid @PathVariable  (value = "id_usuario") Long id) {
 		return services.atualizarUsuario(id, atualizacaoUsuario)
-				.map(usuarioAtualizado -> ResponseEntity.status(201).body(usuarioAtualizado))
-				.orElse(ResponseEntity.status(304).build());
+				.map(atualizarUsuario -> ResponseEntity.status(201).body("Usuario: "+atualizacaoUsuario.getNomeUsuario()+"\nEmail: "
+						+ atualizacaoUsuario.getEmail()+"\nCADASTRADO"))
+				.orElse(ResponseEntity.status(400).body("Erro ao atualizar. Usuário não existe ou o nome de Usuário ou Email já está sendo utilizado."));
 	}
 	
 	@PutMapping ("/{id_usuario}/email/atualizar")
