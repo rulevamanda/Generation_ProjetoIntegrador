@@ -70,15 +70,8 @@ public class UsuarioController {
 			@Valid @PathVariable  (value = "id_usuario") Long id) {
 		return services.atualizarUsuario(id, atualizacaoUsuario)
 				.map(atualizarUsuario -> ResponseEntity.status(201).body("Usuario: "+atualizacaoUsuario.getNomeUsuario()+"\nEmail: "
-						+ atualizacaoUsuario.getEmail()+"\nCADASTRADO"))
+						+ atualizacaoUsuario.getEmail()+"\nAtualizado"))
 				.orElse(ResponseEntity.status(400).body("Erro ao atualizar. Usuário não existe ou o nome de Usuário ou Email já está sendo utilizado."));
-	}
-	
-	@PutMapping ("/{id_usuario}/email/atualizar")
-	public ResponseEntity<Object> atualizarEmail (@Valid @RequestBody Usuario novoEmail){
-		return services.cadastrarUsuario(novoEmail)
-				.map(emailCadastrado -> ResponseEntity.status(201).body(emailCadastrado))
-				.orElse(ResponseEntity.status(400).body("Ooops.. parece que esse email já foi cadastrado. Tente outro!"));
 	}
 	
 	@DeleteMapping("/{id_usuario}/deletar")
