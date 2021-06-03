@@ -50,6 +50,7 @@ public class UsuarioService {
 	 * @since 1.0
 	 * @author Chelle
 	 * @author Amanda
+	 * @author Antonio
 	 * @return Retorna um Optional para salvar as novas alterações caso o usuário
 	 *         seja encontrado, senão retorna um Optional vazio.
 	 */

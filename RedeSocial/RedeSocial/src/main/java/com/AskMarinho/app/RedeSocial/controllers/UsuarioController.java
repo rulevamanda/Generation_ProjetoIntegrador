@@ -23,68 +23,69 @@ import com.AskMarinho.app.RedeSocial.repositories.UsuarioRepository;
 import com.AskMarinho.app.RedeSocial.services.UsuarioService;
 
 @RestController
-@RequestMapping ("/usuarios")
-@CrossOrigin (origins = "*", allowedHeaders = "*")
+@RequestMapping("/usuarios")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
-	
+
 	@Autowired
 	private UsuarioRepository repository;
-	
+
 	@Autowired
 	private UsuarioService services;
-	
-	@GetMapping ("/todes")
-	public ResponseEntity<List<Usuario>> buscarTodes (){
-		List <Usuario> listarTodes = repository.findAll();
+
+	@GetMapping("/todes")
+	public ResponseEntity<List<Usuario>> buscarTodes() {
+		List<Usuario> listarTodes = repository.findAll();
 		return ResponseEntity.status(200).body(listarTodes);
 	}
-	
-	@GetMapping ("/nome/pesquisar")
-	public ResponseEntity<Object> buscarPorNome (@RequestParam (defaultValue = "") String nome) {
+
+	@GetMapping("/nome/pesquisar")
+	public ResponseEntity<Object> buscarPorNome(@RequestParam(defaultValue = "") String nome) {
 		List<Usuario> listaDeNomes = repository.findAllByNomeContainingIgnoreCase(nome);
-		
-		if (!listaDeNomes.isEmpty()){
+
+		if (!listaDeNomes.isEmpty()) {
 			return ResponseEntity.status(200).body(listaDeNomes);
 		} else {
 			return ResponseEntity.status(204).body("Ooops... Parece que esse usuário ainda não existe!");
 		}
 	}
-	
+
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Usuario> buscarPorId (@PathVariable Long id) {
-		return repository.findById(id)
-				.map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
+		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
-	
-	@PostMapping ("/cadastrar")
-	public ResponseEntity<String> cadastrarUsuario (@Valid @RequestBody Usuario novoUsuario){
+
+	@PostMapping("/cadastrar")
+	public ResponseEntity<String> cadastrarUsuario(@Valid @RequestBody Usuario novoUsuario) {
 		return services.cadastrarUsuario(novoUsuario)
-				.map(emailCadastrado -> ResponseEntity.status(201).body("Usuario: "+novoUsuario.getNomeUsuario()+"\nEmail: "
-						+ novoUsuario.getEmail()+"\nCADASTRADO"))
-				.orElse(ResponseEntity.status(400).body("Erro ao cadastrar. Nome de Usuário ou Email já está sendo utilizado."));
+				.map(emailCadastrado -> ResponseEntity.status(201)
+						.body("Usuario: " + novoUsuario.getNomeUsuario() + "\nEmail: " + novoUsuario.getEmail()
+								+ "\nCADASTRADO"))
+				.orElse(ResponseEntity.status(400)
+						.body("Erro ao cadastrar. Nome de Usuário ou Email já está sendo utilizado."));
 	}
-	
-	@PutMapping ("/{id_usuario}/atualizar")
-	public ResponseEntity <String> atualizarUsuario (@Valid @RequestBody Usuario atualizacaoUsuario, 
-			@Valid @PathVariable  (value = "id_usuario") Long id) {
+
+	@PutMapping("/{id_usuario}/atualizar")
+	public ResponseEntity<String> atualizarUsuario(@Valid @RequestBody Usuario atualizacaoUsuario,
+			@Valid @PathVariable(value = "id_usuario") Long id) {
 		return services.atualizarUsuario(id, atualizacaoUsuario)
-				.map(atualizarUsuario -> ResponseEntity.status(201).body("Usuario: "+atualizacaoUsuario.getNomeUsuario()+"\nEmail: "
-						+ atualizacaoUsuario.getEmail()+"\nAtualizado"))
-				.orElse(ResponseEntity.status(400).body("Erro ao atualizar. Usuário não existe ou o nome de Usuário ou Email já está sendo utilizado."));
+				.map(atualizarUsuario -> ResponseEntity.status(201)
+						.body("Usuario: " + atualizacaoUsuario.getNomeUsuario() + "\nEmail: "
+								+ atualizacaoUsuario.getEmail() + "\nAtualizado"))
+				.orElse(ResponseEntity.status(400).body(
+						"Erro ao atualizar. Usuário não existe ou o nome de Usuário ou Email já está sendo utilizado."));
 	}
-	
+
 	@DeleteMapping("/{id_usuario}/deletar")
 	public ResponseEntity<Usuario> deletarUsuario(@PathVariable Long id_usuario) {
 		Optional<Usuario> usuarioExistente = repository.findById(id_usuario);
-		
-		if(usuarioExistente.isPresent()) {
+
+		if (usuarioExistente.isPresent()) {
 			repository.deleteById(id_usuario);
 			return ResponseEntity.status(200).body(null);
-		}
-		else {
+		} else {
 			return ResponseEntity.status(400).body(null);
 		}
 	}
-	
+
 }
