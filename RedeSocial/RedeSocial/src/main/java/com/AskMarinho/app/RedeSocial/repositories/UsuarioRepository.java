@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.AskMarinho.app.RedeSocial.models.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository <Usuario, Long> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-	public List<Usuario> findAllByNomeContainingIgnoreCase (String nome);
-	
-	public Optional<Usuario> findByEmail (String email);
-	
-	public Optional <Usuario> findByNomeUsuario (String nomeUsuario);
+	public List<Usuario> findAllByNomeContainingIgnoreCase(String nome);
+
+	public Optional<Usuario> findByEmail(String email);
+
+	public Optional<Usuario> findByNomeUsuario(String nomeUsuario);
 
 }

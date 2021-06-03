@@ -10,8 +10,8 @@ import com.AskMarinho.app.RedeSocial.models.Tema;
 
 @Repository
 public interface TemaRepository extends JpaRepository<Tema, Long> {
-	
+
 	public List<Tema> findAllByNomeContainingIgnoreCase(String nome);
-	
-	public Optional <Tema> findByNome(String nome);
+
+	public Optional<Tema> findByNome(String nome);
 }
