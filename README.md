@@ -47,9 +47,9 @@ O usuário com resposta será um profissional verificado que também irá acessa
 <br>
   
   <ul>
-    <li>Amanda Rulevas</li>
-    <li>Antonio Lucas</li>
-    <li>Bueno Vital</li>
-    <li>Marcos Matheus</li>
-    <li>Michelle Bernardo</li>
+    <li><a href="https://github.com/rulevamanda">Amanda Rulevas</a></li>
+    <li><a href="https://github.com/AntLucas">Antonio Lucas</a></li>
+    <li><a href="https://github.com/vjbueno">Bueno Vital</a></li>
+    <li><a href="https://github.com/Matheus251170">Marcos Matheus</a></li>
+    <li><a href="https://github.com/chellebernardo">Michelle Bernardo</a></li>
   </ul>

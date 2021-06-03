@@ -1,6 +1,5 @@
 package com.AskMarinho.app.RedeSocial.models;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
