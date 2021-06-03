@@ -24,12 +24,19 @@ public class UsuarioService {
 	 * @since 1.0
 	 */
 	public Optional<Object> cadastrarUsuario(Usuario novoUsuario) {
-		Optional<Object> emailExistente = repository.findByEmail(novoUsuario.getEmail());
+		Optional<Usuario> emailExistente = repository.findByEmail(novoUsuario.getEmail());
 
-		if (emailExistente.isPresent()) {
-			return Optional.empty();
+		if (emailExistente.isEmpty()) {
+			Optional<Usuario> usuarioExistente = repository.findByNomeUsuario(novoUsuario.getNomeUsuario());
+
+			if (usuarioExistente.isEmpty()) {
+				return Optional.ofNullable(repository.save(novoUsuario));
+			} else {
+				return Optional.empty();
+			}
+
 		} else {
-			return Optional.ofNullable(repository.save(novoUsuario));
+			return Optional.empty();
 		}
 	}
 	/**
@@ -42,17 +49,38 @@ public class UsuarioService {
 	 * @return Retorna um Optional para salvar as novas alterações caso o usuário seja encontrado, 
 	 * senão retorna um Optional vazio.
 	 */
-	public Optional <Usuario> atualizarUsuario(Long id_usuario, Usuario updateUsuario){
-		Optional <Usuario> usuarioExistente = repository.findById(id_usuario);
-		
+	public Optional<Usuario> atualizarUsuario(Long id_usuario, Usuario atualizacaoUsuario) {
+		Optional<Usuario> usuarioExistente = repository.findById(id_usuario);
+
 		if (usuarioExistente.isPresent()) {
-			usuarioExistente.get().setNome(updateUsuario.getNome());
-			usuarioExistente.get().setTelefone(updateUsuario.getTelefone());
-			usuarioExistente.get().setSenha(updateUsuario.getSenha());
-			usuarioExistente.get().setGenero(updateUsuario.getGenero());
-			usuarioExistente.get().setNascimento(updateUsuario.getNascimento());
-			return Optional.ofNullable(repository.save(usuarioExistente.get()));
-			
+			Optional<Usuario> emailExistente = repository.findByEmail(atualizacaoUsuario.getEmail());
+
+			if (emailExistente.isEmpty()) {
+				if (usuarioExistente.get().getEmail() == atualizacaoUsuario.getEmail()) {
+					
+				} else {
+					
+				}
+				Optional<Usuario> usuarioRepetido = repository.findByNomeUsuario(atualizacaoUsuario.getNomeUsuario());
+				if (usuarioRepetido.isEmpty()) {
+					usuarioExistente.get().setNome(atualizacaoUsuario.getNome());
+					usuarioExistente.get().setTelefone(atualizacaoUsuario.getTelefone());
+					usuarioExistente.get().setSenha(atualizacaoUsuario.getSenha());
+					usuarioExistente.get().setGenero(atualizacaoUsuario.getGenero());
+					usuarioExistente.get().setNascimento(atualizacaoUsuario.getNascimento());
+					usuarioExistente.get().setEmail(atualizacaoUsuario.getEmail());
+					usuarioExistente.get().setNomeUsuario(atualizacaoUsuario.getNomeUsuario());
+
+					return Optional.ofNullable(repository.save(usuarioExistente.get()));
+
+				} else {
+					return Optional.empty();
+				}
+
+			} else {
+				return Optional.empty();
+			}
+
 		} else {
 			return Optional.empty();
 		}
