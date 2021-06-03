@@ -9,7 +9,7 @@
   
  <h2 align = center>O que é a AskMarinho?</h2>
 
-<p align = justify> Pensando um pouco sobre os impactos que a negligência de informações sobre educação sexual traz para o nosso dia-a-dia na sociedade, a AskMarinho chega com o intuito de democratizar essas informações por meio de fontes seguras e confiáveis de uma forma completamente didática e acholhedora, quebrando o grande tabu em torno de assuntos relacionados a sexo.
+<p align = justify> Pensando um pouco sobre os impactos que a negligência de informações sobre educação sexual traz para o nosso dia-a-dia na sociedade, a AskMarinho chega com o intuito de democratizar essas informações por meio de fontes seguras e confiáveis de uma forma completamente didática e acolhedora, quebrando o grande tabu em torno de assuntos relacionados a sexo.
 
    <br>
    <br>
