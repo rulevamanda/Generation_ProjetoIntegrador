@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -38,6 +41,11 @@ public class Postagem {
 	@OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("postagem")
 	private List<Comentario> comentarios;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "usuarioPostagem")
+	@JsonIgnoreProperties("postagens")
+	private Usuario usuarioPostagem;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
@@ -89,5 +97,15 @@ public class Postagem {
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
 	}
+
+	public Usuario getUsuarioPostagem() {
+		return usuarioPostagem;
+	}
+
+	public void setUsuarioPostagem(Usuario usuarioPostagem) {
+		this.usuarioPostagem = usuarioPostagem;
+	}
+	
+	
 
 }

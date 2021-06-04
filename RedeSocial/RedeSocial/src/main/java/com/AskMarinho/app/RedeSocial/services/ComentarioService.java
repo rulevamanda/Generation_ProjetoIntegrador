@@ -42,7 +42,7 @@ public class ComentarioService {
 			
 			if (postagemExistente.isPresent()) {
 				novoComentario.setPostagem(postagemExistente.get());
-				novoComentario.setUsuario(usuarioExistente.get());
+				novoComentario.setUsuarioComentario(usuarioExistente.get());
 				return Optional.ofNullable(repositoryC.save(novoComentario));
 			}
 		}
