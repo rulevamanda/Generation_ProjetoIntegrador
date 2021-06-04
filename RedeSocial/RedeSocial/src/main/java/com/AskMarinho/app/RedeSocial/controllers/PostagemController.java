@@ -81,9 +81,10 @@ public class PostagemController {
 	 *         uma postagem com o mesmo título
 	 * @author Antonio
 	 */
-	@PostMapping("/cadastrar")
-	public ResponseEntity<String> cadastrarPostagem(@RequestBody Postagem novaPostagem) {
-		return service.cadastrarPostagem(novaPostagem)
+	@PostMapping("/cadastrar/{idUsuario}")
+	public ResponseEntity<String> cadastrarPostagem(@PathVariable(value = "idUsuario") Long idUsuario,
+			@RequestBody Postagem novaPostagem) {
+		return service.cadastrarPostagem(idUsuario, novaPostagem)
 				.map(postagemCriada -> ResponseEntity.status(201)
 						.body("Título da postagem: " + novaPostagem.getTitulo() + "\nDescrição " + "da postagem: "
 								+ novaPostagem.getDescricao() + "\nCADASTRADA"))

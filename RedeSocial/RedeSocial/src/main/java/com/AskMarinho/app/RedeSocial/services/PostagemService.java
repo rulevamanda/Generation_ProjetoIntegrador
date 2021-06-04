@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.AskMarinho.app.RedeSocial.models.Postagem;
+import com.AskMarinho.app.RedeSocial.models.Usuario;
 import com.AskMarinho.app.RedeSocial.repositories.PostagemRepository;
+import com.AskMarinho.app.RedeSocial.repositories.UsuarioRepository;
 
 @Service
 public class PostagemService {
 
 	@Autowired
 	private PostagemRepository repository;
+
+	@Autowired
+	private UsuarioRepository repositoryU;
 
 	/**
 	 * Método para cadastrar postagens caso não haja alguma com o mesmo título, caso
@@ -23,14 +28,20 @@ public class PostagemService {
 	 *         Optional vazio
 	 * @author Antonio
 	 */
-	public Optional<Object> cadastrarPostagem(Postagem novaPostagem) {
+	public Optional<Object> cadastrarPostagem(Long idUsuario, Postagem novaPostagem) {
 		Optional<Postagem> postagemExistente = repository.findByTitulo(novaPostagem.getTitulo());
 
 		if (postagemExistente.isEmpty()) {
-			return Optional.ofNullable(repository.save(novaPostagem));
-		} else {
-			return Optional.empty();
+			Optional<Usuario> usuarioExistente = repositoryU.findById(idUsuario);
+
+			if (usuarioExistente.isPresent()) {
+				novaPostagem.setUsuarioPostagem(usuarioExistente.get());
+				return Optional.ofNullable(repository.save(novaPostagem));
+			}
+
 		}
+
+		return Optional.empty();
 	}
 
 	/**
