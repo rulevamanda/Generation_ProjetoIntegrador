@@ -30,7 +30,7 @@ public class PostagemController {
 	@Autowired
 	private PostagemRepository repository;
 	@Autowired
-	PostagemService service;
+	private PostagemService service;
 
 	/**
 	 * Método para buscar todas as postagens
@@ -84,8 +84,9 @@ public class PostagemController {
 	@PostMapping("/cadastrar")
 	public ResponseEntity<String> cadastrarPostagem(@RequestBody Postagem novaPostagem) {
 		return service.cadastrarPostagem(novaPostagem)
-				.map(postagemCriada -> ResponseEntity.status(201).body("Título da postagem: "+novaPostagem.getTitulo()+ "\nDescrição "
-						+ "da postagem: "+novaPostagem.getDescricao()+"\nCADASTRADA"))
+				.map(postagemCriada -> ResponseEntity.status(201)
+						.body("Título da postagem: " + novaPostagem.getTitulo() + "\nDescrição " + "da postagem: "
+								+ novaPostagem.getDescricao() + "\nCADASTRADA"))
 				.orElse(ResponseEntity.status(200).body("Erro ao cadastrar. Esses título já está sendo utilizado."));
 	}
 
@@ -102,9 +103,11 @@ public class PostagemController {
 	public ResponseEntity<String> atualizarPostagem(@PathVariable(value = "id") Long id,
 			@Valid @RequestBody Postagem postagem) {
 		return service.atualizarPostagem(id, postagem)
-				.map(postagemAtualizada -> ResponseEntity.status(201).body("Título da postagem: "+postagem.getTitulo()+"\nDescrição "
-						+ "da postagem: "+ postagem.getDescricao()+ "\nATUALIZADA"))
-				.orElse(ResponseEntity.status(200).body("Erro ao atualizar. Essa postagem não existe ou o título em duplicata"));
+				.map(postagemAtualizada -> ResponseEntity.status(201)
+						.body("Título da postagem: " + postagem.getTitulo() + "\nDescrição " + "da postagem: "
+								+ postagem.getDescricao() + "\nATUALIZADA"))
+				.orElse(ResponseEntity.status(200)
+						.body("Erro ao atualizar. Essa postagem não existe ou o título em duplicata"));
 
 	}
 
