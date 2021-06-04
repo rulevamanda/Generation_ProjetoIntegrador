@@ -39,12 +39,12 @@ public class Postagem {
 	private String url_imagem;
 
 	@OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("postagem")
+	@JsonIgnoreProperties({"postagem", "idComentario", "usuarioComentario"})
 	private List<Comentario> comentarios;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuarioPostagem")
-	@JsonIgnoreProperties("postagens")
+	@JsonIgnoreProperties({"postagens", "idUsuario", "nomeUsuario", "nomeUsuario", "nascimento", "comentarios"})
 	private Usuario usuarioPostagem;
 
 	@Temporal(TemporalType.TIMESTAMP)

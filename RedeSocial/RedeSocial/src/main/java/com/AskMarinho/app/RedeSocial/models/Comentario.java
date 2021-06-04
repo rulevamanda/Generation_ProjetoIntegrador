@@ -19,7 +19,7 @@ public class Comentario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long idComentario;
 
 	@NotNull
 	@Size(min = 1, max = 100)
@@ -27,20 +27,20 @@ public class Comentario {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuarioComentario")
-	@JsonIgnoreProperties("comentarios")
+	@JsonIgnoreProperties({"comentarios", "postagens", "idUsuario", "nomeUsuario", "telefone", "senha", "nascimento"})
 	private Usuario usuarioComentario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "postagem")
-	@JsonIgnoreProperties("comentarios")
+	@JsonIgnoreProperties({"comentarios","usuarioPostagem", "id_postagem"})
 	private Postagem postagem;
 
-	public long getId() {
-		return id;
+	public long getIdComentario() {
+		return idComentario;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.idComentario = id;
 	}
 
 	public String getTexto() {
@@ -66,6 +66,5 @@ public class Comentario {
 	public void setPostagem(Postagem postagem) {
 		this.postagem = postagem;
 	}
-
 	
 }
