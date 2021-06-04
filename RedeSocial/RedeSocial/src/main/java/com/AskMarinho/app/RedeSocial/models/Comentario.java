@@ -26,9 +26,9 @@ public class Comentario {
 	private String texto;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "usuario")
+	@JoinColumn(name = "usuarioComentario")
 	@JsonIgnoreProperties("comentarios")
-	private Usuario usuario;
+	private Usuario usuarioComentario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "postagem")
@@ -39,32 +39,33 @@ public class Comentario {
 		return id;
 	}
 
-	public String getTexto() {
-		return texto;
-	}
-
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getTexto() {
+		return texto;
 	}
 
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Usuario getUsuarioComentario() {
+		return usuarioComentario;
+	}
+
+	public void setUsuarioComentario(Usuario usuarioComentario) {
+		this.usuarioComentario = usuarioComentario;
 	}
 
 	public Postagem getPostagem() {
 		return postagem;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public void setPostagem(Postagem postagem) {
 		this.postagem = postagem;
 	}
 
+	
 }

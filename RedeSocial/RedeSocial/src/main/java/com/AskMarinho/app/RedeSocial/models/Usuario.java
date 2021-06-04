@@ -50,9 +50,13 @@ public class Usuario {
 	@Column(name = "telefone", length = 20)
 	private Long telefone;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("usuario")
+	@OneToMany(mappedBy = "usuarioComentario", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("usuarioComentario")
 	private List<Comentario> comentarios;
+	
+	@OneToMany(mappedBy = "usuarioPostagem", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("usuarioPostagem")
+	private List<Postagem> postagens;
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -125,5 +129,15 @@ public class Usuario {
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
 	}
+
+	public List<Postagem> getPostagens() {
+		return postagens;
+	}
+
+	public void setPostagens(List<Postagem> postagens) {
+		this.postagens = postagens;
+	}
+	
+	
 
 }
