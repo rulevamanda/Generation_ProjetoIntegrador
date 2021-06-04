@@ -86,9 +86,9 @@ public class PostagemController {
 			@PathVariable(value = "idTema") Long idTema, @RequestBody Postagem novaPostagem) {
 		return service.cadastrarPostagem(idUsuario, idTema, novaPostagem)
 				.map(postagemCriada -> ResponseEntity.status(201)
-						.body("TÃ­tulo da postagem: " + novaPostagem.getTitulo() + "\nDescriÃ§Ã£o " + "da postagem: "
+						.body("Título da postagem: " + novaPostagem.getTitulo() + "\nDescrição " + "da postagem: "
 								+ novaPostagem.getDescricao() + "\nCADASTRADA"))
-				.orElse(ResponseEntity.status(200).body("Erro ao cadastrar. Esses tÃ­tulo jÃ¡ estÃ¡ sendo utilizado."));
+				.orElse(ResponseEntity.status(200).body("Erro ao cadastrar. Esses título já está sendo utilizado."));
 	}
 
 	/**
@@ -105,10 +105,10 @@ public class PostagemController {
 			@Valid @RequestBody Postagem postagem) {
 		return service.atualizarPostagem(id, postagem)
 				.map(postagemAtualizada -> ResponseEntity.status(201)
-						.body("TÃ­tulo da postagem: " + postagem.getTitulo() + "\nDescriÃ§Ã£o " + "da postagem: "
+						.body("Título da postagem: " + postagem.getTitulo() + "\nDescrição " + "da postagem: "
 								+ postagem.getDescricao() + "\nATUALIZADA"))
 				.orElse(ResponseEntity.status(200)
-						.body("Erro ao atualizar. Essa postagem nÃ£o existe ou o tÃ­tulo em duplicata"));
+						.body("Erro ao atualizar. Essa postagem não existe ou o título em duplicata"));
 
 	}
 
@@ -128,15 +128,27 @@ public class PostagemController {
 			repository.deleteById(id);
 			return ResponseEntity.status(200).body("Postagem deletada com sucesso.");
 		} else {
-			return ResponseEntity.status(200).body("Postagem nÃ£o pode ser deletada, pois nÃ£o existe.");
+			return ResponseEntity.status(200).body("Postagem não pode ser deletada, pois não existe.");
 		}
 	}
 
+	
+	
+	//Temas postagem
+	
 	@PutMapping("adicionar/tema/{idTema}/{idPostagem}")
 	public ResponseEntity<String> adicionarTema(@PathVariable (value = "idTema") Long idTema,
 			@PathVariable (value = "idPostagem") Long idPostagem){
 		return service.adicionarTema(idPostagem, idTema)
 				.map(adicionado -> ResponseEntity.status(201).body("ATUALIZADO COM SUCESSO!"))
 				.orElse(ResponseEntity.status(200).body("ERRO"));
+	}
+	
+	@DeleteMapping("deletar/tema/{idTema}/{idPostagem}")
+	public ResponseEntity<String> deletarTemaPostagem(@PathVariable (value = "idTema") Long idTema,
+			@PathVariable (value = "idPostagem") Long idPostagem){
+		return service.deletarTemaDaPostagem(idPostagem, idTema)
+				.map(deletado -> ResponseEntity.status(200).body("Tema deletado da postagem com sucesso"))
+				.orElse(ResponseEntity.status(404).build());
 	}
 }

@@ -77,14 +77,14 @@ public class UsuarioController {
 	}
 
 	@DeleteMapping("/{id_usuario}/deletar")
-	public ResponseEntity<Usuario> deletarUsuario(@PathVariable Long id_usuario) {
+	public ResponseEntity<String> deletarUsuario(@PathVariable Long id_usuario) {
 		Optional<Usuario> usuarioExistente = repository.findById(id_usuario);
 
 		if (usuarioExistente.isPresent()) {
 			repository.deleteById(id_usuario);
-			return ResponseEntity.status(200).body(null);
+			return ResponseEntity.status(200).body("Usuário deletado com sucesso");
 		} else {
-			return ResponseEntity.status(400).body(null);
+			return ResponseEntity.status(400).body("Erro ao deletar usuário. \nUsuário não existe");
 		}
 	}
 

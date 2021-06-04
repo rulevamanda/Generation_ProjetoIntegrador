@@ -25,8 +25,8 @@ public class PostagemService {
 	private TemaRepository repositoryT;
 
 	/**
-	 * MÃ©todo para cadastrar postagens caso nÃ£o haja alguma com o mesmo tÃ­tulo, caso
-	 * haja nÃ£o Ã© cadastrado
+	 * MÃ©todo para cadastrar postagens caso nÃ£o haja alguma com o mesmo tÃ­tulo,
+	 * caso haja nÃ£o Ã© cadastrado
 	 * 
 	 * @param idUsuario
 	 * @param idTema
@@ -46,6 +46,7 @@ public class PostagemService {
 				Optional<Tema> temaExistente = repositoryT.findById(idTema);
 
 				if (temaExistente.isPresent()) {
+					
 					novaPostagem.setUsuarioPostagem(usuarioExistente.get());
 					novaPostagem.getTemasRelacionados().add(temaExistente.get());
 					return Optional.ofNullable(repository.save(novaPostagem));
@@ -88,7 +89,15 @@ public class PostagemService {
 		}
 	}
 
-	public Optional<Postagem> adicionarTema(Long idPostagem, Long idTema) {
+	/**
+	 * Método para adicionar um tema dentro da postagem
+	 * 
+	 * @param idPostagem
+	 * @param idTema
+	 * @author Matheus
+	 * @return Optional com o tema adicionado ou Optional vazio
+	 */
+	public Optional<Object> adicionarTema(Long idPostagem, Long idTema) {
 		Optional<Tema> temaExistente = repositoryT.findById(idTema);
 		if (temaExistente.isPresent()) {
 			Optional<Postagem> postagemExistente = repository.findById(idPostagem);
@@ -97,7 +106,33 @@ public class PostagemService {
 				return Optional.ofNullable(repository.save(postagemExistente.get()));
 			}
 
-		} 
+		}
+		return Optional.empty();
+	}
+
+	/**
+	 * Método para deletar um tema de dentro de uma postagem
+	 * 
+	 * @param idPostagem
+	 * @param idTema
+	 * @return Optional com a postagem com o tema deletado ou um Optional vazio
+	 * @author Antonio
+	 */
+	public Optional<Object> deletarTemaDaPostagem(Long idPostagem, Long idTema) {
+		Optional<Tema> temaExistente = repositoryT.findById(idTema);
+
+		if (temaExistente.isPresent()) {
+			Optional<Postagem> postagemExistente = repository.findById(idPostagem);
+
+			if (postagemExistente.isPresent()) {
+				if (postagemExistente.get().getTemasRelacionados().contains(temaExistente.get())) {
+					postagemExistente.get().getTemasRelacionados().remove(temaExistente.get());
+
+					return Optional.ofNullable(repository.save(postagemExistente.get()));
+				}
+
+			}
+		}
 		return Optional.empty();
 	}
 }
