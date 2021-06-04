@@ -25,8 +25,8 @@ public class PostagemService {
 	private TemaRepository repositoryT;
 
 	/**
-	 * Método para cadastrar postagens caso não haja alguma com o mesmo título, caso
-	 * haja não é cadastrado
+	 * MÃ©todo para cadastrar postagens caso nÃ£o haja alguma com o mesmo tÃ­tulo, caso
+	 * haja nÃ£o Ã© cadastrado
 	 * 
 	 * @param idUsuario
 	 * @param idTema
@@ -59,13 +59,13 @@ public class PostagemService {
 	}
 
 	/**
-	 * Método para atualizar postagens
+	 * MÃ©todo para atualizar postagens
 	 * 
 	 * @param idPostagem   - id da postagem passado pelo controller
 	 * @param novaPostagem - dados da postagem para serem atualizados que foram
 	 *                     passados pelo controller
 	 * @return retorna um optional com a postagem atualizada ou retorna um empty
-	 *         vazio caso a postagem não exista
+	 *         vazio caso a postagem nÃ£o exista
 	 * @author Antonio
 	 */
 	public Optional<Object> atualizarPostagem(Long idPostagem, Postagem novaPostagem) {
