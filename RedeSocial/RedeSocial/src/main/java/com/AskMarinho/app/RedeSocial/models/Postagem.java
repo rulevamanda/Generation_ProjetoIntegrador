@@ -127,5 +127,5 @@ public class Postagem {
 		this.temasRelacionados = temasRelacionados;
 	}
 	
-	
 }
+

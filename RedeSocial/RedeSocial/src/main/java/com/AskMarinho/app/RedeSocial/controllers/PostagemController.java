@@ -131,11 +131,10 @@ public class PostagemController {
 			return ResponseEntity.status(200).body("Postagem não pode ser deletada, pois não existe.");
 		}
 	}
-
-	
+  
 	
 	//Temas postagem
-	
+
 	@PutMapping("adicionar/tema/{idTema}/{idPostagem}")
 	public ResponseEntity<String> adicionarTema(@PathVariable (value = "idTema") Long idTema,
 			@PathVariable (value = "idPostagem") Long idPostagem){
