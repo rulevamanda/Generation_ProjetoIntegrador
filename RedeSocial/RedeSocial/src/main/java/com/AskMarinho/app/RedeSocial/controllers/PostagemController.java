@@ -132,6 +132,7 @@ public class PostagemController {
 		}
 	}
 
+
 	@PutMapping("adicionar/tema/{idTema}/{idPostagem}")
 	public ResponseEntity<String> adicionarTema(@PathVariable (value = "idTema") Long idTema,
 			@PathVariable (value = "idPostagem") Long idPostagem){
