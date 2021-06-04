@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.AskMarinho.app.RedeSocial.models.Postagem;
+import com.AskMarinho.app.RedeSocial.models.Tema;
 import com.AskMarinho.app.RedeSocial.models.Usuario;
 import com.AskMarinho.app.RedeSocial.repositories.PostagemRepository;
+import com.AskMarinho.app.RedeSocial.repositories.TemaRepository;
 import com.AskMarinho.app.RedeSocial.repositories.UsuarioRepository;
 
 @Service
@@ -19,24 +21,36 @@ public class PostagemService {
 	@Autowired
 	private UsuarioRepository repositoryU;
 
+	@Autowired
+	private TemaRepository repositoryT;
+
 	/**
-	 * Método para cadastrar postagens caso não haja alguma com o mesmo título, caso
-	 * haja não é cadastrado
+	 * MÃ©todo para cadastrar postagens caso nÃ£o haja alguma com o mesmo tÃ­tulo, caso
+	 * haja nÃ£o Ã© cadastrado
 	 * 
-	 * @param novaPostagem - objeto passado pelo controller
-	 * @return um Optional com os dados cadastrados da nova postagem ou retorna um
-	 *         Optional vazio
+	 * @param idUsuario
+	 * @param idTema
+	 * @param novaPostagem
 	 * @author Antonio
+	 * @author Matheus
+	 * @returnum Optional com os dados cadastrados da nova postagem ou retorna um
+	 *           Optional vazio
 	 */
-	public Optional<Object> cadastrarPostagem(Long idUsuario, Postagem novaPostagem) {
+	public Optional<Object> cadastrarPostagem(Long idUsuario, Long idTema, Postagem novaPostagem) {
 		Optional<Postagem> postagemExistente = repository.findByTitulo(novaPostagem.getTitulo());
 
 		if (postagemExistente.isEmpty()) {
 			Optional<Usuario> usuarioExistente = repositoryU.findById(idUsuario);
 
 			if (usuarioExistente.isPresent()) {
-				novaPostagem.setUsuarioPostagem(usuarioExistente.get());
-				return Optional.ofNullable(repository.save(novaPostagem));
+				Optional<Tema> temaExistente = repositoryT.findById(idTema);
+
+				if (temaExistente.isPresent()) {
+					novaPostagem.setUsuarioPostagem(usuarioExistente.get());
+					novaPostagem.getTemasRelacionados().add(temaExistente.get());
+					return Optional.ofNullable(repository.save(novaPostagem));
+				}
+
 			}
 
 		}
@@ -45,17 +59,17 @@ public class PostagemService {
 	}
 
 	/**
-	 * Método para atualizar postagens
+	 * MÃ©todo para atualizar postagens
 	 * 
-	 * @param id           - id da postagem passado pelo controller
+	 * @param idPostagem   - id da postagem passado pelo controller
 	 * @param novaPostagem - dados da postagem para serem atualizados que foram
 	 *                     passados pelo controller
 	 * @return retorna um optional com a postagem atualizada ou retorna um empty
-	 *         vazio caso a postagem não exista
+	 *         vazio caso a postagem nÃ£o exista
 	 * @author Antonio
 	 */
-	public Optional<Object> atualizarPostagem(Long id, Postagem novaPostagem) {
-		Optional<Postagem> postagemExistente = repository.findById(id);
+	public Optional<Object> atualizarPostagem(Long idPostagem, Postagem novaPostagem) {
+		Optional<Postagem> postagemExistente = repository.findById(idPostagem);
 
 		if (postagemExistente.isPresent()) {
 			Optional<Postagem> tituloExistente = repository.findByTitulo(novaPostagem.getTitulo());
@@ -74,4 +88,16 @@ public class PostagemService {
 		}
 	}
 
+	public Optional<Postagem> adicionarTema(Long idPostagem, Long idTema) {
+		Optional<Tema> temaExistente = repositoryT.findById(idTema);
+		if (temaExistente.isPresent()) {
+			Optional<Postagem> postagemExistente = repository.findById(idPostagem);
+			if (postagemExistente.isPresent()) {
+				postagemExistente.get().getTemasRelacionados().add(temaExistente.get());
+				return Optional.ofNullable(repository.save(postagemExistente.get()));
+			}
+
+		} 
+		return Optional.empty();
+	}
 }

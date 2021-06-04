@@ -23,7 +23,7 @@ import com.AskMarinho.app.RedeSocial.services.PostagemService;
 
 @RestController
 @RequestMapping("/postagens")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "", allowedHeaders = "")
 
 public class PostagemController {
 
@@ -33,7 +33,7 @@ public class PostagemController {
 	private PostagemService service;
 
 	/**
-	 * Método para buscar todas as postagens
+	 * MÃ©todo para buscar todas as postagens
 	 * 
 	 * @return retorna todas as postagens cadastradas
 	 * @author Antonio
@@ -46,7 +46,7 @@ public class PostagemController {
 	}
 
 	/**
-	 * Método para buscar postagens pelo id
+	 * MÃ©todo para buscar postagens pelo id
 	 * 
 	 * @param id - id da postagem
 	 * @return retorna a postagem buscada pelo id com um status 200 ou retorna um
@@ -60,10 +60,10 @@ public class PostagemController {
 	}
 
 	/**
-	 * Método para buscar postagens pelo título
+	 * MÃ©todo para buscar postagens pelo tÃ­tulo
 	 * 
-	 * @param titulo - podendo não ser o título completo
-	 * @return retorna postagens que possuem o título pesquisado
+	 * @param titulo - podendo nÃ£o ser o tÃ­tulo completo
+	 * @return retorna postagens que possuem o tÃ­tulo pesquisado
 	 * @author Antonio
 	 * @author Bueno
 	 */
@@ -74,30 +74,30 @@ public class PostagemController {
 	}
 
 	/**
-	 * Método para cadastrar nova postagem
+	 * MÃ©todo para cadastrar nova postagem
 	 * 
-	 * @param novaPostagem - objeto passado pelo body da requisição
-	 * @return status de 201 com a postagem criada ou um status 400 caso já tenha
-	 *         uma postagem com o mesmo título
+	 * @param novaPostagem - objeto passado pelo body da requisiÃ§Ã£o
+	 * @return status de 201 com a postagem criada ou um status 400 caso jÃ¡ tenha
+	 *         uma postagem com o mesmo tÃ­tulo
 	 * @author Antonio
 	 */
-	@PostMapping("/cadastrar/{idUsuario}")
+	@PostMapping("/cadastrar/{idUsuario}/{idTema}")
 	public ResponseEntity<String> cadastrarPostagem(@PathVariable(value = "idUsuario") Long idUsuario,
-			@RequestBody Postagem novaPostagem) {
-		return service.cadastrarPostagem(idUsuario, novaPostagem)
+			@PathVariable(value = "idTema") Long idTema, @RequestBody Postagem novaPostagem) {
+		return service.cadastrarPostagem(idUsuario, idTema, novaPostagem)
 				.map(postagemCriada -> ResponseEntity.status(201)
-						.body("Título da postagem: " + novaPostagem.getTitulo() + "\nDescrição " + "da postagem: "
+						.body("TÃ­tulo da postagem: " + novaPostagem.getTitulo() + "\nDescriÃ§Ã£o " + "da postagem: "
 								+ novaPostagem.getDescricao() + "\nCADASTRADA"))
-				.orElse(ResponseEntity.status(200).body("Erro ao cadastrar. Esses título já está sendo utilizado."));
+				.orElse(ResponseEntity.status(200).body("Erro ao cadastrar. Esses tÃ­tulo jÃ¡ estÃ¡ sendo utilizado."));
 	}
 
 	/**
-	 * Método para atualizar postagens
+	 * MÃ©todo para atualizar postagens
 	 * 
 	 * @param id       - id passado pela url
-	 * @param postagem - dados passados pelo corpo da requisição
+	 * @param postagem - dados passados pelo corpo da requisiÃ§Ã£o
 	 * @return retorna um status 201 e a postagem atualizada ou retorna um status
-	 *         304 caso a postagem não exista
+	 *         304 caso a postagem nÃ£o exista
 	 * @author Antonio
 	 */
 	@PutMapping("/atualizar/{id}")
@@ -105,18 +105,18 @@ public class PostagemController {
 			@Valid @RequestBody Postagem postagem) {
 		return service.atualizarPostagem(id, postagem)
 				.map(postagemAtualizada -> ResponseEntity.status(201)
-						.body("Título da postagem: " + postagem.getTitulo() + "\nDescrição " + "da postagem: "
+						.body("TÃ­tulo da postagem: " + postagem.getTitulo() + "\nDescriÃ§Ã£o " + "da postagem: "
 								+ postagem.getDescricao() + "\nATUALIZADA"))
 				.orElse(ResponseEntity.status(200)
-						.body("Erro ao atualizar. Essa postagem não existe ou o título em duplicata"));
+						.body("Erro ao atualizar. Essa postagem nÃ£o existe ou o tÃ­tulo em duplicata"));
 
 	}
 
 	/**
-	 * Método para deletar postagens
+	 * MÃ©todo para deletar postagens
 	 * 
 	 * @param id - id passado pela url
-	 * @return retorna um status 200 ou retorna um status 400 caso não exista uma
+	 * @return retorna um status 200 ou retorna um status 400 caso nÃ£o exista uma
 	 *         postagem com o id passado
 	 * @author Antonio
 	 */
@@ -128,8 +128,15 @@ public class PostagemController {
 			repository.deleteById(id);
 			return ResponseEntity.status(200).body("Postagem deletada com sucesso.");
 		} else {
-			return ResponseEntity.status(200).body("Postagem não pode ser deletada, pois não existe.");
+			return ResponseEntity.status(200).body("Postagem nÃ£o pode ser deletada, pois nÃ£o existe.");
 		}
 	}
 
+	@PutMapping("adicionar/tema/{idTema}/{idPostagem}")
+	public ResponseEntity<String> adicionarTema(@PathVariable (value = "idTema") Long idTema,
+			@PathVariable (value = "idPostagem") Long idPostagem){
+		return service.adicionarTema(idPostagem, idTema)
+				.map(adicionado -> ResponseEntity.status(201).body("ATUALIZADO COM SUCESSO!"))
+				.orElse(ResponseEntity.status(200).body("ERRO"));
+	}
 }
