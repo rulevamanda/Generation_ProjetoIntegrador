@@ -23,7 +23,7 @@ import com.AskMarinho.app.RedeSocial.services.PostagemService;
 
 @RestController
 @RequestMapping("/postagens")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "", allowedHeaders = "")
 
 public class PostagemController {
 
@@ -81,10 +81,10 @@ public class PostagemController {
 	 *         uma postagem com o mesmo título
 	 * @author Antonio
 	 */
-	@PostMapping("/cadastrar/{idUsuario}")
+	@PostMapping("/cadastrar/{idUsuario}/{idTema}")
 	public ResponseEntity<String> cadastrarPostagem(@PathVariable(value = "idUsuario") Long idUsuario,
-			@RequestBody Postagem novaPostagem) {
-		return service.cadastrarPostagem(idUsuario, novaPostagem)
+			@PathVariable(value = "idTema") Long idTema, @RequestBody Postagem novaPostagem) {
+		return service.cadastrarPostagem(idUsuario, idTema, novaPostagem)
 				.map(postagemCriada -> ResponseEntity.status(201)
 						.body("Título da postagem: " + novaPostagem.getTitulo() + "\nDescrição " + "da postagem: "
 								+ novaPostagem.getDescricao() + "\nCADASTRADA"))
@@ -132,4 +132,10 @@ public class PostagemController {
 		}
 	}
 
+	public ResponseEntity<String> adicionarTema(@PathVariable (value = "idTema") Long idTema,
+			@PathVariable (value = "idPostagem") Long idPostagem){
+		return service.adicionarTema(idPostagem, idTema)
+				.map(adicionado -> ResponseEntity.status(201).body("ATUALIZADO COM SUCESSO!"))
+				.orElse(ResponseEntity.status(200).body("ERRO"));
+	}
 }

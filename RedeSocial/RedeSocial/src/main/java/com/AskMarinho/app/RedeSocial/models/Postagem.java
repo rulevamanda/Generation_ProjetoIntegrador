@@ -60,7 +60,7 @@ public class Postagem {
 			name = "relacaoTP",
 			joinColumns = @JoinColumn(name = "fk_postagem"),
 			inverseJoinColumns = @JoinColumn(name = "fk_tema"))
-	//@JsonIgnoreProperties({"postagens","idTema"})
+	//@JsonIgnoreProperties({"postagens","id"})
 	private Set<Tema> temasRelacionados = new HashSet<>();
 
 	public long getId_postagem() {

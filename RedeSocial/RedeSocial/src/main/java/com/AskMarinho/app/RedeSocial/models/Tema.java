@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -26,25 +27,32 @@ public class Tema {
 	private String nome;
 
 	@ManyToMany(mappedBy = "temasRelacionados")
-	//@JasonIgnoreProperties({"temasRelacionados"})
-	private List<Postagem> postagens = new ArrayList<>(); 
-	
-	//getters and setters
+	@JsonIgnoreProperties({"usuarioPostagem", "comentarios", "id_postagem", "temasRelacionados"})
+	private List<Postagem> postagens = new ArrayList<>();
+
+	public long getId() {
+		return id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public long getId() {
-		return id;
+	public List<Postagem> getPostagens() {
+		return postagens;
 	}
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
-}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
+	public void setPostagens(List<Postagem> postagens) {
+		this.postagens = postagens;
+	}
+	
+
+}
