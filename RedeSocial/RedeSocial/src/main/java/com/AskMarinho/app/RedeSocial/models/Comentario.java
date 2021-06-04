@@ -19,52 +19,52 @@ public class Comentario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long idComentario;
 
 	@NotNull
 	@Size(min = 1, max = 100)
 	private String texto;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "usuario")
-	@JsonIgnoreProperties("comentarios")
-	private Usuario usuario;
+	@JoinColumn(name = "usuarioComentario")
+	@JsonIgnoreProperties({"comentarios", "postagens", "idUsuario", "nomeUsuario", "telefone", "senha", "nascimento"})
+	private Usuario usuarioComentario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "postagem")
-	@JsonIgnoreProperties("comentarios")
+	@JsonIgnoreProperties({"comentarios","usuarioPostagem", "id_postagem", "temasRelacionados"})
 	private Postagem postagem;
 
-	public long getId() {
-		return id;
+	public long getIdComentario() {
+		return idComentario;
+	}
+
+	public void setId(long id) {
+		this.idComentario = id;
 	}
 
 	public String getTexto() {
 		return texto;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Usuario getUsuarioComentario() {
+		return usuarioComentario;
+	}
+
+	public void setUsuarioComentario(Usuario usuarioComentario) {
+		this.usuarioComentario = usuarioComentario;
 	}
 
 	public Postagem getPostagem() {
 		return postagem;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public void setPostagem(Postagem postagem) {
 		this.postagem = postagem;
 	}
-
+	
 }
