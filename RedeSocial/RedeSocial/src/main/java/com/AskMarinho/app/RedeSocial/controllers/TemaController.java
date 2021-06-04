@@ -1,6 +1,7 @@
 package com.AskMarinho.app.RedeSocial.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.AskMarinho.app.RedeSocial.models.Tema;
 import com.AskMarinho.app.RedeSocial.repositories.TemaRepository;
+import com.AskMarinho.app.RedeSocial.services.TemaService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -26,13 +28,16 @@ public class TemaController {
 	@Autowired
 	private TemaRepository repository;
 	
-	@GetMapping
+	@Autowired
+	private TemaService serviceT;
+	
+	@GetMapping("/todos")
 	public ResponseEntity<List<Tema>> getAll()
 	{
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<Tema> getById(@PathVariable long id)
 	{
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
@@ -44,22 +49,33 @@ public class TemaController {
 		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
 	}
 	
-	@PostMapping
-	public ResponseEntity<Tema> post(@RequestBody Tema tema)
+	@PostMapping("/cadastrar")
+	public ResponseEntity<String> post(@RequestBody Tema tema)
 	{
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
+		return serviceT.cadastrarTema(tema)
+				.map(novoTema -> ResponseEntity.status(201).body("Tema: " + tema.getNome() + "\nCADASTRADO"))
+				.orElse(ResponseEntity.status(400).body("Erro ao cadastrar. Já existe um tema com esse nome."));
 	}
 	
-	@PutMapping
-	public ResponseEntity<Tema> put(@RequestBody Tema tema)
+	@PutMapping("/atualizar/{id}")
+	public ResponseEntity<String> put(@PathVariable (value = "id") long id, @RequestBody Tema tema)
 	{
-		return ResponseEntity.ok(repository.save(tema));
+		return serviceT.atualizarTema(id, tema)
+				.map(temaAtualizado -> ResponseEntity.status(201).body("Tema: " + tema.getNome() + "\nATUALIZADO"))
+				.orElse(ResponseEntity.status(400).body("Erro ao atualizar. Tema não existe, ou nome em duplicata."));
 	}
 	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id)
-	{
-		repository.deleteById(id);
+	@DeleteMapping("/deletar/{id}")
+	public ResponseEntity <String> delete(@PathVariable (value = "id") long id)
+	{		
+		Optional <Tema> temaExistente = repository.findById(id);
+		
+		if (temaExistente.isPresent()) {
+			repository.deleteById(id);
+			return ResponseEntity.status(200).body("Tema deletado com sucesso.");
+		} else {
+			return ResponseEntity.status(200).body("Tema não pode ser deletado, pois não existe.");
+		}
 	}
 
 }
