@@ -51,11 +51,11 @@ public class Usuario {
 	private Long telefone;
 
 	@OneToMany(mappedBy = "usuarioComentario", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("usuarioComentario")
+	@JsonIgnoreProperties({"usuarioComentario", "idComentario", "postagem"})
 	private List<Comentario> comentarios;
 	
 	@OneToMany(mappedBy = "usuarioPostagem", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("usuarioPostagem")
+	@JsonIgnoreProperties({"usuarioPostagem", "id_postagem", "comentarios"})
 	private List<Postagem> postagens;
 
 	public Long getIdUsuario() {
