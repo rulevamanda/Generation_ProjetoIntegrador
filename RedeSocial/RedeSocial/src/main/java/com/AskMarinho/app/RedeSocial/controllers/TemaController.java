@@ -30,17 +30,34 @@ public class TemaController {
 	@Autowired
 	private TemaService serviceT;
 	
+	
+	/**
+	 * Método para buscar todos os temas
+	 * 
+	 * @return retorna todos os temas cadastrados
+	 * @author Matheus
+	 */
 	@GetMapping("/todos")
 	public ResponseEntity<List<Tema>> getAll()
 	{
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
+	
+	/**
+	 * Método para buscar tema através do id
+	 * 
+	 * @param id - id do tema.
+	 * @return retorna o tema referenciado pelo id com status 200 ou status 404 com build vazia.
+	 * @author Matheus
+	 */
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Tema> getById(@PathVariable long id)
 	{
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
+	
+	
 	
 	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<Tema>> getByName(@PathVariable String nome)

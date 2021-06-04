@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -21,6 +22,10 @@ public class Tema {
 	@Size(min = 3, max = 100)
 	private String nome;
 
+	@ManyToMany
+	private Postagem TemaPostagem;
+	
+	//getters and setters
 	public String getNome() {
 		return nome;
 	}

@@ -18,5 +18,6 @@ module redeSocial {
 	requires org.hibernate.validator;
 	requires spring.data.jpa;
 	requires spring.context;
+	requires com.fasterxml.jackson.annotation;
 
 }
