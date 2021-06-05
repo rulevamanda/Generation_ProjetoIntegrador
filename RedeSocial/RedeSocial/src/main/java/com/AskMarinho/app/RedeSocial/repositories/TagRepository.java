@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.AskMarinho.app.RedeSocial.models.Tag;
 
 @Repository
-public interface TemaRepository extends JpaRepository<Tag, Long> {
+public interface TagRepository extends JpaRepository<Tag, Long> {
 
 	public List<Tag> findAllByTagNameContainingIgnoreCase(String tagName);
 

@@ -11,7 +11,7 @@ import com.AskMarinho.app.RedeSocial.models.Tag;
 import com.AskMarinho.app.RedeSocial.models.User;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
 import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
-import com.AskMarinho.app.RedeSocial.repositories.TemaRepository;
+import com.AskMarinho.app.RedeSocial.repositories.TagRepository;
 import com.AskMarinho.app.RedeSocial.repositories.UserRepository;
 
 @Service
@@ -19,7 +19,7 @@ public class UserService {
 
 	private @Autowired UserRepository repositoryU;
 
-	private @Autowired TemaRepository repositoryT;
+	private @Autowired TagRepository repositoryT;
 
 	private @Autowired PostRepository repositoryP;
 
