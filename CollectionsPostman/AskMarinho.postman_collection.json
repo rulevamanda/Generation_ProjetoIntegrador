@@ -6,181 +6,401 @@
 	},
 	"item": [
 		{
-			"name": "Usuarios",
+			"name": "Usuario",
 			"item": [
 				{
-					"name": "Pegar todes",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuarios/todes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios",
-								"todes"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "pegar pelo nome",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuarios/nome/pesquisar/Michelle",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios",
-								"nome",
-								"pesquisar",
-								"Michelle"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Pegar pelo id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuarios/id/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios",
-								"id",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cadastrar",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nome\":\"Michelle Bernardo\",\r\n    \"nomeUsuario\":\"chellebernardoa\",\r\n    \"email\":\"chelle.estudos2@gmail.com\",\r\n    \"senha\":\"euamopudim123\",\r\n    \"nascimento\":\"1996-11-13\",\r\n    \"genero\":\"feminino\",\r\n    \"telefone\":\"5511961446356\"\r\n\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Usuarios",
+					"item": [
+						{
+							"name": "Cadastrar usuário",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Michelle Bernardo\",\r\n    \"userName\":\"bueno\",\r\n    \"email\":\"bueno.estudos2@gmail.com\",\r\n    \"password\":\"euamopudim123\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuarios/cadastrar",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"cadastrar"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8080/usuarios/cadastrar",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios",
-								"cadastrar"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Atualizar",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nome\":\"Michelle Bernardo\",\r\n    \"nomeUsuario\":\"chellebernardoa\",\r\n    \"email\":\"chelle.estudos2@gmail.com\",\r\n    \"senha\":\"euamopudim123\",\r\n    \"nascimento\":\"1996-11-13\",\r\n    \"genero\":\"feminino\",\r\n    \"telefone\":\"5511961446356\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Pegar todes usuários",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/usuarios/todes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"todes"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8080/usuarios/1/atualizar",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios",
-								"1",
-								"atualizar"
-							]
+						{
+							"name": "pegar usuário  pelo nome",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/usuarios/nome/pesquisar?nome=Michelle B",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"nome",
+										"pesquisar"
+									],
+									"query": [
+										{
+											"key": "nome",
+											"value": "Michelle B"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pegar usuário pelo id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/usuarios/id/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"id",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar usuário",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"name\":\"Michelle Bernardo\",\r\n    \"userName\":\"buesno\",\r\n    \"email\":\"bueno.estusdos2@gmail.com\",\r\n    \"password\":\"euamopudim123\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuarios/atualizar/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"atualizar",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar Usuário",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/usuarios/deletar/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"deletar",
+										"2"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Deletar",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuarios/1/deletar",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios",
-								"1",
-								"deletar"
-							]
+					"name": "Postagens",
+					"item": [
+						{
+							"name": "Cadastrar postagem",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\" : \"Postagem teste2 2s3\",\r\n    \"description\" : \"Descrição teste 3\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuarios/postagens/cadastrar/1/tema2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"postagens",
+										"cadastrar",
+										"1",
+										"tema2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar postagem",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\" : \"Teste titaaaasdsadasaaaa\",\r\n    \"description\" : \"Teste descricao\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuarios/postagens/atualizar/{id}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"postagens",
+										"atualizar",
+										"{id}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adicionar Tema na postagem",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/usuarios/postagens/adicionar/tema/1/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"postagens",
+										"adicionar",
+										"tema",
+										"1",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar tema da postagem",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/usuarios/postagens/deletar/tema/1/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"postagens",
+										"deletar",
+										"tema",
+										"1",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar postagem",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/usuarios/postagens/deletar/{id}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"postagens",
+										"deletar",
+										"{id}"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Comentários",
+					"item": [
+						{
+							"name": "Cadastrar comentário",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\" : \"Testando alteração\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuarios/comentarios/cadastrar/1/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"comentarios",
+										"cadastrar",
+										"1",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar comentário",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\" : \"testando alteração comentário\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuarios/comentarios/atualizar/{idComentario}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"comentarios",
+										"atualizar",
+										"{idComentario}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar comentário",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/usuarios/comentarios/deletar/{idComentario}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"comentarios",
+										"deletar",
+										"{idComentario}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
 		{
-			"name": "Postagens",
+			"name": "Postagem",
 			"item": [
 				{
 					"name": "Pegar todas",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "Cadastrar postagem",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"titulo\" : \"TesteAAAA tit\",\r\n    \"descricao\" : \"Teste descricao\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/postagens/cadastrar/1/1",
+							"raw": "http://localhost:8080/postagens/todas",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -188,9 +408,7 @@
 							"port": "8080",
 							"path": [
 								"postagens",
-								"cadastrar",
-								"1",
-								"1"
+								"todas"
 							]
 						}
 					},
@@ -202,7 +420,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/postagens/id/",
+							"raw": "http://localhost:8080/postagens/id/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -211,7 +429,7 @@
 							"path": [
 								"postagens",
 								"id",
-								""
+								"3"
 							]
 						}
 					},
@@ -222,26 +440,8 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "Atualizar postagem",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"titulo\" : \"Testessssssss\",\r\n    \"descricao\" : \"Testesssss\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/postagens/atualizar/1",
+							"raw": "http://localhost:8080/postagens/titulo/teste",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -249,43 +449,8 @@
 							"port": "8080",
 							"path": [
 								"postagens",
-								"atualizar",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/postagens/deletar/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"postagens",
-								"deletar",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Adicionar Tema na postagem",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "Adicionar Tema na postagem",
-							"host": [
-								"Adicionar Tema na postagem"
+								"titulo",
+								"teste"
 							]
 						}
 					},
@@ -294,7 +459,7 @@
 			]
 		},
 		{
-			"name": "Temas",
+			"name": "Tema",
 			"item": [
 				{
 					"name": "Pegar todos",
@@ -322,7 +487,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/tema/id/",
+							"raw": "http://localhost:8080/tema/id/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -331,7 +496,7 @@
 							"path": [
 								"tema",
 								"id",
-								""
+								"1"
 							]
 						}
 					},
@@ -343,7 +508,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/tema/nome",
+							"raw": "http://localhost:8080/tema/nome/b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -351,87 +516,8 @@
 							"port": "8080",
 							"path": [
 								"tema",
-								"nome"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cadastrar tema",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nome\" : \"teste\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/tema/cadastrar",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"tema",
-								"cadastrar"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Atualizar tema",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nome\" : \"teste2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/tema/atualizar/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"tema",
-								"atualizar",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deletar tema",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/tema/deletar/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"tema",
-								"deletar",
-								"1"
+								"nome",
+								"b"
 							]
 						}
 					},
@@ -440,7 +526,7 @@
 			]
 		},
 		{
-			"name": "Comentarios",
+			"name": "Comentario",
 			"item": [
 				{
 					"name": "Pegar todos",
@@ -477,88 +563,6 @@
 							"path": [
 								"comentarios",
 								"id",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cadastrar comentário",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"texto\" : \"teste\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/comentarios/cadastrar/2/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comentarios",
-								"cadastrar",
-								"2",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Atualizar comentário",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"texto\" : \"testando\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/comentarios/atualizar/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comentarios",
-								"atualizar",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deletar comentário",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/comentarios/deletar/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comentarios",
-								"deletar",
 								"1"
 							]
 						}

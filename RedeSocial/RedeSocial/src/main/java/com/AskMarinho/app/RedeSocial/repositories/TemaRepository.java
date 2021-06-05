@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.AskMarinho.app.RedeSocial.models.Tema;
+import com.AskMarinho.app.RedeSocial.models.Tag;
 
 @Repository
-public interface TemaRepository extends JpaRepository<Tema, Long> {
+public interface TemaRepository extends JpaRepository<Tag, Long> {
 
-	public List<Tema> findAllByNomeContainingIgnoreCase(String nome);
+	public List<Tag> findAllByTagNameContainingIgnoreCase(String tagName);
 
-	public Optional<Tema> findByNome(String nome);
+	public Optional<Tag> findByTagName(String tagName);
 }
