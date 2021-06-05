@@ -21,21 +21,53 @@ import com.AskMarinho.app.RedeSocial.repositories.TemaRepository;
 public class TemaController {
 
 	@Autowired
+<<<<<<< HEAD
 	private TemaRepository repositoryT;
 
+=======
+	private TemaService serviceT;
+	
+	
+	/**
+	 * Método para buscar todos os temas
+	 * 
+	 * @return retorna todos os temas cadastrados
+	 * @author Matheus
+	 */
+>>>>>>> a979fa9b8205ad79f62180e0aed913301086688f
 	@GetMapping("/todos")
 	public ResponseEntity<List<Tag>> getAll() {
 		return ResponseEntity.status(200).body(repositoryT.findAll());
 	}
+<<<<<<< HEAD
 
+=======
+	
+	
+	/**
+	 * Método para buscar tema através do id
+	 * 
+	 * @param id - id do tema.
+	 * @return retorna o tema referenciado pelo id com status 200 ou status 404 com build vazia.
+	 * @author Matheus
+	 */
+>>>>>>> a979fa9b8205ad79f62180e0aed913301086688f
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Tag> getById(@PathVariable long id) {
 		return repositoryT.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
+<<<<<<< HEAD
 
+=======
+	
+	
+	
+>>>>>>> a979fa9b8205ad79f62180e0aed913301086688f
 	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<Tag>> getByName(@PathVariable String nome) {
 		return ResponseEntity.ok(repositoryT.findAllByTagNameContainingIgnoreCase(nome));
 	}
 
 }
+
+
