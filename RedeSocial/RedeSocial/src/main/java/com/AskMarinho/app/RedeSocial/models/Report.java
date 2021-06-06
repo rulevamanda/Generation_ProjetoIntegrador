@@ -26,7 +26,7 @@ public class Report {
 
 	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "reportsAndUsers", joinColumns = @JoinColumn(name = "fk_report"), inverseJoinColumns = @JoinColumn(name = "fk_user"))
-	@JsonIgnoreProperties({ "reports", "password", "birth", "gender", "comments", "posts" })
+	@JsonIgnoreProperties({ "reports", "password", "birth", "gender", "comments", "posts", "favorites" })
 	private Set<User> userReport = new HashSet<>();
 
 	@OneToOne
