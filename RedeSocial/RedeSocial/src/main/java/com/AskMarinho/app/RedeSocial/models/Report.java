@@ -2,6 +2,8 @@ package com.AskMarinho.app.RedeSocial.models;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +24,7 @@ public class Report {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idReport;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "reportsAndUsers", joinColumns = @JoinColumn(name = "fk_report"), inverseJoinColumns = @JoinColumn(name = "fk_user"))
 	@JsonIgnoreProperties({ "reports", "password", "birth", "gender", "comments", "posts" })
 	private Set<User> userReport = new HashSet<>();

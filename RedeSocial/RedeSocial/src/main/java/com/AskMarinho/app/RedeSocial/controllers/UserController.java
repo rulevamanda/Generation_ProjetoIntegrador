@@ -155,10 +155,10 @@ public class UserController {
 		}
 	}
 
-	@PutMapping("/postagens/adicionar/tema/{idTema}/{idPostagem}")
-	public ResponseEntity<String> adicionarTema(@PathVariable(value = "idTema") Long idTema,
+	@PutMapping("/postagens/adicionar/tema/{nomeTema}/{idPostagem}")
+	public ResponseEntity<String> adicionarTema(@PathVariable(value = "nomeTema") String nomeTema,
 			@PathVariable(value = "idPostagem") Long idPostagem) {
-		return serviceU.adicionarTema(idPostagem, idTema)
+		return serviceU.addTag(idPostagem, nomeTema)
 				.map(adicionado -> ResponseEntity.status(201).body("ATUALIZADO COM SUCESSO!"))
 				.orElse(ResponseEntity.status(200).body("ERRO"));
 	}
@@ -244,6 +244,15 @@ public class UserController {
 				.map(reported -> ResponseEntity.status(201).body("Comentário denunciado"))
 				.orElse(ResponseEntity.status(200)
 						.body("Comentário ou usuário não existem, ou esse usuário já denunciou este comentário"));
+	}
+
+	@DeleteMapping("/denuncias/postagens/deletar/{idReport}/{idUser}")
+	public ResponseEntity<String> deleteReport(@PathVariable(value = "idReport") Long idReport,
+			@PathVariable(value = "idUser") Long idUser) {
+		return serviceU.deleteReport(idReport, idUser)
+				.map(deleted -> ResponseEntity.status(202).body("Denúncia retirada"))
+				.orElse(ResponseEntity.status(404).build());
+
 	}
 
 }

@@ -18,7 +18,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\":\"Michelle Bernardo\",\r\n    \"userName\":\"buensossss\",\r\n    \"email\":\"bueno.sudso@gm2ail.com\",\r\n    \"password\":\"euamopudim123\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
+									"raw": "{\r\n    \"name\":\"Teste Nome Teste\",\r\n    \"userName\":\"testeUserName\",\r\n    \"email\":\"teste.email@testeteste.com\",\r\n    \"password\":\"senhateste\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -66,7 +66,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/usuarios/nome/pesquisar?nome=Michelle B",
+									"raw": "http://localhost:8080/usuarios/nome/pesquisar?nome=tes",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -80,7 +80,7 @@
 									"query": [
 										{
 											"key": "nome",
-											"value": "Michelle B"
+											"value": "tes"
 										}
 									]
 								}
@@ -115,7 +115,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"name\":\"Michelle Bernardo\",\r\n    \"userName\":\"buesno\",\r\n    \"email\":\"bueno.estusdos2@gmail.com\",\r\n    \"password\":\"euamopudim123\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
+									"raw": "{\r\n  \"name\":\"Teste Nome Teste\",\r\n    \"userName\":\"testeUserName2\",\r\n    \"email\":\"teste2.email@testeteste.com\",\r\n    \"password\":\"senhateste\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -171,7 +171,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\" : \"saddsdadsadsadsafdfasdas\",\r\n    \"description\" : \"111111111111f1dsadasdas11111\"\r\n}",
+									"raw": "{\r\n    \"title\" : \"postagem título teste\",\r\n    \"description\" : \"postagem descrição teste\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -179,7 +179,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/usuarios/postagens/cadastrar/2/tema21",
+									"raw": "http://localhost:8080/usuarios/postagens/cadastrar/1/tema teste",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -189,8 +189,8 @@
 										"usuarios",
 										"postagens",
 										"cadastrar",
-										"2",
-										"tema21"
+										"1",
+										"tema teste"
 									]
 								}
 							},
@@ -203,7 +203,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\" : \"Teste titaaaasdsadasaaaa\",\r\n    \"description\" : \"Teste descricao\"\r\n}",
+									"raw": "{\r\n    \"title\" : \"Teste alteração título postagem\",\r\n    \"description\" : \"Teste alteração descricao postagem\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -211,7 +211,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/usuarios/postagens/atualizar/{id}",
+									"raw": "http://localhost:8080/usuarios/postagens/atualizar/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -221,7 +221,7 @@
 										"usuarios",
 										"postagens",
 										"atualizar",
-										"{id}"
+										"1"
 									]
 								}
 							},
@@ -233,7 +233,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/usuarios/postagens/adicionar/tema/1/1",
+									"raw": "http://localhost:8080/usuarios/postagens/adicionar/tema/adicionando tema/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -244,7 +244,7 @@
 										"postagens",
 										"adicionar",
 										"tema",
-										"1",
+										"adicionando tema",
 										"1"
 									]
 								}
@@ -281,7 +281,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/usuarios/postagens/deletar/{id}",
+									"raw": "http://localhost:8080/usuarios/postagens/deletar/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -291,7 +291,7 @@
 										"usuarios",
 										"postagens",
 										"deletar",
-										"{id}"
+										"1"
 									]
 								}
 							},
@@ -309,7 +309,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"text\" : \"Testando alteração\"\r\n}",
+									"raw": "{\r\n    \"text\" : \"Testando comentário\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -407,7 +407,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/usuarios/denuncias/postagem/2/2",
+									"raw": "http://localhost:8080/usuarios/denuncias/postagem/1/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -417,8 +417,8 @@
 										"usuarios",
 										"denuncias",
 										"postagem",
-										"2",
-										"2"
+										"1",
+										"1"
 									]
 								}
 							},
@@ -449,6 +449,30 @@
 										"usuarios",
 										"denuncias",
 										"comentario",
+										"1",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remover denúncia",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/usuarios/denuncias/postagens/deletar/1/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"denuncias",
+										"postagens",
+										"deletar",
 										"1",
 										"1"
 									]
@@ -489,7 +513,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/postagens/id/3",
+							"raw": "http://localhost:8080/postagens/id/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -498,7 +522,7 @@
 							"path": [
 								"postagens",
 								"id",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -577,7 +601,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/tema/nome/b",
+							"raw": "http://localhost:8080/tema/nome/t",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -586,7 +610,7 @@
 							"path": [
 								"tema",
 								"nome",
-								"b"
+								"t"
 							]
 						}
 					},
@@ -669,7 +693,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/denuncias/id/4",
+							"raw": "http://localhost:8080/denuncias/id/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -678,7 +702,7 @@
 							"path": [
 								"denuncias",
 								"id",
-								"4"
+								"1"
 							]
 						}
 					},
