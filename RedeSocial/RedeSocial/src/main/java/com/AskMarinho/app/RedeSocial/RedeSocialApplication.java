@@ -9,20 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class RedeSocialApplication {
-		/*
-		//Executando o metodo get, para exibir a mensagem no localhost
-		@GetMapping
-		public String metodoTeste() {
-			return "Teste!!!";
-		}
-		*/
-		
-		//Executando o metodo get, para exibir a mensagem no localhost e retornar um status
-		@GetMapping
-		public ResponseEntity<String> metodoTeste() {
-			return ResponseEntity.status(201).body("Teste!!!");
-		}
-		
 		
 	public static void main(String[] args) {
 		SpringApplication.run(RedeSocialApplication.class, args);

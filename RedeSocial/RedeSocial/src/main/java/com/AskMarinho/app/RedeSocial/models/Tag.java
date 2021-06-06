@@ -27,7 +27,7 @@ public class Tag {
 	private String tagName;
 
 	@ManyToMany(mappedBy = "tagRelation")
-	@JsonIgnoreProperties({ "userPost", "comments", "idPost", "tagRelation" })
+	@JsonIgnoreProperties({ "userPost", "comments", "tagRelation", "comment", "reported" })
 	private List<Post> posts = new ArrayList<>();
 
 	public long getIdTag() {
