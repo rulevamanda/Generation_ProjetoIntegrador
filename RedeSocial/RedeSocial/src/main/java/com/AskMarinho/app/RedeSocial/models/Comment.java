@@ -29,7 +29,7 @@ public class Comment {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userComment")
-	@JsonIgnoreProperties({ "comments", "posts", "idUser", "userName", "telephone", "password", "birth", "reports" })
+	@JsonIgnoreProperties({ "comments", "posts", "idUser", "userName", "telephone", "password", "birth", "reports", "favorites" })
 	private User userComment;
 
 	@ManyToOne(fetch = FetchType.EAGER)

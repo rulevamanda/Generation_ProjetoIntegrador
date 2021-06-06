@@ -230,6 +230,7 @@ public class UserService {
 		}
 		return Optional.empty();
 	}
+	
 
 	/**
 	 * Método para deletar um tema de dentro de uma postagem
@@ -252,6 +253,62 @@ public class UserService {
 					return Optional.ofNullable(repositoryP.save(postagemExistente.get()));
 				}
 
+			}
+		}
+		return Optional.empty();
+	}
+	// ----------------------- TEMAS FAVORITOS -----------------------
+	/**
+	 * Método para adicionar tag favorita do Usuário.
+	 * @param idUser - Long
+	 * @param tagName - String
+	 * @author Antonio
+	 * @author Chelle
+	 * @since 1.0
+	 * @return Optional com as mudanças, senão um Optional vazio.
+	 */
+	public Optional<Object> addFavoriteTag(Long idUser, String tagName) {
+		Optional<User> existingUser = repositoryU.findById(idUser);
+
+		if (existingUser.isPresent()) {
+			Optional<Tag> existingTag = repositoryT.findByTagName(tagName);
+
+			if (existingTag.isPresent()) {
+				existingUser.get().getFavorites().add(existingTag.get());
+				return Optional.ofNullable(repositoryU.save(existingUser.get()));
+			} else {
+				Tag newTag = new Tag();
+
+				newTag.setTagName(tagName);
+				repositoryT.save(newTag);
+				existingUser.get().getFavorites().add(newTag);
+
+				return Optional.ofNullable(repositoryU.save(existingUser.get()));
+			}
+		}
+		return Optional.empty();
+	}
+	
+	/**
+	 * Método para deletar uma tag favorita do Usuário.
+	 * @param idUser - Long
+	 * @param idTag - Long
+	 * @author Antonio
+	 * @author Chelle
+	 * @since 1.0
+	 * @return Optional com as mudanças feitas, senão um Optional vazio.
+	 */
+	public Optional <Object> deleteFavoriteTag (Long idUser, Long idTag){
+		
+		Optional <User> existingUser = repositoryU.findById(idUser);
+		if (existingUser.isPresent()) {
+			Optional <Tag> existingTag = repositoryT.findById(idTag);
+			if (existingTag.isPresent()) {
+				if (existingUser.get().getFavorites().contains(existingTag.get())){
+					existingUser.get().getFavorites().remove(existingTag.get());
+					
+					return Optional.ofNullable(repositoryU.save(existingUser.get()));
+				}
 			}
 		}
 		return Optional.empty();

@@ -170,6 +170,26 @@ public class UserController {
 				.map(deletado -> ResponseEntity.status(200).body("Tema deletado da postagem com sucesso"))
 				.orElse(ResponseEntity.status(404).build());
 	}
+	
+	// ----------------------- TEMAS -----------------------
+	
+	@PutMapping ("/adicionar/tema/{idUser}/{tagName}")
+	public ResponseEntity<String> addTags (@PathVariable (value = "idUser") Long idUser, 
+			@PathVariable (value = "tagName") String tagName){
+		return serviceU.addFavoriteTag(idUser, tagName)
+				.map(addedTag -> ResponseEntity.status(201).body("Tema favorito adicionado"))
+				.orElse(ResponseEntity.status(400).build());
+	}
+	
+	@DeleteMapping ("/deletar/tema/favoritos/{idUser}/{idTag}")
+	
+	public ResponseEntity<String> deleteFavoriteTag (@PathVariable (value = "idUser") Long idUser,
+			@PathVariable (value = "idTag") Long idTag) {
+		
+		return serviceU.deleteFavoriteTag(idUser, idTag)
+				.map(deletedTag -> ResponseEntity.status(202).body("Tema favorito deletado com sucesso!"))
+				.orElse(ResponseEntity.status(404).build());
+	}
 
 	// ----------------------- COMENTÁRIOS -----------------------
 

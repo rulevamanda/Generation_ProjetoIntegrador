@@ -52,16 +52,16 @@ public class Post {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuarioPostagem")
-	@JsonIgnoreProperties({ "posts", "idUser", "name", "userName", "birth", "comments", "reports" })
+	@JsonIgnoreProperties({ "favorites","posts", "idUser", "name", "userName", "birth", "comments", "reports" })
 	private User userPost;
 
 	@ManyToMany
 	@JoinTable(name = "relationTagAndPost", joinColumns = @JoinColumn(name = "fk_post"), inverseJoinColumns = @JoinColumn(name = "fk_tag"))
-	@JsonIgnoreProperties({ "posts", "idTag" })
+	@JsonIgnoreProperties({ "posts", "idTag", "userTags" })
 	private Set<Tag> tagRelation = new HashSet<>();
 
 	@OneToOne(cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport" })
+	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport", "favorites" })
 	private Report reported;
 
 	public long getIdPost() {
