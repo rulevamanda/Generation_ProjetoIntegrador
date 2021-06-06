@@ -211,14 +211,21 @@ public class UserService {
 	 * @author Matheus
 	 * @return Optional com o tema adicionado ou Optional vazio
 	 */
-	public Optional<Object> adicionarTema(Long idPostagem, Long idTema) {
-		Optional<Tag> temaExistente = repositoryT.findById(idTema);
-		if (temaExistente.isPresent()) {
-			Optional<Post> postagemExistente = repositoryP.findById(idPostagem);
-			if (postagemExistente.isPresent()) {
-				postagemExistente.get().getTagRelation().add(temaExistente.get());
-				return Optional.ofNullable(repositoryP.save(postagemExistente.get()));
+	public Optional<Object> addTag(Long idPost, String tagName) {
+
+		Optional<Post> existingPost = repositoryP.findById(idPost);
+		if (existingPost.isPresent()) {
+			Optional<Tag> existingTag = repositoryT.findByTagName(tagName);
+			if (existingTag.isEmpty()) {
+				Tag newTag = new Tag();
+				newTag.setTagName(tagName);
+				repositoryT.save(newTag);
+				existingPost.get().getTagRelation().add(newTag);
+			} else {
+				existingPost.get().getTagRelation().add(existingTag.get());
 			}
+
+			return Optional.ofNullable(repositoryP.save(existingPost.get()));
 
 		}
 		return Optional.empty();
@@ -349,6 +356,7 @@ public class UserService {
 	 * 
 	 * @param idUser
 	 * @param idComment
+	 * @author Antonio
 	 * @return Um Optional com a denúncia do comentário ou um Optional vazio
 	 */
 	public Optional<Object> reportComment(Long idUser, Long idComment) {
@@ -381,6 +389,53 @@ public class UserService {
 
 				repositoryC.save(existingComment.get());
 				return Optional.ofNullable(newReport);
+			}
+
+		}
+		return Optional.empty();
+	}
+
+	/**
+	 * Método para retirar uma denúncia de comentário ou postagem
+	 * @param idReport
+	 * @param idUser
+	 * @author Antonio
+	 * @return Optional com a denúncia deletada ou Optional vazio
+	 */
+	public Optional<Object> deleteReport(Long idReport, Long idUser) {
+		Optional<Report> existingReport = repositoryR.findById(idReport);
+
+		if (existingReport.isPresent()) {
+			Optional<User> existingUser = repositoryU.findById(idUser);
+
+			if (existingUser.isPresent()) {
+
+				if (existingReport.get().getUserReport().contains(existingUser.get())) {
+					existingReport.get().getUserReport().remove(existingUser.get());
+
+					if (existingReport.get().getUserReport().isEmpty()) {
+						if (existingReport.get().getPostReport() != null) {
+							Optional<Post> existingPost = repositoryP
+									.findById(existingReport.get().getPostReport().getIdPost());
+							existingPost.get().setReported(null);
+							existingReport.get().setPostReport(null);
+							repositoryP.save(existingPost.get());
+						} else if (existingReport.get().getCommentReport() != null) {
+							Optional<Comment> existingComment = repositoryC
+									.findById(existingReport.get().getCommentReport().getIdComment());
+
+							existingComment.get().setReported(null);
+							existingReport.get().setCommentReport(null);
+							repositoryC.save(existingComment.get());
+						}
+
+						repositoryR.deleteById(idReport);
+					} else {
+						repositoryR.save(existingReport.get());
+					}
+
+					return Optional.ofNullable(existingReport.get());
+				}
 			}
 
 		}

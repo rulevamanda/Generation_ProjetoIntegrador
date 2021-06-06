@@ -1,5 +1,6 @@
 package com.AskMarinho.app.RedeSocial.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Comment {
 	@JsonIgnoreProperties({ "comment", "userPost", "idPost", "tagRelation", "reported" })
 	private Post post;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport", "" })
 	private Report reported;
 
