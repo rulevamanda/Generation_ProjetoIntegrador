@@ -18,7 +18,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\":\"Michelle Bernardo\",\r\n    \"userName\":\"bueno\",\r\n    \"email\":\"bueno.estudos2@gmail.com\",\r\n    \"password\":\"euamopudim123\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
+									"raw": "{\r\n    \"name\":\"Michelle Bernardo\",\r\n    \"userName\":\"buensossss\",\r\n    \"email\":\"bueno.sudso@gm2ail.com\",\r\n    \"password\":\"euamopudim123\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -144,7 +144,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/usuarios/deletar/2",
+									"raw": "http://localhost:8080/usuarios/deletar/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -153,7 +153,7 @@
 									"path": [
 										"usuarios",
 										"deletar",
-										"2"
+										"1"
 									]
 								}
 							},
@@ -171,7 +171,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\" : \"Postagem teste2 2s3\",\r\n    \"description\" : \"Descrição teste 3\"\r\n}",
+									"raw": "{\r\n    \"title\" : \"saddsdadsadsadsafdfasdas\",\r\n    \"description\" : \"111111111111f1dsadasdas11111\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -179,7 +179,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/usuarios/postagens/cadastrar/1/tema2",
+									"raw": "http://localhost:8080/usuarios/postagens/cadastrar/2/tema21",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -189,8 +189,8 @@
 										"usuarios",
 										"postagens",
 										"cadastrar",
-										"1",
-										"tema2"
+										"2",
+										"tema21"
 									]
 								}
 							},
@@ -388,6 +388,75 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Denúncias",
+					"item": [
+						{
+							"name": "Denuncia postagem",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuarios/denuncias/postagem/2/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"denuncias",
+										"postagem",
+										"2",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Denuncia comentário",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuarios/denuncias/comentario/1/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"denuncias",
+										"comentario",
+										"1",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -564,6 +633,52 @@
 								"comentarios",
 								"id",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Denúncia",
+			"item": [
+				{
+					"name": "Todas as denúncias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/denuncias/todas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"denuncias",
+								"todas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pegar pelo id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/denuncias/id/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"denuncias",
+								"id",
+								"4"
 							]
 						}
 					},
