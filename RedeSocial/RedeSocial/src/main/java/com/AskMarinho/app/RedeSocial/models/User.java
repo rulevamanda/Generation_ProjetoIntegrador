@@ -1,6 +1,8 @@
 package com.AskMarinho.app.RedeSocial.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -55,8 +59,12 @@ public class User {
 	private List<Comment> comments;
 
 	@OneToMany(mappedBy = "userPost", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({ "userPost", "idPost", "comments", "tagRelation", "comment" })
+	@JsonIgnoreProperties({ "userPost", "idPost", "comments", "tagRelation", "comment", "reported" })
 	private List<Post> posts;
+
+	@ManyToMany(mappedBy = "userReport", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "postReport", "userReport", "idReport" })
+	private List<Report> reports = new ArrayList<>();
 
 	public Long getIdUser() {
 		return idUser;
@@ -98,6 +106,10 @@ public class User {
 		return posts;
 	}
 
+	public List<Report> getReports() {
+		return reports;
+	}
+
 	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
@@ -136,6 +148,10 @@ public class User {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
 	}
 
 }

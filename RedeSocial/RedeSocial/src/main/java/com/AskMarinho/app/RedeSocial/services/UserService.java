@@ -4,13 +4,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.AskMarinho.app.RedeSocial.models.Comment;
 import com.AskMarinho.app.RedeSocial.models.Post;
+import com.AskMarinho.app.RedeSocial.models.Report;
 import com.AskMarinho.app.RedeSocial.models.Tag;
 import com.AskMarinho.app.RedeSocial.models.User;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
 import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
+import com.AskMarinho.app.RedeSocial.repositories.ReportRepository;
 import com.AskMarinho.app.RedeSocial.repositories.TagRepository;
 import com.AskMarinho.app.RedeSocial.repositories.UserRepository;
 
@@ -24,6 +25,8 @@ public class UserService {
 	private @Autowired PostRepository repositoryP;
 
 	private @Autowired CommentRepository repositoryC;
+
+	private @Autowired ReportRepository repositoryR;
 
 	// ----------------------- USUÁRIOS -----------------------
 
@@ -126,7 +129,6 @@ public class UserService {
 
 	}
 
-
 	// ----------------------- POSTAGENS -----------------------
 
 	/**
@@ -142,7 +144,7 @@ public class UserService {
 	 *           Optional vazio
 	 */
 	public Optional<Object> cadastrarPostagem(Long idUsuario, String nomeTema, Post novaPostagem) {
-		
+
 		Optional<Post> postagemExistente = repositoryP.findByTitle(novaPostagem.getTitle());
 
 		if (postagemExistente.isEmpty()) {
@@ -155,14 +157,13 @@ public class UserService {
 					Tag novoTema = new Tag();
 					novoTema.setTagName(nomeTema);
 					repositoryT.save(novoTema);
-					novaPostagem.getTagRelation().add(novoTema);			
-				}
-				else {
+					novaPostagem.getTagRelation().add(novoTema);
+				} else {
 					novaPostagem.getTagRelation().add(temaExistente.get());
 				}
 
 				novaPostagem.setUserPost(usuarioExistente.get());
-				
+
 				return Optional.ofNullable(repositoryP.save(novaPostagem));
 
 			}
@@ -292,6 +293,96 @@ public class UserService {
 			comentarioExistente.get().setText(comentarioAtualizado.getText());
 
 			return Optional.ofNullable(repositoryC.save(comentarioExistente.get()));
+		}
+		return Optional.empty();
+	}
+
+	// ----------------------- DENÚNCIAS -----------------------
+
+	/**
+	 * Método para denunciar uma postagem
+	 * 
+	 * @param idUser
+	 * @param idPost
+	 * @author Antonio
+	 * @return um Optional com a denúncia da postagem ou um Optional vazio
+	 */
+	public Optional<Object> reportPost(Long idUser, Long idPost) {
+		Optional<User> existingUser = repositoryU.findById(idUser);
+
+		if (existingUser.isPresent()) {
+			Optional<Post> existingPost = repositoryP.findById(idPost);
+
+			if (existingPost.isPresent()) {
+
+				Optional<Report> existingReport = repositoryR.findByPostReport(existingPost.get());
+
+				if (existingReport.isPresent()) {
+
+					if (existingReport.get().getUserReport().contains(existingUser.get())) {
+						return Optional.empty();
+					} else {
+						existingReport.get().getUserReport().add(existingUser.get());
+
+						return Optional.ofNullable(repositoryR.save(existingReport.get()));
+					}
+				}
+
+				Report newReport = new Report();
+
+				newReport.getUserReport().add(existingUser.get());
+				newReport.setPostReport(existingPost.get());
+
+				repositoryR.save(newReport);
+				existingPost.get().setReported(newReport);
+
+				repositoryP.save(existingPost.get());
+				return Optional.ofNullable(newReport);
+			}
+
+		}
+		return Optional.empty();
+	}
+
+	/**
+	 * Método para denunciar um comentário
+	 * 
+	 * @param idUser
+	 * @param idComment
+	 * @return Um Optional com a denúncia do comentário ou um Optional vazio
+	 */
+	public Optional<Object> reportComment(Long idUser, Long idComment) {
+		Optional<User> existingUser = repositoryU.findById(idUser);
+
+		if (existingUser.isPresent()) {
+			Optional<Comment> existingComment = repositoryC.findById(idComment);
+
+			if (existingComment.isPresent()) {
+
+				Optional<Report> existingReport = repositoryR.findByCommentReport(existingComment.get());
+
+				if (existingReport.isPresent()) {
+
+					if (existingReport.get().getUserReport().contains(existingUser.get())) {
+						return Optional.empty();
+					} else {
+						existingReport.get().getUserReport().add(existingUser.get());
+
+						return Optional.ofNullable(repositoryR.save(existingReport.get()));
+					}
+				}
+				Report newReport = new Report();
+
+				newReport.getUserReport().add(existingUser.get());
+				newReport.setCommentReport(existingComment.get());
+
+				repositoryR.save(newReport);
+				existingComment.get().setReported(newReport);
+
+				repositoryC.save(existingComment.get());
+				return Optional.ofNullable(newReport);
+			}
+
 		}
 		return Optional.empty();
 	}
