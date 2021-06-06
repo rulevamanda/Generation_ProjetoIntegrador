@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.AskMarinho.app.RedeSocial.models.Post;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Long>{
- 
-	public List<Post>findAllByTitleContainingIgnoreCase (String title);
-	
-	public Optional<Post> findByTitle (String title);
+public interface PostRepository extends JpaRepository<Post, Long> {
+
+	public List<Post> findAllByTitleContainingIgnoreCase(String title);
+
+	public Optional<Post> findByTitle(String title);
 
 }

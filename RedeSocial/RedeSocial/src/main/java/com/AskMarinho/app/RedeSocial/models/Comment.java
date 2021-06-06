@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -27,13 +28,17 @@ public class Comment {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userComment")
-	@JsonIgnoreProperties({ "comments", "posts", "idUser", "userName", "telephone", "password", "birth" })
+	@JsonIgnoreProperties({ "comments", "posts", "idUser", "userName", "telephone", "password", "birth", "reports" })
 	private User userComment;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "post")
-	@JsonIgnoreProperties({ "comment", "userPost", "idPost", "tagRelation" })
+	@JsonIgnoreProperties({ "comment", "userPost", "idPost", "tagRelation", "reported" })
 	private Post post;
+
+	@OneToOne
+	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport", "" })
+	private Report reported;
 
 	public long getIdComment() {
 		return idComment;
@@ -51,6 +56,10 @@ public class Comment {
 		return post;
 	}
 
+	public Report getReported() {
+		return reported;
+	}
+
 	public void setIdComment(long idComment) {
 		this.idComment = idComment;
 	}
@@ -65,6 +74,10 @@ public class Comment {
 
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	public void setReported(Report reported) {
+		this.reported = reported;
 	}
 
 }

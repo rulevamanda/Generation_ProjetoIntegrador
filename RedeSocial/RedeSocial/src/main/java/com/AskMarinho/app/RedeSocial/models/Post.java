@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,18 +47,22 @@ public class Post {
 	private Date date = new java.sql.Date(System.currentTimeMillis());
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({ "post", "idComment", "userComment" })
+	@JsonIgnoreProperties({ "post", "idComment", "userComment", "reported" })
 	private List<Comment> comment;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuarioPostagem")
-	@JsonIgnoreProperties({ "posts", "idUser", "name", "userName", "birth", "comments" })
+	@JsonIgnoreProperties({ "posts", "idUser", "name", "userName", "birth", "comments", "reports" })
 	private User userPost;
 
 	@ManyToMany
 	@JoinTable(name = "relationTagAndPost", joinColumns = @JoinColumn(name = "fk_post"), inverseJoinColumns = @JoinColumn(name = "fk_tag"))
 	@JsonIgnoreProperties({ "posts", "idTag" })
 	private Set<Tag> tagRelation = new HashSet<>();
+
+	@OneToOne
+	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport" })
+	private Report reported;
 
 	public long getIdPost() {
 		return idPost;
@@ -91,6 +96,10 @@ public class Post {
 		return tagRelation;
 	}
 
+	public Report getReported() {
+		return reported;
+	}
+
 	public void setIdPost(long idPost) {
 		this.idPost = idPost;
 	}
@@ -121,6 +130,10 @@ public class Post {
 
 	public void setTagRelation(Set<Tag> tagRelation) {
 		this.tagRelation = tagRelation;
+	}
+
+	public void setReported(Report reported) {
+		this.reported = reported;
 	}
 
 }

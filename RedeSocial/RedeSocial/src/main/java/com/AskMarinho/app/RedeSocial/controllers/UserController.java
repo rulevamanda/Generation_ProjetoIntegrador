@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.AskMarinho.app.RedeSocial.models.Comment;
 import com.AskMarinho.app.RedeSocial.models.Post;
 import com.AskMarinho.app.RedeSocial.models.User;
@@ -39,7 +38,7 @@ public class UserController {
 	private @Autowired CommentRepository repositoryC;
 
 	// ----------------------- USUÁRIOS -----------------------
-	
+
 	@GetMapping("/todes")
 	public ResponseEntity<List<User>> buscarTodes() {
 		List<User> listarTodes = repositoryU.findAll();
@@ -94,7 +93,6 @@ public class UserController {
 			return ResponseEntity.status(400).body("Erro ao deletar usuário. \nUsuário não existe");
 		}
 	}
-
 
 	// ----------------------- POSTAGENS -----------------------
 
@@ -224,6 +222,28 @@ public class UserController {
 		} else {
 			return ResponseEntity.status(200).body("Comentário não pode ser deletado, pois não existe.");
 		}
+	}
+
+	// ----------------------- DENÚNCIAS -----------------------
+
+	@PostMapping("/denuncias/postagem/{idUser}/{idPost}")
+	public ResponseEntity<String> reportPost(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "idPost") Long idPost) {
+
+		return serviceU.reportPost(idUser, idPost)
+				.map(reported -> ResponseEntity.status(201).body("Postagem denunciada"))
+				.orElse(ResponseEntity.status(200)
+						.body("Postagem ou usuário não existem, ou esse usuário já denunciou esta postagem"));
+	}
+
+	@PostMapping("/denuncias/comentario/{idUser}/{idComment}")
+	public ResponseEntity<String> reportComment(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "idComment") Long idComment) {
+
+		return serviceU.reportComment(idUser, idComment)
+				.map(reported -> ResponseEntity.status(201).body("Comentário denunciado"))
+				.orElse(ResponseEntity.status(200)
+						.body("Comentário ou usuário não existem, ou esse usuário já denunciou este comentário"));
 	}
 
 }

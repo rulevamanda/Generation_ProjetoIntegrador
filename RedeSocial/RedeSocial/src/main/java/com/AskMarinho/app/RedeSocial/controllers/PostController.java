@@ -2,7 +2,6 @@ package com.AskMarinho.app.RedeSocial.controllers;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +20,6 @@ import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
 
 public class PostController {
 
-	
 	private @Autowired PostRepository repositoryP;
 
 	/**
