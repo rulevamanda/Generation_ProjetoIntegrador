@@ -60,7 +60,7 @@ public class Post {
 	@JsonIgnoreProperties({ "posts", "idTag" })
 	private Set<Tag> tagRelation = new HashSet<>();
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport" })
 	private Report reported;
 
