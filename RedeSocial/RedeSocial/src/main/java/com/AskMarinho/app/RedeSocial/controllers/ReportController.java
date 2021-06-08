@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.AskMarinho.app.RedeSocial.models.Report;
 import com.AskMarinho.app.RedeSocial.repositories.ReportRepository;
-
+/**
+ * 
+ * @translator Amanda
+ *
+ */
 @RestController
 @RequestMapping("/denuncias")
 public class ReportController {
