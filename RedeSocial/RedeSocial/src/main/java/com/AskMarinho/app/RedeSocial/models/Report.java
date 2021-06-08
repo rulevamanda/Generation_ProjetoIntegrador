@@ -26,15 +26,15 @@ public class Report {
 
 	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "reportsAndUsers", joinColumns = @JoinColumn(name = "fk_report"), inverseJoinColumns = @JoinColumn(name = "fk_user"))
-	@JsonIgnoreProperties({ "reports", "password", "birth", "gender", "comments", "posts" })
+	@JsonIgnoreProperties({ "likes", "reports", "password", "birth", "gender", "comments", "posts", "favorites" })
 	private Set<User> userReport = new HashSet<>();
 
 	@OneToOne
-	@JsonIgnoreProperties({ "reports", "comment", "reports", "userPost", "tagRelation", "reported" })
+	@JsonIgnoreProperties({ "liked", "reports", "comment", "reports", "userPost", "tagRelation", "reported" })
 	private Post postReport;
 
 	@OneToOne
-	@JsonIgnoreProperties({ "userComment", "post", "reported" })
+	@JsonIgnoreProperties({ "liked", "userComment", "post", "reported" })
 	private Comment commentReport;
 
 	public long getIdReport() {

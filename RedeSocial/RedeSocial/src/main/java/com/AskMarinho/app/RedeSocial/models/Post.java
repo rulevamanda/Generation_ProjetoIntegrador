@@ -47,22 +47,26 @@ public class Post {
 	private Date date = new java.sql.Date(System.currentTimeMillis());
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({ "post", "idComment", "userComment", "reported" })
+	@JsonIgnoreProperties({ "liked", "post", "idComment", "userComment", "reported" })
 	private List<Comment> comment;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuarioPostagem")
-	@JsonIgnoreProperties({ "posts", "idUser", "name", "userName", "birth", "comments", "reports" })
+	@JsonIgnoreProperties({ "likes", "favorites","posts", "idUser", "name", "userName", "birth", "comments", "reports" })
 	private User userPost;
 
 	@ManyToMany
 	@JoinTable(name = "relationTagAndPost", joinColumns = @JoinColumn(name = "fk_post"), inverseJoinColumns = @JoinColumn(name = "fk_tag"))
-	@JsonIgnoreProperties({ "posts", "idTag" })
+	@JsonIgnoreProperties({ "posts", "idTag", "userTags" })
 	private Set<Tag> tagRelation = new HashSet<>();
 
 	@OneToOne(cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport" })
+	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport", "favorites" })
 	private Report reported;
+	
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties({"postUpvote", "commentUpvote"})
+	private Like liked;
 
 	public long getIdPost() {
 		return idPost;
@@ -100,6 +104,10 @@ public class Post {
 		return reported;
 	}
 
+	public Like getLiked() {
+		return liked;
+	}
+
 	public void setIdPost(long idPost) {
 		this.idPost = idPost;
 	}
@@ -134,6 +142,10 @@ public class Post {
 
 	public void setReported(Report reported) {
 		this.reported = reported;
+	}
+
+	public void setLiked(Like liked) {
+		this.liked = liked;
 	}
 
 }

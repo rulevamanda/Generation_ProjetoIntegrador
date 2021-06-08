@@ -1,12 +1,15 @@
 package com.AskMarinho.app.RedeSocial.models;
 
 import java.util.ArrayList;
+
 import java.util.List;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -27,31 +30,43 @@ public class Tag {
 	private String tagName;
 
 	@ManyToMany(mappedBy = "tagRelation")
-	@JsonIgnoreProperties({ "userPost", "comments", "tagRelation", "comment", "reported" })
+	@JsonIgnoreProperties({"liked", "userPost", "comments", "tagRelation", "comment", "reported" })
 	private List<Post> posts = new ArrayList<>();
+
+	// editando aqui --user
+	@ManyToMany(mappedBy = "favorites")
+	@JsonIgnoreProperties({ "likes", "posts", "reports", "favorites", "comments", "password", "email", "birth", "gender", "telephone" })
+	private List<User> userTags;
 
 	public long getIdTag() {
 		return idTag;
-	}
-
-	public String getTagName() {
-		return tagName;
-	}
-
-	public List<Post> getPosts() {
-		return posts;
 	}
 
 	public void setIdTag(long idTag) {
 		this.idTag = idTag;
 	}
 
+	public String getTagName() {
+		return tagName;
+	}
+
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
 	}
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
 
+	public List<User> getUserTags() {
+		return userTags;
+	}
+
+	public void setUserTags(List<User> userTags) {
+		this.userTags = userTags;
+	}
 }
