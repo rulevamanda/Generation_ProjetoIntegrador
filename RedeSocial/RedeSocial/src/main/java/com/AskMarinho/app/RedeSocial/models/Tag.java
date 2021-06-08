@@ -30,12 +30,12 @@ public class Tag {
 	private String tagName;
 
 	@ManyToMany(mappedBy = "tagRelation")
-	@JsonIgnoreProperties({ "userPost", "comments", "tagRelation", "comment", "reported" })
+	@JsonIgnoreProperties({"liked", "userPost", "comments", "tagRelation", "comment", "reported" })
 	private List<Post> posts = new ArrayList<>();
 
 	// editando aqui --user
 	@ManyToMany(mappedBy = "favorites")
-	@JsonIgnoreProperties({ "posts", "reports", "favorites", "comments", "password", "email", "birth", "gender", "telephone" })
+	@JsonIgnoreProperties({ "likes", "posts", "reports", "favorites", "comments", "password", "email", "birth", "gender", "telephone" })
 	private List<User> userTags;
 
 	public long getIdTag() {

@@ -57,16 +57,21 @@ public class User {
 	private Long telephone;
 
 	@OneToMany(mappedBy = "userComment", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({ "userComment", "idComment", "post", "reported" })
+	@JsonIgnoreProperties({ "liked", "userComment", "idComment", "post", "reported" })
 	private List<Comment> comments;
 
 	@OneToMany(mappedBy = "userPost", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({ "userPost", "idPost", "comments", "tagRelation", "comment", "reported" })
+	@JsonIgnoreProperties({ "liked", "userPost", "idPost", "comments", "tagRelation", "comment", "reported" })
 	private List<Post> posts;
 
 	@ManyToMany(mappedBy = "userReport", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "postReport", "userReport", "idReport" })
 	private List<Report> reports = new ArrayList<>();
+	
+	
+	@ManyToMany(mappedBy = "userLike", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("userLike")
+	private List<Like> likes = new ArrayList<>();
 	
 	@ManyToMany
 	@JoinTable(name = "userAndFavorites", joinColumns = @JoinColumn(name = "fk_user"), inverseJoinColumns = @JoinColumn(name = "fk_tag"))
@@ -167,5 +172,13 @@ public class User {
 
 	public void setFavorites(Set<Tag> favorites) {
 		this.favorites = favorites;
+	}
+
+	public List<Like> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
 	}
 }
