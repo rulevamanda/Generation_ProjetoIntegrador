@@ -59,9 +59,9 @@ public class CommentController {
 	public ResponseEntity<String> upvotesComment(@PathVariable(value = "idComment") Long idComment) {
 		Optional<Comment> existingComment = repositoryC.findById(idComment);
 		if (existingComment.isPresent()) {
-			if (existingComment.get().getLiked() != null) {
+			if (existingComment.get().getUpvoted() != null) {
 				return ResponseEntity.status(202)
-						.body("Número de likes: " + existingComment.get().getLiked().getUserLike().size());
+						.body("Número de likes: " + existingComment.get().getUpvoted().getUserUpvote().size());
 			}
 			return ResponseEntity.status(202).body("Número de likes: 0");
 

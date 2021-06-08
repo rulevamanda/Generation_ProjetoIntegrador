@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @Entity
-@Table(name = "tb_like")
+@Table(name = "tb_upvote")
 public class Upvote {
 
 	@Id
@@ -47,28 +47,28 @@ public class Upvote {
 		return idUpvote;
 	}
 
-	public Set<User> getUserUpvote() {
-		return userUpvote;
-	}
-
-	public Post getPostUpvote() {
-		return postUpvote;
-	}
-
-	public Comment getCommentUpvote() {
-		return commentUpvote;
-	}
-
 	public void setIdUpvote(long idUpvote) {
 		this.idUpvote = idUpvote;
+	}
+
+	public Set<User> getUserUpvote() {
+		return userUpvote;
 	}
 
 	public void setUserUpvote(Set<User> userUpvote) {
 		this.userUpvote = userUpvote;
 	}
 
+	public Post getPostUpvote() {
+		return postUpvote;
+	}
+
 	public void setPostUpvote(Post postUpvote) {
 		this.postUpvote = postUpvote;
+	}
+
+	public Comment getCommentUpvote() {
+		return commentUpvote;
 	}
 
 	public void setCommentUpvote(Comment commentUpvote) {

@@ -82,12 +82,12 @@ public class UserController {
 		return serviceU.updateUser(id, updatedUser)
 				.map(updateUser -> ResponseEntity.status(201)
 						.body("Usuario: " + updatedUser.getUserName() + "\nEmail: "
-								+ updatedUser.getEmail() + "\nEMAIL ATUALIZADO"))
+								+ updatedUser.getEmail() + "\nUSUÁRIO ATUALIZADO"))
 				.orElse(ResponseEntity.status(400).body(
 						"Erro ao atualizar usuário."));
 	}
 
-	@DeleteMapping("/deletar/{id_usuario}")
+	@DeleteMapping("/deletar/{id_user}")
 	public ResponseEntity<String> deleteUser(@PathVariable Long id_user) {
 		Optional<User> existingUser = repositoryU.findById(id_user);
 
@@ -111,9 +111,9 @@ public class UserController {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	@PostMapping("/postagens/cadastrar/{idUsuario}/{nomeTema}")
-	public ResponseEntity<String> registerPost(@PathVariable(value = "idUsuario") Long idUser,
-			@PathVariable(value = "nomeTema") String themeName, @RequestBody Post newPost) {
+	@PostMapping("/postagens/cadastrar/{idUser}/{themeName}")
+	public ResponseEntity<String> registerPost(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "themeName") String themeName, @RequestBody Post newPost) {
 		return serviceU.registerPost(idUser, themeName, newPost)
 				.map(postCreated -> ResponseEntity.status(201)
 						.body("Título da postagem: " + newPost.getTitle() + "\nDescrição " + "da postagem: "
@@ -170,8 +170,8 @@ public class UserController {
 	public ResponseEntity<String> addTheme(@PathVariable(value = "nomeTema") String themeName,
 			@PathVariable(value = "idPostagem") Long idPost) {
 		return serviceU.addTag(idPost, themeName)
-				.map(added -> ResponseEntity.status(201).body("POSTAGEM ADICIONADA"))
-				.orElse(ResponseEntity.status(200).body("Erro ao adicionar Postagem."));
+				.map(added -> ResponseEntity.status(201).body("TEMA ADICIONADO"))
+				.orElse(ResponseEntity.status(200).body("Erro ao adicionar Tema."));
 	}
 
 	@DeleteMapping("/postagens/deletar/tema/{idTema}/{idPostagem}")
@@ -214,9 +214,9 @@ public class UserController {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	@PostMapping("/comentarios/cadastrar/{idUsuario}/{idPostagem}")
-	public ResponseEntity<List<Comment>> registerPost(@PathVariable(value = "idUsuario") Long idUser,
-			@PathVariable(value = "idPostagem") Long idPost, @RequestBody Comment newComment) {
+	@PostMapping("/comentarios/cadastrar/{idUser}/{idPost}")
+	public ResponseEntity<List<Comment>> registerPost(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "idPost") Long idPost, @RequestBody Comment newComment) {
 		return serviceU.registerComment(idUser, idPost, newComment)
 				.map(comment -> ResponseEntity.status(201).body(repositoryC.findAll()))
 				.orElse(ResponseEntity.status(400).build());
@@ -231,8 +231,8 @@ public class UserController {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	@PutMapping("/comentarios/atualizar/{idComentario}")
-	public ResponseEntity<List<Comment>> updatePost(@PathVariable(value = "idComentario") Long idComment,
+	@PutMapping("/comentarios/atualizar/{idComment}")
+	public ResponseEntity<List<Comment>> updatePost(@PathVariable(value = "idComment") Long idComment,
 			@Valid @RequestBody Comment commentUpdated) {
 		return serviceU.updateComment(idComment, commentUpdated)
 				.map(postagemAtualizada -> ResponseEntity.status(201).body(repositoryC.findAll()))
@@ -248,12 +248,12 @@ public class UserController {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	@DeleteMapping("/comentarios/deletar/{idComentario}")
-	public ResponseEntity<String> deleteComment(@PathVariable long idComentario) {
-		Optional<Comment> existingComment = repositoryC.findById(idComentario);
+	@DeleteMapping("/comentarios/deletar/{idComment}")
+	public ResponseEntity<String> deleteComment(@PathVariable long idComment) {
+		Optional<Comment> existingComment = repositoryC.findById(idComment);
 
 		if (existingComment.isPresent()) {
-			repositoryC.deleteById(idComentario);
+			repositoryC.deleteById(idComment);
 			return ResponseEntity.status(200).body("COMENTÁRIO DELETADO");
 		} else {
 			return ResponseEntity.status(200).body("Erro ao deletar comentário.");
@@ -286,7 +286,7 @@ public class UserController {
 	public ResponseEntity<String> deleteReport(@PathVariable(value = "idReport") Long idReport,
 			@PathVariable(value = "idUser") Long idUser) {
 		return serviceU.deleteReport(idReport, idUser)
-				.map(deleted -> ResponseEntity.status(202).body("DENÍNCIA RETIRADA"))
+				.map(deleted -> ResponseEntity.status(202).body("DENÚNCIA RETIRADA"))
 				.orElse(ResponseEntity.status(404).build());
 
 	}

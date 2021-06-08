@@ -28,7 +28,7 @@ public class UpvoteController {
 		return ResponseEntity.status(200).body(repositoryL.findAll());
 	}
 
-	@GetMapping("/id/{idLike}")
+	@GetMapping("/id/{idUpvote}")
 	public ResponseEntity<Upvote> getById(@PathVariable(value = "idUpvote") Long idUpvote) {
 		Optional<Upvote> existingUpvote = repositoryL.findById(idUpvote);
 

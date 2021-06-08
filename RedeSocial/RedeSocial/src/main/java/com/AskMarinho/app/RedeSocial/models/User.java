@@ -171,6 +171,14 @@ public class User {
 		this.reports = reports;
 	}
 
+	public List<Upvote> getUpvotes() {
+		return upvotes;
+	}
+
+	public void setUpvotes(List<Upvote> upvotes) {
+		this.upvotes = upvotes;
+	}
+
 	public Set<Tag> getFavorites() {
 		return favorites;
 	}
@@ -179,11 +187,5 @@ public class User {
 		this.favorites = favorites;
 	}
 
-	public List<Upvote> getLikes() {
-		return upvotes;
-	}
-
-	public void setLikes(List<Upvote> likes) {
-		this.upvotes = likes;
-	}
+	
 }

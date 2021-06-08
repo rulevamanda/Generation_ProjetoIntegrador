@@ -54,48 +54,50 @@ public class Comment {
 		return idComment;
 	}
 
-	public String getText() {
-		return text;
-	}
-
-	public User getUserComment() {
-		return userComment;
-	}
-
-	public Post getPost() {
-		return post;
-	}
-
-	public Report getReported() {
-		return reported;
-	}
-
-	public Upvote getLiked() {
-		return upvoted;
-	}
-
 	public void setIdComment(long idComment) {
 		this.idComment = idComment;
+	}
+
+	public String getText() {
+		return text;
 	}
 
 	public void setText(String text) {
 		this.text = text;
 	}
 
+	public User getUserComment() {
+		return userComment;
+	}
+
 	public void setUserComment(User userComment) {
 		this.userComment = userComment;
+	}
+
+	public Post getPost() {
+		return post;
 	}
 
 	public void setPost(Post post) {
 		this.post = post;
 	}
 
+	public Report getReported() {
+		return reported;
+	}
+
 	public void setReported(Report reported) {
 		this.reported = reported;
+	}
+
+	public Upvote getUpvoted() {
+		return upvoted;
 	}
 
 	public void setUpvoted(Upvote upvoted) {
 		this.upvoted = upvoted;
 	}
+
+	
 
 }

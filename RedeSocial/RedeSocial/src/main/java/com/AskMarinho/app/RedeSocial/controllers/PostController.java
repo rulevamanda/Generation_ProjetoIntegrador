@@ -61,7 +61,7 @@ public class PostController {
 	 * @author Bueno
 	 * @translator Amanda
 	 */
-	@GetMapping("/titulo/{titulo}")
+	@GetMapping("/titulo/{title}")
 	public ResponseEntity<List<Post>> titlePost(@PathVariable String title) {
 		return ResponseEntity.status(200).body(repositoryP.findAllByTitleContainingIgnoreCase(title));
 
@@ -79,9 +79,9 @@ public class PostController {
 	public ResponseEntity<String> upvotesPost(@PathVariable(value = "idPost") Long idPost) {
 		Optional<Post> existingPost = repositoryP.findById(idPost);
 		if (existingPost.isPresent()) {
-			if (existingPost.get().getLiked() != null) {
+			if (existingPost.get().getUpvoted() != null) {
 				return ResponseEntity.status(202)
-						.body("Número de likes: " + existingPost.get().getLiked().getUserLike().size());
+						.body("Número de likes: " + existingPost.get().getUpvoted().getUserUpvote().size());
 			}
 			return ResponseEntity.status(202).body("Número de likes: 0");
 

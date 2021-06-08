@@ -45,32 +45,34 @@ public class Report {
 		return idReport;
 	}
 
-	public Set<User> getUserReport() {
-		return userReport;
-	}
-
-	public Post getPostReport() {
-		return postReport;
-	}
-
-	public Comment getCommentReport() {
-		return commentReport;
-	}
-
 	public void setIdReport(long idReport) {
 		this.idReport = idReport;
+	}
+
+	public Set<User> getUserReport() {
+		return userReport;
 	}
 
 	public void setUserReport(Set<User> userReport) {
 		this.userReport = userReport;
 	}
 
+	public Post getPostReport() {
+		return postReport;
+	}
+
 	public void setPostReport(Post postReport) {
 		this.postReport = postReport;
+	}
+
+	public Comment getCommentReport() {
+		return commentReport;
 	}
 
 	public void setCommentReport(Comment commentReport) {
 		this.commentReport = commentReport;
 	}
+
+	
 
 }

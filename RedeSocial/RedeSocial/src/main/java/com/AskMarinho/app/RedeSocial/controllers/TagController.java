@@ -38,7 +38,7 @@ public class TagController {
 		return repositoryT.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
-	@GetMapping("/nome/{nome}")
+	@GetMapping("/nome/{name}")
 	public ResponseEntity<List<Tag>> getByName(@PathVariable String name) {
 		return ResponseEntity.ok(repositoryT.findAllByTagNameContainingIgnoreCase(name));
 	}

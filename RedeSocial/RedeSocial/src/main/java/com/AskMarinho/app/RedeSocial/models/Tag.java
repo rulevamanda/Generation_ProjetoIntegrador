@@ -74,4 +74,6 @@ public class Tag {
 	public void setUserTags(List<User> userTags) {
 		this.userTags = userTags;
 	}
+
+	
 }

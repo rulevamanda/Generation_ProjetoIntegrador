@@ -76,80 +76,82 @@ public class Post {
 		return idPost;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public String getUrlImage() {
-		return urlImage;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public List<Comment> getComment() {
-		return comment;
-	}
-
-	public User getUserPost() {
-		return userPost;
-	}
-
-	public Set<Tag> getTagRelation() {
-		return tagRelation;
-	}
-
-	public Report getReported() {
-		return reported;
-	}
-
-	public Upvote getUpvoted() {
-		return upvoted;
-	}
-
 	public void setIdPost(long idPost) {
 		this.idPost = idPost;
+	}
+
+	public String getTitle() {
+		return title;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
 	}
 
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public List<Comment> getComment() {
+		return comment;
 	}
 
 	public void setComment(List<Comment> comment) {
 		this.comment = comment;
 	}
 
+	public User getUserPost() {
+		return userPost;
+	}
+
 	public void setUserPost(User userPost) {
 		this.userPost = userPost;
+	}
+
+	public Set<Tag> getTagRelation() {
+		return tagRelation;
 	}
 
 	public void setTagRelation(Set<Tag> tagRelation) {
 		this.tagRelation = tagRelation;
 	}
 
+	public Report getReported() {
+		return reported;
+	}
+
 	public void setReported(Report reported) {
 		this.reported = reported;
+	}
+
+	public Upvote getUpvoted() {
+		return upvoted;
 	}
 
 	public void setUpvoted(Upvote upvoted) {
 		this.upvoted = upvoted;
 	}
+
+	
 
 }
