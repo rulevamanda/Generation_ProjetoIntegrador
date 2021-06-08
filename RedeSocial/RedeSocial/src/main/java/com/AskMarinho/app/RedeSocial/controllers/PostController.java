@@ -1,6 +1,7 @@
 package com.AskMarinho.app.RedeSocial.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +65,50 @@ public class PostController {
 	public ResponseEntity<List<Post>> titlePost(@PathVariable String title) {
 		return ResponseEntity.status(200).body(repositoryP.findAllByTitleContainingIgnoreCase(title));
 
+	}
+
+	/**
+	 * Método retorna o número de likes no post
+	 * 
+	 * @param idPost
+	 * @return retorna o número de likes
+	 * @author Antonio
+	 * @author Bueno
+	 */
+	@GetMapping("/curtidas/{idPost}")
+	public ResponseEntity<String> upvotesPost(@PathVariable(value = "idPost") Long idPost) {
+		Optional<Post> existingPost = repositoryP.findById(idPost);
+		if (existingPost.isPresent()) {
+			if (existingPost.get().getLiked() != null) {
+				return ResponseEntity.status(202)
+						.body("Número de likes: " + existingPost.get().getLiked().getUserLike().size());
+			}
+			return ResponseEntity.status(202).body("Número de likes: 0");
+
+		}
+		return ResponseEntity.status(404).build();
+	}
+	
+	
+	/**
+	 * Método pega o número de denúncias em um post
+	 * @param idPost
+	 * @return retorna número de denúncias
+	 * @author Antonio
+	 * @author Bueno
+	 */
+	@GetMapping("/denuncias/{idPost}")
+	public ResponseEntity<String> reportsPost(@PathVariable(value = "idPost") Long idPost) {
+		Optional<Post> existingPost = repositoryP.findById(idPost);
+		if (existingPost.isPresent()) {
+			if (existingPost.get().getReported() != null) {
+				return ResponseEntity.status(202)
+						.body("Número de denúncias: " + existingPost.get().getReported().getUserReport().size());
+			}
+			return ResponseEntity.status(202).body("Número de denúncias: 0");
+
+		}
+		return ResponseEntity.status(404).build();
 	}
 
 }
