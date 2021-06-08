@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.AskMarinho.app.RedeSocial.models.Tag;
 import com.AskMarinho.app.RedeSocial.repositories.TagRepository;
 
+/**
+ * 
+ * @translator Amanda
+ *
+ */
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/tema")
@@ -33,9 +38,9 @@ public class TagController {
 		return repositoryT.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
-	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Tag>> getByName(@PathVariable String nome) {
-		return ResponseEntity.ok(repositoryT.findAllByTagNameContainingIgnoreCase(nome));
+	@GetMapping("/nome/{name}")
+	public ResponseEntity<List<Tag>> getByName(@PathVariable String name) {
+		return ResponseEntity.ok(repositoryT.findAllByTagNameContainingIgnoreCase(name));
 	}
 
 }

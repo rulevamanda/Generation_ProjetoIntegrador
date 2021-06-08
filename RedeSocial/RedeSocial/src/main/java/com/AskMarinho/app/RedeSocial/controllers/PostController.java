@@ -29,11 +29,12 @@ public class PostController {
 	 * @return retorna todas as postagens cadastradas
 	 * @author Antonio
 	 * @author Bueno
+	 * @translator Amanda
 	 */
 	@GetMapping("/todas")
-	public ResponseEntity<List<Post>> todasPostagens() {
-		List<Post> listaDePostagem = repositoryP.findAll();
-		return ResponseEntity.status(200).body(listaDePostagem);
+	public ResponseEntity<List<Post>> allPosts() {
+		List<Post> postList = repositoryP.findAll();
+		return ResponseEntity.status(200).body(postList);
 	}
 
 	/**
@@ -44,9 +45,10 @@ public class PostController {
 	 *         status 404 com uma build vazia
 	 * @author Antonio
 	 * @author Bueno
+	 * @translator Amanda
 	 */
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Post> idPostagem(@PathVariable Long id) {
+	public ResponseEntity<Post> idPost(@PathVariable Long id) {
 		return repositoryP.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
@@ -57,10 +59,11 @@ public class PostController {
 	 * @return retorna postagens que possuem o tÃ­tulo pesquisado
 	 * @author Antonio
 	 * @author Bueno
+	 * @translator Amanda
 	 */
-	@GetMapping("/titulo/{titulo}")
-	public ResponseEntity<List<Post>> tituloPostagem(@PathVariable String titulo) {
-		return ResponseEntity.status(200).body(repositoryP.findAllByTitleContainingIgnoreCase(titulo));
+	@GetMapping("/titulo/{title}")
+	public ResponseEntity<List<Post>> titlePost(@PathVariable String title) {
+		return ResponseEntity.status(200).body(repositoryP.findAllByTitleContainingIgnoreCase(title));
 
 	}
 
@@ -76,9 +79,9 @@ public class PostController {
 	public ResponseEntity<String> upvotesPost(@PathVariable(value = "idPost") Long idPost) {
 		Optional<Post> existingPost = repositoryP.findById(idPost);
 		if (existingPost.isPresent()) {
-			if (existingPost.get().getLiked() != null) {
+			if (existingPost.get().getUpvoted() != null) {
 				return ResponseEntity.status(202)
-						.body("Número de likes: " + existingPost.get().getLiked().getUserLike().size());
+						.body("Número de likes: " + existingPost.get().getUpvoted().getUserUpvote().size());
 			}
 			return ResponseEntity.status(202).body("Número de likes: 0");
 

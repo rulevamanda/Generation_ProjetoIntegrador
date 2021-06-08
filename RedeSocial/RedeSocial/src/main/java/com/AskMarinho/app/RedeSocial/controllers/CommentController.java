@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.AskMarinho.app.RedeSocial.models.Comment;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
+/**
+ * @translator Amanda
+ */
 
 @RestController
 @RequestMapping("/comentarios")
@@ -28,19 +31,19 @@ public class CommentController {
 	 * @return lista com todos os comentários
 	 */
 	@GetMapping("/todos")
-	public ResponseEntity<List<Comment>> todosComentarios() {
-		List<Comment> listaDeComentario = repositoryC.findAll();
-		return ResponseEntity.status(200).body(listaDeComentario);
+	public ResponseEntity<List<Comment>> allComments() {
+		List<Comment> CommentList = repositoryC.findAll();
+		return ResponseEntity.status(200).body(CommentList);
 	}
 
 	/**
 	 * Buscar um comentário especifico pelo id
 	 * 
 	 * @param id
-	 * @returno comentário referente ao id pesquisado ou um status notfound
+	 * @return comentário referente ao id pesquisado ou um status notfound
 	 */
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Comment> idComentario(@PathVariable Long id) {
+	public ResponseEntity<Comment> idComment(@PathVariable Long id) {
 		return repositoryC.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
@@ -56,9 +59,9 @@ public class CommentController {
 	public ResponseEntity<String> upvotesComment(@PathVariable(value = "idComment") Long idComment) {
 		Optional<Comment> existingComment = repositoryC.findById(idComment);
 		if (existingComment.isPresent()) {
-			if (existingComment.get().getLiked() != null) {
+			if (existingComment.get().getUpvoted() != null) {
 				return ResponseEntity.status(202)
-						.body("Número de likes: " + existingComment.get().getLiked().getUserLike().size());
+						.body("Número de likes: " + existingComment.get().getUpvoted().getUserUpvote().size());
 			}
 			return ResponseEntity.status(202).body("Número de likes: 0");
 
