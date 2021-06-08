@@ -5,11 +5,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.AskMarinho.app.RedeSocial.models.Comment;
+import com.AskMarinho.app.RedeSocial.models.Like;
 import com.AskMarinho.app.RedeSocial.models.Post;
 import com.AskMarinho.app.RedeSocial.models.Report;
 import com.AskMarinho.app.RedeSocial.models.Tag;
 import com.AskMarinho.app.RedeSocial.models.User;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
+import com.AskMarinho.app.RedeSocial.repositories.LikeRepository;
 import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
 import com.AskMarinho.app.RedeSocial.repositories.ReportRepository;
 import com.AskMarinho.app.RedeSocial.repositories.TagRepository;
@@ -27,6 +29,8 @@ public class UserService {
 	private @Autowired CommentRepository repositoryC;
 
 	private @Autowired ReportRepository repositoryR;
+
+	private @Autowired LikeRepository repositoryL;
 
 	// ----------------------- USUÁRIOS -----------------------
 
@@ -230,7 +234,6 @@ public class UserService {
 		}
 		return Optional.empty();
 	}
-	
 
 	/**
 	 * Método para deletar um tema de dentro de uma postagem
@@ -257,10 +260,12 @@ public class UserService {
 		}
 		return Optional.empty();
 	}
+
 	// ----------------------- TEMAS FAVORITOS -----------------------
 	/**
 	 * Método para adicionar tag favorita do Usuário.
-	 * @param idUser - Long
+	 * 
+	 * @param idUser  - Long
 	 * @param tagName - String
 	 * @author Antonio
 	 * @author Chelle
@@ -288,25 +293,26 @@ public class UserService {
 		}
 		return Optional.empty();
 	}
-	
+
 	/**
 	 * Método para deletar uma tag favorita do Usuário.
+	 * 
 	 * @param idUser - Long
-	 * @param idTag - Long
+	 * @param idTag  - Long
 	 * @author Antonio
 	 * @author Chelle
 	 * @since 1.0
 	 * @return Optional com as mudanças feitas, senão um Optional vazio.
 	 */
-	public Optional <Object> deleteFavoriteTag (Long idUser, Long idTag){
-		
-		Optional <User> existingUser = repositoryU.findById(idUser);
+	public Optional<Object> deleteFavoriteTag(Long idUser, Long idTag) {
+
+		Optional<User> existingUser = repositoryU.findById(idUser);
 		if (existingUser.isPresent()) {
-			Optional <Tag> existingTag = repositoryT.findById(idTag);
+			Optional<Tag> existingTag = repositoryT.findById(idTag);
 			if (existingTag.isPresent()) {
-				if (existingUser.get().getFavorites().contains(existingTag.get())){
+				if (existingUser.get().getFavorites().contains(existingTag.get())) {
 					existingUser.get().getFavorites().remove(existingTag.get());
-					
+
 					return Optional.ofNullable(repositoryU.save(existingUser.get()));
 				}
 			}
@@ -454,6 +460,7 @@ public class UserService {
 
 	/**
 	 * Método para retirar uma denúncia de comentário ou postagem
+	 * 
 	 * @param idReport
 	 * @param idUser
 	 * @author Antonio
@@ -495,6 +502,132 @@ public class UserService {
 				}
 			}
 
+		}
+		return Optional.empty();
+	}
+
+	// ----------------------- LIKES -----------------------
+	/**
+	 * 
+	 * @param idUser
+	 * @param idPost
+	 * @return
+	 */
+	public Optional<Object> likePost(Long idUser, Long idPost) {
+		Optional<User> existingUser = repositoryU.findById(idUser);
+
+		if (existingUser.isPresent()) {
+			Optional<Post> existingPost = repositoryP.findById(idPost);
+			if (existingPost.isPresent()) {
+
+				Optional<Like> existingLike = repositoryL.findByPostUpvote(existingPost.get());
+
+				if (existingLike.isPresent()) {
+
+					if (existingLike.get().getUserLike().contains(existingUser.get())) {
+						return Optional.empty();
+					} else {
+						existingLike.get().getUserLike().add(existingUser.get());
+
+						return Optional.ofNullable(repositoryL.save(existingLike.get()));
+					}
+				}
+				Like newLike = new Like();
+
+				newLike.getUserLike().add(existingUser.get());
+				newLike.setPostUpvote(existingPost.get());
+
+				repositoryL.save(newLike);
+				existingPost.get().setLiked(newLike);
+
+				repositoryP.save(existingPost.get());
+				return Optional.ofNullable(newLike);
+			}
+		}
+		return Optional.empty();
+	}
+
+	/**
+	 * 
+	 * @param idUser
+	 * @param idComment
+	 * @return
+	 */
+	public Optional<Object> likeComment(Long idUser, Long idComment) {
+		Optional<User> existingUser = repositoryU.findById(idUser);
+
+		if (existingUser.isPresent()) {
+			Optional<Comment> existingComment = repositoryC.findById(idComment);
+			if (existingComment.isPresent()) {
+
+				Optional<Like> existingLike = repositoryL.findByCommentUpvote(existingComment.get());
+
+				if (existingLike.isPresent()) {
+
+					if (existingLike.get().getUserLike().contains(existingUser.get())) {
+						return Optional.empty();
+					} else {
+						existingLike.get().getUserLike().add(existingUser.get());
+
+						return Optional.ofNullable(repositoryL.save(existingLike.get()));
+					}
+				}
+				Like newLike = new Like();
+
+				newLike.getUserLike().add(existingUser.get());
+				newLike.setCommentUpvote(existingComment.get());
+
+				repositoryL.save(newLike);
+				existingComment.get().setLiked(newLike);
+
+				repositoryC.save(existingComment.get());
+				return Optional.ofNullable(newLike);
+			}
+		}
+		return Optional.empty();
+	}
+
+	/**
+	 * 
+	 * @param idLike
+	 * @param idUser
+	 * @return
+	 */
+	public Optional<Object> unlike(Long idLike, Long idUser) {
+		Optional<Like> existingLike = repositoryL.findById(idLike);
+
+		if (existingLike.isPresent()) {
+			Optional<User> existingUser = repositoryU.findById(idUser);
+
+			if (existingUser.isPresent()) {
+				if (existingLike.get().getUserLike().contains(existingUser.get())) {
+					existingLike.get().getUserLike().remove(existingUser.get());
+
+					if (existingLike.get().getUserLike().isEmpty()) {
+						if (existingLike.get().getPostUpvote() != null) {
+							Optional<Post> existingPost = repositoryP
+									.findById(existingLike.get().getPostUpvote().getIdPost());
+
+							existingPost.get().setLiked(null);
+							existingLike.get().setPostUpvote(null);
+
+							repositoryP.save(existingPost.get());
+						} else if (existingLike.get().getCommentUpvote() != null) {
+							Optional<Comment> existingComment = repositoryC
+									.findById(existingLike.get().getCommentUpvote().getIdComment());
+
+							existingComment.get().setLiked(null);
+							existingLike.get().setCommentUpvote(null);
+							
+							repositoryC.save(existingComment.get());
+						}
+						repositoryL.deleteById(idLike);
+					} else {
+						repositoryL.save(existingLike.get());
+					}
+					return Optional.ofNullable(existingLike.get());
+				}
+			}
 		}
 		return Optional.empty();
 	}

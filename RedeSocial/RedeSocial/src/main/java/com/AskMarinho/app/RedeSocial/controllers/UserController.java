@@ -170,22 +170,22 @@ public class UserController {
 				.map(deletado -> ResponseEntity.status(200).body("Tema deletado da postagem com sucesso"))
 				.orElse(ResponseEntity.status(404).build());
 	}
-	
+
 	// ----------------------- TEMAS -----------------------
-	
-	@PutMapping ("/adicionar/tema/{idUser}/{tagName}")
-	public ResponseEntity<String> addTags (@PathVariable (value = "idUser") Long idUser, 
-			@PathVariable (value = "tagName") String tagName){
+
+	@PutMapping("/adicionar/tema/{idUser}/{tagName}")
+	public ResponseEntity<String> addTags(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "tagName") String tagName) {
 		return serviceU.addFavoriteTag(idUser, tagName)
 				.map(addedTag -> ResponseEntity.status(201).body("Tema favorito adicionado"))
 				.orElse(ResponseEntity.status(400).build());
 	}
-	
-	@DeleteMapping ("/deletar/tema/favoritos/{idUser}/{idTag}")
-	
-	public ResponseEntity<String> deleteFavoriteTag (@PathVariable (value = "idUser") Long idUser,
-			@PathVariable (value = "idTag") Long idTag) {
-		
+
+	@DeleteMapping("/deletar/tema/favoritos/{idUser}/{idTag}")
+
+	public ResponseEntity<String> deleteFavoriteTag(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "idTag") Long idTag) {
+
 		return serviceU.deleteFavoriteTag(idUser, idTag)
 				.map(deletedTag -> ResponseEntity.status(202).body("Tema favorito deletado com sucesso!"))
 				.orElse(ResponseEntity.status(404).build());
@@ -266,11 +266,40 @@ public class UserController {
 						.body("Comentário ou usuário não existem, ou esse usuário já denunciou este comentário"));
 	}
 
-	@DeleteMapping("/denuncias/postagens/deletar/{idReport}/{idUser}")
+	@DeleteMapping("/denuncias/deletar/{idReport}/{idUser}")
 	public ResponseEntity<String> deleteReport(@PathVariable(value = "idReport") Long idReport,
 			@PathVariable(value = "idUser") Long idUser) {
 		return serviceU.deleteReport(idReport, idUser)
 				.map(deleted -> ResponseEntity.status(202).body("Denúncia retirada"))
+				.orElse(ResponseEntity.status(404).build());
+
+	}
+
+	// ----------------------- LIKES -----------------------
+
+	@PostMapping("/likes/postagem/{idUser}/{idPost}")
+	public ResponseEntity<String> likePost(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "idPost") Long idPost) {
+
+		return serviceU.likePost(idUser, idPost).map(liked -> ResponseEntity.status(201).body("Postagem curtida"))
+				.orElse(ResponseEntity.status(200)
+						.body("Postagem ou usuário não existem, ou esse usuário já curtiu esta postagem"));
+	}
+
+	@PostMapping("/likes/comentario/{idUser}/{idComment}")
+	public ResponseEntity<String> likeComment(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "idComment") Long idComment) {
+
+		return serviceU.likeComment(idUser, idComment).map(liked -> ResponseEntity.status(201).body("Comentário curtido"))
+				.orElse(ResponseEntity.status(200)
+						.body("Comentário ou usuário não existem, ou esse usuário já curtiu este comentário"));
+	}
+	
+	@DeleteMapping("/likes/deletar/{idLike}/{idUser}")
+	public ResponseEntity<String> unlike(@PathVariable(value = "idLike") Long idLike,
+			@PathVariable(value = "idUser") Long idUser) {
+		return serviceU.unlike(idLike, idUser)
+				.map(deleted -> ResponseEntity.status(202).body("Curtida retirada"))
 				.orElse(ResponseEntity.status(404).build());
 
 	}
