@@ -1,6 +1,9 @@
 package com.AskMarinho.app.RedeSocial.controllers;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.AskMarinho.app.RedeSocial.models.Post;
+import com.AskMarinho.app.RedeSocial.models.Tag;
+import com.AskMarinho.app.RedeSocial.models.User;
 import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
+import com.AskMarinho.app.RedeSocial.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/postagens")
@@ -22,17 +28,19 @@ public class PostController {
 
 	private @Autowired PostRepository repositoryP;
 
+	private @Autowired UserRepository repositoryU;
 	/**
 	 * MÃ©todo para buscar todas as postagens
 	 * 
 	 * @return retorna todas as postagens cadastradas
 	 * @author Antonio
 	 * @author Bueno
+	 * @translator Amanda
 	 */
 	@GetMapping("/todas")
-	public ResponseEntity<List<Post>> todasPostagens() {
-		List<Post> listaDePostagem = repositoryP.findAll();
-		return ResponseEntity.status(200).body(listaDePostagem);
+	public ResponseEntity<List<Post>> allPosts() {
+		List<Post> postList = repositoryP.findAll();
+		return ResponseEntity.status(200).body(postList);
 	}
 
 	/**
@@ -43,9 +51,10 @@ public class PostController {
 	 *         status 404 com uma build vazia
 	 * @author Antonio
 	 * @author Bueno
+	 * @translator Amanda
 	 */
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Post> idPostagem(@PathVariable Long id) {
+	public ResponseEntity<Post> idPost(@PathVariable Long id) {
 		return repositoryP.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
@@ -56,11 +65,81 @@ public class PostController {
 	 * @return retorna postagens que possuem o tÃ­tulo pesquisado
 	 * @author Antonio
 	 * @author Bueno
+	 * @translator Amanda
 	 */
-	@GetMapping("/titulo/{titulo}")
-	public ResponseEntity<List<Post>> tituloPostagem(@PathVariable String titulo) {
-		return ResponseEntity.status(200).body(repositoryP.findAllByTitleContainingIgnoreCase(titulo));
+	@GetMapping("/titulo/{title}")
+	public ResponseEntity<List<Post>> titlePost(@PathVariable String title) {
+		return ResponseEntity.status(200).body(repositoryP.findAllByTitleContainingIgnoreCase(title));
 
+	}
+
+	/**
+	 * Método retorna o número de likes no post
+	 * 
+	 * @param idPost
+	 * @return retorna o número de likes
+	 * @author Antonio
+	 * @author Bueno
+	 */
+	@GetMapping("/curtidas/{idPost}")
+	public ResponseEntity<String> upvotesPost(@PathVariable(value = "idPost") Long idPost) {
+		Optional<Post> existingPost = repositoryP.findById(idPost);
+		if (existingPost.isPresent()) {
+			if (existingPost.get().getUpvoted() != null) {
+				return ResponseEntity.status(202)
+						.body("Número de likes: " + existingPost.get().getUpvoted().getUserUpvote().size());
+			}
+			return ResponseEntity.status(202).body("Número de likes: 0");
+
+		}
+		return ResponseEntity.status(404).build();
+	}
+	
+	
+	/**
+	 * Método pega o número de denúncias em um post
+	 * @param idPost
+	 * @return retorna número de denúncias
+	 * @author Antonio
+	 * @author Bueno
+	 */
+	@GetMapping("/denuncias/{idPost}")
+	public ResponseEntity<String> reportsPost(@PathVariable(value = "idPost") Long idPost) {
+		Optional<Post> existingPost = repositoryP.findById(idPost);
+		if (existingPost.isPresent()) {
+			if (existingPost.get().getReported() != null) {
+				return ResponseEntity.status(202)
+						.body("Número de denúncias: " + existingPost.get().getReported().getUserReport().size());
+			}
+			return ResponseEntity.status(202).body("Número de denúncias: 0");
+
+		}
+		return ResponseEntity.status(404).build();
+	}
+	
+	/**
+	 * 
+	 * @param idUser
+	 * @return
+	 */
+	@GetMapping("/usuario/favoritas/{idUser}")
+	public ResponseEntity<Set<Post>> returnPostsFav(@PathVariable(value = "idUser") Long idUser) {
+		Optional<User> existingUser = repositoryU.findById(idUser);
+		Set<Post> posts = new HashSet<>();
+		if (existingUser.isPresent()) {
+			Set<Tag> tagFavorites = existingUser.get().getFavorites();
+			
+			for(Tag tags : tagFavorites) {
+				List<Post> existingPost  = repositoryP.findAllByTagRelation(tags);
+				
+				for (int i = 0; i < existingPost.size(); i++) {
+				 posts.add(existingPost.get(i));
+				}
+			}
+			
+			return ResponseEntity.status(202).body(posts);
+		}
+		return ResponseEntity.status(404).build();
 	}
 
 }
