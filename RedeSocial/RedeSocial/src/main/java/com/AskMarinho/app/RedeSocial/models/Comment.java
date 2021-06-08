@@ -29,17 +29,22 @@ public class Comment {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userComment")
-	@JsonIgnoreProperties({ "comments", "posts", "idUser", "userName", "telephone", "password", "birth", "reports", "favorites" })
+	@JsonIgnoreProperties({ "likes","comments", "posts", "idUser", "userName", "telephone", "password", "birth", "reports",
+			"favorites" })
 	private User userComment;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "post")
-	@JsonIgnoreProperties({ "comment", "userPost", "idPost", "tagRelation", "reported" })
+	@JsonIgnoreProperties({"liked", "comment", "userPost", "idPost", "tagRelation", "reported" })
 	private Post post;
 
 	@OneToOne(cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport", "" })
+	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport"})
 	private Report reported;
+
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties({"postUpvote", "commentUpvote"})
+	private Like liked;
 
 	public long getIdComment() {
 		return idComment;
@@ -61,6 +66,10 @@ public class Comment {
 		return reported;
 	}
 
+	public Like getLiked() {
+		return liked;
+	}
+
 	public void setIdComment(long idComment) {
 		this.idComment = idComment;
 	}
@@ -79,6 +88,10 @@ public class Comment {
 
 	public void setReported(Report reported) {
 		this.reported = reported;
+	}
+
+	public void setLiked(Like liked) {
+		this.liked = liked;
 	}
 
 }
