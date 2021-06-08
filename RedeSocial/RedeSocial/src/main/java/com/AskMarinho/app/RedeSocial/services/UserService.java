@@ -5,13 +5,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.AskMarinho.app.RedeSocial.models.Comment;
-import com.AskMarinho.app.RedeSocial.models.Like;
+import com.AskMarinho.app.RedeSocial.models.Upvote;
 import com.AskMarinho.app.RedeSocial.models.Post;
 import com.AskMarinho.app.RedeSocial.models.Report;
 import com.AskMarinho.app.RedeSocial.models.Tag;
 import com.AskMarinho.app.RedeSocial.models.User;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
-import com.AskMarinho.app.RedeSocial.repositories.LikeRepository;
+import com.AskMarinho.app.RedeSocial.repositories.UpvoteRepository;
 import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
 import com.AskMarinho.app.RedeSocial.repositories.ReportRepository;
 import com.AskMarinho.app.RedeSocial.repositories.TagRepository;
@@ -30,7 +30,7 @@ public class UserService {
 
 	private @Autowired ReportRepository repositoryR;
 
-	private @Autowired LikeRepository repositoryL;
+	private @Autowired UpvoteRepository repositoryL;
 
 	// ----------------------- USUÁRIOS -----------------------
 
@@ -43,16 +43,18 @@ public class UserService {
 	 *         database, senão retorna um Optional que salva o novo usuário.
 	 * @author Chelle
 	 * @author Amanda
+	 * @redactor Amanda
+	 * @translator Amanda
 	 * @since 1.0
 	 */
-	public Optional<Object> cadastrarUsuario(User novoUsuario) {
-		Optional<User> emailExistente = repositoryU.findByEmail(novoUsuario.getEmail());
+	public Optional<Object> registerUser(User newUser) {
+		Optional<User> existingEmal = repositoryU.findByEmail(newUser.getEmail());
 
-		if (emailExistente.isEmpty()) {
-			Optional<User> usuarioExistente = repositoryU.findByUserName(novoUsuario.getUserName());
+		if (existingEmal.isEmpty()) {
+			Optional<User> existingUser = repositoryU.findByUserName(newUser.getUserName());
 
-			if (usuarioExistente.isEmpty()) {
-				return Optional.ofNullable(repositoryU.save(novoUsuario));
+			if (existingUser.isEmpty()) {
+				return Optional.ofNullable(repositoryU.save(newUser));
 			} else {
 				return Optional.empty();
 			}
@@ -73,57 +75,59 @@ public class UserService {
 	 * @author Antonio
 	 * @return Retorna um Optional para salvar as novas alterações caso o usuário
 	 *         seja encontrado, senão retorna um Optional vazio.
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	public Optional<User> atualizarUsuario(Long id_usuario, User atualizacaoUsuario) {
-		Boolean atualizar = false;
-		Optional<User> usuarioExistente = repositoryU.findById(id_usuario);
+	public Optional<User> updateUser(Long id_user, User updatedUser) {
+		Boolean update = false;
+		Optional<User> existingUser = repositoryU.findById(id_user);
 
-		if (usuarioExistente.isPresent()) {
-			Optional<User> emailExistente = repositoryU.findByEmail(atualizacaoUsuario.getEmail());
+		if (existingUser.isPresent()) {
+			Optional<User> emailExistente = repositoryU.findByEmail(updatedUser.getEmail());
 
 			if (emailExistente.isEmpty()) {
 
-				Optional<User> usuarioRepetido = repositoryU.findByUserName(atualizacaoUsuario.getUserName());
+				Optional<User> usuarioRepetido = repositoryU.findByUserName(updatedUser.getUserName());
 				if (usuarioRepetido.isEmpty()) {
 
-					atualizar = true;
+					update = true;
 
 				} else {
 
-					if (atualizacaoUsuario.getUserName().equals(usuarioExistente.get().getUserName())) {
-						atualizar = true;
+					if (updatedUser.getUserName().equals(existingUser.get().getUserName())) {
+						update = true;
 					}
 
 				}
 
 			} else {
-				if (atualizacaoUsuario.getEmail().equals(usuarioExistente.get().getEmail())) {
+				if (updatedUser.getEmail().equals(existingUser.get().getEmail())) {
 
-					Optional<User> usuarioRepetido = repositoryU.findByUserName(atualizacaoUsuario.getUserName());
+					Optional<User> usuarioRepetido = repositoryU.findByUserName(updatedUser.getUserName());
 					if (usuarioRepetido.isEmpty()) {
 
-						atualizar = true;
+						update = true;
 
 					} else {
 
-						if (atualizacaoUsuario.getUserName().equals(usuarioExistente.get().getUserName())) {
-							atualizar = true;
+						if (updatedUser.getUserName().equals(existingUser.get().getUserName())) {
+							update = true;
 						}
 
 					}
 
 				}
 			}
-			if (atualizar) {
-				usuarioExistente.get().setName(atualizacaoUsuario.getName());
-				usuarioExistente.get().setTelephone(atualizacaoUsuario.getTelephone());
-				usuarioExistente.get().setPassword(atualizacaoUsuario.getPassword());
-				usuarioExistente.get().setGender(atualizacaoUsuario.getGender());
-				usuarioExistente.get().setBirth(atualizacaoUsuario.getBirth());
-				usuarioExistente.get().setEmail(atualizacaoUsuario.getEmail());
-				usuarioExistente.get().setUserName(atualizacaoUsuario.getUserName());
+			if (update) {
+				existingUser.get().setName(updatedUser.getName());
+				existingUser.get().setTelephone(updatedUser.getTelephone());
+				existingUser.get().setPassword(updatedUser.getPassword());
+				existingUser.get().setGender(updatedUser.getGender());
+				existingUser.get().setBirth(updatedUser.getBirth());
+				existingUser.get().setEmail(updatedUser.getEmail());
+				existingUser.get().setUserName(updatedUser.getUserName());
 
-				return Optional.ofNullable(repositoryU.save(usuarioExistente.get()));
+				return Optional.ofNullable(repositoryU.save(existingUser.get()));
 			} else {
 				return Optional.empty();
 			}
@@ -146,29 +150,31 @@ public class UserService {
 	 * @author Matheus
 	 * @returnum Optional com os dados cadastrados da nova postagem ou retorna um
 	 *           Optional vazio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	public Optional<Object> cadastrarPostagem(Long idUsuario, String nomeTema, Post novaPostagem) {
+	public Optional<Object> registerPost(Long idUser, String themeName, Post newPost) {
 
-		Optional<Post> postagemExistente = repositoryP.findByTitle(novaPostagem.getTitle());
+		Optional<Post> existingPost = repositoryP.findByTitle(newPost.getTitle());
 
-		if (postagemExistente.isEmpty()) {
-			Optional<User> usuarioExistente = repositoryU.findById(idUsuario);
+		if (existingPost.isEmpty()) {
+			Optional<User> existingUser = repositoryU.findById(idUser);
 
-			if (usuarioExistente.isPresent()) {
-				Optional<Tag> temaExistente = repositoryT.findByTagName(nomeTema);
+			if (existingUser.isPresent()) {
+				Optional<Tag> existingTheme = repositoryT.findByTagName(themeName);
 
-				if (temaExistente.isEmpty()) {
+				if (existingTheme.isEmpty()) {
 					Tag novoTema = new Tag();
-					novoTema.setTagName(nomeTema);
+					novoTema.setTagName(themeName);
 					repositoryT.save(novoTema);
-					novaPostagem.getTagRelation().add(novoTema);
+					newPost.getTagRelation().add(novoTema);
 				} else {
-					novaPostagem.getTagRelation().add(temaExistente.get());
+					newPost.getTagRelation().add(existingTheme.get());
 				}
 
-				novaPostagem.setUserPost(usuarioExistente.get());
+				newPost.setUserPost(existingUser.get());
 
-				return Optional.ofNullable(repositoryP.save(novaPostagem));
+				return Optional.ofNullable(repositoryP.save(newPost));
 
 			}
 
@@ -186,19 +192,21 @@ public class UserService {
 	 * @return retorna um optional com a postagem atualizada ou retorna um empty
 	 *         vazio caso a postagem nÃ£o exista
 	 * @author Antonio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	public Optional<Object> atualizarPostagem(Long idPostagem, Post novaPostagem) {
-		Optional<Post> postagemExistente = repositoryP.findById(idPostagem);
+	public Optional<Object> updatePost(Long idPost, Post newPost) {
+		Optional<Post> existingPost = repositoryP.findById(idPost);
 
-		if (postagemExistente.isPresent()) {
-			Optional<Post> tituloExistente = repositoryP.findByTitle(novaPostagem.getTitle());
+		if (existingPost.isPresent()) {
+			Optional<Post> existingTitle = repositoryP.findByTitle(newPost.getTitle());
 
-			if (tituloExistente.isEmpty()) {
-				postagemExistente.get().setTitle(novaPostagem.getTitle());
-				postagemExistente.get().setDescription(novaPostagem.getDescription());
-				postagemExistente.get().setUrlImage(novaPostagem.getUrlImage());
+			if (existingTitle.isEmpty()) {
+				existingPost.get().setTitle(newPost.getTitle());
+				existingPost.get().setDescription(newPost.getDescription());
+				existingPost.get().setUrlImage(newPost.getUrlImage());
 
-				return Optional.ofNullable(repositoryP.save(postagemExistente.get()));
+				return Optional.ofNullable(repositoryP.save(existingPost.get()));
 			} else {
 				return Optional.empty();
 			}
@@ -214,6 +222,8 @@ public class UserService {
 	 * @param idTema
 	 * @author Matheus
 	 * @return Optional com o tema adicionado ou Optional vazio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
 	public Optional<Object> addTag(Long idPost, String tagName) {
 
@@ -242,18 +252,20 @@ public class UserService {
 	 * @param idTema
 	 * @return Optional com a postagem com o tema deletado ou um Optional vazio
 	 * @author Antonio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	public Optional<Object> deletarTemaDaPostagem(Long idPostagem, Long idTema) {
-		Optional<Tag> temaExistente = repositoryT.findById(idTema);
+	public Optional<Object> deletePostTheme(Long idPost, Long idTheme) {
+		Optional<Tag> existingTheme = repositoryT.findById(idTheme);
 
-		if (temaExistente.isPresent()) {
-			Optional<Post> postagemExistente = repositoryP.findById(idPostagem);
+		if (existingTheme.isPresent()) {
+			Optional<Post> existingPost = repositoryP.findById(idPost);
 
-			if (postagemExistente.isPresent()) {
-				if (postagemExistente.get().getTagRelation().contains(temaExistente.get())) {
-					postagemExistente.get().getTagRelation().remove(temaExistente.get());
+			if (existingPost.isPresent()) {
+				if (existingPost.get().getTagRelation().contains(existingTheme.get())) {
+					existingPost.get().getTagRelation().remove(existingTheme.get());
 
-					return Optional.ofNullable(repositoryP.save(postagemExistente.get()));
+					return Optional.ofNullable(repositoryP.save(existingPost.get()));
 				}
 
 			}
@@ -271,6 +283,8 @@ public class UserService {
 	 * @author Chelle
 	 * @since 1.0
 	 * @return Optional com as mudanças, senão um Optional vazio.
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
 	public Optional<Object> addFavoriteTag(Long idUser, String tagName) {
 		Optional<User> existingUser = repositoryU.findById(idUser);
@@ -303,6 +317,8 @@ public class UserService {
 	 * @author Chelle
 	 * @since 1.0
 	 * @return Optional com as mudanças feitas, senão um Optional vazio.
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
 	public Optional<Object> deleteFavoriteTag(Long idUser, Long idTag) {
 
@@ -330,18 +346,20 @@ public class UserService {
 	 * @param novoComentario
 	 * @author Antonio
 	 * @return Optional com o comentário cadastrada ou Optional vazio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	public Optional<Object> cadastrarComentario(Long idUsuario, Long idPostagem, Comment novoComentario) {
+	public Optional<Object> registerComment(Long idUser, Long idPost, Comment newComment) {
 
-		Optional<User> usuarioExistente = repositoryU.findById(idUsuario);
+		Optional<User> existingUser = repositoryU.findById(idUser);
 
-		if (usuarioExistente.isPresent()) {
-			Optional<Post> postagemExistente = repositoryP.findById(idPostagem);
+		if (existingUser.isPresent()) {
+			Optional<Post> postagemExistente = repositoryP.findById(idPost);
 
 			if (postagemExistente.isPresent()) {
-				novoComentario.setPost(postagemExistente.get());
-				novoComentario.setUserComment(usuarioExistente.get());
-				return Optional.ofNullable(repositoryC.save(novoComentario));
+				newComment.setPost(postagemExistente.get());
+				newComment.setUserComment(existingUser.get());
+				return Optional.ofNullable(repositoryC.save(newComment));
 			}
 		}
 
@@ -355,14 +373,16 @@ public class UserService {
 	 * @param comentarioAtualizado
 	 * @author Antonio
 	 * @return Optional com o comentário atualizado ou Optional vazio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	public Optional<Object> atualizarComentario(Long idComentario, Comment comentarioAtualizado) {
-		Optional<Comment> comentarioExistente = repositoryC.findById(idComentario);
+	public Optional<Object> updateComment(Long idComment, Comment updatedComment) {
+		Optional<Comment> existingComment = repositoryC.findById(idComment);
 
-		if (comentarioExistente.isPresent()) {
-			comentarioExistente.get().setText(comentarioAtualizado.getText());
+		if (existingComment.isPresent()) {
+			existingComment.get().setText(updatedComment.getText());
 
-			return Optional.ofNullable(repositoryC.save(comentarioExistente.get()));
+			return Optional.ofNullable(repositoryC.save(existingComment.get()));
 		}
 		return Optional.empty();
 	}
@@ -376,6 +396,7 @@ public class UserService {
 	 * @param idPost
 	 * @author Antonio
 	 * @return um Optional com a denúncia da postagem ou um Optional vazio
+	 * @redactor Amanda
 	 */
 	public Optional<Object> reportPost(Long idUser, Long idPost) {
 		Optional<User> existingUser = repositoryU.findById(idUser);
@@ -421,6 +442,7 @@ public class UserService {
 	 * @param idComment
 	 * @author Antonio
 	 * @return Um Optional com a denúncia do comentário ou um Optional vazio
+	 * @redactor Amanda
 	 */
 	public Optional<Object> reportComment(Long idUser, Long idComment) {
 		Optional<User> existingUser = repositoryU.findById(idUser);
@@ -465,6 +487,7 @@ public class UserService {
 	 * @param idUser
 	 * @author Antonio
 	 * @return Optional com a denúncia deletada ou Optional vazio
+	 * @redactor Amanda
 	 */
 	public Optional<Object> deleteReport(Long idReport, Long idUser) {
 		Optional<Report> existingReport = repositoryR.findById(idReport);
@@ -512,36 +535,37 @@ public class UserService {
 	 * @param idUser
 	 * @param idPost
 	 * @return
+	 * @redactor Amanda
 	 */
-	public Optional<Object> likePost(Long idUser, Long idPost) {
+	public Optional<Object> upvotePost(Long idUser, Long idPost) {
 		Optional<User> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Post> existingPost = repositoryP.findById(idPost);
 			if (existingPost.isPresent()) {
 
-				Optional<Like> existingLike = repositoryL.findByPostUpvote(existingPost.get());
+				Optional<Upvote> existingUpvote = repositoryL.findByPostUpvote(existingPost.get());
 
-				if (existingLike.isPresent()) {
+				if (existingUpvote.isPresent()) {
 
-					if (existingLike.get().getUserLike().contains(existingUser.get())) {
+					if (existingUpvote.get().getUserUpvote().contains(existingUser.get())) {
 						return Optional.empty();
 					} else {
-						existingLike.get().getUserLike().add(existingUser.get());
+						existingUpvote.get().getUserUpvote().add(existingUser.get());
 
-						return Optional.ofNullable(repositoryL.save(existingLike.get()));
+						return Optional.ofNullable(repositoryL.save(existingUpvote.get()));
 					}
 				}
-				Like newLike = new Like();
+				Upvote newUpvote = new Upvote();
 
-				newLike.getUserLike().add(existingUser.get());
-				newLike.setPostUpvote(existingPost.get());
+				newUpvote.getUserUpvote().add(existingUser.get());
+				newUpvote.setPostUpvote(existingPost.get());
 
-				repositoryL.save(newLike);
-				existingPost.get().setLiked(newLike);
+				repositoryL.save(newUpvote);
+				existingPost.get().setUpvoted(newUpvote);
 
 				repositoryP.save(existingPost.get());
-				return Optional.ofNullable(newLike);
+				return Optional.ofNullable(newUpvote);
 			}
 		}
 		return Optional.empty();
@@ -552,36 +576,37 @@ public class UserService {
 	 * @param idUser
 	 * @param idComment
 	 * @return
+	 * @redactor Amanda
 	 */
-	public Optional<Object> likeComment(Long idUser, Long idComment) {
+	public Optional<Object> upvoteComment(Long idUser, Long idComment) {
 		Optional<User> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Comment> existingComment = repositoryC.findById(idComment);
 			if (existingComment.isPresent()) {
 
-				Optional<Like> existingLike = repositoryL.findByCommentUpvote(existingComment.get());
+				Optional<Upvote> existingUpvote = repositoryL.findByCommentUpvote(existingComment.get());
 
-				if (existingLike.isPresent()) {
+				if (existingUpvote.isPresent()) {
 
-					if (existingLike.get().getUserLike().contains(existingUser.get())) {
+					if (existingUpvote.get().getUserUpvote().contains(existingUser.get())) {
 						return Optional.empty();
 					} else {
-						existingLike.get().getUserLike().add(existingUser.get());
+						existingUpvote.get().getUserUpvote().add(existingUser.get());
 
-						return Optional.ofNullable(repositoryL.save(existingLike.get()));
+						return Optional.ofNullable(repositoryL.save(existingUpvote.get()));
 					}
 				}
-				Like newLike = new Like();
+				Upvote newUpvote = new Upvote();
 
-				newLike.getUserLike().add(existingUser.get());
-				newLike.setCommentUpvote(existingComment.get());
+				newUpvote.getUserUpvote().add(existingUser.get());
+				newUpvote.setCommentUpvote(existingComment.get());
 
-				repositoryL.save(newLike);
-				existingComment.get().setLiked(newLike);
+				repositoryL.save(newUpvote);
+				existingComment.get().setUpvoted(newUpvote);
 
 				repositoryC.save(existingComment.get());
-				return Optional.ofNullable(newLike);
+				return Optional.ofNullable(newUpvote);
 			}
 		}
 		return Optional.empty();
@@ -592,40 +617,41 @@ public class UserService {
 	 * @param idLike
 	 * @param idUser
 	 * @return
+	 * @redactor Amanda
 	 */
-	public Optional<Object> unlike(Long idLike, Long idUser) {
-		Optional<Like> existingLike = repositoryL.findById(idLike);
+	public Optional<Object> unupvote(Long idUpvote, Long idUser) {
+		Optional<Upvote> existingUpvote = repositoryL.findById(idUpvote);
 
-		if (existingLike.isPresent()) {
+		if (existingUpvote.isPresent()) {
 			Optional<User> existingUser = repositoryU.findById(idUser);
 
 			if (existingUser.isPresent()) {
-				if (existingLike.get().getUserLike().contains(existingUser.get())) {
-					existingLike.get().getUserLike().remove(existingUser.get());
+				if (existingUpvote.get().getUserUpvote().contains(existingUser.get())) {
+					existingUpvote.get().getUserUpvote().remove(existingUser.get());
 
-					if (existingLike.get().getUserLike().isEmpty()) {
-						if (existingLike.get().getPostUpvote() != null) {
+					if (existingUpvote.get().getUserUpvote().isEmpty()) {
+						if (existingUpvote.get().getPostUpvote() != null) {
 							Optional<Post> existingPost = repositoryP
-									.findById(existingLike.get().getPostUpvote().getIdPost());
+									.findById(existingUpvote.get().getPostUpvote().getIdPost());
 
-							existingPost.get().setLiked(null);
-							existingLike.get().setPostUpvote(null);
+							existingPost.get().setUpvoted(null);
+							existingUpvote.get().setPostUpvote(null);
 
 							repositoryP.save(existingPost.get());
-						} else if (existingLike.get().getCommentUpvote() != null) {
+						} else if (existingUpvote.get().getCommentUpvote() != null) {
 							Optional<Comment> existingComment = repositoryC
-									.findById(existingLike.get().getCommentUpvote().getIdComment());
+									.findById(existingUpvote.get().getCommentUpvote().getIdComment());
 
-							existingComment.get().setLiked(null);
-							existingLike.get().setCommentUpvote(null);
+							existingComment.get().setUpvoted(null);
+							existingUpvote.get().setCommentUpvote(null);
 							
 							repositoryC.save(existingComment.get());
 						}
-						repositoryL.deleteById(idLike);
+						repositoryL.deleteById(idUpvote);
 					} else {
-						repositoryL.save(existingLike.get());
+						repositoryL.save(existingUpvote.get());
 					}
-					return Optional.ofNullable(existingLike.get());
+					return Optional.ofNullable(existingUpvote.get());
 				}
 			}
 		}

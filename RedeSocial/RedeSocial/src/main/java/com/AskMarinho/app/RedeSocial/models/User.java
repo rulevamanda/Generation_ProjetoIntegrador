@@ -22,6 +22,11 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * 
+ * @redactor Amanda
+ *
+ */
 @Entity
 @Table(name = "user")
 public class User {
@@ -30,38 +35,38 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUser;
 
-	@NotNull(message = "Precisa ter um nome!")
-	@Size(min = 3, max = 50, message = "O nome não pode ser nulo")
+	@NotNull(message = "Insira um nome.")
+	@Size(min = 3, max = 50, message = "O nome não pode ser nulo.")
 	private String name;
 
-	@NotNull(message = "Aqui precisa ter um usuário válido!")
-	@Size(min = 5, max = 15, message = "User entre 3 e 15")
+	@NotNull(message = "Insira um nome de usuário.")
+	@Size(min = 5, max = 15, message = "Nome de usuário entre 3 e 15 caracteres.")
 	private String userName;
 
-	@NotNull
-	@Size(min = 12, max = 25, message = "Email precisar ter entre 12 e 25 caracteres!")
+	@NotNull(message = "Insira um endereço de email.")
+	@Size(min = 12, max = 25, message = "Endereço de email entre 12 e 25 caracteres.")
 	private String email;
 
-	@NotNull(message = "A senha não pode ser nula, please!")
-	@Size(min = 8, max = 255)
+	@NotNull(message = "Insira uma senha.")
+	@Size(min = 8, max = 25, message = "Senha entre 8 e 25 caracteres.")
 	private String password;
 
-	@NotNull
+	@NotNull(message = "Insira uma data de nascimento.")
 	private Date birth;
 
-	@NotNull
+	@NotNull(message = "Insira o gênero.") //opção de múltiplas escolhas?
 	private String gender;
 
-	@NotNull
+	@NotNull(message = "Insira um número de telefone.")
 	@Column(name = "telephone", length = 20)
 	private Long telephone;
 
 	@OneToMany(mappedBy = "userComment", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({ "liked", "userComment", "idComment", "post", "reported" })
+	@JsonIgnoreProperties({ "upvoted", "userComment", "idComment", "post", "reported" })
 	private List<Comment> comments;
 
 	@OneToMany(mappedBy = "userPost", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({ "liked", "userPost", "idPost", "comments", "tagRelation", "comment", "reported" })
+	@JsonIgnoreProperties({ "upvoted", "userPost", "idPost", "comments", "tagRelation", "comment", "reported" })
 	private List<Post> posts;
 
 	@ManyToMany(mappedBy = "userReport", cascade = CascadeType.ALL)
@@ -69,9 +74,9 @@ public class User {
 	private List<Report> reports = new ArrayList<>();
 	
 	
-	@ManyToMany(mappedBy = "userLike", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("userLike")
-	private List<Like> likes = new ArrayList<>();
+	@ManyToMany(mappedBy = "userUpvote", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("userUpvote")
+	private List<Upvote> upvotes = new ArrayList<>();
 	
 	@ManyToMany
 	@JoinTable(name = "userAndFavorites", joinColumns = @JoinColumn(name = "fk_user"), inverseJoinColumns = @JoinColumn(name = "fk_tag"))
@@ -174,11 +179,11 @@ public class User {
 		this.favorites = favorites;
 	}
 
-	public List<Like> getLikes() {
-		return likes;
+	public List<Upvote> getLikes() {
+		return upvotes;
 	}
 
-	public void setLikes(List<Like> likes) {
-		this.likes = likes;
+	public void setLikes(List<Upvote> likes) {
+		this.upvotes = likes;
 	}
 }

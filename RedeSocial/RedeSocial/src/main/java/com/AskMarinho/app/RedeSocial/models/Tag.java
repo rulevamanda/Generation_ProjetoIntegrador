@@ -17,6 +17,11 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
+/**
+ * 
+ * @redactor Amanda
+ *
+ */
 @Entity
 @Table(name = "tag")
 public class Tag {
@@ -30,12 +35,12 @@ public class Tag {
 	private String tagName;
 
 	@ManyToMany(mappedBy = "tagRelation")
-	@JsonIgnoreProperties({"liked", "userPost", "comments", "tagRelation", "comment", "reported" })
+	@JsonIgnoreProperties({"upvoted", "userPost", "comments", "tagRelation", "comment", "reported" })
 	private List<Post> posts = new ArrayList<>();
 
 	// editando aqui --user
 	@ManyToMany(mappedBy = "favorites")
-	@JsonIgnoreProperties({ "likes", "posts", "reports", "favorites", "comments", "password", "email", "birth", "gender", "telephone" })
+	@JsonIgnoreProperties({ "upvotes", "posts", "reports", "favorites", "comments", "password", "email", "birth", "gender", "telephone" })
 	private List<User> userTags;
 
 	public long getIdTag() {

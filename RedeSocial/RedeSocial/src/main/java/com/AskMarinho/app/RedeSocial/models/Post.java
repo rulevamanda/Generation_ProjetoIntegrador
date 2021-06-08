@@ -24,7 +24,11 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
-
+/**
+ * 
+ * @redactor Amanda
+ *
+ */
 @Entity
 @Table(name = "post")
 public class Post {
@@ -47,12 +51,12 @@ public class Post {
 	private Date date = new java.sql.Date(System.currentTimeMillis());
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({ "liked", "post", "idComment", "userComment", "reported" })
+	@JsonIgnoreProperties({ "upvoted", "post", "idComment", "userComment", "reported" })
 	private List<Comment> comment;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuarioPostagem")
-	@JsonIgnoreProperties({ "likes", "favorites","posts", "idUser", "name", "userName", "birth", "comments", "reports" })
+	@JsonIgnoreProperties({ "upvotes", "favorites","posts", "idUser", "name", "userName", "birth", "comments", "reports" })
 	private User userPost;
 
 	@ManyToMany
@@ -66,7 +70,7 @@ public class Post {
 	
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({"postUpvote", "commentUpvote"})
-	private Like liked;
+	private Upvote upvoted;
 
 	public long getIdPost() {
 		return idPost;
@@ -104,8 +108,8 @@ public class Post {
 		return reported;
 	}
 
-	public Like getLiked() {
-		return liked;
+	public Upvote getUpvoted() {
+		return upvoted;
 	}
 
 	public void setIdPost(long idPost) {
@@ -144,8 +148,8 @@ public class Post {
 		this.reported = reported;
 	}
 
-	public void setLiked(Like liked) {
-		this.liked = liked;
+	public void setUpvoted(Upvote upvoted) {
+		this.upvoted = upvoted;
 	}
 
 }

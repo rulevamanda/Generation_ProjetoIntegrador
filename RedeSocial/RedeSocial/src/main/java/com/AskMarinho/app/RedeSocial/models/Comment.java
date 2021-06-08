@@ -14,7 +14,11 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
-
+/**
+ * 
+ * @redactor Amanda
+ *
+ */
 @Entity
 @Table(name = "comment")
 public class Comment {
@@ -29,13 +33,13 @@ public class Comment {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userComment")
-	@JsonIgnoreProperties({ "likes","comments", "posts", "idUser", "userName", "telephone", "password", "birth", "reports",
+	@JsonIgnoreProperties({ "upvotes","comments", "posts", "idUser", "userName", "telephone", "password", "birth", "reports",
 			"favorites" })
 	private User userComment;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "post")
-	@JsonIgnoreProperties({"liked", "comment", "userPost", "idPost", "tagRelation", "reported" })
+	@JsonIgnoreProperties({"upvoted", "comment", "userPost", "idPost", "tagRelation", "reported" })
 	private Post post;
 
 	@OneToOne(cascade = CascadeType.REMOVE)
@@ -44,7 +48,7 @@ public class Comment {
 
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({"postUpvote", "commentUpvote"})
-	private Like liked;
+	private Upvote upvoted;
 
 	public long getIdComment() {
 		return idComment;
@@ -66,8 +70,8 @@ public class Comment {
 		return reported;
 	}
 
-	public Like getLiked() {
-		return liked;
+	public Upvote getLiked() {
+		return upvoted;
 	}
 
 	public void setIdComment(long idComment) {
@@ -90,8 +94,8 @@ public class Comment {
 		this.reported = reported;
 	}
 
-	public void setLiked(Like liked) {
-		this.liked = liked;
+	public void setUpvoted(Upvote upvoted) {
+		this.upvoted = upvoted;
 	}
 
 }

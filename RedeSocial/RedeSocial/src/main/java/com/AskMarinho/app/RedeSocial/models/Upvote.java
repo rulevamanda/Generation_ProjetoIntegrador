@@ -16,34 +16,39 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * 
+ * @redactor Amanda
+ *
+ */
 @Entity
 @Table(name = "tb_like")
-public class Like {
+public class Upvote {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idLike;
+	private long idUpvote;
 
 	@ManyToMany(cascade = CascadeType.REMOVE)
-	@JoinTable(name = "likesAndUser", joinColumns = @JoinColumn(name = "fk_like"), inverseJoinColumns = @JoinColumn(name = "fk_user"))
-	@JsonIgnoreProperties({ "posts","userName", "password", "birth", "gender", "telephone", "comments", "reports", "likes",
+	@JoinTable(name = "upvotesAndUser", joinColumns = @JoinColumn(name = "fk_upvote"), inverseJoinColumns = @JoinColumn(name = "fk_user"))
+	@JsonIgnoreProperties({ "posts","userName", "password", "birth", "gender", "telephone", "comments", "reports", "upvotes",
 			"favorites" })
-	private Set<User> userLike = new HashSet<>();
+	private Set<User> userUpvote = new HashSet<>();
 
 	@OneToOne
-	@JsonIgnoreProperties({ "liked", "comment", "userPost", "tagRelation", "reported" })
+	@JsonIgnoreProperties({ "upvoted", "comment", "userPost", "tagRelation", "reported" })
 	private Post postUpvote;
 
 	@OneToOne
-	@JsonIgnoreProperties({ "liked", "userComment", "post", "reported" })
+	@JsonIgnoreProperties({ "upvoted", "userComment", "post", "reported" })
 	private Comment commentUpvote;
 
-	public long getIdLike() {
-		return idLike;
+	public long getIdUpvote() {
+		return idUpvote;
 	}
 
-	public Set<User> getUserLike() {
-		return userLike;
+	public Set<User> getUserUpvote() {
+		return userUpvote;
 	}
 
 	public Post getPostUpvote() {
@@ -54,12 +59,12 @@ public class Like {
 		return commentUpvote;
 	}
 
-	public void setIdLike(long idLike) {
-		this.idLike = idLike;
+	public void setIdUpvote(long idUpvote) {
+		this.idUpvote = idUpvote;
 	}
 
-	public void setUserLike(Set<User> userLike) {
-		this.userLike = userLike;
+	public void setUserUpvote(Set<User> userUpvote) {
+		this.userUpvote = userUpvote;
 	}
 
 	public void setPostUpvote(Post postUpvote) {

@@ -15,7 +15,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+/**
+ * 
+ * @redactor Amanda
+ *
+ */
 @Entity
 @Table(name = "report")
 public class Report {
@@ -26,15 +30,15 @@ public class Report {
 
 	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "reportsAndUsers", joinColumns = @JoinColumn(name = "fk_report"), inverseJoinColumns = @JoinColumn(name = "fk_user"))
-	@JsonIgnoreProperties({ "likes", "reports", "password", "birth", "gender", "comments", "posts", "favorites" })
+	@JsonIgnoreProperties({ "upvotes", "reports", "password", "birth", "gender", "comments", "posts", "favorites" })
 	private Set<User> userReport = new HashSet<>();
 
 	@OneToOne
-	@JsonIgnoreProperties({ "liked", "reports", "comment", "reports", "userPost", "tagRelation", "reported" })
+	@JsonIgnoreProperties({ "upvoted", "reports", "comment", "reports", "userPost", "tagRelation", "reported" })
 	private Post postReport;
 
 	@OneToOne
-	@JsonIgnoreProperties({ "liked", "userComment", "post", "reported" })
+	@JsonIgnoreProperties({ "upvoted", "userComment", "post", "reported" })
 	private Comment commentReport;
 
 	public long getIdReport() {
