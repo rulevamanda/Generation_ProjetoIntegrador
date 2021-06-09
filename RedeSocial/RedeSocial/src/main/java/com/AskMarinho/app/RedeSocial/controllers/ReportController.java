@@ -18,12 +18,12 @@ import com.AskMarinho.app.RedeSocial.repositories.ReportRepository;
  *
  */
 @RestController
-@RequestMapping("/denuncias")
+@RequestMapping("/reports")
 public class ReportController {
 	@Autowired
 	private ReportRepository repositoryR;
 
-	@GetMapping("/todas")
+	@GetMapping("/all")
 	public ResponseEntity<List<Report>> getAll() {
 		return ResponseEntity.status(200).body(repositoryR.findAll());
 	}

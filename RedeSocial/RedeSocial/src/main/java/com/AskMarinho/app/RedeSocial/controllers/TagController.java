@@ -22,13 +22,13 @@ import com.AskMarinho.app.RedeSocial.repositories.TagRepository;
  */
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/tema")
+@RequestMapping("/theme")
 public class TagController {
 
 	@Autowired
 	private TagRepository repositoryT;
 
-	@GetMapping("/todos")
+	@GetMapping("/all")
 	public ResponseEntity<List<Tag>> getAll() {
 		return ResponseEntity.status(200).body(repositoryT.findAll());
 	}
@@ -38,7 +38,7 @@ public class TagController {
 		return repositoryT.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
-	@GetMapping("/nome/{name}")
+	@GetMapping("/name/{name}")
 	public ResponseEntity<List<Tag>> getByName(@PathVariable String name) {
 		return ResponseEntity.ok(repositoryT.findAllByTagNameContainingIgnoreCase(name));
 	}
