@@ -21,7 +21,7 @@ import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
 import com.AskMarinho.app.RedeSocial.repositories.UserRepository;
 
 @RestController
-@RequestMapping("/postagens")
+@RequestMapping("/posts")
 @CrossOrigin(origins = "", allowedHeaders = "")
 
 public class PostController {
@@ -37,7 +37,7 @@ public class PostController {
 	 * @author Bueno
 	 * @translator Amanda
 	 */
-	@GetMapping("/todas")
+	@GetMapping("/all")
 	public ResponseEntity<List<Post>> allPosts() {
 		List<Post> postList = repositoryP.findAll();
 		return ResponseEntity.status(200).body(postList);
@@ -67,7 +67,7 @@ public class PostController {
 	 * @author Bueno
 	 * @translator Amanda
 	 */
-	@GetMapping("/titulo/{title}")
+	@GetMapping("/title/{title}")
 	public ResponseEntity<List<Post>> titlePost(@PathVariable String title) {
 		return ResponseEntity.status(200).body(repositoryP.findAllByTitleContainingIgnoreCase(title));
 
@@ -81,7 +81,7 @@ public class PostController {
 	 * @author Antonio
 	 * @author Bueno
 	 */
-	@GetMapping("/curtidas/{idPost}")
+	@GetMapping("/upvotes/{idPost}")
 	public ResponseEntity<String> upvotesPost(@PathVariable(value = "idPost") Long idPost) {
 		Optional<Post> existingPost = repositoryP.findById(idPost);
 		if (existingPost.isPresent()) {
@@ -103,7 +103,7 @@ public class PostController {
 	 * @author Antonio
 	 * @author Bueno
 	 */
-	@GetMapping("/denuncias/{idPost}")
+	@GetMapping("/reports/{idPost}")
 	public ResponseEntity<String> reportsPost(@PathVariable(value = "idPost") Long idPost) {
 		Optional<Post> existingPost = repositoryP.findById(idPost);
 		if (existingPost.isPresent()) {
