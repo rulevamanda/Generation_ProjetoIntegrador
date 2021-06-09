@@ -1,7 +1,9 @@
 package com.AskMarinho.app.RedeSocial.controllers;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.AskMarinho.app.RedeSocial.models.Post;
+import com.AskMarinho.app.RedeSocial.models.Tag;
+import com.AskMarinho.app.RedeSocial.models.User;
 import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
+import com.AskMarinho.app.RedeSocial.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/posts")
@@ -23,6 +28,7 @@ public class PostController {
 
 	private @Autowired PostRepository repositoryP;
 
+	private @Autowired UserRepository repositoryU;
 	/**
 	 * MÃ©todo para buscar todas as postagens
 	 * 
@@ -107,6 +113,31 @@ public class PostController {
 			}
 			return ResponseEntity.status(202).body("Número de denúncias: 0");
 
+		}
+		return ResponseEntity.status(404).build();
+	}
+	
+	/**
+	 * 
+	 * @param idUser
+	 * @return
+	 */
+	@GetMapping("/usuario/favoritas/{idUser}")
+	public ResponseEntity<Set<Post>> returnPostsFav(@PathVariable(value = "idUser") Long idUser) {
+		Optional<User> existingUser = repositoryU.findById(idUser);
+		Set<Post> posts = new HashSet<>();
+		if (existingUser.isPresent()) {
+			Set<Tag> tagFavorites = existingUser.get().getFavorites();
+			
+			for(Tag tags : tagFavorites) {
+				List<Post> existingPost  = repositoryP.findAllByTagRelation(tags);
+				
+				for (int i = 0; i < existingPost.size(); i++) {
+				 posts.add(existingPost.get(i));
+				}
+			}
+			
+			return ResponseEntity.status(202).body(posts);
 		}
 		return ResponseEntity.status(404).build();
 	}
