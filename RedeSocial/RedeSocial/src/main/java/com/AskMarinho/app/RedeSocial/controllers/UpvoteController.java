@@ -23,11 +23,22 @@ public class UpvoteController {
 	
 	private @Autowired UpvoteRepository repositoryL;
 
+	/**
+	 * Rota para retornar todos os likes
+	 * @author Antonio
+	 * @return
+	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Upvote>> getAll() {
 		return ResponseEntity.status(200).body(repositoryL.findAll());
 	}
 
+	/**
+	 * Rota para retornar um like pelo id
+	 * @param idUpvote
+	 * @author Antonio
+	 * @return
+	 */
 	@GetMapping("/id/{idUpvote}")
 	public ResponseEntity<Upvote> getById(@PathVariable(value = "idUpvote") Long idUpvote) {
 		Optional<Upvote> existingUpvote = repositoryL.findById(idUpvote);

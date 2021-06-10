@@ -26,8 +26,9 @@ public class CommentController {
 	private CommentRepository repositoryC;
 
 	/**
-	 * Buscar todos os comentários
+	 * Rota para buscar todos os comentários
 	 * 
+	 * @author Antonio
 	 * @return lista com todos os comentários
 	 */
 	@GetMapping("/all")
@@ -37,58 +38,15 @@ public class CommentController {
 	}
 
 	/**
-	 * Buscar um comentário especifico pelo id
+	 * Rota para buscar um comentário especifico pelo id
 	 * 
+	 * @author Antonio
 	 * @param id
 	 * @return comentário referente ao id pesquisado ou um status notfound
 	 */
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Comment> idComment(@PathVariable Long id) {
 		return repositoryC.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
-	}
-
-	/**
-	 * Método retorna o número de likes em um comentário
-	 * 
-	 * @param idComment
-	 * @return retorna o número de likes
-	 * @author Antonio
-	 * @author Bueno
-	 */
-	@GetMapping("/upvotes/{idComment}")
-	public ResponseEntity<String> upvotesComment(@PathVariable(value = "idComment") Long idComment) {
-		Optional<Comment> existingComment = repositoryC.findById(idComment);
-		if (existingComment.isPresent()) {
-			if (existingComment.get().getUpvoted() != null) {
-				return ResponseEntity.status(202)
-						.body("Número de upvotes: " + existingComment.get().getUpvoted().getUserUpvote().size());
-			}
-			return ResponseEntity.status(202).body("Número de upvotes: 0");
-
-		}
-		return ResponseEntity.status(404).build();
-	}
-
-	/**
-	 * Método pega o número de denúncias em comentário
-	 * 
-	 * @param idComment
-	 * @return retorna número de denúncias
-	 * @author Antonio
-	 * @author Bueno
-	 */
-	@GetMapping("/reports/{idComment}")
-	public ResponseEntity<String> reportsComments(@PathVariable(value = "idComment") Long idComment) {
-		Optional<Comment> existingComment = repositoryC.findById(idComment);
-		if (existingComment.isPresent()) {
-			if (existingComment.get().getReported() != null) {
-				return ResponseEntity.status(202)
-						.body("Número de denúncias: " + existingComment.get().getReported().getUserReport().size());
-			}
-			return ResponseEntity.status(202).body("Número de denúncias: 0");
-
-		}
-		return ResponseEntity.status(404).build();
 	}
 
 }

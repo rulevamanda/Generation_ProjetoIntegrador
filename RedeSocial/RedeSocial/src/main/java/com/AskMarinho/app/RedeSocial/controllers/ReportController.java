@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.AskMarinho.app.RedeSocial.models.Report;
 import com.AskMarinho.app.RedeSocial.repositories.ReportRepository;
+
 /**
  * 
  * @translator Amanda
@@ -23,11 +24,24 @@ public class ReportController {
 	@Autowired
 	private ReportRepository repositoryR;
 
+	/**
+	 * Rota para retornar todos os reports
+	 * 
+	 * @author Antonio
+	 * @return
+	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Report>> getAll() {
 		return ResponseEntity.status(200).body(repositoryR.findAll());
 	}
 
+	/**
+	 * Rota para retornar um report pelo id
+	 * 
+	 * @param idReport
+	 * @author Antonio
+	 * @return
+	 */
 	@GetMapping("/id/{idReport}")
 	public ResponseEntity<Report> getById(@PathVariable(value = "idReport") Long idReport) {
 		Optional<Report> existingReport = repositoryR.findById(idReport);
