@@ -46,18 +46,18 @@ public class UserController {
 
 	/**
 	 * Método que faz login na plataforma
+	 * 
 	 * @param user
-	 * @return 
+	 * @return
 	 * @author Bueno
 	 */
 
 	@PostMapping("/login")
-	public ResponseEntity<UserLogin> AuthenticationManagerBuilder(@RequestBody Optional<UserLogin> user){
-		return serviceU.login(user)
-				.map(resp -> ResponseEntity.status(200).body(resp))
+	public ResponseEntity<UserLogin> AuthenticationManagerBuilder(@RequestBody Optional<UserLogin> user) {
+		return serviceU.login(user).map(resp -> ResponseEntity.status(200).body(resp))
 				.orElse(ResponseEntity.status(401).build());
 	}
-	
+
 	/**
 	 * Rota para retornar todos os usuários
 	 * 
@@ -229,7 +229,7 @@ public class UserController {
 	 * @return
 	 */
 	@PutMapping("/posts/add/theme/{themeName}/{idPost}")
-	public ResponseEntity<Object> addTheme(@PathVariable(value = "nomeTema") String themeName,
+	public ResponseEntity<Object> addTheme(@PathVariable(value = "themeName") String themeName,
 			@PathVariable(value = "idPost") Long idPost) {
 		return serviceU.addTag(idPost, themeName);
 	}
