@@ -2,9 +2,8 @@ package com.AskMarinho.app.RedeSocial.controllers;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.Set;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,12 +43,27 @@ public class UserController {
 
 	// ----------------------- USUÁRIOS -----------------------
 
+	/**
+	 * Rota para retornar todos os usuários
+	 * 
+	 * @author Chelle
+	 * @author Amanda
+	 * @return
+	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<User>> searchAll() {
 		List<User> listAll = repositoryU.findAll();
 		return ResponseEntity.status(200).body(listAll);
 	}
 
+	/**
+	 * Rota para retornar um usuário pelo nome
+	 * 
+	 * @param name
+	 * @author Amanda
+	 * @author Chelle
+	 * @return
+	 */
 	@GetMapping("/name/search")
 	public ResponseEntity<Object> searchByName(@RequestParam(defaultValue = "") String name) {
 		List<User> listOfNames = repositoryU.findAllByNameContainingIgnoreCase(name);
@@ -61,32 +75,56 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Rota para pegar um usuário pelo id
+	 * 
+	 * @param id
+	 * @author Chelle
+	 * @author Amanda
+	 * @return
+	 */
 	@GetMapping("/id/{id}")
 	public ResponseEntity<User> searchById(@PathVariable Long id) {
 		return repositoryU.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
+	/**
+	 * Rota para registrar um usuário
+	 * 
+	 * @param newUser
+	 * @author Amanda
+	 * @author Chelle
+	 * @return
+	 */
 	@PostMapping("/register")
-	public ResponseEntity<String> registerUser(@Valid @RequestBody User newUser) {
-		return serviceU.registerUser(newUser)
-				.map(registeredEmail -> ResponseEntity.status(201)
-						.body("Usuario: " + newUser.getUserName() + "\nEmail: " + newUser.getEmail()
-								+ "\nUSUÁRIO CADASTRADO"))
-				.orElse(ResponseEntity.status(400)
-						.body("Erro ao cadastrar usuário."));
+	public ResponseEntity<Object> registerUser(@Valid @RequestBody User newUser) {
+		return serviceU.registerUser(newUser);
 	}
 
-	@PutMapping("/update/{id_user}")
-	public ResponseEntity<String> updateUser(@Valid @RequestBody User updatedUser,
-			@Valid @PathVariable(value = "id_user") Long id) {
-		return serviceU.updateUser(id, updatedUser)
-				.map(updateUser -> ResponseEntity.status(201)
-						.body("Usuário: " + updatedUser.getUserName() + "\nEmail: "
-								+ updatedUser.getEmail() + "\nUSUÁRIO ATUALIZADO"))
-				.orElse(ResponseEntity.status(400).body(
-						"Erro ao atualizar usuário."));
+	/**
+	 * Rota para atualizar um usuário
+	 * 
+	 * @param updatedUser
+	 * @param idUser
+	 * @author Amanda
+	 * @author Chelle
+	 * @author Antonio
+	 * @return
+	 */
+	@PutMapping("/update/{idUser}")
+	public ResponseEntity<Object> updateUser(@Valid @RequestBody User updatedUser,
+			@Valid @PathVariable(value = "idUser") Long idUser) {
+		return serviceU.updateUser(idUser, updatedUser);
 	}
 
+	/**
+	 * Rota para excluir um usuário
+	 * 
+	 * @param id_user
+	 * @author Chelle
+	 * @author Amanda
+	 * @return
+	 */
 	@DeleteMapping("/delete/{id_user}")
 	public ResponseEntity<String> deleteUser(@PathVariable Long id_user) {
 		Optional<User> existingUser = repositoryU.findById(id_user);
@@ -102,53 +140,54 @@ public class UserController {
 	// ----------------------- POSTAGENS -----------------------
 
 	/**
-	 * MÃ©todo para cadastrar nova postagem
+	 * Rota para retornar postagens com as tags favoritas de um usuário
 	 * 
-	 * @param novaPostagem - objeto passado pelo body da requisiÃ§Ã£o
-	 * @return status de 201 com a postagem criada ou um status 400 caso jÃ¡ tenha
-	 *         uma postagem com o mesmo tÃ­tulo
+	 * @param idUser
+	 * @author Antonio
+	 * @return postagens com as tags favoritas de um usuário
+	 */
+	@GetMapping("/posts/favorites/{idUser}")
+	public ResponseEntity<Set<Post>> returnPostsFav(@PathVariable(value = "idUser") Long idUser) {
+		return serviceU.postsFavorites(idUser);
+	}
+
+	/**
+	 * Rota para cadastrar nova postagem
+	 * 
+	 * @param novaPostagem - objeto passado pelo body da requisição
+	 * @return status de 201 com a postagem criada ou um status 400 caso já tenha
+	 *         uma postagem com o mesmo título
 	 * @author Antonio
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
 	@PostMapping("/posts/register/{idUser}/{themeName}")
-	public ResponseEntity<String> registerPost(@PathVariable(value = "idUser") Long idUser,
+	public ResponseEntity<Object> registerPost(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "themeName") String themeName, @RequestBody Post newPost) {
-		return serviceU.registerPost(idUser, themeName, newPost)
-				.map(postCreated -> ResponseEntity.status(201)
-						.body("Título da postagem: " + newPost.getTitle() + "\nDescrição " + "da postagem: "
-								+ newPost.getDescription() + "\nPOSTAGEM CADASTRADA"))
-				.orElse(ResponseEntity.status(200).body("Erro ao cadastrar título."));
+		return serviceU.registerPost(idUser, themeName, newPost);
 	}
 
 	/**
-	 * MÃ©todo para atualizar postagens
+	 * Rota para atualizar uma postagem
 	 * 
 	 * @param id       - id passado pela url
-	 * @param postagem - dados passados pelo corpo da requisiÃ§Ã£o
+	 * @param postagem - dados passados pelo corpo da requisição
 	 * @return retorna um status 201 e a postagem atualizada ou retorna um status
-	 *         304 caso a postagem nÃ£o exista
+	 *         304 caso a postagem nãoo exista
 	 * @author Antonio
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
 	@PutMapping("/posts/update/{id}")
-	public ResponseEntity<String> updatePost(@PathVariable(value = "id") Long id,
-			@Valid @RequestBody Post post) {
-		return serviceU.updatePost(id, post)
-				.map(updatePost -> ResponseEntity.status(201)
-						.body("Título da postagem: " + post.getTitle() + "\nDescrição " + "da postagem: "
-								+ post.getDescription() + "\nPOSTAGEM ATUALIZADA"))
-				.orElse(ResponseEntity.status(200)
-						.body("Erro ao atualizar postagem"));
-
+	public ResponseEntity<Object> updatePost(@PathVariable(value = "id") Long id, @Valid @RequestBody Post post) {
+		return serviceU.updatePost(id, post);
 	}
 
 	/**
-	 * MÃ©todo para deletar postagens
+	 * Rota para deletar uma postagem
 	 * 
 	 * @param id - id passado pela url
-	 * @return retorna um status 200 ou retorna um status 400 caso nÃ£o exista uma
+	 * @return retorna um status 200 ou retorna um status 400 caso não£o exista uma
 	 *         postagem com o id passado
 	 * @author Antonio
 	 * @redactor Amanda
@@ -166,40 +205,91 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Rota para adicionar um tema em uma postagem
+	 * 
+	 * @param themeName
+	 * @param idPost
+	 * @author Antonio
+	 * @return
+	 */
 	@PutMapping("/posts/add/theme/{themeName}/{idPost}")
-	public ResponseEntity<String> addTheme(@PathVariable(value = "nomeTema") String themeName,
+	public ResponseEntity<Object> addTheme(@PathVariable(value = "nomeTema") String themeName,
 			@PathVariable(value = "idPost") Long idPost) {
-		return serviceU.addTag(idPost, themeName)
-				.map(added -> ResponseEntity.status(201).body("TEMA ADICIONADO"))
-				.orElse(ResponseEntity.status(200).body("Erro ao adicionar Tema."));
+		return serviceU.addTag(idPost, themeName);
 	}
 
+	/**
+	 * Rota para retirar um tema de um post
+	 * 
+	 * @param idTheme
+	 * @param idPost
+	 * @author Antonio
+	 * @return
+	 */
 	@DeleteMapping("/posts/delete/theme/{idTheme}/{idPost}")
-	public ResponseEntity<String> deletePostTheme(@PathVariable(value = "idTheme") Long idTheme,
+	public ResponseEntity<Object> deletePostTheme(@PathVariable(value = "idTheme") Long idTheme,
 			@PathVariable(value = "idPost") Long idPost) {
-		return serviceU.deletePostTheme(idPost, idTheme)
-				.map(deleted -> ResponseEntity.status(200).body("TEMA DA POSTAGEM DELETADO"))
-				.orElse(ResponseEntity.status(404).build());
+		return serviceU.deletePostTheme(idPost, idTheme);
+	}
+
+	/**
+	 * . Rota para retornar o número de likes de um post
+	 * 
+	 * @param idPost
+	 * @author Bueno
+	 * @author Antonio
+	 * @return
+	 */
+	@GetMapping("/posts/upvotes/{idPost}")
+	public ResponseEntity<String> upvotesPost(@PathVariable(value = "idPost") Long idPost) {
+		return serviceU.upvotesPost(idPost);
+	}
+
+	/**
+	 * Rota para retornar o número de reports de um post
+	 * 
+	 * @param idPost
+	 * @author Antonio
+	 * @author Bueno
+	 * @return
+	 */
+	@GetMapping("/posts/reports/{idPost}")
+	public ResponseEntity<String> reportsPost(@PathVariable(value = "idPost") Long idPost) {
+		return serviceU.reportsPosts(idPost);
 	}
 
 	// ----------------------- TEMAS -----------------------
 
+	/**
+	 * Rota para adicionar uma tag favorita a um usuário
+	 * 
+	 * @param idUser
+	 * @param tagName
+	 * @author Chelle
+	 * @author Antonio
+	 * @return
+	 */
 	@PutMapping("/add/theme/{idUser}/{tagName}")
-	public ResponseEntity<String> addTags(@PathVariable(value = "idUser") Long idUser,
+	public ResponseEntity<Object> addTags(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "tagName") String tagName) {
-		return serviceU.addFavoriteTag(idUser, tagName)
-				.map(addedTag -> ResponseEntity.status(201).body("TEMA FAVORITO ADICIONADO"))
-				.orElse(ResponseEntity.status(400).build());
+		return serviceU.addFavoriteTag(idUser, tagName);
 	}
 
+	/**
+	 * Rota para retirar um tema favorito de um usuário
+	 * 
+	 * @param idUser
+	 * @param idTag
+	 * @author Chelle
+	 * @author Antonio
+	 * @return
+	 */
 	@DeleteMapping("/delete/theme/favorites/{idUser}/{idTag}")
-
-	public ResponseEntity<String> deleteFavoriteTag(@PathVariable(value = "idUser") Long idUser,
+	public ResponseEntity<Object> deleteFavoriteTag(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idTag") Long idTag) {
 
-		return serviceU.deleteFavoriteTag(idUser, idTag)
-				.map(deletedTag -> ResponseEntity.status(202).body("TEMA FOVORITO DELETADO"))
-				.orElse(ResponseEntity.status(404).build());
+		return serviceU.deleteFavoriteTag(idUser, idTag);
 	}
 
 	// ----------------------- COMENTÁRIOS -----------------------
@@ -211,15 +301,14 @@ public class UserController {
 	 * @param idPostagem     - postagem a ser comentada
 	 * @param novoComentario
 	 * @return uma lista com todos comentários, com o status 201, ou um status 400
+	 * @author Antonio
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
 	@PostMapping("/comments/register/{idUser}/{idPost}")
-	public ResponseEntity<List<Comment>> registerPost(@PathVariable(value = "idUser") Long idUser,
+	public ResponseEntity<Object> registerPost(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idPost") Long idPost, @RequestBody Comment newComment) {
-		return serviceU.registerComment(idUser, idPost, newComment)
-				.map(comment -> ResponseEntity.status(201).body(repositoryC.findAll()))
-				.orElse(ResponseEntity.status(400).build());
+		return serviceU.registerComment(idUser, idPost, newComment);
 	}
 
 	/**
@@ -228,15 +317,14 @@ public class UserController {
 	 * @param idComentario
 	 * @param comentarioAtualizado
 	 * @return uma lista com todos comentários, com o status 201, ou um status 400
+	 * @author Antonio
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
 	@PutMapping("/comments/update/{idComment}")
-	public ResponseEntity<List<Comment>> updatePost(@PathVariable(value = "idComment") Long idComment,
+	public ResponseEntity<Object> updateComment(@PathVariable(value = "idComment") Long idComment,
 			@Valid @RequestBody Comment commentUpdated) {
-		return serviceU.updateComment(idComment, commentUpdated)
-				.map(postagemAtualizada -> ResponseEntity.status(201).body(repositoryC.findAll()))
-				.orElse(ResponseEntity.status(400).build());
+		return serviceU.updateComment(idComment, commentUpdated);
 
 	}
 
@@ -245,6 +333,7 @@ public class UserController {
 	 * 
 	 * @param idComment
 	 * @return uma mensagem para caso o comentário seja deletado ou não
+	 * @author Antonio
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
@@ -260,64 +349,123 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Rota para receber o número de likes de um comentário
+	 * 
+	 * @param idComment
+	 * @author Antonio
+	 * @author Bueno
+	 * @return
+	 */
+	@GetMapping("/comments/upvotes/{idComment}")
+	public ResponseEntity<String> upvotesComment(@PathVariable(value = "idComment") Long idComment) {
+		return serviceU.upvotesComment(idComment);
+	}
+
+	/**
+	 * Rota para números de reports em um comentário
+	 * 
+	 * @param idComment
+	 * @author Antonio
+	 * @author Bueno
+	 * @return
+	 */
+	@GetMapping("/comments/reports/{idComment}")
+	public ResponseEntity<String> reportsComments(@PathVariable(value = "idComment") Long idComment) {
+		return serviceU.reportsComments(idComment);
+	}
+
 	// ----------------------- DENÚNCIAS -----------------------
 
+	/**
+	 * Rota para reportar um post
+	 * 
+	 * @param idUser
+	 * @param idPost
+	 * @author Antonio
+	 * @return
+	 */
 	@PostMapping("/reports/post/{idUser}/{idPost}")
-	public ResponseEntity<String> reportPost(@PathVariable(value = "idUser") Long idUser,
+	public ResponseEntity<Object> reportPost(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idPost") Long idPost) {
 
-		return serviceU.reportPost(idUser, idPost)
-				.map(reported -> ResponseEntity.status(201).body("POSTAGEM DENUNCIADA"))
-				.orElse(ResponseEntity.status(200)
-						.body("Erro ao denunciar postagem."));
+		return serviceU.reportPost(idUser, idPost);
 	}
 
+	/**
+	 * Rota para reportar um comentário
+	 * 
+	 * @param idUser
+	 * @param idComment
+	 * @author Antonio
+	 * @return
+	 */
 	@PostMapping("/reports/comment/{idUser}/{idComment}")
-	public ResponseEntity<String> reportComment(@PathVariable(value = "idUser") Long idUser,
+	public ResponseEntity<Object> reportComment(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idComment") Long idComment) {
 
-		return serviceU.reportComment(idUser, idComment)
-				.map(reported -> ResponseEntity.status(201).body("COMENTÁRIO DENUNCIADO"))
-				.orElse(ResponseEntity.status(200)
-						.body("Erro ao denunciar comentário."));
+		return serviceU.reportComment(idUser, idComment);
 	}
 
+	/**
+	 * Rota para retirar um report
+	 * 
+	 * @param idReport
+	 * @param idUser
+	 * @author Antonio
+	 * @return
+	 */
 	@DeleteMapping("/report/delete/{idReport}/{idUser}")
-	public ResponseEntity<String> deleteReport(@PathVariable(value = "idReport") Long idReport,
+	public ResponseEntity<Object> deleteReport(@PathVariable(value = "idReport") Long idReport,
 			@PathVariable(value = "idUser") Long idUser) {
-		return serviceU.deleteReport(idReport, idUser)
-				.map(deleted -> ResponseEntity.status(202).body("DENÚNCIA RETIRADA"))
-				.orElse(ResponseEntity.status(404).build());
+		return serviceU.deleteReport(idReport, idUser);
 
 	}
 
 	// ----------------------- UPVOTES -----------------------
 
+	/**
+	 * Rota para dar like em um post
+	 * 
+	 * @param idUser
+	 * @param idPost
+	 * @author Antonio
+	 * @return
+	 */
 	@PostMapping("/upvotes/post/{idUser}/{idPost}")
-	public ResponseEntity<String> upvotePost(@PathVariable(value = "idUser") Long idUser,
+	public ResponseEntity<Object> upvotePost(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idPost") Long idPost) {
 
-		return serviceU.upvotePost(idUser, idPost).map(upvoted -> ResponseEntity.status(201).body("POSTAGEM CURTIDA"))
-				.orElse(ResponseEntity.status(200)
-						.body("Erro ao curtir postagem."));
+		return serviceU.upvotePost(idUser, idPost);
 	}
 
+	/**
+	 * Rota para dar like em um comentário
+	 * 
+	 * @param idUser
+	 * @param idComment
+	 * @author Antonio
+	 * @return
+	 */
 	@PostMapping("/upvotes/comment/{idUser}/{idComment}")
-	public ResponseEntity<String> upvoteComment(@PathVariable(value = "idUser") Long idUser,
+	public ResponseEntity<Object> upvoteComment(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idComment") Long idComment) {
 
-		return serviceU.upvoteComment(idUser, idComment).map(upvoted -> ResponseEntity.status(201).body("COMENTÁRIO CURTIDO"))
-				.orElse(ResponseEntity.status(200)
-						.body("Erro ao curtir comentário."));
+		return serviceU.upvoteComment(idUser, idComment);
 	}
-	
-	@DeleteMapping("/upvotes/delete/{idUpvote}/{idUser}")
-	public ResponseEntity<String> unupvote(@PathVariable(value = "idUpvote") Long idUpvote,
-			@PathVariable(value = "idUser") Long idUser) {
-		return serviceU.unupvote(idUpvote, idUser)
-				.map(deleted -> ResponseEntity.status(202).body("CURTIDA RETIRADA"))
-				.orElse(ResponseEntity.status(404).build());
 
+	/**
+	 * Rota para retirar um like
+	 * 
+	 * @param idUpvote
+	 * @param idUser
+	 * @author Antonio
+	 * @return
+	 */
+	@DeleteMapping("/upvotes/delete/{idUpvote}/{idUser}")
+	public ResponseEntity<Object> unupvote(@PathVariable(value = "idUpvote") Long idUpvote,
+			@PathVariable(value = "idUser") Long idUser) {
+		return serviceU.unupvote(idUpvote, idUser);
 	}
 
 }

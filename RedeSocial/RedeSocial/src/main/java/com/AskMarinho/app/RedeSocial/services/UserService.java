@@ -1,8 +1,12 @@
 package com.AskMarinho.app.RedeSocial.services;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.AskMarinho.app.RedeSocial.models.Comment;
 import com.AskMarinho.app.RedeSocial.models.Upvote;
@@ -39,28 +43,30 @@ public class UserService {
 	 * foi cadastrado ou não.
 	 * 
 	 * @param novoEmail - String representando a entidade Usuario
-	 * @return Retorna um Optional vazio caso o email já esteja registrado no
-	 *         database, senão retorna um Optional que salva o novo usuário.
+	 * @return o usuário cadastrado ou um erro.
 	 * @author Chelle
 	 * @author Amanda
+	 * @author Antonio
 	 * @redactor Amanda
 	 * @translator Amanda
 	 * @since 1.0
 	 */
-	public Optional<Object> registerUser(User newUser) {
+	public ResponseEntity<Object> registerUser(User newUser) {
 		Optional<User> existingEmal = repositoryU.findByEmail(newUser.getEmail());
 
 		if (existingEmal.isEmpty()) {
 			Optional<User> existingUser = repositoryU.findByUserName(newUser.getUserName());
 
 			if (existingUser.isEmpty()) {
-				return Optional.ofNullable(repositoryU.save(newUser));
+				repositoryU.save(newUser);
+				return ResponseEntity.status(201).body("Usuario: " + newUser.getUserName() + "\nEmail: "
+						+ newUser.getEmail() + "\nUSUÁRIO CADASTRADO");
 			} else {
-				return Optional.empty();
+				return ResponseEntity.status(200).body("Já existe um usuário com esse nome");
 			}
 
 		} else {
-			return Optional.empty();
+			return ResponseEntity.status(200).body("Já existe um usuário com esse email");
 		}
 	}
 
@@ -73,12 +79,11 @@ public class UserService {
 	 * @author Chelle
 	 * @author Amanda
 	 * @author Antonio
-	 * @return Retorna um Optional para salvar as novas alterações caso o usuário
-	 *         seja encontrado, senão retorna um Optional vazio.
+	 * @return Retorna o usuário atualizado ou um erro.
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public Optional<User> updateUser(Long id_user, User updatedUser) {
+	public ResponseEntity<Object> updateUser(Long id_user, User updatedUser) {
 		Boolean update = false;
 		Optional<User> existingUser = repositoryU.findById(id_user);
 
@@ -96,6 +101,8 @@ public class UserService {
 
 					if (updatedUser.getUserName().equals(existingUser.get().getUserName())) {
 						update = true;
+					} else {
+						return ResponseEntity.status(200).body("Já estão usando esse nome de usuário");
 					}
 
 				}
@@ -112,10 +119,14 @@ public class UserService {
 
 						if (updatedUser.getUserName().equals(existingUser.get().getUserName())) {
 							update = true;
+						} else {
+							return ResponseEntity.status(200).body("Já estão usando esse nome de usuário");
 						}
 
 					}
 
+				} else {
+					return ResponseEntity.status(200).body("Já estão usando esse email");
 				}
 			}
 			if (update) {
@@ -127,17 +138,44 @@ public class UserService {
 				existingUser.get().setEmail(updatedUser.getEmail());
 				existingUser.get().setUserName(updatedUser.getUserName());
 
-				return Optional.ofNullable(repositoryU.save(existingUser.get()));
-			} else {
-				return Optional.empty();
+				repositoryU.save(existingUser.get());
+				return ResponseEntity.status(201).body("Usuário: " + updatedUser.getUserName() + "\nEmail: "
+						+ updatedUser.getEmail() + "\nUSUÁRIO ATUALIZADO");
 			}
 
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Esse usuário não existe");
 
 	}
 
 	// ----------------------- POSTAGENS -----------------------
+
+	/**
+	 * Método para retornar as postagens com as tags favoritas de um usuário
+	 * 
+	 * @param idUser
+	 * @author Antonio
+	 * @return Lista de postagens com as tags favoritas de um usuário ou um status
+	 *         404
+	 */
+	public ResponseEntity<Set<Post>> postsFavorites(Long idUser) {
+		Optional<User> existingUser = repositoryU.findById(idUser);
+		Set<Post> posts = new HashSet<>();
+		if (existingUser.isPresent()) {
+			Set<Tag> tagFavorites = existingUser.get().getFavorites();
+
+			for (Tag tags : tagFavorites) {
+				List<Post> existingPost = repositoryP.findAllByTagRelation(tags);
+
+				for (int i = 0; i < existingPost.size(); i++) {
+					posts.add(existingPost.get(i));
+				}
+			}
+
+			return ResponseEntity.status(202).body(posts);
+		}
+		return ResponseEntity.status(404).build();
+	}
 
 	/**
 	 * MÃ©todo para cadastrar postagens caso nÃ£o haja alguma com o mesmo tÃ­tulo,
@@ -148,12 +186,11 @@ public class UserService {
 	 * @param novaPostagem
 	 * @author Antonio
 	 * @author Matheus
-	 * @returnum Optional com os dados cadastrados da nova postagem ou retorna um
-	 *           Optional vazio
+	 * @returnum lista de postagens cadastradas ou o erro no cadastro
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public Optional<Object> registerPost(Long idUser, String themeName, Post newPost) {
+	public ResponseEntity<Object> registerPost(Long idUser, String themeName, Post newPost) {
 
 		Optional<Post> existingPost = repositoryP.findByTitle(newPost.getTitle());
 
@@ -174,13 +211,16 @@ public class UserService {
 
 				newPost.setUserPost(existingUser.get());
 
-				return Optional.ofNullable(repositoryP.save(newPost));
+				repositoryP.save(newPost);
+
+				return ResponseEntity.status(201).body(repositoryP.findAll());
 
 			}
+			return ResponseEntity.status(200).body("Esse usuário não existe");
 
 		}
 
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Já existe uma postagem com esse nome");
 	}
 
 	/**
@@ -189,13 +229,12 @@ public class UserService {
 	 * @param idPostagem   - id da postagem passado pelo controller
 	 * @param novaPostagem - dados da postagem para serem atualizados que foram
 	 *                     passados pelo controller
-	 * @return retorna um optional com a postagem atualizada ou retorna um empty
-	 *         vazio caso a postagem nÃ£o exista
+	 * @return lista de postagens cadastradas ou o erro na atualização
 	 * @author Antonio
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public Optional<Object> updatePost(Long idPost, Post newPost) {
+	public ResponseEntity<Object> updatePost(Long idPost, Post newPost) {
 		Optional<Post> existingPost = repositoryP.findById(idPost);
 
 		if (existingPost.isPresent()) {
@@ -206,12 +245,13 @@ public class UserService {
 				existingPost.get().setDescription(newPost.getDescription());
 				existingPost.get().setUrlImage(newPost.getUrlImage());
 
-				return Optional.ofNullable(repositoryP.save(existingPost.get()));
+				repositoryP.save(existingPost.get());
+				return ResponseEntity.status(201).body(repositoryP.findAll());
 			} else {
-				return Optional.empty();
+				return ResponseEntity.status(200).body("Esse título já existe");
 			}
 		} else {
-			return Optional.empty();
+			return ResponseEntity.status(200).body("Essa postagem não existe");
 		}
 	}
 
@@ -221,11 +261,11 @@ public class UserService {
 	 * @param idPostagem
 	 * @param idTema
 	 * @author Matheus
-	 * @return Optional com o tema adicionado ou Optional vazio
+	 * @return tema adicionado na postagem ou seu respectivo erro
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public Optional<Object> addTag(Long idPost, String tagName) {
+	public ResponseEntity<Object> addTag(Long idPost, String tagName) {
 
 		Optional<Post> existingPost = repositoryP.findById(idPost);
 		if (existingPost.isPresent()) {
@@ -239,10 +279,12 @@ public class UserService {
 				existingPost.get().getTagRelation().add(existingTag.get());
 			}
 
-			return Optional.ofNullable(repositoryP.save(existingPost.get()));
+			repositoryP.save(existingPost.get());
+
+			return ResponseEntity.status(201).body("TEMA ADICIONADO");
 
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Essa postagem não existe");
 	}
 
 	/**
@@ -250,12 +292,12 @@ public class UserService {
 	 * 
 	 * @param idPostagem
 	 * @param idTema
-	 * @return Optional com a postagem com o tema deletado ou um Optional vazio
+	 * @return tema retirado ou seu respectivo erro
 	 * @author Antonio
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public Optional<Object> deletePostTheme(Long idPost, Long idTheme) {
+	public ResponseEntity<Object> deletePostTheme(Long idPost, Long idTheme) {
 		Optional<Tag> existingTheme = repositoryT.findById(idTheme);
 
 		if (existingTheme.isPresent()) {
@@ -264,13 +306,59 @@ public class UserService {
 			if (existingPost.isPresent()) {
 				if (existingPost.get().getTagRelation().contains(existingTheme.get())) {
 					existingPost.get().getTagRelation().remove(existingTheme.get());
+					repositoryP.save(existingPost.get());
 
-					return Optional.ofNullable(repositoryP.save(existingPost.get()));
+					return ResponseEntity.status(202).body("TEMA RETIRADO");
+				} else {
+					return ResponseEntity.status(200).body("Essa postagem não tem esse tema");
 				}
 
 			}
+			return ResponseEntity.status(200).body("Essa postagem não existe");
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Esse tema não existe");
+	}
+
+	/**
+	 * Método retorna o número de likes no post
+	 * 
+	 * @param idPost
+	 * @return retorna o número de likes ou um status 404 caso o post não exista
+	 * @author Antonio
+	 * @author Bueno
+	 */
+	public ResponseEntity<String> upvotesPost(Long idPost) {
+		Optional<Post> existingPost = repositoryP.findById(idPost);
+		if (existingPost.isPresent()) {
+			if (existingPost.get().getUpvoted() != null) {
+				return ResponseEntity.status(202)
+						.body("Número de likes: " + existingPost.get().getUpvoted().getUserUpvote().size());
+			}
+			return ResponseEntity.status(202).body("Número de likes: 0");
+
+		}
+		return ResponseEntity.status(404).build();
+	}
+
+	/**
+	 * Método para retornar o número de denúncias de um post
+	 * 
+	 * @param idPost
+	 * @author Antonio
+	 * @author Bueno
+	 * @return número de denúncias ou status 404 caso o post não exista
+	 */
+	public ResponseEntity<String> reportsPosts(Long idPost) {
+		Optional<Post> existingPost = repositoryP.findById(idPost);
+		if (existingPost.isPresent()) {
+			if (existingPost.get().getReported() != null) {
+				return ResponseEntity.status(202)
+						.body("Número de denúncias: " + existingPost.get().getReported().getUserReport().size());
+			}
+			return ResponseEntity.status(202).body("Número de denúncias: 0");
+
+		}
+		return ResponseEntity.status(404).build();
 	}
 
 	// ----------------------- TEMAS FAVORITOS -----------------------
@@ -282,11 +370,11 @@ public class UserService {
 	 * @author Antonio
 	 * @author Chelle
 	 * @since 1.0
-	 * @return Optional com as mudanças, senão um Optional vazio.
+	 * @return tag adicionada ou seu respectivo erro
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public Optional<Object> addFavoriteTag(Long idUser, String tagName) {
+	public ResponseEntity<Object> addFavoriteTag(Long idUser, String tagName) {
 		Optional<User> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
@@ -294,18 +382,18 @@ public class UserService {
 
 			if (existingTag.isPresent()) {
 				existingUser.get().getFavorites().add(existingTag.get());
-				return Optional.ofNullable(repositoryU.save(existingUser.get()));
+				repositoryU.save(existingUser.get());
 			} else {
 				Tag newTag = new Tag();
 
 				newTag.setTagName(tagName);
 				repositoryT.save(newTag);
 				existingUser.get().getFavorites().add(newTag);
-
-				return Optional.ofNullable(repositoryU.save(existingUser.get()));
+				repositoryU.save(existingUser.get());
 			}
+			return ResponseEntity.status(201).body("TEMA FAVORITO ADICIONADO");
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Esse usuário não existe");
 	}
 
 	/**
@@ -316,11 +404,11 @@ public class UserService {
 	 * @author Antonio
 	 * @author Chelle
 	 * @since 1.0
-	 * @return Optional com as mudanças feitas, senão um Optional vazio.
+	 * @return tag deletada ou seu respectivo erro
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public Optional<Object> deleteFavoriteTag(Long idUser, Long idTag) {
+	public ResponseEntity<Object> deleteFavoriteTag(Long idUser, Long idTag) {
 
 		Optional<User> existingUser = repositoryU.findById(idUser);
 		if (existingUser.isPresent()) {
@@ -328,12 +416,16 @@ public class UserService {
 			if (existingTag.isPresent()) {
 				if (existingUser.get().getFavorites().contains(existingTag.get())) {
 					existingUser.get().getFavorites().remove(existingTag.get());
-
-					return Optional.ofNullable(repositoryU.save(existingUser.get()));
+					repositoryU.save(existingUser.get());
+					return ResponseEntity.status(202).body("TEMA FOVORITO DELETADO");
+				} else {
+					return ResponseEntity.status(200).body("Esse usuário não possui esse tema");
 				}
+			} else {
+				return ResponseEntity.status(200).body("Tema não existe");
 			}
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Usuário não existe");
 	}
 
 	// ----------------------- COMENTÁRIOS -----------------------
@@ -345,11 +437,11 @@ public class UserService {
 	 * @param idPostagem     - postagem que está sendo comentada
 	 * @param novoComentario
 	 * @author Antonio
-	 * @return Optional com o comentário cadastrada ou Optional vazio
+	 * @return post com o comentário cadastrado ou seu respectivo erro
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public Optional<Object> registerComment(Long idUser, Long idPost, Comment newComment) {
+	public ResponseEntity<Object> registerComment(Long idUser, Long idPost, Comment newComment) {
 
 		Optional<User> existingUser = repositoryU.findById(idUser);
 
@@ -359,11 +451,14 @@ public class UserService {
 			if (postagemExistente.isPresent()) {
 				newComment.setPost(postagemExistente.get());
 				newComment.setUserComment(existingUser.get());
-				return Optional.ofNullable(repositoryC.save(newComment));
+				repositoryC.save(newComment);
+				return ResponseEntity.status(201).body(repositoryP.findAllByComment(newComment));
+			} else {
+				ResponseEntity.status(200).body("Essa postagem não existe");
 			}
-		}
-
-		return Optional.empty();
+		} 
+			return ResponseEntity.status(200).body("Esse usuário não existe");
+		
 	}
 
 	/**
@@ -376,15 +471,59 @@ public class UserService {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public Optional<Object> updateComment(Long idComment, Comment updatedComment) {
+	public ResponseEntity<Object> updateComment(Long idComment, Comment updatedComment) {
 		Optional<Comment> existingComment = repositoryC.findById(idComment);
 
 		if (existingComment.isPresent()) {
 			existingComment.get().setText(updatedComment.getText());
 
-			return Optional.ofNullable(repositoryC.save(existingComment.get()));
+			repositoryC.save(existingComment.get());
+			
+			return ResponseEntity.status(201).body(repositoryP.findAllByComment(updatedComment));
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Esse comentário não existe");
+	}
+
+	/**
+	 * Método retorna o número de likes em um comentário
+	 * 
+	 * @param idComment
+	 * @return retorna o número de likes ou status 404
+	 * @author Antonio
+	 * @author Bueno
+	 */
+	public ResponseEntity<String> upvotesComment(Long idComment) {
+		Optional<Comment> existingComment = repositoryC.findById(idComment);
+		if (existingComment.isPresent()) {
+			if (existingComment.get().getUpvoted() != null) {
+				return ResponseEntity.status(202)
+						.body("Número de upvotes: " + existingComment.get().getUpvoted().getUserUpvote().size());
+			}
+			return ResponseEntity.status(202).body("Número de upvotes: 0");
+
+		}
+		return ResponseEntity.status(404).build();
+	}
+
+	/**
+	 * Método pega o número de denúncias em comentário
+	 * 
+	 * @param idComment
+	 * @return retorna número de denúncias ou status 404
+	 * @author Antonio
+	 * @author Bueno
+	 */
+	public ResponseEntity<String> reportsComments(Long idComment) {
+		Optional<Comment> existingComment = repositoryC.findById(idComment);
+		if (existingComment.isPresent()) {
+			if (existingComment.get().getReported() != null) {
+				return ResponseEntity.status(202)
+						.body("Número de denúncias: " + existingComment.get().getReported().getUserReport().size());
+			}
+			return ResponseEntity.status(202).body("Número de denúncias: 0");
+
+		}
+		return ResponseEntity.status(404).build();
 	}
 
 	// ----------------------- DENÚNCIAS -----------------------
@@ -395,10 +534,10 @@ public class UserService {
 	 * @param idUser
 	 * @param idPost
 	 * @author Antonio
-	 * @return um Optional com a denúncia da postagem ou um Optional vazio
+	 * @return postagem denunciada ou seu respectivo erro
 	 * @redactor Amanda
 	 */
-	public Optional<Object> reportPost(Long idUser, Long idPost) {
+	public ResponseEntity<Object> reportPost(Long idUser, Long idPost) {
 		Optional<User> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
@@ -411,11 +550,11 @@ public class UserService {
 				if (existingReport.isPresent()) {
 
 					if (existingReport.get().getUserReport().contains(existingUser.get())) {
-						return Optional.empty();
+						return ResponseEntity.status(200).body("Esse usuário já denunciou essa postagem");
 					} else {
 						existingReport.get().getUserReport().add(existingUser.get());
-
-						return Optional.ofNullable(repositoryR.save(existingReport.get()));
+					
+						return ResponseEntity.status(201).body(repositoryR.save(existingReport.get()));
 					}
 				}
 
@@ -428,11 +567,11 @@ public class UserService {
 				existingPost.get().setReported(newReport);
 
 				repositoryP.save(existingPost.get());
-				return Optional.ofNullable(newReport);
+				return ResponseEntity.status(201).body(newReport);
 			}
 
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Esse usuário não existe");
 	}
 
 	/**
@@ -441,10 +580,10 @@ public class UserService {
 	 * @param idUser
 	 * @param idComment
 	 * @author Antonio
-	 * @return Um Optional com a denúncia do comentário ou um Optional vazio
+	 * @return comentário denunciado ou seu respectivo erro
 	 * @redactor Amanda
 	 */
-	public Optional<Object> reportComment(Long idUser, Long idComment) {
+	public ResponseEntity<Object> reportComment(Long idUser, Long idComment) {
 		Optional<User> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
@@ -457,11 +596,11 @@ public class UserService {
 				if (existingReport.isPresent()) {
 
 					if (existingReport.get().getUserReport().contains(existingUser.get())) {
-						return Optional.empty();
+						return ResponseEntity.status(200).body("Esse usuário já denunciou esse comentário");
 					} else {
 						existingReport.get().getUserReport().add(existingUser.get());
 
-						return Optional.ofNullable(repositoryR.save(existingReport.get()));
+						return ResponseEntity.status(201).body(repositoryR.save(existingReport.get()));
 					}
 				}
 				Report newReport = new Report();
@@ -473,11 +612,11 @@ public class UserService {
 				existingComment.get().setReported(newReport);
 
 				repositoryC.save(existingComment.get());
-				return Optional.ofNullable(newReport);
+				return ResponseEntity.status(201).body(newReport);
 			}
 
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Esse usuário não existe");
 	}
 
 	/**
@@ -486,10 +625,10 @@ public class UserService {
 	 * @param idReport
 	 * @param idUser
 	 * @author Antonio
-	 * @return Optional com a denúncia deletada ou Optional vazio
+	 * @return denúncia retirada ou seu respectivo erro
 	 * @redactor Amanda
 	 */
-	public Optional<Object> deleteReport(Long idReport, Long idUser) {
+	public ResponseEntity<Object> deleteReport(Long idReport, Long idUser) {
 		Optional<Report> existingReport = repositoryR.findById(idReport);
 
 		if (existingReport.isPresent()) {
@@ -521,23 +660,26 @@ public class UserService {
 						repositoryR.save(existingReport.get());
 					}
 
-					return Optional.ofNullable(existingReport.get());
+					return ResponseEntity.status(202).body("DENÚNCIA RETIRADA");
 				}
 			}
+			return ResponseEntity.status(200).body("Esse usuário não existe");
 
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Essa denúncia não existe");
 	}
 
 	// ----------------------- LIKES -----------------------
 	/**
+	 * método para curtir um post
 	 * 
 	 * @param idUser
 	 * @param idPost
-	 * @return
+	 * @author Antonio
+	 * @return postagem curtida ou respectivo erro
 	 * @redactor Amanda
 	 */
-	public Optional<Object> upvotePost(Long idUser, Long idPost) {
+	public ResponseEntity<Object> upvotePost(Long idUser, Long idPost) {
 		Optional<User> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
@@ -549,11 +691,11 @@ public class UserService {
 				if (existingUpvote.isPresent()) {
 
 					if (existingUpvote.get().getUserUpvote().contains(existingUser.get())) {
-						return Optional.empty();
+						return ResponseEntity.status(200).body("Esse usuário já curtiu essa postagem");
 					} else {
 						existingUpvote.get().getUserUpvote().add(existingUser.get());
 
-						return Optional.ofNullable(repositoryL.save(existingUpvote.get()));
+						return ResponseEntity.status(201).body(repositoryL.save(existingUpvote.get()));
 					}
 				}
 				Upvote newUpvote = new Upvote();
@@ -565,20 +707,24 @@ public class UserService {
 				existingPost.get().setUpvoted(newUpvote);
 
 				repositoryP.save(existingPost.get());
-				return Optional.ofNullable(newUpvote);
+
+				return ResponseEntity.status(201).body(newUpvote);
 			}
+			return ResponseEntity.status(200).body("Essa postagem não existe");
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Esse usuário não existe");
 	}
 
 	/**
+	 * método para curtir um comentário
 	 * 
 	 * @param idUser
 	 * @param idComment
-	 * @return
+	 * @author Antonio
+	 * @return comentário curtido ou seu respectivo erro
 	 * @redactor Amanda
 	 */
-	public Optional<Object> upvoteComment(Long idUser, Long idComment) {
+	public ResponseEntity<Object> upvoteComment(Long idUser, Long idComment) {
 		Optional<User> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
@@ -590,11 +736,11 @@ public class UserService {
 				if (existingUpvote.isPresent()) {
 
 					if (existingUpvote.get().getUserUpvote().contains(existingUser.get())) {
-						return Optional.empty();
+						return ResponseEntity.status(200).body("Esse usuário já curtiu esse comentário");
 					} else {
 						existingUpvote.get().getUserUpvote().add(existingUser.get());
 
-						return Optional.ofNullable(repositoryL.save(existingUpvote.get()));
+						return ResponseEntity.status(201).body(repositoryL.save(existingUpvote.get()));
 					}
 				}
 				Upvote newUpvote = new Upvote();
@@ -606,20 +752,23 @@ public class UserService {
 				existingComment.get().setUpvoted(newUpvote);
 
 				repositoryC.save(existingComment.get());
-				return Optional.ofNullable(newUpvote);
+				return ResponseEntity.status(201).body(newUpvote);
 			}
+			return ResponseEntity.status(200).body("Esse Comentário não existe");
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Esse usuário não existe");
 	}
 
 	/**
+	 * método para descurtir um post ou comentário
 	 * 
 	 * @param idLike
 	 * @param idUser
-	 * @return
+	 * @author Antonio
+	 * @return postagem ou comentário descurtido ou seu respectivo erro
 	 * @redactor Amanda
 	 */
-	public Optional<Object> unupvote(Long idUpvote, Long idUser) {
+	public ResponseEntity<Object> unupvote(Long idUpvote, Long idUser) {
 		Optional<Upvote> existingUpvote = repositoryL.findById(idUpvote);
 
 		if (existingUpvote.isPresent()) {
@@ -644,17 +793,18 @@ public class UserService {
 
 							existingComment.get().setUpvoted(null);
 							existingUpvote.get().setCommentUpvote(null);
-							
+
 							repositoryC.save(existingComment.get());
 						}
 						repositoryL.deleteById(idUpvote);
 					} else {
 						repositoryL.save(existingUpvote.get());
 					}
-					return Optional.ofNullable(existingUpvote.get());
+					return ResponseEntity.status(202).body("CURTIDA RETIRADA");
 				}
 			}
+			return ResponseEntity.status(200).body("Esse usuário não existe");
 		}
-		return Optional.empty();
+		return ResponseEntity.status(200).body("Esse like não existe");
 	}
 }
