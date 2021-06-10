@@ -89,16 +89,20 @@ public class UserService {
 		Optional<User> user = repositoryU.findByEmail(newUser.get().getEmail());
 
 		if (user.isPresent()) {
-			if (encoder.matches(newUser.get().getPassword(), user.get().getPassword())) {
-				String auth = newUser.get().getEmail() + ":" + newUser.get().getPassword();
-				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+			if (newUser.get().getPassword() != null) {
+				if (encoder.matches(newUser.get().getPassword(), user.get().getPassword())) {
+					String auth = newUser.get().getEmail() + ":" + newUser.get().getPassword();
+					byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
 
-				String authHeader = "Basic " + new String(encodedAuth);
+					String authHeader = "Basic " + new String(encodedAuth);
 
-				newUser.get().setToken(authHeader);
-				newUser.get().setName(user.get().getName());
+					newUser.get().setToken(authHeader);
+					newUser.get().setName(user.get().getName());
 
-				return newUser;
+					return newUser;
+				} else {
+					return Optional.empty();
+				}
 			}
 		}
 		return Optional.empty();
@@ -165,10 +169,10 @@ public class UserService {
 			}
 			if (update) {
 				BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-				
+
 				String senhaEncoder = encoder.encode(updatedUser.getPassword());
 				updatedUser.setPassword(senhaEncoder);
-				
+
 				existingUser.get().setName(updatedUser.getName());
 				existingUser.get().setTelephone(updatedUser.getTelephone());
 				existingUser.get().setPassword(updatedUser.getPassword());
