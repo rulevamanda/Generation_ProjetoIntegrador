@@ -67,9 +67,7 @@ public class UserService {
 			Optional<User> existingUser = repositoryU.findByUserName(newUser.getUserName());
 
 			if (existingUser.isEmpty()) {
-				repositoryU.save(newUser);
-				return ResponseEntity.status(201).body("Usuario: " + newUser.getUserName() + "\nEmail: "
-						+ newUser.getEmail() + "\nUSUÁRIO CADASTRADO");
+				return ResponseEntity.status(201).body(repositoryU.save(newUser));
 			} else {
 				return ResponseEntity.status(200).body("Já existe um usuário com esse nome");
 			}
@@ -103,7 +101,7 @@ public class UserService {
 				return newUser;
 			}
 		}
-		return null;
+		return Optional.empty();
 	}
 
 	/**
@@ -166,6 +164,11 @@ public class UserService {
 				}
 			}
 			if (update) {
+				BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+				
+				String senhaEncoder = encoder.encode(updatedUser.getPassword());
+				updatedUser.setPassword(senhaEncoder);
+				
 				existingUser.get().setName(updatedUser.getName());
 				existingUser.get().setTelephone(updatedUser.getTelephone());
 				existingUser.get().setPassword(updatedUser.getPassword());
@@ -453,7 +456,7 @@ public class UserService {
 				if (existingUser.get().getFavorites().contains(existingTag.get())) {
 					existingUser.get().getFavorites().remove(existingTag.get());
 					repositoryU.save(existingUser.get());
-					return ResponseEntity.status(202).body("TEMA FOVORITO DELETADO");
+					return ResponseEntity.status(202).body("TEMA FAVORITO DELETADO");
 				} else {
 					return ResponseEntity.status(200).body("Esse usuário não possui esse tema");
 				}
@@ -515,7 +518,7 @@ public class UserService {
 
 			repositoryC.save(existingComment.get());
 
-			return ResponseEntity.status(201).body(repositoryP.findAllByComment(updatedComment));
+			return ResponseEntity.status(201).body(repositoryP.findAllByComment(existingComment.get()));
 		}
 		return ResponseEntity.status(200).body("Esse comentário não existe");
 	}

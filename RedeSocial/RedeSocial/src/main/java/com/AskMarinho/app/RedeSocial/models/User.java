@@ -44,11 +44,11 @@ public class User {
 	private String userName;
 
 	@NotNull(message = "Insira um endereço de email.")
-	@Size(min = 03, max = 100, message = "Endereço de email entre 12 e 25 caracteres.")
+	@Size(min = 3, max = 100, message = "Endereço de email entre 12 e 25 caracteres.")
 	private String email;
 
 	@NotNull(message = "Insira uma senha.")
-	@Size(min = 8, max = 255, message = "Senha entre 8 e 25 caracteres.")
+	@Size(min = 3, max = 255, message = "Senha entre 8 e 25 caracteres.")
 	private String password;
 
 	@NotNull(message = "Insira uma data de nascimento.")
