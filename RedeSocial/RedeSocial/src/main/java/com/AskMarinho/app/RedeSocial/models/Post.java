@@ -24,7 +24,11 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
-
+/**
+ * 
+ * @redactor Amanda
+ *
+ */
 @Entity
 @Table(name = "post")
 public class Post {
@@ -38,7 +42,7 @@ public class Post {
 	private String title;
 
 	@NotNull
-	@Size(min = 10, max = 500)
+	@Size(min = 3, max = 500)
 	private String description;
 
 	private String urlImage;
@@ -47,12 +51,12 @@ public class Post {
 	private Date date = new java.sql.Date(System.currentTimeMillis());
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({ "post", "idComment", "userComment", "reported" })
+	@JsonIgnoreProperties({ "upvoted", "post", "idComment", "userComment", "reported" })
 	private List<Comment> comment;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "usuarioPostagem")
-	@JsonIgnoreProperties({ "favorites","posts", "idUser", "name", "userName", "birth", "comments", "reports" })
+	@JoinColumn(name = "userPost")
+	@JsonIgnoreProperties({ "upvotes", "favorites","posts", "idUser", "name", "userName", "birth", "comments", "reports" })
 	private User userPost;
 
 	@ManyToMany
@@ -63,77 +67,91 @@ public class Post {
 	@OneToOne(cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({ "postReport", "idReport", "idUser", "commentReport", "favorites" })
 	private Report reported;
+	
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties({"postUpvote", "commentUpvote"})
+	private Upvote upvoted;
 
 	public long getIdPost() {
 		return idPost;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public String getUrlImage() {
-		return urlImage;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public List<Comment> getComment() {
-		return comment;
-	}
-
-	public User getUserPost() {
-		return userPost;
-	}
-
-	public Set<Tag> getTagRelation() {
-		return tagRelation;
-	}
-
-	public Report getReported() {
-		return reported;
 	}
 
 	public void setIdPost(long idPost) {
 		this.idPost = idPost;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	public String getUrlImage() {
+		return urlImage;
+	}
+
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
+	}
+
+	public Date getDate() {
+		return date;
 	}
 
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
+	public List<Comment> getComment() {
+		return comment;
+	}
+
 	public void setComment(List<Comment> comment) {
 		this.comment = comment;
+	}
+
+	public User getUserPost() {
+		return userPost;
 	}
 
 	public void setUserPost(User userPost) {
 		this.userPost = userPost;
 	}
 
+	public Set<Tag> getTagRelation() {
+		return tagRelation;
+	}
+
 	public void setTagRelation(Set<Tag> tagRelation) {
 		this.tagRelation = tagRelation;
+	}
+
+	public Report getReported() {
+		return reported;
 	}
 
 	public void setReported(Report reported) {
 		this.reported = reported;
 	}
+
+	public Upvote getUpvoted() {
+		return upvoted;
+	}
+
+	public void setUpvoted(Upvote upvoted) {
+		this.upvoted = upvoted;
+	}
+
+	
 
 }

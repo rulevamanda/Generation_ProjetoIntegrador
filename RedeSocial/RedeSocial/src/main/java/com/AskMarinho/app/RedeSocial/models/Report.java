@@ -2,8 +2,6 @@ package com.AskMarinho.app.RedeSocial.models;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +13,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+/**
+ * 
+ * @redactor Amanda
+ *
+ */
 @Entity
 @Table(name = "report")
 public class Report {
@@ -24,49 +26,51 @@ public class Report {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idReport;
 
-	@ManyToMany(cascade = CascadeType.REMOVE)
+	@ManyToMany()
 	@JoinTable(name = "reportsAndUsers", joinColumns = @JoinColumn(name = "fk_report"), inverseJoinColumns = @JoinColumn(name = "fk_user"))
-	@JsonIgnoreProperties({ "reports", "password", "birth", "gender", "comments", "posts", "favorites" })
+	@JsonIgnoreProperties({ "upvotes", "reports", "password", "birth", "gender", "comments", "posts", "favorites" })
 	private Set<User> userReport = new HashSet<>();
 
 	@OneToOne
-	@JsonIgnoreProperties({ "reports", "comment", "reports", "userPost", "tagRelation", "reported" })
+	@JsonIgnoreProperties({ "upvoted", "reports", "comment", "reports", "userPost", "tagRelation", "reported" })
 	private Post postReport;
 
 	@OneToOne
-	@JsonIgnoreProperties({ "userComment", "post", "reported" })
+	@JsonIgnoreProperties({ "upvoted", "userComment", "post", "reported" })
 	private Comment commentReport;
 
 	public long getIdReport() {
 		return idReport;
 	}
 
-	public Set<User> getUserReport() {
-		return userReport;
-	}
-
-	public Post getPostReport() {
-		return postReport;
-	}
-
-	public Comment getCommentReport() {
-		return commentReport;
-	}
-
 	public void setIdReport(long idReport) {
 		this.idReport = idReport;
+	}
+
+	public Set<User> getUserReport() {
+		return userReport;
 	}
 
 	public void setUserReport(Set<User> userReport) {
 		this.userReport = userReport;
 	}
 
+	public Post getPostReport() {
+		return postReport;
+	}
+
 	public void setPostReport(Post postReport) {
 		this.postReport = postReport;
+	}
+
+	public Comment getCommentReport() {
+		return commentReport;
 	}
 
 	public void setCommentReport(Comment commentReport) {
 		this.commentReport = commentReport;
 	}
+
+	
 
 }

@@ -2,9 +2,8 @@ package com.AskMarinho.app.RedeSocial.controllers;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.Set;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,13 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.AskMarinho.app.RedeSocial.models.Comment;
 import com.AskMarinho.app.RedeSocial.models.Post;
 import com.AskMarinho.app.RedeSocial.models.User;
+import com.AskMarinho.app.RedeSocial.models.UserLogin;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
 import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
 import com.AskMarinho.app.RedeSocial.repositories.UserRepository;
 import com.AskMarinho.app.RedeSocial.services.UserService;
 
+/**
+ * @redactor Amanda
+ * @translator Amanda
+ *
+ */
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/users")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
@@ -39,156 +44,267 @@ public class UserController {
 
 	// ----------------------- USUÁRIOS -----------------------
 
-	@GetMapping("/todes")
-	public ResponseEntity<List<User>> buscarTodes() {
-		List<User> listarTodes = repositoryU.findAll();
-		return ResponseEntity.status(200).body(listarTodes);
+	/**
+	 * Método que faz login na plataforma
+	 * 
+	 * @param user
+	 * @return
+	 * @author Bueno
+	 */
+
+	@PostMapping("/login")
+	public ResponseEntity<UserLogin> AuthenticationManagerBuilder(@RequestBody Optional<UserLogin> user) {
+		return serviceU.login(user).map(resp -> ResponseEntity.status(200).body(resp))
+				.orElse(ResponseEntity.status(401).build());
 	}
 
-	@GetMapping("/nome/pesquisar")
-	public ResponseEntity<Object> buscarPorNome(@RequestParam(defaultValue = "") String nome) {
-		List<User> listaDeNomes = repositoryU.findAllByNameContainingIgnoreCase(nome);
+	/**
+	 * Rota para retornar todos os usuários
+	 * 
+	 * @author Chelle
+	 * @author Amanda
+	 * @return
+	 */
+	@GetMapping("/all")
+	public ResponseEntity<List<User>> searchAll() {
+		List<User> listAll = repositoryU.findAll();
+		return ResponseEntity.status(200).body(listAll);
+	}
 
-		if (!listaDeNomes.isEmpty()) {
-			return ResponseEntity.status(200).body(listaDeNomes);
+	/**
+	 * Rota para retornar um usuário pelo nome
+	 * 
+	 * @param name
+	 * @author Amanda
+	 * @author Chelle
+	 * @return
+	 */
+	@GetMapping("/name/search")
+	public ResponseEntity<Object> searchByName(@RequestParam(defaultValue = "") String name) {
+		List<User> listOfNames = repositoryU.findAllByNameContainingIgnoreCase(name);
+
+		if (!listOfNames.isEmpty()) {
+			return ResponseEntity.status(200).body(listOfNames);
 		} else {
-			return ResponseEntity.status(204).body("Ooops... Parece que esse usuário ainda não existe!");
+			return ResponseEntity.status(204).body("Erro ao listar usuários.");
 		}
 	}
 
+	/**
+	 * Rota para pegar um usuário pelo id
+	 * 
+	 * @param id
+	 * @author Chelle
+	 * @author Amanda
+	 * @return
+	 */
 	@GetMapping("/id/{id}")
-	public ResponseEntity<User> buscarPorId(@PathVariable Long id) {
+	public ResponseEntity<User> searchById(@PathVariable Long id) {
 		return repositoryU.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
-	@PostMapping("/cadastrar")
-	public ResponseEntity<String> cadastrarUsuario(@Valid @RequestBody User novoUsuario) {
-		return serviceU.cadastrarUsuario(novoUsuario)
-				.map(emailCadastrado -> ResponseEntity.status(201)
-						.body("Usuario: " + novoUsuario.getUserName() + "\nEmail: " + novoUsuario.getEmail()
-								+ "\nCADASTRADO"))
-				.orElse(ResponseEntity.status(400)
-						.body("Erro ao cadastrar. Nome de Usuário ou Email já está sendo utilizado."));
+	/**
+	 * Rota para registrar um usuário
+	 * 
+	 * @param newUser
+	 * @author Amanda
+	 * @author Chelle
+	 * @return
+	 */
+	@PostMapping("/register")
+	public ResponseEntity<Object> registerUser(@Valid @RequestBody User newUser) {
+		return serviceU.registerUser(newUser);
 	}
 
-	@PutMapping("/atualizar/{id_usuario}")
-	public ResponseEntity<String> atualizarUsuario(@Valid @RequestBody User atualizacaoUsuario,
-			@Valid @PathVariable(value = "id_usuario") Long id) {
-		return serviceU.atualizarUsuario(id, atualizacaoUsuario)
-				.map(atualizarUsuario -> ResponseEntity.status(201)
-						.body("Usuario: " + atualizacaoUsuario.getUserName() + "\nEmail: "
-								+ atualizacaoUsuario.getEmail() + "\nATUALIZADO"))
-				.orElse(ResponseEntity.status(400).body(
-						"Erro ao atualizar. Usuário não existe ou o nome de Usuário ou Email já está sendo utilizado."));
+	/**
+	 * Rota para atualizar um usuário
+	 * 
+	 * @param updatedUser
+	 * @param idUser
+	 * @author Amanda
+	 * @author Chelle
+	 * @author Antonio
+	 * @return
+	 */
+	@PutMapping("/update/{idUser}")
+	public ResponseEntity<Object> updateUser(@Valid @RequestBody User updatedUser,
+			@Valid @PathVariable(value = "idUser") Long idUser) {
+		return serviceU.updateUser(idUser, updatedUser);
 	}
 
-	@DeleteMapping("/deletar/{id_usuario}")
-	public ResponseEntity<String> deletarUsuario(@PathVariable Long id_usuario) {
-		Optional<User> usuarioExistente = repositoryU.findById(id_usuario);
+	/**
+	 * Rota para excluir um usuário
+	 * 
+	 * @param id_user
+	 * @author Chelle
+	 * @author Amanda
+	 * @return
+	 */
+	@DeleteMapping("/delete/{id_user}")
+	public ResponseEntity<String> deleteUser(@PathVariable Long id_user) {
+		Optional<User> existingUser = repositoryU.findById(id_user);
 
-		if (usuarioExistente.isPresent()) {
-			repositoryU.deleteById(id_usuario);
-			return ResponseEntity.status(200).body("Usuário deletado com sucesso");
+		if (existingUser.isPresent()) {
+			repositoryU.deleteById(id_user);
+			return ResponseEntity.status(200).body("USUÁRIO DELETADO");
 		} else {
-			return ResponseEntity.status(400).body("Erro ao deletar usuário. \nUsuário não existe");
+			return ResponseEntity.status(400).body("Erro ao deletar usuário.");
 		}
 	}
 
 	// ----------------------- POSTAGENS -----------------------
 
 	/**
-	 * MÃ©todo para cadastrar nova postagem
+	 * Rota para retornar postagens com as tags favoritas de um usuário
 	 * 
-	 * @param novaPostagem - objeto passado pelo body da requisiÃ§Ã£o
-	 * @return status de 201 com a postagem criada ou um status 400 caso jÃ¡ tenha
-	 *         uma postagem com o mesmo tÃ­tulo
+	 * @param idUser
 	 * @author Antonio
+	 * @return postagens com as tags favoritas de um usuário
 	 */
-	@PostMapping("/postagens/cadastrar/{idUsuario}/{nomeTema}")
-	public ResponseEntity<String> cadastrarPostagem(@PathVariable(value = "idUsuario") Long idUsuario,
-			@PathVariable(value = "nomeTema") String nomeTema, @RequestBody Post novaPostagem) {
-		return serviceU.cadastrarPostagem(idUsuario, nomeTema, novaPostagem)
-				.map(postagemCriada -> ResponseEntity.status(201)
-						.body("Título da postagem: " + novaPostagem.getTitle() + "\nDescrição " + "da postagem: "
-								+ novaPostagem.getDescription() + "\nCADASTRADA"))
-				.orElse(ResponseEntity.status(200).body("Erro ao cadastrar. Esses título já está sendo utilizado."));
+	@GetMapping("/posts/favorites/{idUser}")
+	public ResponseEntity<Set<Post>> returnPostsFav(@PathVariable(value = "idUser") Long idUser) {
+		return serviceU.postsFavorites(idUser);
 	}
 
 	/**
-	 * MÃ©todo para atualizar postagens
+	 * Rota para cadastrar nova postagem
+	 * 
+	 * @param novaPostagem - objeto passado pelo body da requisição
+	 * @return status de 201 com a postagem criada ou um status 400 caso já tenha
+	 *         uma postagem com o mesmo título
+	 * @author Antonio
+	 * @redactor Amanda
+	 * @translator Amanda
+	 */
+	@PostMapping("/posts/register/{idUser}/{themeName}")
+	public ResponseEntity<Object> registerPost(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "themeName") String themeName, @RequestBody Post newPost) {
+		return serviceU.registerPost(idUser, themeName, newPost);
+	}
+
+	/**
+	 * Rota para atualizar uma postagem
 	 * 
 	 * @param id       - id passado pela url
-	 * @param postagem - dados passados pelo corpo da requisiÃ§Ã£o
+	 * @param postagem - dados passados pelo corpo da requisição
 	 * @return retorna um status 201 e a postagem atualizada ou retorna um status
-	 *         304 caso a postagem nÃ£o exista
+	 *         304 caso a postagem nãoo exista
 	 * @author Antonio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	@PutMapping("/postagens/atualizar/{id}")
-	public ResponseEntity<String> atualizarPostagem(@PathVariable(value = "id") Long id,
-			@Valid @RequestBody Post postagem) {
-		return serviceU.atualizarPostagem(id, postagem)
-				.map(postagemAtualizada -> ResponseEntity.status(201)
-						.body("Título da postagem: " + postagem.getTitle() + "\nDescrição " + "da postagem: "
-								+ postagem.getDescription() + "\nATUALIZADA"))
-				.orElse(ResponseEntity.status(200)
-						.body("Erro ao atualizar. Essa postagem não existe ou o título em duplicata"));
-
+	@PutMapping("/posts/update/{id}")
+	public ResponseEntity<Object> updatePost(@PathVariable(value = "id") Long id, @Valid @RequestBody Post post) {
+		return serviceU.updatePost(id, post);
 	}
 
 	/**
-	 * MÃ©todo para deletar postagens
+	 * Rota para deletar uma postagem
 	 * 
 	 * @param id - id passado pela url
-	 * @return retorna um status 200 ou retorna um status 400 caso nÃ£o exista uma
+	 * @return retorna um status 200 ou retorna um status 400 caso não£o exista uma
 	 *         postagem com o id passado
 	 * @author Antonio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	@DeleteMapping("/postagens/deletar/{id}")
-	public ResponseEntity<String> deletaPostagem(@PathVariable long id) {
-		Optional<Post> postagemExistente = repositoryP.findById(id);
+	@DeleteMapping("/posts/delete/{id}")
+	public ResponseEntity<String> deletePost(@PathVariable long id) {
+		Optional<Post> existingPost = repositoryP.findById(id);
 
-		if (postagemExistente.isPresent()) {
+		if (existingPost.isPresent()) {
 			repositoryP.deleteById(id);
-			return ResponseEntity.status(200).body("Postagem deletada com sucesso.");
+			return ResponseEntity.status(200).body("POSTAGEM DELETADA");
 		} else {
-			return ResponseEntity.status(200).body("Postagem não pode ser deletada, pois não existe.");
+			return ResponseEntity.status(200).body("Erro ao deletar postagem.");
 		}
 	}
 
-	@PutMapping("/postagens/adicionar/tema/{nomeTema}/{idPostagem}")
-	public ResponseEntity<String> adicionarTema(@PathVariable(value = "nomeTema") String nomeTema,
-			@PathVariable(value = "idPostagem") Long idPostagem) {
-		return serviceU.addTag(idPostagem, nomeTema)
-				.map(adicionado -> ResponseEntity.status(201).body("ATUALIZADO COM SUCESSO!"))
-				.orElse(ResponseEntity.status(200).body("ERRO"));
+	/**
+	 * Rota para adicionar um tema em uma postagem
+	 * 
+	 * @param themeName
+	 * @param idPost
+	 * @author Antonio
+	 * @return
+	 */
+	@PutMapping("/posts/add/theme/{themeName}/{idPost}")
+	public ResponseEntity<Object> addTheme(@PathVariable(value = "themeName") String themeName,
+			@PathVariable(value = "idPost") Long idPost) {
+		return serviceU.addTag(idPost, themeName);
 	}
 
-	@DeleteMapping("/postagens/deletar/tema/{idTema}/{idPostagem}")
-	public ResponseEntity<String> deletarTemaPostagem(@PathVariable(value = "idTema") Long idTema,
-			@PathVariable(value = "idPostagem") Long idPostagem) {
-		return serviceU.deletarTemaDaPostagem(idPostagem, idTema)
-				.map(deletado -> ResponseEntity.status(200).body("Tema deletado da postagem com sucesso"))
-				.orElse(ResponseEntity.status(404).build());
+	/**
+	 * Rota para retirar um tema de um post
+	 * 
+	 * @param idTheme
+	 * @param idPost
+	 * @author Antonio
+	 * @return
+	 */
+	@DeleteMapping("/posts/delete/theme/{idTheme}/{idPost}")
+	public ResponseEntity<Object> deletePostTheme(@PathVariable(value = "idTheme") Long idTheme,
+			@PathVariable(value = "idPost") Long idPost) {
+		return serviceU.deletePostTheme(idPost, idTheme);
 	}
-	
+
+	/**
+	 * . Rota para retornar o número de likes de um post
+	 * 
+	 * @param idPost
+	 * @author Bueno
+	 * @author Antonio
+	 * @return
+	 */
+	@GetMapping("/posts/upvotes/{idPost}")
+	public ResponseEntity<String> upvotesPost(@PathVariable(value = "idPost") Long idPost) {
+		return serviceU.upvotesPost(idPost);
+	}
+
+	/**
+	 * Rota para retornar o número de reports de um post
+	 * 
+	 * @param idPost
+	 * @author Antonio
+	 * @author Bueno
+	 * @return
+	 */
+	@GetMapping("/posts/reports/{idPost}")
+	public ResponseEntity<String> reportsPost(@PathVariable(value = "idPost") Long idPost) {
+		return serviceU.reportsPosts(idPost);
+	}
+
 	// ----------------------- TEMAS -----------------------
-	
-	@PutMapping ("/adicionar/tema/{idUser}/{tagName}")
-	public ResponseEntity<String> addTags (@PathVariable (value = "idUser") Long idUser, 
-			@PathVariable (value = "tagName") String tagName){
-		return serviceU.addFavoriteTag(idUser, tagName)
-				.map(addedTag -> ResponseEntity.status(201).body("Tema favorito adicionado"))
-				.orElse(ResponseEntity.status(400).build());
+
+	/**
+	 * Rota para adicionar uma tag favorita a um usuário
+	 * 
+	 * @param idUser
+	 * @param tagName
+	 * @author Chelle
+	 * @author Antonio
+	 * @return
+	 */
+	@PutMapping("/add/theme/{idUser}/{tagName}")
+	public ResponseEntity<Object> addTags(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "tagName") String tagName) {
+		return serviceU.addFavoriteTag(idUser, tagName);
 	}
-	
-	@DeleteMapping ("/deletar/tema/favoritos/{idUser}/{idTag}")
-	
-	public ResponseEntity<String> deleteFavoriteTag (@PathVariable (value = "idUser") Long idUser,
-			@PathVariable (value = "idTag") Long idTag) {
-		
-		return serviceU.deleteFavoriteTag(idUser, idTag)
-				.map(deletedTag -> ResponseEntity.status(202).body("Tema favorito deletado com sucesso!"))
-				.orElse(ResponseEntity.status(404).build());
+
+	/**
+	 * Rota para retirar um tema favorito de um usuário
+	 * 
+	 * @param idUser
+	 * @param idTag
+	 * @author Chelle
+	 * @author Antonio
+	 * @return
+	 */
+	@DeleteMapping("/delete/theme/favorites/{idUser}/{idTag}")
+	public ResponseEntity<Object> deleteFavoriteTag(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "idTag") Long idTag) {
+
+		return serviceU.deleteFavoriteTag(idUser, idTag);
 	}
 
 	// ----------------------- COMENTÁRIOS -----------------------
@@ -200,14 +316,14 @@ public class UserController {
 	 * @param idPostagem     - postagem a ser comentada
 	 * @param novoComentario
 	 * @return uma lista com todos comentários, com o status 201, ou um status 400
-	 * 
+	 * @author Antonio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	@PostMapping("/comentarios/cadastrar/{idUsuario}/{idPostagem}")
-	public ResponseEntity<List<Comment>> cadastrarPostagem(@PathVariable(value = "idUsuario") Long idUsuario,
-			@PathVariable(value = "idPostagem") Long idPostagem, @RequestBody Comment novoComentario) {
-		return serviceU.cadastrarComentario(idUsuario, idPostagem, novoComentario)
-				.map(comentario -> ResponseEntity.status(201).body(repositoryC.findAll()))
-				.orElse(ResponseEntity.status(400).build());
+	@PostMapping("/comments/register/{idUser}/{idPost}")
+	public ResponseEntity<Object> registerPost(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "idPost") Long idPost, @RequestBody Comment newComment) {
+		return serviceU.registerComment(idUser, idPost, newComment);
 	}
 
 	/**
@@ -216,63 +332,155 @@ public class UserController {
 	 * @param idComentario
 	 * @param comentarioAtualizado
 	 * @return uma lista com todos comentários, com o status 201, ou um status 400
+	 * @author Antonio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	@PutMapping("/comentarios/atualizar/{idComentario}")
-	public ResponseEntity<List<Comment>> atualizarPostagem(@PathVariable(value = "idComentario") Long idComentario,
-			@Valid @RequestBody Comment comentarioAtualizado) {
-		return serviceU.atualizarComentario(idComentario, comentarioAtualizado)
-				.map(postagemAtualizada -> ResponseEntity.status(201).body(repositoryC.findAll()))
-				.orElse(ResponseEntity.status(400).build());
+	@PutMapping("/comments/update/{idComment}")
+	public ResponseEntity<Object> updateComment(@PathVariable(value = "idComment") Long idComment,
+			@Valid @RequestBody Comment commentUpdated) {
+		return serviceU.updateComment(idComment, commentUpdated);
 
 	}
 
 	/**
 	 * Rota para deletar um comentário
 	 * 
-	 * @param idComentario
+	 * @param idComment
 	 * @return uma mensagem para caso o comentário seja deletado ou não
+	 * @author Antonio
+	 * @redactor Amanda
+	 * @translator Amanda
 	 */
-	@DeleteMapping("/comentarios/deletar/{idComentario}")
-	public ResponseEntity<String> deletaComentario(@PathVariable long idComentario) {
-		Optional<Comment> comentarioExistente = repositoryC.findById(idComentario);
+	@DeleteMapping("/comments/delete/{idComment}")
+	public ResponseEntity<String> deleteComment(@PathVariable long idComment) {
+		Optional<Comment> existingComment = repositoryC.findById(idComment);
 
-		if (comentarioExistente.isPresent()) {
-			repositoryC.deleteById(idComentario);
-			return ResponseEntity.status(200).body("Comentário deletado com sucesso.");
+		if (existingComment.isPresent()) {
+			repositoryC.deleteById(idComment);
+			return ResponseEntity.status(200).body("COMENTÁRIO DELETADO");
 		} else {
-			return ResponseEntity.status(200).body("Comentário não pode ser deletado, pois não existe.");
+			return ResponseEntity.status(200).body("Erro ao deletar comentário.");
 		}
+	}
+
+	/**
+	 * Rota para receber o número de likes de um comentário
+	 * 
+	 * @param idComment
+	 * @author Antonio
+	 * @author Bueno
+	 * @return
+	 */
+	@GetMapping("/comments/upvotes/{idComment}")
+	public ResponseEntity<String> upvotesComment(@PathVariable(value = "idComment") Long idComment) {
+		return serviceU.upvotesComment(idComment);
+	}
+
+	/**
+	 * Rota para números de reports em um comentário
+	 * 
+	 * @param idComment
+	 * @author Antonio
+	 * @author Bueno
+	 * @return
+	 */
+	@GetMapping("/comments/reports/{idComment}")
+	public ResponseEntity<String> reportsComments(@PathVariable(value = "idComment") Long idComment) {
+		return serviceU.reportsComments(idComment);
 	}
 
 	// ----------------------- DENÚNCIAS -----------------------
 
-	@PostMapping("/denuncias/postagem/{idUser}/{idPost}")
-	public ResponseEntity<String> reportPost(@PathVariable(value = "idUser") Long idUser,
+	/**
+	 * Rota para reportar um post
+	 * 
+	 * @param idUser
+	 * @param idPost
+	 * @author Antonio
+	 * @return
+	 */
+	@PostMapping("/reports/post/{idUser}/{idPost}")
+	public ResponseEntity<Object> reportPost(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idPost") Long idPost) {
 
-		return serviceU.reportPost(idUser, idPost)
-				.map(reported -> ResponseEntity.status(201).body("Postagem denunciada"))
-				.orElse(ResponseEntity.status(200)
-						.body("Postagem ou usuário não existem, ou esse usuário já denunciou esta postagem"));
+		return serviceU.reportPost(idUser, idPost);
 	}
 
-	@PostMapping("/denuncias/comentario/{idUser}/{idComment}")
-	public ResponseEntity<String> reportComment(@PathVariable(value = "idUser") Long idUser,
+	/**
+	 * Rota para reportar um comentário
+	 * 
+	 * @param idUser
+	 * @param idComment
+	 * @author Antonio
+	 * @return
+	 */
+	@PostMapping("/reports/comment/{idUser}/{idComment}")
+	public ResponseEntity<Object> reportComment(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idComment") Long idComment) {
 
-		return serviceU.reportComment(idUser, idComment)
-				.map(reported -> ResponseEntity.status(201).body("Comentário denunciado"))
-				.orElse(ResponseEntity.status(200)
-						.body("Comentário ou usuário não existem, ou esse usuário já denunciou este comentário"));
+		return serviceU.reportComment(idUser, idComment);
 	}
 
-	@DeleteMapping("/denuncias/postagens/deletar/{idReport}/{idUser}")
-	public ResponseEntity<String> deleteReport(@PathVariable(value = "idReport") Long idReport,
+	/**
+	 * Rota para retirar um report
+	 * 
+	 * @param idReport
+	 * @param idUser
+	 * @author Antonio
+	 * @return
+	 */
+	@DeleteMapping("/report/delete/{idReport}/{idUser}")
+	public ResponseEntity<Object> deleteReport(@PathVariable(value = "idReport") Long idReport,
 			@PathVariable(value = "idUser") Long idUser) {
-		return serviceU.deleteReport(idReport, idUser)
-				.map(deleted -> ResponseEntity.status(202).body("Denúncia retirada"))
-				.orElse(ResponseEntity.status(404).build());
+		return serviceU.deleteReport(idReport, idUser);
 
+	}
+
+	// ----------------------- UPVOTES -----------------------
+
+	/**
+	 * Rota para dar like em um post
+	 * 
+	 * @param idUser
+	 * @param idPost
+	 * @author Antonio
+	 * @return
+	 */
+	@PostMapping("/upvotes/post/{idUser}/{idPost}")
+	public ResponseEntity<Object> upvotePost(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "idPost") Long idPost) {
+
+		return serviceU.upvotePost(idUser, idPost);
+	}
+
+	/**
+	 * Rota para dar like em um comentário
+	 * 
+	 * @param idUser
+	 * @param idComment
+	 * @author Antonio
+	 * @return
+	 */
+	@PostMapping("/upvotes/comment/{idUser}/{idComment}")
+	public ResponseEntity<Object> upvoteComment(@PathVariable(value = "idUser") Long idUser,
+			@PathVariable(value = "idComment") Long idComment) {
+
+		return serviceU.upvoteComment(idUser, idComment);
+	}
+
+	/**
+	 * Rota para retirar um like
+	 * 
+	 * @param idUpvote
+	 * @param idUser
+	 * @author Antonio
+	 * @return
+	 */
+	@DeleteMapping("/upvotes/delete/{idUpvote}/{idUser}")
+	public ResponseEntity<Object> unupvote(@PathVariable(value = "idUpvote") Long idUpvote,
+			@PathVariable(value = "idUser") Long idUser) {
+		return serviceU.unupvote(idUpvote, idUser);
 	}
 
 }
