@@ -42,7 +42,7 @@ public class Post {
 	private String title;
 
 	@NotNull
-	@Size(min = 10, max = 500)
+	@Size(min = 3, max = 500)
 	private String description;
 
 	private String urlImage;

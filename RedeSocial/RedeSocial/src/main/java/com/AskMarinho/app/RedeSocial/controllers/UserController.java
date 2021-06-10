@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.AskMarinho.app.RedeSocial.models.Comment;
 import com.AskMarinho.app.RedeSocial.models.Post;
 import com.AskMarinho.app.RedeSocial.models.User;
+import com.AskMarinho.app.RedeSocial.models.UserLogin;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
 import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
 import com.AskMarinho.app.RedeSocial.repositories.UserRepository;
@@ -42,6 +43,20 @@ public class UserController {
 	private @Autowired CommentRepository repositoryC;
 
 	// ----------------------- USUÁRIOS -----------------------
+
+	/**
+	 * Método que faz login na plataforma
+	 * 
+	 * @param user
+	 * @return
+	 * @author Bueno
+	 */
+
+	@PostMapping("/login")
+	public ResponseEntity<UserLogin> AuthenticationManagerBuilder(@RequestBody Optional<UserLogin> user) {
+		return serviceU.login(user).map(resp -> ResponseEntity.status(200).body(resp))
+				.orElse(ResponseEntity.status(401).build());
+	}
 
 	/**
 	 * Rota para retornar todos os usuários
@@ -214,7 +229,7 @@ public class UserController {
 	 * @return
 	 */
 	@PutMapping("/posts/add/theme/{themeName}/{idPost}")
-	public ResponseEntity<Object> addTheme(@PathVariable(value = "nomeTema") String themeName,
+	public ResponseEntity<Object> addTheme(@PathVariable(value = "themeName") String themeName,
 			@PathVariable(value = "idPost") Long idPost) {
 		return serviceU.addTag(idPost, themeName);
 	}

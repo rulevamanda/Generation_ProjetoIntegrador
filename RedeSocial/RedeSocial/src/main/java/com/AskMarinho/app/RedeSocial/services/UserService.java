@@ -1,12 +1,15 @@
 package com.AskMarinho.app.RedeSocial.services;
 
+import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.AskMarinho.app.RedeSocial.models.Comment;
 import com.AskMarinho.app.RedeSocial.models.Upvote;
@@ -14,6 +17,7 @@ import com.AskMarinho.app.RedeSocial.models.Post;
 import com.AskMarinho.app.RedeSocial.models.Report;
 import com.AskMarinho.app.RedeSocial.models.Tag;
 import com.AskMarinho.app.RedeSocial.models.User;
+import com.AskMarinho.app.RedeSocial.models.UserLogin;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
 import com.AskMarinho.app.RedeSocial.repositories.UpvoteRepository;
 import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
@@ -54,13 +58,16 @@ public class UserService {
 	public ResponseEntity<Object> registerUser(User newUser) {
 		Optional<User> existingEmal = repositoryU.findByEmail(newUser.getEmail());
 
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		String passwordEncoder = encoder.encode(newUser.getPassword());
+		newUser.setPassword(passwordEncoder);
+
 		if (existingEmal.isEmpty()) {
 			Optional<User> existingUser = repositoryU.findByUserName(newUser.getUserName());
 
 			if (existingUser.isEmpty()) {
-				repositoryU.save(newUser);
-				return ResponseEntity.status(201).body("Usuario: " + newUser.getUserName() + "\nEmail: "
-						+ newUser.getEmail() + "\nUSUÁRIO CADASTRADO");
+				return ResponseEntity.status(201).body(repositoryU.save(newUser));
 			} else {
 				return ResponseEntity.status(200).body("Já existe um usuário com esse nome");
 			}
@@ -68,6 +75,33 @@ public class UserService {
 		} else {
 			return ResponseEntity.status(200).body("Já existe um usuário com esse email");
 		}
+	}
+
+	/**
+	 * Método de login
+	 * 
+	 * @param newUser
+	 * @return Usuário logado com seu token ou erro respectivo
+	 * @author Bueno
+	 */
+	public Optional<UserLogin> login(Optional<UserLogin> newUser) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		Optional<User> user = repositoryU.findByEmail(newUser.get().getEmail());
+
+		if (user.isPresent()) {
+			if (encoder.matches(newUser.get().getPassword(), user.get().getPassword())) {
+				String auth = newUser.get().getEmail() + ":" + newUser.get().getPassword();
+				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+
+				String authHeader = "Basic " + new String(encodedAuth);
+
+				newUser.get().setToken(authHeader);
+				newUser.get().setName(user.get().getName());
+
+				return newUser;
+			}
+		}
+		return Optional.empty();
 	}
 
 	/**
@@ -130,6 +164,11 @@ public class UserService {
 				}
 			}
 			if (update) {
+				BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+				
+				String senhaEncoder = encoder.encode(updatedUser.getPassword());
+				updatedUser.setPassword(senhaEncoder);
+				
 				existingUser.get().setName(updatedUser.getName());
 				existingUser.get().setTelephone(updatedUser.getTelephone());
 				existingUser.get().setPassword(updatedUser.getPassword());
@@ -417,7 +456,7 @@ public class UserService {
 				if (existingUser.get().getFavorites().contains(existingTag.get())) {
 					existingUser.get().getFavorites().remove(existingTag.get());
 					repositoryU.save(existingUser.get());
-					return ResponseEntity.status(202).body("TEMA FOVORITO DELETADO");
+					return ResponseEntity.status(202).body("TEMA FAVORITO DELETADO");
 				} else {
 					return ResponseEntity.status(200).body("Esse usuário não possui esse tema");
 				}
@@ -456,9 +495,9 @@ public class UserService {
 			} else {
 				ResponseEntity.status(200).body("Essa postagem não existe");
 			}
-		} 
-			return ResponseEntity.status(200).body("Esse usuário não existe");
-		
+		}
+		return ResponseEntity.status(200).body("Esse usuário não existe");
+
 	}
 
 	/**
@@ -478,8 +517,8 @@ public class UserService {
 			existingComment.get().setText(updatedComment.getText());
 
 			repositoryC.save(existingComment.get());
-			
-			return ResponseEntity.status(201).body(repositoryP.findAllByComment(updatedComment));
+
+			return ResponseEntity.status(201).body(repositoryP.findAllByComment(existingComment.get()));
 		}
 		return ResponseEntity.status(200).body("Esse comentário não existe");
 	}
@@ -553,7 +592,7 @@ public class UserService {
 						return ResponseEntity.status(200).body("Esse usuário já denunciou essa postagem");
 					} else {
 						existingReport.get().getUserReport().add(existingUser.get());
-					
+
 						return ResponseEntity.status(201).body(repositoryR.save(existingReport.get()));
 					}
 				}
