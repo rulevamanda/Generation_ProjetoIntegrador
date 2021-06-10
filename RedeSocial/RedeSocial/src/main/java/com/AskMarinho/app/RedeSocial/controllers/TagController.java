@@ -15,27 +15,51 @@ import org.springframework.web.bind.annotation.RestController;
 import com.AskMarinho.app.RedeSocial.models.Tag;
 import com.AskMarinho.app.RedeSocial.repositories.TagRepository;
 
+/**
+ * 
+ * @translator Amanda
+ *
+ */
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/tema")
+@RequestMapping("/theme")
 public class TagController {
 
 	@Autowired
 	private TagRepository repositoryT;
 
-	@GetMapping("/todos")
+	/**
+	 * Rota para retornar todas as tags
+	 * 
+	 * @author Matheus
+	 * @return
+	 */
+	@GetMapping("/all")
 	public ResponseEntity<List<Tag>> getAll() {
 		return ResponseEntity.status(200).body(repositoryT.findAll());
 	}
 
+	/**
+	 * Rota para retornar uma tag pelo id
+	 * 
+	 * @param id
+	 * @author Matheus
+	 * @return
+	 */
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Tag> getById(@PathVariable long id) {
 		return repositoryT.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
-	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Tag>> getByName(@PathVariable String nome) {
-		return ResponseEntity.ok(repositoryT.findAllByTagNameContainingIgnoreCase(nome));
+	/**
+	 * Rota para retornar uma tag pelo nome
+	 * @param name
+	 * @author Matheus
+	 * @return
+	 */
+	@GetMapping("/name/{name}")
+	public ResponseEntity<List<Tag>> getByName(@PathVariable String name) {
+		return ResponseEntity.ok(repositoryT.findAllByTagNameContainingIgnoreCase(name));
 	}
 
 }
