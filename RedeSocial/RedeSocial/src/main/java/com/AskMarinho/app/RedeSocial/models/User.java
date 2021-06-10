@@ -40,15 +40,15 @@ public class User {
 	private String name;
 
 	@NotNull(message = "Insira um nome de usuário.")
-	@Size(min = 5, max = 15, message = "Nome de usuário entre 3 e 15 caracteres.")
+	@Size(min = 3, max = 100, message = "Nome de usuário entre 3 e 15 caracteres.")
 	private String userName;
 
 	@NotNull(message = "Insira um endereço de email.")
-	@Size(min = 12, max = 25, message = "Endereço de email entre 12 e 25 caracteres.")
+	@Size(min = 03, max = 100, message = "Endereço de email entre 12 e 25 caracteres.")
 	private String email;
 
 	@NotNull(message = "Insira uma senha.")
-	@Size(min = 8, max = 25, message = "Senha entre 8 e 25 caracteres.")
+	@Size(min = 8, max = 255, message = "Senha entre 8 e 25 caracteres.")
 	private String password;
 
 	@NotNull(message = "Insira uma data de nascimento.")
