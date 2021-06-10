@@ -19,7 +19,7 @@ import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
  */
 
 @RestController
-@RequestMapping("/comentarios")
+@RequestMapping("/comments")
 public class CommentController {
 
 	@Autowired
@@ -30,7 +30,7 @@ public class CommentController {
 	 * 
 	 * @return lista com todos os comentários
 	 */
-	@GetMapping("/todos")
+	@GetMapping("/all")
 	public ResponseEntity<List<Comment>> allComments() {
 		List<Comment> CommentList = repositoryC.findAll();
 		return ResponseEntity.status(200).body(CommentList);
@@ -55,15 +55,15 @@ public class CommentController {
 	 * @author Antonio
 	 * @author Bueno
 	 */
-	@GetMapping("/curtidas/{idComment}")
+	@GetMapping("/upvotes/{idComment}")
 	public ResponseEntity<String> upvotesComment(@PathVariable(value = "idComment") Long idComment) {
 		Optional<Comment> existingComment = repositoryC.findById(idComment);
 		if (existingComment.isPresent()) {
 			if (existingComment.get().getUpvoted() != null) {
 				return ResponseEntity.status(202)
-						.body("Número de likes: " + existingComment.get().getUpvoted().getUserUpvote().size());
+						.body("Número de upvotes: " + existingComment.get().getUpvoted().getUserUpvote().size());
 			}
-			return ResponseEntity.status(202).body("Número de likes: 0");
+			return ResponseEntity.status(202).body("Número de upvotes: 0");
 
 		}
 		return ResponseEntity.status(404).build();
@@ -77,7 +77,7 @@ public class CommentController {
 	 * @author Antonio
 	 * @author Bueno
 	 */
-	@GetMapping("/denuncias/{idComment}")
+	@GetMapping("/reports/{idComment}")
 	public ResponseEntity<String> reportsComments(@PathVariable(value = "idComment") Long idComment) {
 		Optional<Comment> existingComment = repositoryC.findById(idComment);
 		if (existingComment.isPresent()) {

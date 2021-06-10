@@ -17,13 +17,13 @@ import com.AskMarinho.app.RedeSocial.repositories.UpvoteRepository;
  */
 
 @RestController
-@RequestMapping("/curtidas")
+@RequestMapping("/upvotes")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UpvoteController {
 	
 	private @Autowired UpvoteRepository repositoryL;
 
-	@GetMapping("/todos")
+	@GetMapping("/all")
 	public ResponseEntity<List<Upvote>> getAll() {
 		return ResponseEntity.status(200).body(repositoryL.findAll());
 	}

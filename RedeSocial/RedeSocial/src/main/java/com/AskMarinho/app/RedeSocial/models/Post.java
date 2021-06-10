@@ -55,7 +55,7 @@ public class Post {
 	private List<Comment> comment;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "usuarioPostagem")
+	@JoinColumn(name = "userPost")
 	@JsonIgnoreProperties({ "upvotes", "favorites","posts", "idUser", "name", "userName", "birth", "comments", "reports" })
 	private User userPost;
 

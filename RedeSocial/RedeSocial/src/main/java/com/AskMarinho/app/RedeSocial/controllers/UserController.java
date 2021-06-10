@@ -31,7 +31,7 @@ import com.AskMarinho.app.RedeSocial.services.UserService;
  *
  */
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/users")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
@@ -44,13 +44,13 @@ public class UserController {
 
 	// ----------------------- USUÁRIOS -----------------------
 
-	@GetMapping("/todes")
+	@GetMapping("/all")
 	public ResponseEntity<List<User>> searchAll() {
 		List<User> listAll = repositoryU.findAll();
 		return ResponseEntity.status(200).body(listAll);
 	}
 
-	@GetMapping("/nome/pesquisar")
+	@GetMapping("/name/search")
 	public ResponseEntity<Object> searchByName(@RequestParam(defaultValue = "") String name) {
 		List<User> listOfNames = repositoryU.findAllByNameContainingIgnoreCase(name);
 
@@ -66,7 +66,7 @@ public class UserController {
 		return repositoryU.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
-	@PostMapping("/cadastrar")
+	@PostMapping("/register")
 	public ResponseEntity<String> registerUser(@Valid @RequestBody User newUser) {
 		return serviceU.registerUser(newUser)
 				.map(registeredEmail -> ResponseEntity.status(201)
@@ -76,18 +76,18 @@ public class UserController {
 						.body("Erro ao cadastrar usuário."));
 	}
 
-	@PutMapping("/atualizar/{id_usuario}")
+	@PutMapping("/update/{id_user}")
 	public ResponseEntity<String> updateUser(@Valid @RequestBody User updatedUser,
-			@Valid @PathVariable(value = "id_usuario") Long id) {
+			@Valid @PathVariable(value = "id_user") Long id) {
 		return serviceU.updateUser(id, updatedUser)
 				.map(updateUser -> ResponseEntity.status(201)
-						.body("Usuario: " + updatedUser.getUserName() + "\nEmail: "
+						.body("Usuário: " + updatedUser.getUserName() + "\nEmail: "
 								+ updatedUser.getEmail() + "\nUSUÁRIO ATUALIZADO"))
 				.orElse(ResponseEntity.status(400).body(
 						"Erro ao atualizar usuário."));
 	}
 
-	@DeleteMapping("/deletar/{id_user}")
+	@DeleteMapping("/delete/{id_user}")
 	public ResponseEntity<String> deleteUser(@PathVariable Long id_user) {
 		Optional<User> existingUser = repositoryU.findById(id_user);
 
@@ -111,7 +111,7 @@ public class UserController {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	@PostMapping("/postagens/cadastrar/{idUser}/{themeName}")
+	@PostMapping("/posts/register/{idUser}/{themeName}")
 	public ResponseEntity<String> registerPost(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "themeName") String themeName, @RequestBody Post newPost) {
 		return serviceU.registerPost(idUser, themeName, newPost)
@@ -132,7 +132,7 @@ public class UserController {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	@PutMapping("/postagens/atualizar/{id}")
+	@PutMapping("/posts/update/{id}")
 	public ResponseEntity<String> updatePost(@PathVariable(value = "id") Long id,
 			@Valid @RequestBody Post post) {
 		return serviceU.updatePost(id, post)
@@ -154,7 +154,7 @@ public class UserController {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	@DeleteMapping("/postagens/deletar/{id}")
+	@DeleteMapping("/posts/delete/{id}")
 	public ResponseEntity<String> deletePost(@PathVariable long id) {
 		Optional<Post> existingPost = repositoryP.findById(id);
 
@@ -166,17 +166,17 @@ public class UserController {
 		}
 	}
 
-	@PutMapping("/postagens/adicionar/tema/{nomeTema}/{idPostagem}")
+	@PutMapping("/posts/add/theme/{themeName}/{idPost}")
 	public ResponseEntity<String> addTheme(@PathVariable(value = "nomeTema") String themeName,
-			@PathVariable(value = "idPostagem") Long idPost) {
+			@PathVariable(value = "idPost") Long idPost) {
 		return serviceU.addTag(idPost, themeName)
 				.map(added -> ResponseEntity.status(201).body("TEMA ADICIONADO"))
 				.orElse(ResponseEntity.status(200).body("Erro ao adicionar Tema."));
 	}
 
-	@DeleteMapping("/postagens/deletar/tema/{idTema}/{idPostagem}")
-	public ResponseEntity<String> deletePostTheme(@PathVariable(value = "idTema") Long idTheme,
-			@PathVariable(value = "idPostagem") Long idPost) {
+	@DeleteMapping("/posts/delete/theme/{idTheme}/{idPost}")
+	public ResponseEntity<String> deletePostTheme(@PathVariable(value = "idTheme") Long idTheme,
+			@PathVariable(value = "idPost") Long idPost) {
 		return serviceU.deletePostTheme(idPost, idTheme)
 				.map(deleted -> ResponseEntity.status(200).body("TEMA DA POSTAGEM DELETADO"))
 				.orElse(ResponseEntity.status(404).build());
@@ -184,7 +184,7 @@ public class UserController {
 
 	// ----------------------- TEMAS -----------------------
 
-	@PutMapping("/adicionar/tema/{idUser}/{tagName}")
+	@PutMapping("/add/theme/{idUser}/{tagName}")
 	public ResponseEntity<String> addTags(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "tagName") String tagName) {
 		return serviceU.addFavoriteTag(idUser, tagName)
@@ -192,7 +192,7 @@ public class UserController {
 				.orElse(ResponseEntity.status(400).build());
 	}
 
-	@DeleteMapping("/deletar/tema/favoritos/{idUser}/{idTag}")
+	@DeleteMapping("/delete/theme/favorites/{idUser}/{idTag}")
 
 	public ResponseEntity<String> deleteFavoriteTag(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idTag") Long idTag) {
@@ -214,7 +214,7 @@ public class UserController {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	@PostMapping("/comentarios/cadastrar/{idUser}/{idPost}")
+	@PostMapping("/comments/register/{idUser}/{idPost}")
 	public ResponseEntity<List<Comment>> registerPost(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idPost") Long idPost, @RequestBody Comment newComment) {
 		return serviceU.registerComment(idUser, idPost, newComment)
@@ -231,7 +231,7 @@ public class UserController {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	@PutMapping("/comentarios/atualizar/{idComment}")
+	@PutMapping("/comments/update/{idComment}")
 	public ResponseEntity<List<Comment>> updatePost(@PathVariable(value = "idComment") Long idComment,
 			@Valid @RequestBody Comment commentUpdated) {
 		return serviceU.updateComment(idComment, commentUpdated)
@@ -243,12 +243,12 @@ public class UserController {
 	/**
 	 * Rota para deletar um comentário
 	 * 
-	 * @param idComentario
+	 * @param idComment
 	 * @return uma mensagem para caso o comentário seja deletado ou não
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	@DeleteMapping("/comentarios/deletar/{idComment}")
+	@DeleteMapping("/comments/delete/{idComment}")
 	public ResponseEntity<String> deleteComment(@PathVariable long idComment) {
 		Optional<Comment> existingComment = repositoryC.findById(idComment);
 
@@ -262,7 +262,7 @@ public class UserController {
 
 	// ----------------------- DENÚNCIAS -----------------------
 
-	@PostMapping("/denuncias/postagem/{idUser}/{idPost}")
+	@PostMapping("/reports/post/{idUser}/{idPost}")
 	public ResponseEntity<String> reportPost(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idPost") Long idPost) {
 
@@ -272,7 +272,7 @@ public class UserController {
 						.body("Erro ao denunciar postagem."));
 	}
 
-	@PostMapping("/denuncias/comentario/{idUser}/{idComment}")
+	@PostMapping("/reports/comment/{idUser}/{idComment}")
 	public ResponseEntity<String> reportComment(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idComment") Long idComment) {
 
@@ -282,7 +282,7 @@ public class UserController {
 						.body("Erro ao denunciar comentário."));
 	}
 
-	@DeleteMapping("/denuncias/deletar/{idReport}/{idUser}")
+	@DeleteMapping("/report/delete/{idReport}/{idUser}")
 	public ResponseEntity<String> deleteReport(@PathVariable(value = "idReport") Long idReport,
 			@PathVariable(value = "idUser") Long idUser) {
 		return serviceU.deleteReport(idReport, idUser)
@@ -293,7 +293,7 @@ public class UserController {
 
 	// ----------------------- UPVOTES -----------------------
 
-	@PostMapping("/likes/postagem/{idUser}/{idPost}")
+	@PostMapping("/upvotes/post/{idUser}/{idPost}")
 	public ResponseEntity<String> upvotePost(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idPost") Long idPost) {
 
@@ -302,7 +302,7 @@ public class UserController {
 						.body("Erro ao curtir postagem."));
 	}
 
-	@PostMapping("/likes/comentario/{idUser}/{idComment}")
+	@PostMapping("/upvotes/comment/{idUser}/{idComment}")
 	public ResponseEntity<String> upvoteComment(@PathVariable(value = "idUser") Long idUser,
 			@PathVariable(value = "idComment") Long idComment) {
 
@@ -311,8 +311,8 @@ public class UserController {
 						.body("Erro ao curtir comentário."));
 	}
 	
-	@DeleteMapping("/likes/deletar/{idLike}/{idUser}")
-	public ResponseEntity<String> unupvote(@PathVariable(value = "idLike") Long idUpvote,
+	@DeleteMapping("/upvotes/delete/{idUpvote}/{idUser}")
+	public ResponseEntity<String> unupvote(@PathVariable(value = "idUpvote") Long idUpvote,
 			@PathVariable(value = "idUser") Long idUser) {
 		return serviceU.unupvote(idUpvote, idUser)
 				.map(deleted -> ResponseEntity.status(202).body("CURTIDA RETIRADA"))

@@ -31,8 +31,7 @@ public class Upvote {
 
 	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "upvotesAndUser", joinColumns = @JoinColumn(name = "fk_upvote"), inverseJoinColumns = @JoinColumn(name = "fk_user"))
-	@JsonIgnoreProperties({ "posts","userName", "password", "birth", "gender", "telephone", "comments", "reports", "upvotes",
-			"favorites" })
+	@JsonIgnoreProperties({ "posts","userName", "password", "birth", "gender", "telephone", "comments", "reports", "upvotes", "favorites" })
 	private Set<User> userUpvote = new HashSet<>();
 
 	@OneToOne
