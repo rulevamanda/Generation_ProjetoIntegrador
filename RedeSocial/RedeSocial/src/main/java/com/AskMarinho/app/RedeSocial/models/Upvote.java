@@ -30,7 +30,7 @@ public class Upvote {
 	@ManyToMany()
 	@JoinTable(name = "upvotesAndUser", joinColumns = @JoinColumn(name = "fk_upvote"), inverseJoinColumns = @JoinColumn(name = "fk_user"))
 	@JsonIgnoreProperties({ "posts","userName", "password", "birth", "gender", "telephone", "comments", "reports", "upvotes", "favorites" })
-	private Set<User> userUpvote = new HashSet<>();
+	private Set<Usuario> userUpvote = new HashSet<>();
 
 	@OneToOne
 	@JsonIgnoreProperties({ "upvoted", "comment", "userPost", "tagRelation", "reported" })
@@ -48,11 +48,11 @@ public class Upvote {
 		this.idUpvote = idUpvote;
 	}
 
-	public Set<User> getUserUpvote() {
+	public Set<Usuario> getUserUpvote() {
 		return userUpvote;
 	}
 
-	public void setUserUpvote(Set<User> userUpvote) {
+	public void setUserUpvote(Set<Usuario> userUpvote) {
 		this.userUpvote = userUpvote;
 	}
 

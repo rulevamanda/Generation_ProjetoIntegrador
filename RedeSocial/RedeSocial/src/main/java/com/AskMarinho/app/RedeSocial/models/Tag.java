@@ -41,7 +41,7 @@ public class Tag {
 	// editando aqui --user
 	@ManyToMany(mappedBy = "favorites")
 	@JsonIgnoreProperties({ "upvotes", "posts", "reports", "favorites", "comments", "password", "email", "birth", "gender", "telephone" })
-	private List<User> userTags;
+	private List<Usuario> userTags;
 
 	public long getIdTag() {
 		return idTag;
@@ -67,11 +67,11 @@ public class Tag {
 		this.posts = posts;
 	}
 
-	public List<User> getUserTags() {
+	public List<Usuario> getUserTags() {
 		return userTags;
 	}
 
-	public void setUserTags(List<User> userTags) {
+	public void setUserTags(List<Usuario> userTags) {
 		this.userTags = userTags;
 	}
 
