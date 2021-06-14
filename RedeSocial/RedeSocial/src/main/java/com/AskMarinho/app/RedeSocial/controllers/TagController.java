@@ -28,16 +28,35 @@ public class TagController {
 	@Autowired
 	private TagRepository repositoryT;
 
+	/**
+	 * Rota para retornar todas as tags
+	 * 
+	 * @author Matheus
+	 * @return
+	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<Tag>> getAll() {
 		return ResponseEntity.status(200).body(repositoryT.findAll());
 	}
 
+	/**
+	 * Rota para retornar uma tag pelo id
+	 * 
+	 * @param id
+	 * @author Matheus
+	 * @return
+	 */
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Tag> getById(@PathVariable long id) {
 		return repositoryT.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
+	/**
+	 * Rota para retornar uma tag pelo nome
+	 * @param name
+	 * @author Matheus
+	 * @return
+	 */
 	@GetMapping("/name/{name}")
 	public ResponseEntity<List<Tag>> getByName(@PathVariable String name) {
 		return ResponseEntity.ok(repositoryT.findAllByTagNameContainingIgnoreCase(name));
