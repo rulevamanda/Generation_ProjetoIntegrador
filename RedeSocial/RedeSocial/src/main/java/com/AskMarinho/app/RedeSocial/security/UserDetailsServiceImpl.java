@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.AskMarinho.app.RedeSocial.models.User;
+import com.AskMarinho.app.RedeSocial.models.Usuario;
 import com.AskMarinho.app.RedeSocial.repositories.UserRepository;
 
 @Service
@@ -18,10 +18,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	private UserRepository repositoryU;
 	
 	@Override
-	public UserDetails loadUserByUsername (String email) throws UsernameNotFoundException{
-		Optional<User> user = repositoryU.findByEmail(email);
+	public UserDetails loadUserByUsername (String userName) throws UsernameNotFoundException{
+		Optional<Usuario> user = repositoryU.findByEmail(userName);
 		
-		user.orElseThrow(() -> new UsernameNotFoundException(email + "not found"));
+		user.orElseThrow(() -> new UsernameNotFoundException(userName + "not found"));
 		
 		return user.map(UserDetailsImpl::new).get();
 		

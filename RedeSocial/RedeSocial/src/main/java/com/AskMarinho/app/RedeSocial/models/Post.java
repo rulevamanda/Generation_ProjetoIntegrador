@@ -57,7 +57,7 @@ public class Post {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userPost")
 	@JsonIgnoreProperties({ "upvotes", "favorites","posts", "idUser", "name", "userName", "birth", "comments", "reports" })
-	private User userPost;
+	private Usuario userPost;
 
 	@ManyToMany
 	@JoinTable(name = "relationTagAndPost", joinColumns = @JoinColumn(name = "fk_post"), inverseJoinColumns = @JoinColumn(name = "fk_tag"))
@@ -120,11 +120,11 @@ public class Post {
 		this.comment = comment;
 	}
 
-	public User getUserPost() {
+	public Usuario getUserPost() {
 		return userPost;
 	}
 
-	public void setUserPost(User userPost) {
+	public void setUserPost(Usuario userPost) {
 		this.userPost = userPost;
 	}
 
