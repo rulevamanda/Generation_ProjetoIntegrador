@@ -1,0 +1,1054 @@
+{
+	"info": {
+		"_postman_id": "5d630b0c-2e9d-4b2e-9141-60adaec112f8",
+		"name": "askMarinho",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "register user - corpo: dados do usuário",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Usuarioooo\",\r\n    \"userName\":\"teaagasggsjte\",\r\n    \"email\":\"teste@aaaaggggjsadaaa.com\",\r\n    \"password\":\"teste2222\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511987654321\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all users",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic dGVzdGVAdGVhc2F0ZS5jb206YWJjZGVmZ2hpampraA==",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/users/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get user by name - parâmetro: nome do usuário",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/name/search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"name",
+										"search"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "ad",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get user by id - url: id do usuário",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic dGVzdGVAYWFhYWdnZ2dqc2FkYWFhLmNvbTp0ZXN0ZTIyMjI=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/users/id/7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"id",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get posts with favorites tags - url: id do usuário",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic dGVzdGVAdGVhc2F0ZS5jb206YWJjZGVmZ2hpampraA==",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/users/posts/favorites/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"posts",
+										"favorites",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update user - url: id do usuário - corpo: dados do usuário",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic dGVzdGVAYWFhYWdnZ2dqc2FkYWFhLmNvbTp0ZXN0ZTIyMjI=",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\":\"Adalberto\",\r\n    \"userName\":\"teastae\",\r\n    \"email\":\"teste@teasate.com\",\r\n    \"password\":\"abcdefghijjkh\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"masculino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/update/7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"update",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user - parâmetro: id do usuário",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/delete/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"delete",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"teste@teasate.com\",\r\n    \"password\":\"abcdefghijjkh\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "posts",
+					"item": [
+						{
+							"name": "register post - url: id do usuário - url: nome do tema para acrescentar no post",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\" : \"teasaaaassdfahe\",\r\n    \"description\" : \"testaaaaae\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/posts/register/5/tema testando",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"posts",
+										"register",
+										"5",
+										"tema testando"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update post - url: id da postagem para ser atualizada - corpo: dados da postagem",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\" : \"testgfdgde\",\r\n    \"description\" : \"tesgfgfjjte\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/posts/update/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"posts",
+										"update",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add theme to post - url: nome do tema para adicionar - url: id da postagem",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/posts/add/theme/tema teste2/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"posts",
+										"add",
+										"theme",
+										"tema teste2",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete theme from post - url: id do post - url: id do tema",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/posts/delete/theme/1/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"posts",
+										"delete",
+										"theme",
+										"1",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete post - url: id do post",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/posts/delete/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"posts",
+										"delete",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "comments",
+					"item": [
+						{
+							"name": "register comment - url: id do usuário - url: id do post - corpo: dados do comentário",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\" : \"comentario 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/comments/register/5/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"comments",
+										"register",
+										"5",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update comment - url: id do comentário - corpo: dados do comentário",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\" : \"comentáriooo 3\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/comments/update/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"comments",
+										"update",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete comment - url: id do comentário",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/comments/delete/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"comments",
+										"delete",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "reports",
+					"item": [
+						{
+							"name": "report post - url: id do usuário - url: id da postagem",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/reports/post/5/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"reports",
+										"post",
+										"5",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get reports number of posts - url: id do post",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/posts/reports/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"posts",
+										"reports",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "report comment - url: id do usuário - url: id do comentário",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/reports/comment/5/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"reports",
+										"comment",
+										"5",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get reports number of comments - url: id do comentário",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/comments/reports/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"comments",
+										"reports",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete report - url: id do report - url: id do usuário",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/report/delete/2/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"report",
+										"delete",
+										"2",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "favorite themes",
+					"item": [
+						{
+							"name": "add favorite theme - url: id do usuário - url: nome do tema",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/add/theme/4/tema testandoo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"add",
+										"theme",
+										"4",
+										"tema testandoo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete favorite theme - url: id do usuário - url: id do tema",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/delete/theme/favorites/1/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"delete",
+										"theme",
+										"favorites",
+										"1",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "upvotes",
+					"item": [
+						{
+							"name": "get upvotes number of posts - url : id do post",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/posts/upvotes/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"posts",
+										"upvotes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upvote post - url: id do usuário - url: id da postagem",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/upvotes/post/4/7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"upvotes",
+										"post",
+										"4",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get upvotes number of comments - url: id do comentário",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/comments/upvotes/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"comments",
+										"upvotes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upvote comment - url: id do usuário - url: id do comentário",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/upvotes/comment/4/7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"upvotes",
+										"comment",
+										"4",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "unupvote - url: id do upvote - url: id do usuário",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/users/upvotes/delete/2/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"upvotes",
+										"delete",
+										"2",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/posts/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id - url: id do post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/posts/id/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by title - url: nome do post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/posts/title/t",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts",
+								"title",
+								"t"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "themes",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/theme/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"theme",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id - url: id da tag",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/theme/id/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"theme",
+								"id",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by name - url: nome da tag",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/theme/name/testan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"theme",
+								"name",
+								"testan"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comments/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id - url: id do comentário",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comments/id/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"id",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reports",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id - url: id do report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reports/id/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reports",
+								"id",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "upvotes",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/upvotes/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"upvotes",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id - url: id do upvote",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/upvotes/id/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"upvotes",
+								"id",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
