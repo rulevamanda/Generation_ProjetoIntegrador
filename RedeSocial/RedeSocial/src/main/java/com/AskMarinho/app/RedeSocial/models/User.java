@@ -54,7 +54,8 @@ public class User {
 	@NotNull(message = "Insira uma data de nascimento.")
 	private Date birth;
 
-	@NotNull(message = "Insira o gênero.") //opção de múltiplas escolhas?
+	@NotNull(message = "Insira o gênero.")
+	@Size(min = 2, max = 50)
 	private String gender;
 
 	@NotNull(message = "Insira um número de telefone.")
