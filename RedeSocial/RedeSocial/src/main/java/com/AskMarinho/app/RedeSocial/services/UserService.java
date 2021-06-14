@@ -132,7 +132,7 @@ public class UserService {
 			} else {
 				return ResponseEntity.status(401).body("Senha não pode ser vazia");
 			}
-			
+
 		}
 		return ResponseEntity.status(401).body("Email não utilizado");
 	}
@@ -305,35 +305,29 @@ public class UserService {
 			return ResponseEntity.status(400).body("A postagem deve ter uma descrição");
 		}
 
-		Optional<Post> existingPost = repositoryP.findByTitle(newPost.getTitle());
+		Optional<User> existingUser = repositoryU.findById(idUser);
 
-		if (existingPost.isEmpty()) {
-			Optional<User> existingUser = repositoryU.findById(idUser);
+		if (existingUser.isPresent()) {
+			Optional<Tag> existingTheme = repositoryT.findByTagName(tagName);
 
-			if (existingUser.isPresent()) {
-				Optional<Tag> existingTheme = repositoryT.findByTagName(tagName);
-
-				if (existingTheme.isEmpty()) {
-					Tag novoTema = new Tag();
-					novoTema.setTagName(tagName);
-					repositoryT.save(novoTema);
-					newPost.getTagRelation().add(novoTema);
-				} else {
-					newPost.getTagRelation().add(existingTheme.get());
-				}
-
-				newPost.setUserPost(existingUser.get());
-
-				repositoryP.save(newPost);
-
-				return ResponseEntity.status(201).body(repositoryP.findAll());
-
+			if (existingTheme.isEmpty()) {
+				Tag novoTema = new Tag();
+				novoTema.setTagName(tagName);
+				repositoryT.save(novoTema);
+				newPost.getTagRelation().add(novoTema);
+			} else {
+				newPost.getTagRelation().add(existingTheme.get());
 			}
-			return ResponseEntity.status(200).body("Esse usuário não existe");
+
+			newPost.setUserPost(existingUser.get());
+
+			repositoryP.save(newPost);
+
+			return ResponseEntity.status(201).body(repositoryP.findAll());
 
 		}
+		return ResponseEntity.status(200).body("Esse usuário não existe");
 
-		return ResponseEntity.status(200).body("Já existe uma postagem com esse nome");
 	}
 
 	/**
@@ -385,7 +379,13 @@ public class UserService {
 	 * @translator Amanda
 	 */
 	public ResponseEntity<Object> addTag(Long idPost, String tagName) {
-
+		if (tagName.contains("{") || tagName.contains("}") || tagName.contains("/") || tagName.contains("\\")
+				|| tagName.contains("%") || tagName.contains("$") || tagName.contains("&") || tagName.contains("*")
+				|| tagName.contains("|") || tagName.contains("@") || tagName.contains("*") || tagName.contains("(")
+				|| tagName.contains(")") || tagName.contains("§")) {
+			return ResponseEntity.status(400).body("O tema não pode conter caracteres especiais");
+		}
+		
 		Optional<Post> existingPost = repositoryP.findById(idPost);
 		if (existingPost.isPresent()) {
 			Optional<Tag> existingTag = repositoryT.findByTagName(tagName);
