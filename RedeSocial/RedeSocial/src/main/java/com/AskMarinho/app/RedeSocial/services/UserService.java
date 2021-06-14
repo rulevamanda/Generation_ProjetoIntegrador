@@ -16,7 +16,7 @@ import com.AskMarinho.app.RedeSocial.models.Upvote;
 import com.AskMarinho.app.RedeSocial.models.Post;
 import com.AskMarinho.app.RedeSocial.models.Report;
 import com.AskMarinho.app.RedeSocial.models.Tag;
-import com.AskMarinho.app.RedeSocial.models.User;
+import com.AskMarinho.app.RedeSocial.models.Usuario;
 import com.AskMarinho.app.RedeSocial.models.UserLogin;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
 import com.AskMarinho.app.RedeSocial.repositories.UpvoteRepository;
@@ -55,7 +55,7 @@ public class UserService {
 	 * @translator Amanda
 	 * @since 1.0
 	 */
-	public ResponseEntity<Object> registerUser(User newUser) {
+	public ResponseEntity<Object> registerUser(Usuario newUser) {
 		if (newUser.getName().contains("{") || newUser.getName().contains("}") || newUser.getName().contains("/")
 				|| newUser.getName().contains("\\") || newUser.getName().contains("%")
 				|| newUser.getName().contains("$") || newUser.getName().contains("&") || newUser.getName().contains("*")
@@ -82,7 +82,7 @@ public class UserService {
 			return ResponseEntity.status(400).body("Nome de usuário com caracter inválido");
 		}
 
-		Optional<User> existingEmal = repositoryU.findByEmail(newUser.getEmail());
+		Optional<Usuario> existingEmal = repositoryU.findByEmail(newUser.getEmail());
 
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -90,7 +90,7 @@ public class UserService {
 		newUser.setPassword(passwordEncoder);
 
 		if (existingEmal.isEmpty()) {
-			Optional<User> existingUser = repositoryU.findByUserName(newUser.getUserName());
+			Optional<Usuario> existingUser = repositoryU.findByUserName(newUser.getUserName());
 
 			if (existingUser.isEmpty()) {
 				return ResponseEntity.status(201).body(repositoryU.save(newUser));
@@ -112,7 +112,7 @@ public class UserService {
 	 */
 	public ResponseEntity<Object> login(Optional<UserLogin> newUser) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		Optional<User> user = repositoryU.findByEmail(newUser.get().getEmail());
+		Optional<Usuario> user = repositoryU.findByEmail(newUser.get().getEmail());
 
 		if (user.isPresent()) {
 			if (newUser.get().getPassword() != null) {
@@ -150,7 +150,7 @@ public class UserService {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public ResponseEntity<Object> updateUser(Long id_user, User updatedUser) {
+	public ResponseEntity<Object> updateUser(Long id_user, Usuario updatedUser) {
 		if (updatedUser.getName().contains("{") || updatedUser.getName().contains("}")
 				|| updatedUser.getName().contains("/") || updatedUser.getName().contains("\\")
 				|| updatedUser.getName().contains("%") || updatedUser.getName().contains("$")
@@ -180,14 +180,14 @@ public class UserService {
 		}
 
 		Boolean update = false;
-		Optional<User> existingUser = repositoryU.findById(id_user);
+		Optional<Usuario> existingUser = repositoryU.findById(id_user);
 
 		if (existingUser.isPresent()) {
-			Optional<User> emailExistente = repositoryU.findByEmail(updatedUser.getEmail());
+			Optional<Usuario> emailExistente = repositoryU.findByEmail(updatedUser.getEmail());
 
 			if (emailExistente.isEmpty()) {
 
-				Optional<User> usuarioRepetido = repositoryU.findByUserName(updatedUser.getUserName());
+				Optional<Usuario> usuarioRepetido = repositoryU.findByUserName(updatedUser.getUserName());
 				if (usuarioRepetido.isEmpty()) {
 
 					update = true;
@@ -205,7 +205,7 @@ public class UserService {
 			} else {
 				if (updatedUser.getEmail().equals(existingUser.get().getEmail())) {
 
-					Optional<User> usuarioRepetido = repositoryU.findByUserName(updatedUser.getUserName());
+					Optional<Usuario> usuarioRepetido = repositoryU.findByUserName(updatedUser.getUserName());
 					if (usuarioRepetido.isEmpty()) {
 
 						update = true;
@@ -259,7 +259,7 @@ public class UserService {
 	 *         404
 	 */
 	public ResponseEntity<Set<Post>> postsFavorites(Long idUser) {
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 		Set<Post> posts = new HashSet<>();
 		if (existingUser.isPresent()) {
 			Set<Tag> tagFavorites = existingUser.get().getFavorites();
@@ -305,7 +305,7 @@ public class UserService {
 			return ResponseEntity.status(400).body("A postagem deve ter uma descrição");
 		}
 
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Tag> existingTheme = repositoryT.findByTagName(tagName);
@@ -498,7 +498,7 @@ public class UserService {
 			return ResponseEntity.status(400).body("O tema não pode conter caracteres especiais");
 		}
 
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Tag> existingTag = repositoryT.findByTagName(tagName);
@@ -533,7 +533,7 @@ public class UserService {
 	 */
 	public ResponseEntity<Object> deleteFavoriteTag(Long idUser, Long idTag) {
 
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 		if (existingUser.isPresent()) {
 			Optional<Tag> existingTag = repositoryT.findById(idTag);
 			if (existingTag.isPresent()) {
@@ -569,7 +569,7 @@ public class UserService {
 			return ResponseEntity.status(400).body("O comentário deve ter um texto");
 		}
 
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Post> postagemExistente = repositoryP.findById(idPost);
@@ -668,7 +668,7 @@ public class UserService {
 	 * @redactor Amanda
 	 */
 	public ResponseEntity<Object> reportPost(Long idUser, Long idPost) {
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Post> existingPost = repositoryP.findById(idPost);
@@ -714,7 +714,7 @@ public class UserService {
 	 * @redactor Amanda
 	 */
 	public ResponseEntity<Object> reportComment(Long idUser, Long idComment) {
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Comment> existingComment = repositoryC.findById(idComment);
@@ -762,7 +762,7 @@ public class UserService {
 		Optional<Report> existingReport = repositoryR.findById(idReport);
 
 		if (existingReport.isPresent()) {
-			Optional<User> existingUser = repositoryU.findById(idUser);
+			Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 			if (existingUser.isPresent()) {
 
@@ -810,7 +810,7 @@ public class UserService {
 	 * @redactor Amanda
 	 */
 	public ResponseEntity<Object> upvotePost(Long idUser, Long idPost) {
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Post> existingPost = repositoryP.findById(idPost);
@@ -855,7 +855,7 @@ public class UserService {
 	 * @redactor Amanda
 	 */
 	public ResponseEntity<Object> upvoteComment(Long idUser, Long idComment) {
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Comment> existingComment = repositoryC.findById(idComment);
@@ -902,7 +902,7 @@ public class UserService {
 		Optional<Upvote> existingUpvote = repositoryL.findById(idUpvote);
 
 		if (existingUpvote.isPresent()) {
-			Optional<User> existingUser = repositoryU.findById(idUser);
+			Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 			if (existingUser.isPresent()) {
 				if (existingUpvote.get().getUserUpvote().contains(existingUser.get())) {
