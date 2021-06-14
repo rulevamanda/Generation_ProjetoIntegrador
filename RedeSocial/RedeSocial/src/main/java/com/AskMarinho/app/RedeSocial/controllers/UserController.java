@@ -53,9 +53,8 @@ public class UserController {
 	 */
 
 	@PostMapping("/login")
-	public ResponseEntity<UserLogin> AuthenticationManagerBuilder(@RequestBody Optional<UserLogin> user) {
-		return serviceU.login(user).map(resp -> ResponseEntity.status(200).body(resp))
-				.orElse(ResponseEntity.status(401).build());
+	public ResponseEntity<Object> AuthenticationManagerBuilder(@RequestBody Optional<UserLogin> user) {
+		return serviceU.login(user);
 	}
 
 	/**
@@ -178,7 +177,7 @@ public class UserController {
 	 */
 	@PostMapping("/posts/register/{idUser}/{themeName}")
 	public ResponseEntity<Object> registerPost(@PathVariable(value = "idUser") Long idUser,
-			@PathVariable(value = "themeName") String themeName, @RequestBody Post newPost) {
+			@PathVariable(value = "themeName") String themeName, @Valid @RequestBody Post newPost) {
 		return serviceU.registerPost(idUser, themeName, newPost);
 	}
 
@@ -322,7 +321,7 @@ public class UserController {
 	 */
 	@PostMapping("/comments/register/{idUser}/{idPost}")
 	public ResponseEntity<Object> registerPost(@PathVariable(value = "idUser") Long idUser,
-			@PathVariable(value = "idPost") Long idPost, @RequestBody Comment newComment) {
+			@PathVariable(value = "idPost") Long idPost, @Valid @RequestBody Comment newComment) {
 		return serviceU.registerComment(idUser, idPost, newComment);
 	}
 

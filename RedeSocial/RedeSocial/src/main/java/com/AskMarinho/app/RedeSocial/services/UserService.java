@@ -56,6 +56,32 @@ public class UserService {
 	 * @since 1.0
 	 */
 	public ResponseEntity<Object> registerUser(User newUser) {
+		if (newUser.getName().contains("{") || newUser.getName().contains("}") || newUser.getName().contains("/")
+				|| newUser.getName().contains("\\") || newUser.getName().contains("%")
+				|| newUser.getName().contains("$") || newUser.getName().contains("&") || newUser.getName().contains("*")
+				|| newUser.getName().contains("|") || newUser.getName().contains("@") || newUser.getName().contains("*")
+				|| newUser.getName().contains("(") || newUser.getName().contains(")")
+				|| newUser.getName().contains("§")) {
+			return ResponseEntity.status(400).body("Nome com caracter inválido");
+		}
+		if (newUser.getEmail().contains("{") || newUser.getEmail().contains("}") || newUser.getEmail().contains("/")
+				|| newUser.getEmail().contains("\\") || newUser.getEmail().contains("%")
+				|| newUser.getEmail().contains("$") || newUser.getEmail().contains("&")
+				|| newUser.getEmail().contains("*") || newUser.getEmail().contains("|")
+				|| newUser.getEmail().contains("*") || newUser.getEmail().contains("(")
+				|| newUser.getEmail().contains(")") || newUser.getEmail().contains("§")) {
+			return ResponseEntity.status(400).body("Email com caracter inválido");
+		}
+		if (newUser.getUserName().contains("{") || newUser.getName().contains("}")
+				|| newUser.getUserName().contains("/") || newUser.getUserName().contains("\\")
+				|| newUser.getUserName().contains("%") || newUser.getUserName().contains("$")
+				|| newUser.getUserName().contains("&") || newUser.getUserName().contains("*")
+				|| newUser.getUserName().contains("|") || newUser.getUserName().contains("@")
+				|| newUser.getUserName().contains("*") || newUser.getUserName().contains("(")
+				|| newUser.getUserName().contains(")") || newUser.getUserName().contains("§")) {
+			return ResponseEntity.status(400).body("Nome de usuário com caracter inválido");
+		}
+
 		Optional<User> existingEmal = repositoryU.findByEmail(newUser.getEmail());
 
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -84,24 +110,31 @@ public class UserService {
 	 * @return Usuário logado com seu token ou erro respectivo
 	 * @author Bueno
 	 */
-	public Optional<UserLogin> login(Optional<UserLogin> newUser) {
+	public ResponseEntity<Object> login(Optional<UserLogin> newUser) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<User> user = repositoryU.findByEmail(newUser.get().getEmail());
 
 		if (user.isPresent()) {
-			if (encoder.matches(newUser.get().getPassword(), user.get().getPassword())) {
-				String auth = newUser.get().getEmail() + ":" + newUser.get().getPassword();
-				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+			if (newUser.get().getPassword() != null) {
+				if (encoder.matches(newUser.get().getPassword(), user.get().getPassword())) {
+					String auth = newUser.get().getEmail() + ":" + newUser.get().getPassword();
+					byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
 
-				String authHeader = "Basic " + new String(encodedAuth);
+					String authHeader = "Basic " + new String(encodedAuth);
 
-				newUser.get().setToken(authHeader);
-				newUser.get().setName(user.get().getName());
+					newUser.get().setToken(authHeader);
+					newUser.get().setName(user.get().getName());
 
-				return newUser;
+					return ResponseEntity.status(200).body(newUser);
+				} else {
+					return ResponseEntity.status(401).body("Email ou senha inválida");
+				}
+			} else {
+				return ResponseEntity.status(401).body("Senha não pode ser vazia");
 			}
+			
 		}
-		return Optional.empty();
+		return ResponseEntity.status(401).body("Email não utilizado");
 	}
 
 	/**
@@ -118,6 +151,34 @@ public class UserService {
 	 * @translator Amanda
 	 */
 	public ResponseEntity<Object> updateUser(Long id_user, User updatedUser) {
+		if (updatedUser.getName().contains("{") || updatedUser.getName().contains("}")
+				|| updatedUser.getName().contains("/") || updatedUser.getName().contains("\\")
+				|| updatedUser.getName().contains("%") || updatedUser.getName().contains("$")
+				|| updatedUser.getName().contains("&") || updatedUser.getName().contains("*")
+				|| updatedUser.getName().contains("|") || updatedUser.getName().contains("@")
+				|| updatedUser.getName().contains("*") || updatedUser.getName().contains("(")
+				|| updatedUser.getName().contains(")") || updatedUser.getName().contains("§")) {
+			return ResponseEntity.status(400).body("Nome com caracter inválido");
+		}
+		if (updatedUser.getEmail().contains("{") || updatedUser.getEmail().contains("}")
+				|| updatedUser.getEmail().contains("/") || updatedUser.getEmail().contains("\\")
+				|| updatedUser.getEmail().contains("%") || updatedUser.getEmail().contains("$")
+				|| updatedUser.getEmail().contains("&") || updatedUser.getEmail().contains("*")
+				|| updatedUser.getEmail().contains("|") || updatedUser.getEmail().contains("*")
+				|| updatedUser.getEmail().contains("(") || updatedUser.getEmail().contains(")")
+				|| updatedUser.getEmail().contains("§")) {
+			return ResponseEntity.status(400).body("Email com caracter inválido");
+		}
+		if (updatedUser.getUserName().contains("{") || updatedUser.getName().contains("}")
+				|| updatedUser.getUserName().contains("/") || updatedUser.getUserName().contains("\\")
+				|| updatedUser.getUserName().contains("%") || updatedUser.getUserName().contains("$")
+				|| updatedUser.getUserName().contains("&") || updatedUser.getUserName().contains("*")
+				|| updatedUser.getUserName().contains("|") || updatedUser.getUserName().contains("@")
+				|| updatedUser.getUserName().contains("*") || updatedUser.getUserName().contains("(")
+				|| updatedUser.getUserName().contains(")") || updatedUser.getUserName().contains("§")) {
+			return ResponseEntity.status(400).body("Nome de usuário com caracter inválido");
+		}
+
 		Boolean update = false;
 		Optional<User> existingUser = repositoryU.findById(id_user);
 
@@ -165,10 +226,10 @@ public class UserService {
 			}
 			if (update) {
 				BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-				
+
 				String senhaEncoder = encoder.encode(updatedUser.getPassword());
 				updatedUser.setPassword(senhaEncoder);
-				
+
 				existingUser.get().setName(updatedUser.getName());
 				existingUser.get().setTelephone(updatedUser.getTelephone());
 				existingUser.get().setPassword(updatedUser.getPassword());
@@ -229,7 +290,20 @@ public class UserService {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public ResponseEntity<Object> registerPost(Long idUser, String themeName, Post newPost) {
+	public ResponseEntity<Object> registerPost(Long idUser, String tagName, Post newPost) {
+		if (tagName.contains("{") || tagName.contains("}") || tagName.contains("/") || tagName.contains("\\")
+				|| tagName.contains("%") || tagName.contains("$") || tagName.contains("&") || tagName.contains("*")
+				|| tagName.contains("|") || tagName.contains("@") || tagName.contains("*") || tagName.contains("(")
+				|| tagName.contains(")") || tagName.contains("§")) {
+			return ResponseEntity.status(400).body("O tema não pode conter caracteres especiais");
+		}
+
+		if (newPost.getTitle() == null) {
+			return ResponseEntity.status(400).body("A postagem deve ter um título");
+		}
+		if (newPost.getDescription() == null) {
+			return ResponseEntity.status(400).body("A postagem deve ter uma descrição");
+		}
 
 		Optional<Post> existingPost = repositoryP.findByTitle(newPost.getTitle());
 
@@ -237,11 +311,11 @@ public class UserService {
 			Optional<User> existingUser = repositoryU.findById(idUser);
 
 			if (existingUser.isPresent()) {
-				Optional<Tag> existingTheme = repositoryT.findByTagName(themeName);
+				Optional<Tag> existingTheme = repositoryT.findByTagName(tagName);
 
 				if (existingTheme.isEmpty()) {
 					Tag novoTema = new Tag();
-					novoTema.setTagName(themeName);
+					novoTema.setTagName(tagName);
 					repositoryT.save(novoTema);
 					newPost.getTagRelation().add(novoTema);
 				} else {
@@ -274,6 +348,12 @@ public class UserService {
 	 * @translator Amanda
 	 */
 	public ResponseEntity<Object> updatePost(Long idPost, Post newPost) {
+		if (newPost.getTitle() == null) {
+			return ResponseEntity.status(400).body("A postagem deve ter um título");
+		}
+		if (newPost.getDescription() == null) {
+			return ResponseEntity.status(400).body("A postagem deve ter uma descrição");
+		}
 		Optional<Post> existingPost = repositoryP.findById(idPost);
 
 		if (existingPost.isPresent()) {
@@ -401,6 +481,7 @@ public class UserService {
 	}
 
 	// ----------------------- TEMAS FAVORITOS -----------------------
+
 	/**
 	 * Método para adicionar tag favorita do Usuário.
 	 * 
@@ -414,6 +495,13 @@ public class UserService {
 	 * @translator Amanda
 	 */
 	public ResponseEntity<Object> addFavoriteTag(Long idUser, String tagName) {
+		if (tagName.contains("{") || tagName.contains("}") || tagName.contains("/") || tagName.contains("\\")
+				|| tagName.contains("%") || tagName.contains("$") || tagName.contains("&") || tagName.contains("*")
+				|| tagName.contains("|") || tagName.contains("@") || tagName.contains("*") || tagName.contains("(")
+				|| tagName.contains(")") || tagName.contains("§")) {
+			return ResponseEntity.status(400).body("O tema não pode conter caracteres especiais");
+		}
+
 		Optional<User> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
@@ -481,6 +569,9 @@ public class UserService {
 	 * @translator Amanda
 	 */
 	public ResponseEntity<Object> registerComment(Long idUser, Long idPost, Comment newComment) {
+		if (newComment.getText() == null) {
+			return ResponseEntity.status(400).body("O comentário deve ter um texto");
+		}
 
 		Optional<User> existingUser = repositoryU.findById(idUser);
 
@@ -511,6 +602,10 @@ public class UserService {
 	 * @translator Amanda
 	 */
 	public ResponseEntity<Object> updateComment(Long idComment, Comment updatedComment) {
+		if (updatedComment.getText() == null) {
+			return ResponseEntity.status(400).body("O comentário deve ter um texto");
+		}
+
 		Optional<Comment> existingComment = repositoryC.findById(idComment);
 
 		if (existingComment.isPresent()) {
