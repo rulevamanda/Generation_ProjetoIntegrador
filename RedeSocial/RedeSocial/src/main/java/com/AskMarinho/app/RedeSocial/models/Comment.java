@@ -35,7 +35,7 @@ public class Comment {
 	@JoinColumn(name = "userComment")
 	@JsonIgnoreProperties({ "upvotes","comments", "posts", "idUser", "userName", "telephone", "password", "birth", "reports",
 			"favorites" })
-	private User userComment;
+	private Usuario userComment;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "post")
@@ -66,11 +66,11 @@ public class Comment {
 		this.text = text;
 	}
 
-	public User getUserComment() {
+	public Usuario getUserComment() {
 		return userComment;
 	}
 
-	public void setUserComment(User userComment) {
+	public void setUserComment(Usuario userComment) {
 		this.userComment = userComment;
 	}
 
