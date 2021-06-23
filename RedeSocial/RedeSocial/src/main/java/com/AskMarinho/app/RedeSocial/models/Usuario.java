@@ -61,6 +61,8 @@ public class Usuario {
 	@NotNull(message = "Insira um número de telefone.")
 	@Column(name = "telephone", length = 20)
 	private Long telephone;
+	
+	private String urlImage;
 
 	@OneToMany(mappedBy = "userComment", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "upvoted", "userComment", "idComment", "post", "reported" })
@@ -188,5 +190,12 @@ public class Usuario {
 		this.favorites = favorites;
 	}
 
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
 	
 }

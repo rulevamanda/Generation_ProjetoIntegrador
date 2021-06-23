@@ -237,6 +237,7 @@ public class UserService {
 				existingUser.get().setBirth(updatedUser.getBirth());
 				existingUser.get().setEmail(updatedUser.getEmail());
 				existingUser.get().setUserName(updatedUser.getUserName());
+				existingUser.get().setUrlImage(updatedUser.getUrlImage());
 
 				repositoryU.save(existingUser.get());
 				return ResponseEntity.status(201).body("Usuário: " + updatedUser.getUserName() + "\nEmail: "
