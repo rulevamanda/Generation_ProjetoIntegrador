@@ -16,7 +16,7 @@ import com.AskMarinho.app.RedeSocial.models.Upvote;
 import com.AskMarinho.app.RedeSocial.models.Post;
 import com.AskMarinho.app.RedeSocial.models.Report;
 import com.AskMarinho.app.RedeSocial.models.Tag;
-import com.AskMarinho.app.RedeSocial.models.User;
+import com.AskMarinho.app.RedeSocial.models.Usuario;
 import com.AskMarinho.app.RedeSocial.models.UserLogin;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
 import com.AskMarinho.app.RedeSocial.repositories.UpvoteRepository;
@@ -55,7 +55,7 @@ public class UserService {
 	 * @translator Amanda
 	 * @since 1.0
 	 */
-	public ResponseEntity<Object> registerUser(User newUser) {
+	public ResponseEntity<Object> registerUser(Usuario newUser) {
 		if (newUser.getName().contains("{") || newUser.getName().contains("}") || newUser.getName().contains("/")
 				|| newUser.getName().contains("\\") || newUser.getName().contains("%")
 				|| newUser.getName().contains("$") || newUser.getName().contains("&") || newUser.getName().contains("*")
@@ -82,7 +82,7 @@ public class UserService {
 			return ResponseEntity.status(400).body("Nome de usuário com caracter inválido");
 		}
 
-		Optional<User> existingEmal = repositoryU.findByEmail(newUser.getEmail());
+		Optional<Usuario> existingEmal = repositoryU.findByEmail(newUser.getEmail());
 
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -90,16 +90,16 @@ public class UserService {
 		newUser.setPassword(passwordEncoder);
 
 		if (existingEmal.isEmpty()) {
-			Optional<User> existingUser = repositoryU.findByUserName(newUser.getUserName());
+			Optional<Usuario> existingUser = repositoryU.findByUserName(newUser.getUserName());
 
 			if (existingUser.isEmpty()) {
 				return ResponseEntity.status(201).body(repositoryU.save(newUser));
 			} else {
-				return ResponseEntity.status(200).body("Já existe um usuário com esse nome");
+				return ResponseEntity.status(400).body("Já existe um usuário com esse nome");
 			}
 
 		} else {
-			return ResponseEntity.status(200).body("Já existe um usuário com esse email");
+			return ResponseEntity.status(400).body("Já existe um usuário com esse email");
 		}
 	}
 
@@ -112,7 +112,7 @@ public class UserService {
 	 */
 	public ResponseEntity<Object> login(Optional<UserLogin> newUser) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		Optional<User> user = repositoryU.findByEmail(newUser.get().getEmail());
+		Optional<Usuario> user = repositoryU.findByEmail(newUser.get().getEmail());
 
 		if (user.isPresent()) {
 			if (newUser.get().getPassword() != null) {
@@ -132,7 +132,7 @@ public class UserService {
 			} else {
 				return ResponseEntity.status(401).body("Senha não pode ser vazia");
 			}
-			
+
 		}
 		return ResponseEntity.status(401).body("Email não utilizado");
 	}
@@ -150,7 +150,7 @@ public class UserService {
 	 * @redactor Amanda
 	 * @translator Amanda
 	 */
-	public ResponseEntity<Object> updateUser(Long id_user, User updatedUser) {
+	public ResponseEntity<Object> updateUser(Long id_user, Usuario updatedUser) {
 		if (updatedUser.getName().contains("{") || updatedUser.getName().contains("}")
 				|| updatedUser.getName().contains("/") || updatedUser.getName().contains("\\")
 				|| updatedUser.getName().contains("%") || updatedUser.getName().contains("$")
@@ -180,14 +180,14 @@ public class UserService {
 		}
 
 		Boolean update = false;
-		Optional<User> existingUser = repositoryU.findById(id_user);
+		Optional<Usuario> existingUser = repositoryU.findById(id_user);
 
 		if (existingUser.isPresent()) {
-			Optional<User> emailExistente = repositoryU.findByEmail(updatedUser.getEmail());
+			Optional<Usuario> emailExistente = repositoryU.findByEmail(updatedUser.getEmail());
 
 			if (emailExistente.isEmpty()) {
 
-				Optional<User> usuarioRepetido = repositoryU.findByUserName(updatedUser.getUserName());
+				Optional<Usuario> usuarioRepetido = repositoryU.findByUserName(updatedUser.getUserName());
 				if (usuarioRepetido.isEmpty()) {
 
 					update = true;
@@ -205,7 +205,7 @@ public class UserService {
 			} else {
 				if (updatedUser.getEmail().equals(existingUser.get().getEmail())) {
 
-					Optional<User> usuarioRepetido = repositoryU.findByUserName(updatedUser.getUserName());
+					Optional<Usuario> usuarioRepetido = repositoryU.findByUserName(updatedUser.getUserName());
 					if (usuarioRepetido.isEmpty()) {
 
 						update = true;
@@ -215,13 +215,13 @@ public class UserService {
 						if (updatedUser.getUserName().equals(existingUser.get().getUserName())) {
 							update = true;
 						} else {
-							return ResponseEntity.status(200).body("Já estão usando esse nome de usuário");
+							return ResponseEntity.status(400).body("Já estão usando esse nome de usuário");
 						}
 
 					}
 
 				} else {
-					return ResponseEntity.status(200).body("Já estão usando esse email");
+					return ResponseEntity.status(400).body("Já estão usando esse email");
 				}
 			}
 			if (update) {
@@ -244,7 +244,7 @@ public class UserService {
 			}
 
 		}
-		return ResponseEntity.status(200).body("Esse usuário não existe");
+		return ResponseEntity.status(400).body("Esse usuário não existe");
 
 	}
 
@@ -259,7 +259,7 @@ public class UserService {
 	 *         404
 	 */
 	public ResponseEntity<Set<Post>> postsFavorites(Long idUser) {
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 		Set<Post> posts = new HashSet<>();
 		if (existingUser.isPresent()) {
 			Set<Tag> tagFavorites = existingUser.get().getFavorites();
@@ -305,35 +305,29 @@ public class UserService {
 			return ResponseEntity.status(400).body("A postagem deve ter uma descrição");
 		}
 
-		Optional<Post> existingPost = repositoryP.findByTitle(newPost.getTitle());
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
-		if (existingPost.isEmpty()) {
-			Optional<User> existingUser = repositoryU.findById(idUser);
+		if (existingUser.isPresent()) {
+			Optional<Tag> existingTheme = repositoryT.findByTagName(tagName);
 
-			if (existingUser.isPresent()) {
-				Optional<Tag> existingTheme = repositoryT.findByTagName(tagName);
-
-				if (existingTheme.isEmpty()) {
-					Tag novoTema = new Tag();
-					novoTema.setTagName(tagName);
-					repositoryT.save(novoTema);
-					newPost.getTagRelation().add(novoTema);
-				} else {
-					newPost.getTagRelation().add(existingTheme.get());
-				}
-
-				newPost.setUserPost(existingUser.get());
-
-				repositoryP.save(newPost);
-
-				return ResponseEntity.status(201).body(repositoryP.findAll());
-
+			if (existingTheme.isEmpty()) {
+				Tag novoTema = new Tag();
+				novoTema.setTagName(tagName);
+				repositoryT.save(novoTema);
+				newPost.getTagRelation().add(novoTema);
+			} else {
+				newPost.getTagRelation().add(existingTheme.get());
 			}
-			return ResponseEntity.status(200).body("Esse usuário não existe");
+
+			newPost.setUserPost(existingUser.get());
+
+			repositoryP.save(newPost);
+
+			return ResponseEntity.status(201).body(repositoryP.findAll());
 
 		}
+		return ResponseEntity.status(400).body("Esse usuário não existe");
 
-		return ResponseEntity.status(200).body("Já existe uma postagem com esse nome");
 	}
 
 	/**
@@ -357,20 +351,16 @@ public class UserService {
 		Optional<Post> existingPost = repositoryP.findById(idPost);
 
 		if (existingPost.isPresent()) {
-			Optional<Post> existingTitle = repositoryP.findByTitle(newPost.getTitle());
 
-			if (existingTitle.isEmpty()) {
-				existingPost.get().setTitle(newPost.getTitle());
-				existingPost.get().setDescription(newPost.getDescription());
-				existingPost.get().setUrlImage(newPost.getUrlImage());
+			existingPost.get().setTitle(newPost.getTitle());
+			existingPost.get().setDescription(newPost.getDescription());
+			existingPost.get().setUrlImage(newPost.getUrlImage());
 
-				repositoryP.save(existingPost.get());
-				return ResponseEntity.status(201).body(repositoryP.findAll());
-			} else {
-				return ResponseEntity.status(200).body("Esse título já existe");
-			}
+			repositoryP.save(existingPost.get());
+			return ResponseEntity.status(201).body(repositoryP.findAll());
+
 		} else {
-			return ResponseEntity.status(200).body("Essa postagem não existe");
+			return ResponseEntity.status(400).body("Essa postagem não existe");
 		}
 	}
 
@@ -385,6 +375,12 @@ public class UserService {
 	 * @translator Amanda
 	 */
 	public ResponseEntity<Object> addTag(Long idPost, String tagName) {
+		if (tagName.contains("{") || tagName.contains("}") || tagName.contains("/") || tagName.contains("\\")
+				|| tagName.contains("%") || tagName.contains("$") || tagName.contains("&") || tagName.contains("*")
+				|| tagName.contains("|") || tagName.contains("@") || tagName.contains("*") || tagName.contains("(")
+				|| tagName.contains(")") || tagName.contains("§")) {
+			return ResponseEntity.status(400).body("O tema não pode conter caracteres especiais");
+		}
 
 		Optional<Post> existingPost = repositoryP.findById(idPost);
 		if (existingPost.isPresent()) {
@@ -403,7 +399,7 @@ public class UserService {
 			return ResponseEntity.status(201).body("TEMA ADICIONADO");
 
 		}
-		return ResponseEntity.status(200).body("Essa postagem não existe");
+		return ResponseEntity.status(400).body("Essa postagem não existe");
 	}
 
 	/**
@@ -429,13 +425,13 @@ public class UserService {
 
 					return ResponseEntity.status(202).body("TEMA RETIRADO");
 				} else {
-					return ResponseEntity.status(200).body("Essa postagem não tem esse tema");
+					return ResponseEntity.status(400).body("Essa postagem não tem esse tema");
 				}
 
 			}
-			return ResponseEntity.status(200).body("Essa postagem não existe");
+			return ResponseEntity.status(400).body("Essa postagem não existe");
 		}
-		return ResponseEntity.status(200).body("Esse tema não existe");
+		return ResponseEntity.status(400).body("Esse tema não existe");
 	}
 
 	/**
@@ -502,7 +498,7 @@ public class UserService {
 			return ResponseEntity.status(400).body("O tema não pode conter caracteres especiais");
 		}
 
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Tag> existingTag = repositoryT.findByTagName(tagName);
@@ -520,7 +516,7 @@ public class UserService {
 			}
 			return ResponseEntity.status(201).body("TEMA FAVORITO ADICIONADO");
 		}
-		return ResponseEntity.status(200).body("Esse usuário não existe");
+		return ResponseEntity.status(400).body("Esse usuário não existe");
 	}
 
 	/**
@@ -537,7 +533,7 @@ public class UserService {
 	 */
 	public ResponseEntity<Object> deleteFavoriteTag(Long idUser, Long idTag) {
 
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 		if (existingUser.isPresent()) {
 			Optional<Tag> existingTag = repositoryT.findById(idTag);
 			if (existingTag.isPresent()) {
@@ -549,10 +545,10 @@ public class UserService {
 					return ResponseEntity.status(200).body("Esse usuário não possui esse tema");
 				}
 			} else {
-				return ResponseEntity.status(200).body("Tema não existe");
+				return ResponseEntity.status(400).body("Tema não existe");
 			}
 		}
-		return ResponseEntity.status(200).body("Usuário não existe");
+		return ResponseEntity.status(400).body("Usuário não existe");
 	}
 
 	// ----------------------- COMENTÁRIOS -----------------------
@@ -573,7 +569,7 @@ public class UserService {
 			return ResponseEntity.status(400).body("O comentário deve ter um texto");
 		}
 
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Post> postagemExistente = repositoryP.findById(idPost);
@@ -584,10 +580,10 @@ public class UserService {
 				repositoryC.save(newComment);
 				return ResponseEntity.status(201).body(repositoryP.findAllByComment(newComment));
 			} else {
-				ResponseEntity.status(200).body("Essa postagem não existe");
+				ResponseEntity.status(400).body("Essa postagem não existe");
 			}
 		}
-		return ResponseEntity.status(200).body("Esse usuário não existe");
+		return ResponseEntity.status(400).body("Esse usuário não existe");
 
 	}
 
@@ -615,7 +611,7 @@ public class UserService {
 
 			return ResponseEntity.status(201).body(repositoryP.findAllByComment(existingComment.get()));
 		}
-		return ResponseEntity.status(200).body("Esse comentário não existe");
+		return ResponseEntity.status(400).body("Esse comentário não existe");
 	}
 
 	/**
@@ -672,7 +668,7 @@ public class UserService {
 	 * @redactor Amanda
 	 */
 	public ResponseEntity<Object> reportPost(Long idUser, Long idPost) {
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Post> existingPost = repositoryP.findById(idPost);
@@ -684,7 +680,7 @@ public class UserService {
 				if (existingReport.isPresent()) {
 
 					if (existingReport.get().getUserReport().contains(existingUser.get())) {
-						return ResponseEntity.status(200).body("Esse usuário já denunciou essa postagem");
+						return ResponseEntity.status(400).body("Esse usuário já denunciou essa postagem");
 					} else {
 						existingReport.get().getUserReport().add(existingUser.get());
 
@@ -705,7 +701,7 @@ public class UserService {
 			}
 
 		}
-		return ResponseEntity.status(200).body("Esse usuário não existe");
+		return ResponseEntity.status(400).body("Esse usuário não existe");
 	}
 
 	/**
@@ -718,7 +714,7 @@ public class UserService {
 	 * @redactor Amanda
 	 */
 	public ResponseEntity<Object> reportComment(Long idUser, Long idComment) {
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Comment> existingComment = repositoryC.findById(idComment);
@@ -730,7 +726,7 @@ public class UserService {
 				if (existingReport.isPresent()) {
 
 					if (existingReport.get().getUserReport().contains(existingUser.get())) {
-						return ResponseEntity.status(200).body("Esse usuário já denunciou esse comentário");
+						return ResponseEntity.status(400).body("Esse usuário já denunciou esse comentário");
 					} else {
 						existingReport.get().getUserReport().add(existingUser.get());
 
@@ -750,7 +746,7 @@ public class UserService {
 			}
 
 		}
-		return ResponseEntity.status(200).body("Esse usuário não existe");
+		return ResponseEntity.status(400).body("Esse usuário não existe");
 	}
 
 	/**
@@ -766,7 +762,7 @@ public class UserService {
 		Optional<Report> existingReport = repositoryR.findById(idReport);
 
 		if (existingReport.isPresent()) {
-			Optional<User> existingUser = repositoryU.findById(idUser);
+			Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 			if (existingUser.isPresent()) {
 
@@ -797,10 +793,10 @@ public class UserService {
 					return ResponseEntity.status(202).body("DENÚNCIA RETIRADA");
 				}
 			}
-			return ResponseEntity.status(200).body("Esse usuário não existe");
+			return ResponseEntity.status(400).body("Esse usuário não existe");
 
 		}
-		return ResponseEntity.status(200).body("Essa denúncia não existe");
+		return ResponseEntity.status(400).body("Essa denúncia não existe");
 	}
 
 	// ----------------------- LIKES -----------------------
@@ -814,7 +810,7 @@ public class UserService {
 	 * @redactor Amanda
 	 */
 	public ResponseEntity<Object> upvotePost(Long idUser, Long idPost) {
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Post> existingPost = repositoryP.findById(idPost);
@@ -825,7 +821,7 @@ public class UserService {
 				if (existingUpvote.isPresent()) {
 
 					if (existingUpvote.get().getUserUpvote().contains(existingUser.get())) {
-						return ResponseEntity.status(200).body("Esse usuário já curtiu essa postagem");
+						return ResponseEntity.status(400).body("Esse usuário já curtiu essa postagem");
 					} else {
 						existingUpvote.get().getUserUpvote().add(existingUser.get());
 
@@ -844,9 +840,9 @@ public class UserService {
 
 				return ResponseEntity.status(201).body(newUpvote);
 			}
-			return ResponseEntity.status(200).body("Essa postagem não existe");
+			return ResponseEntity.status(400).body("Essa postagem não existe");
 		}
-		return ResponseEntity.status(200).body("Esse usuário não existe");
+		return ResponseEntity.status(400).body("Esse usuário não existe");
 	}
 
 	/**
@@ -859,7 +855,7 @@ public class UserService {
 	 * @redactor Amanda
 	 */
 	public ResponseEntity<Object> upvoteComment(Long idUser, Long idComment) {
-		Optional<User> existingUser = repositoryU.findById(idUser);
+		Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 		if (existingUser.isPresent()) {
 			Optional<Comment> existingComment = repositoryC.findById(idComment);
@@ -870,7 +866,7 @@ public class UserService {
 				if (existingUpvote.isPresent()) {
 
 					if (existingUpvote.get().getUserUpvote().contains(existingUser.get())) {
-						return ResponseEntity.status(200).body("Esse usuário já curtiu esse comentário");
+						return ResponseEntity.status(400).body("Esse usuário já curtiu esse comentário");
 					} else {
 						existingUpvote.get().getUserUpvote().add(existingUser.get());
 
@@ -888,9 +884,9 @@ public class UserService {
 				repositoryC.save(existingComment.get());
 				return ResponseEntity.status(201).body(newUpvote);
 			}
-			return ResponseEntity.status(200).body("Esse Comentário não existe");
+			return ResponseEntity.status(400).body("Esse Comentário não existe");
 		}
-		return ResponseEntity.status(200).body("Esse usuário não existe");
+		return ResponseEntity.status(400).body("Esse usuário não existe");
 	}
 
 	/**
@@ -906,7 +902,7 @@ public class UserService {
 		Optional<Upvote> existingUpvote = repositoryL.findById(idUpvote);
 
 		if (existingUpvote.isPresent()) {
-			Optional<User> existingUser = repositoryU.findById(idUser);
+			Optional<Usuario> existingUser = repositoryU.findById(idUser);
 
 			if (existingUser.isPresent()) {
 				if (existingUpvote.get().getUserUpvote().contains(existingUser.get())) {
@@ -937,8 +933,8 @@ public class UserService {
 					return ResponseEntity.status(202).body("CURTIDA RETIRADA");
 				}
 			}
-			return ResponseEntity.status(200).body("Esse usuário não existe");
+			return ResponseEntity.status(400).body("Esse usuário não existe");
 		}
-		return ResponseEntity.status(200).body("Esse like não existe");
+		return ResponseEntity.status(400).body("Esse like não existe");
 	}
 }
