@@ -34,6 +34,10 @@ input[type=submit]:hover{
     opacity: 0.9;
 }
 
+::-webkit-input-placeholder {
+    text-align: center;
+ }
+
 .hr-style{
     width: 295px;
     height: 0px;
@@ -103,4 +107,6 @@ body{
     background-image: url('../../assets/img/login-page/bg2.svg');
     background-repeat: no-repeat;
     background-size: cover;
+.mt-15{
+    margin-top: 15rem;
 }
