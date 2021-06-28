@@ -34,6 +34,10 @@ input[type=submit]:hover{
     opacity: 0.9;
 }
 
+::-webkit-input-placeholder {
+    text-align: center;
+ }
+
 .hr-style{
     width: 295px;
     height: 0px;
@@ -97,4 +101,7 @@ h1{
     font-size: 70px;
     line-height: 84px;
     color: #6DD3CE;
+}
+.mt-15{
+    margin-top: 15rem;
 }
