@@ -18,7 +18,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\":\"teste\",\r\n    \"userName\":\"teaaste\",\r\n    \"email\":\"teste@teastae.com\",\r\n    \"password\":\"teste2222\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511987654321\"\r\n}",
+									"raw": "{\r\n    \"name\":\"Usuarioooo\",\r\n    \"userName\":\"teaagasggsjte\",\r\n    \"email\":\"teste@aaaaggggjsadaaa.com\",\r\n    \"password\":\"teste2222\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"feminino\",\r\n    \"telephone\":\"5511987654321\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -44,7 +44,13 @@
 							"name": "get all users",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic dGVzdGVAdGVhc2F0ZS5jb206YWJjZGVmZ2hpampraA==",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "http://localhost:8080/users/all",
 									"protocol": "http",
@@ -66,7 +72,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/name/search?name={name}",
+									"raw": "http://localhost:8080/users/name/search",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -80,7 +86,8 @@
 									"query": [
 										{
 											"key": "name",
-											"value": "{name}"
+											"value": "ad",
+											"disabled": true
 										}
 									]
 								}
@@ -91,9 +98,15 @@
 							"name": "get user by id - url: id do usuário",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic dGVzdGVAYWFhYWdnZ2dqc2FkYWFhLmNvbTp0ZXN0ZTIyMjI=",
+										"type": "text"
+									}
+								],
 								"url": {
-									"raw": "http://localhost:8080/users/id/{idUser}",
+									"raw": "http://localhost:8080/users/id/7",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -102,7 +115,7 @@
 									"path": [
 										"users",
 										"id",
-										"{idUser}"
+										"7"
 									]
 								}
 							},
@@ -112,9 +125,16 @@
 							"name": "get posts with favorites tags - url: id do usuário",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic dGVzdGVAdGVhc2F0ZS5jb206YWJjZGVmZ2hpampraA==",
+										"type": "text",
+										"disabled": true
+									}
+								],
 								"url": {
-									"raw": "http://localhost:8080/users/posts/favorites/2",
+									"raw": "http://localhost:8080/users/posts/favorites/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -124,7 +144,7 @@
 										"users",
 										"posts",
 										"favorites",
-										"2"
+										"3"
 									]
 								}
 							},
@@ -134,10 +154,16 @@
 							"name": "update user - url: id do usuário - corpo: dados do usuário",
 							"request": {
 								"method": "PUT",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic dGVzdGVAYWFhYWdnZ2dqc2FkYWFhLmNvbTp0ZXN0ZTIyMjI=",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"name\":\"Adalberto\",\r\n    \"userName\":\"teastae\",\r\n    \"email\":\"teste@teasate.com\",\r\n    \"password\":\"abcdefghij\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"masculino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
+									"raw": "{\r\n  \"name\":\"Adalberto\",\r\n    \"userName\":\"teastae\",\r\n    \"email\":\"teste@teasate.com\",\r\n    \"password\":\"abcdefghijjkh\",\r\n    \"birth\":\"1996-11-13\",\r\n    \"gender\":\"masculino\",\r\n    \"telephone\":\"5511961446356\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -145,7 +171,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/users/update/1",
+									"raw": "http://localhost:8080/users/update/7",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -154,7 +180,7 @@
 									"path": [
 										"users",
 										"update",
-										"1"
+										"7"
 									]
 								}
 							},
@@ -166,7 +192,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/delete/{idUser}",
+									"raw": "http://localhost:8080/users/delete/2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -175,7 +201,36 @@
 									"path": [
 										"users",
 										"delete",
-										"{idUser}"
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"teste@teasate.com\",\r\n    \"password\":\"abcdefghijjkh\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"login"
 									]
 								}
 							},
@@ -193,7 +248,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\" : \"teasaaaasdfatae\",\r\n    \"description\" : \"testaaaaae\"\r\n}",
+									"raw": "{\r\n    \"title\" : \"teasaaaassdfahe\",\r\n    \"description\" : \"testaaaaae\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -201,7 +256,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/users/posts/register/1/tema 234",
+									"raw": "http://localhost:8080/users/posts/register/5/tema testando",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -211,8 +266,8 @@
 										"users",
 										"posts",
 										"register",
-										"1",
-										"tema 234"
+										"5",
+										"tema testando"
 									]
 								}
 							},
@@ -225,7 +280,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\" : \"teste\",\r\n    \"description\" : \"teste\"\r\n}",
+									"raw": "{\r\n    \"title\" : \"testgfdgde\",\r\n    \"description\" : \"tesgfgfjjte\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -233,7 +288,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/users/posts/update/{idPost}",
+									"raw": "http://localhost:8080/users/posts/update/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -243,7 +298,7 @@
 										"users",
 										"posts",
 										"update",
-										"{idPost}"
+										"1"
 									]
 								}
 							},
@@ -255,7 +310,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/posts/add/theme/theme {nameTheme}/{idPost}",
+									"raw": "http://localhost:8080/users/posts/add/theme/tema teste2/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -266,8 +321,8 @@
 										"posts",
 										"add",
 										"theme",
-										"theme {nameTheme}",
-										"{idPost}"
+										"tema teste2",
+										"1"
 									]
 								}
 							},
@@ -279,7 +334,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/posts/delete/theme/{idPost}/{idTheme}",
+									"raw": "http://localhost:8080/users/posts/delete/theme/1/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -290,8 +345,8 @@
 										"posts",
 										"delete",
 										"theme",
-										"{idPost}",
-										"{idTheme}"
+										"1",
+										"1"
 									]
 								}
 							},
@@ -303,7 +358,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/posts/delete/{idPost}",
+									"raw": "http://localhost:8080/users/posts/delete/2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -313,7 +368,7 @@
 										"users",
 										"posts",
 										"delete",
-										"{idPost}"
+										"2"
 									]
 								}
 							},
@@ -331,7 +386,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"text\" : \"tesaatasde\"\r\n}",
+									"raw": "{\r\n    \"text\" : \"comentario 2\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -339,7 +394,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/users/comments/register/1/1",
+									"raw": "http://localhost:8080/users/comments/register/5/6",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -349,8 +404,8 @@
 										"users",
 										"comments",
 										"register",
-										"1",
-										"1"
+										"5",
+										"6"
 									]
 								}
 							},
@@ -363,7 +418,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"text\" : \"teste\"\r\n}",
+									"raw": "{\r\n    \"text\" : \"comentáriooo 3\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -371,7 +426,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/users/comments/update/{idComment}",
+									"raw": "http://localhost:8080/users/comments/update/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -381,7 +436,7 @@
 										"users",
 										"comments",
 										"update",
-										"{idComment}"
+										"3"
 									]
 								}
 							},
@@ -393,7 +448,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/comments/delete/{idComment}",
+									"raw": "http://localhost:8080/users/comments/delete/4",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -403,7 +458,7 @@
 										"users",
 										"comments",
 										"delete",
-										"{idComment}"
+										"4"
 									]
 								}
 							},
@@ -429,7 +484,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/users/reports/post/1/1",
+									"raw": "http://localhost:8080/users/reports/post/5/6",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -439,8 +494,8 @@
 										"users",
 										"reports",
 										"post",
-										"1",
-										"1"
+										"5",
+										"6"
 									]
 								}
 							},
@@ -469,6 +524,38 @@
 							"response": []
 						},
 						{
+							"name": "report comment - url: id do usuário - url: id do comentário",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/users/reports/comment/5/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"users",
+										"reports",
+										"comment",
+										"5",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "get reports number of comments - url: id do comentário",
 							"request": {
 								"method": "GET",
@@ -484,38 +571,6 @@
 										"users",
 										"comments",
 										"reports",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "report comment - url: id do usuário - url: id do comentário",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/users/reports/comment/1/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"users",
-										"reports",
-										"comment",
-										"1",
 										"1"
 									]
 								}
@@ -560,7 +615,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "http://localhost:8080/users/add/theme/144/tema 7",
+									"raw": "http://localhost:8080/users/add/theme/4/tema testandoo",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -570,8 +625,8 @@
 										"users",
 										"add",
 										"theme",
-										"144",
-										"tema 7"
+										"4",
+										"tema testandoo"
 									]
 								}
 							},
@@ -583,7 +638,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/delete/theme/favorites/1/1",
+									"raw": "http://localhost:8080/users/delete/theme/favorites/1/5",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -595,7 +650,7 @@
 										"theme",
 										"favorites",
 										"1",
-										"1"
+										"5"
 									]
 								}
 							},
@@ -634,7 +689,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/upvotes/post/1/1",
+									"raw": "http://localhost:8080/users/upvotes/post/4/7",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -644,8 +699,8 @@
 										"users",
 										"upvotes",
 										"post",
-										"1",
-										"1"
+										"4",
+										"7"
 									]
 								}
 							},
@@ -679,7 +734,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/upvotes/comment/1/1",
+									"raw": "http://localhost:8080/users/upvotes/comment/4/7",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -689,8 +744,8 @@
 										"users",
 										"upvotes",
 										"comment",
-										"1",
-										"1"
+										"4",
+										"7"
 									]
 								}
 							},
@@ -702,7 +757,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/upvotes/delete/{idUpvote}/{idUser}",
+									"raw": "http://localhost:8080/users/upvotes/delete/2/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -712,8 +767,8 @@
 										"users",
 										"upvotes",
 										"delete",
-										"{idUpvote}",
-										"{idUser}"
+										"2",
+										"1"
 									]
 								}
 							},
@@ -752,7 +807,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/posts/id/{idPost}",
+							"raw": "http://localhost:8080/posts/id/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -761,7 +816,7 @@
 							"path": [
 								"posts",
 								"id",
-								"{idPost}"
+								"1"
 							]
 						}
 					},
@@ -773,7 +828,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/posts/title/{titleName}",
+							"raw": "http://localhost:8080/posts/title/t",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -782,7 +837,7 @@
 							"path": [
 								"posts",
 								"title",
-								"{titleName}"
+								"t"
 							]
 						}
 					},
@@ -819,7 +874,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/theme/id/{idTheme}",
+							"raw": "http://localhost:8080/theme/id/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -828,7 +883,7 @@
 							"path": [
 								"theme",
 								"id",
-								"{idTheme}"
+								"2"
 							]
 						}
 					},
@@ -840,7 +895,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/theme/name/{themeName}",
+							"raw": "http://localhost:8080/theme/name/testan",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -849,7 +904,7 @@
 							"path": [
 								"theme",
 								"name",
-								"{themeName}"
+								"testan"
 							]
 						}
 					},
@@ -886,7 +941,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/comments/id/{idComment}",
+							"raw": "http://localhost:8080/comments/id/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -895,7 +950,7 @@
 							"path": [
 								"comments",
 								"id",
-								"{idComment}"
+								"3"
 							]
 						}
 					},
@@ -932,7 +987,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/reports/id/{idReport}",
+							"raw": "http://localhost:8080/reports/id/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -941,7 +996,7 @@
 							"path": [
 								"reports",
 								"id",
-								"{idReport}"
+								"4"
 							]
 						}
 					},
@@ -978,7 +1033,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/upvotes/id/{idUpvote}",
+							"raw": "http://localhost:8080/upvotes/id/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -987,7 +1042,7 @@
 							"path": [
 								"upvotes",
 								"id",
-								"{idUpvote}"
+								"5"
 							]
 						}
 					},

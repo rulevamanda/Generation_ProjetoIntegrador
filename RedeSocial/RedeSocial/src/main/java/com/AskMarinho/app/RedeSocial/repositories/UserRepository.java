@@ -6,15 +6,15 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.AskMarinho.app.RedeSocial.models.User;
+import com.AskMarinho.app.RedeSocial.models.Usuario;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<Usuario, Long> {
 
-	public List<User> findAllByNameContainingIgnoreCase(String name);
+	public List<Usuario> findAllByNameContainingIgnoreCase(String name);
 
-	public Optional<User> findByEmail(String email);
+	public Optional<Usuario> findByEmail(String email);
 
-	public Optional<User> findByUserName(String userName);
+	public Optional<Usuario> findByUserName(String userName);
 
 }
