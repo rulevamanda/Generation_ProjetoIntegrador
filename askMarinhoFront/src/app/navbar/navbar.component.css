@@ -1,0 +1,32 @@
+.navbar {
+  background-color: #6DD3CE;
+  height: 70px;
+}
+
+.icon-nav {
+  height: 50px;
+  width: 50px;
+}
+
+.navbar-brand {
+  color: #BAF2E9;
+  font-family: Bebas Neue;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 48px;
+  margin-left: 30px;
+}
+
+.navbar-brand:hover{
+    color: #95DCD1;
+}
+
+.btn{
+    color: white;
+}
+
+.input-style{
+    width: 380px;
+    height: 45px;
+}
