@@ -2,23 +2,21 @@ package com.AskMarinho.app.RedeSocial;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @SpringBootApplication
 @RestController
+@RequestMapping("/")
 public class RedeSocialApplication {
-		
-		//Executando o metodo get, para exibir a mensagem no localhost e retornar um status
-		@GetMapping
-		public ResponseEntity<String> metodoTeste() {
-			return ResponseEntity.status(201).body("Teste!!!");
-		}
-		
-		
+
+	@GetMapping
+	public ModelAndView swaggerUi () {
+		return new ModelAndView("redirect:/swagger-ui/");
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(RedeSocialApplication.class, args);
 	}
-
 }

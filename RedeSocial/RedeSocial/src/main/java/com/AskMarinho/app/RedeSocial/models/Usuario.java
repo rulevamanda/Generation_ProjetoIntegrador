@@ -1,7 +1,10 @@
 package com.AskMarinho.app.RedeSocial.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -16,70 +22,90 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * 
+ * @redactor Amanda
+ *
+ */
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idUsuario;
+	private Long idUser;
 
-	@NotNull(message = "Precisa ter um nome!")
-	@Size(min = 3, max = 50, message = "O nome não pode ser nulo")
-	private String nome;
+	@NotNull(message = "Insira um nome.")
+	@Size(min = 3, max = 50, message = "O nome não pode ser nulo.")
+	private String name;
 
-	@NotNull(message = "Aqui precisa ter um usuário válido!")
-	@Size(min = 5, max = 15, message = "User entre 3 e 15")
-	private String nomeUsuario;
+	@NotNull(message = "Insira um nome de usuário.")
+	@Size(min = 3, max = 100, message = "Nome de usuário entre 3 e 15 caracteres.")
+	private String userName;
 
-	@NotNull
-	@Size(min = 12, max = 25, message = "Email precisar ter entre 12 e 25 caracteres!")
+	@NotNull(message = "Insira um endereço de email.")
+	@Size(min = 3, max = 100, message = "Endereço de email entre 12 e 25 caracteres.")
 	private String email;
 
-	@NotNull(message = "A senha não pode ser nula, please!")
-	@Size(min = 8, max = 255)
-	private String senha;
+	@NotNull(message = "Insira uma senha.")
+	@Size(min = 3, max = 255, message = "Senha entre 8 e 25 caracteres.")
+	private String password;
 
-	@NotNull
-	private Date nascimento;
+	@NotNull(message = "Insira uma data de nascimento.")
+	private Date birth;
 
-	@NotNull
-	private String genero;
+	@NotNull(message = "Insira o gênero.")
+	@Size(min = 2, max = 50)
+	private String gender;
 
-	@NotNull
-	@Column(name = "telefone", length = 20)
-	private Long telefone;
+	@NotNull(message = "Insira um número de telefone.")
+	@Column(name = "telephone", length = 20)
+	private Long telephone;
 
-	@OneToMany(mappedBy = "usuarioComentario", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({"usuarioComentario", "idComentario", "postagem"})
-	private List<Comentario> comentarios;
+	@OneToMany(mappedBy = "userComment", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "upvoted", "userComment", "idComment", "post", "reported" })
+	private List<Comment> comments;
+
+	@OneToMany(mappedBy = "userPost", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "upvoted", "userPost", "idPost", "comments", "tagRelation", "comment", "reported" })
+	private List<Post> posts;
+
+	@ManyToMany(mappedBy = "userReport", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "postReport", "userReport", "idReport" })
+	private List<Report> reports = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "usuarioPostagem", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({"usuarioPostagem", "id_postagem", "comentarios"})
-	private List<Postagem> postagens;
+	
+	@ManyToMany(mappedBy = "userUpvote", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("userUpvote")
+	private List<Upvote> upvotes = new ArrayList<>();
+	
+	@ManyToMany
+	@JoinTable(name = "userAndFavorites", joinColumns = @JoinColumn(name = "fk_user"), inverseJoinColumns = @JoinColumn(name = "fk_tag"))
+	@JsonIgnoreProperties({ "posts", "idTag", "userTags" })
+	private Set<Tag> favorites = new HashSet<>();
 
-	public Long getIdUsuario() {
-		return idUsuario;
+	public Long getIdUser() {
+		return idUser;
 	}
 
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getNomeUsuario() {
-		return nomeUsuario;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getEmail() {
@@ -90,54 +116,77 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public Date getNascimento() {
-		return nascimento;
+	public Date getBirth() {
+		return birth;
 	}
 
-	public void setNascimento(Date nascimento) {
-		this.nascimento = nascimento;
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
 
-	public String getGenero() {
-		return genero;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setGenero(String genero) {
-		this.genero = genero;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public Long getTelefone() {
-		return telefone;
+	public Long getTelephone() {
+		return telephone;
 	}
 
-	public void setTelefone(Long telefone) {
-		this.telefone = telefone;
+	public void setTelephone(Long telephone) {
+		this.telephone = telephone;
 	}
 
-	public List<Comentario> getComentarios() {
-		return comentarios;
+	public List<Comment> getComments() {
+		return comments;
 	}
 
-	public void setComentarios(List<Comentario> comentarios) {
-		this.comentarios = comentarios;
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
-	public List<Postagem> getPostagens() {
-		return postagens;
+	public List<Post> getPosts() {
+		return posts;
 	}
 
-	public void setPostagens(List<Postagem> postagens) {
-		this.postagens = postagens;
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
+
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
+	}
+
+	public List<Upvote> getUpvotes() {
+		return upvotes;
+	}
+
+	public void setUpvotes(List<Upvote> upvotes) {
+		this.upvotes = upvotes;
+	}
+
+	public Set<Tag> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(Set<Tag> favorites) {
+		this.favorites = favorites;
+	}
+
 	
-	
-
 }
