@@ -28,8 +28,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "tb_usuario")
+public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,17 +44,18 @@ public class User {
 	private String userName;
 
 	@NotNull(message = "Insira um endereço de email.")
-	@Size(min = 03, max = 100, message = "Endereço de email entre 12 e 25 caracteres.")
+	@Size(min = 3, max = 100, message = "Endereço de email entre 12 e 25 caracteres.")
 	private String email;
 
 	@NotNull(message = "Insira uma senha.")
-	@Size(min = 8, max = 255, message = "Senha entre 8 e 25 caracteres.")
+	@Size(min = 3, max = 255, message = "Senha entre 8 e 25 caracteres.")
 	private String password;
 
 	@NotNull(message = "Insira uma data de nascimento.")
 	private Date birth;
 
-	@NotNull(message = "Insira o gênero.") //opção de múltiplas escolhas?
+	@NotNull(message = "Insira o gênero.")
+	@Size(min = 2, max = 50)
 	private String gender;
 
 	@NotNull(message = "Insira um número de telefone.")

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.AskMarinho.app.RedeSocial.models.Comment;
 import com.AskMarinho.app.RedeSocial.models.Post;
-import com.AskMarinho.app.RedeSocial.models.User;
+import com.AskMarinho.app.RedeSocial.models.Usuario;
 import com.AskMarinho.app.RedeSocial.models.UserLogin;
 import com.AskMarinho.app.RedeSocial.repositories.CommentRepository;
 import com.AskMarinho.app.RedeSocial.repositories.PostRepository;
@@ -46,18 +46,17 @@ public class UserController {
 
 	/**
 	 * Método que faz login na plataforma
+	 * 
 	 * @param user
-	 * @return 
+	 * @return
 	 * @author Bueno
 	 */
 
 	@PostMapping("/login")
-	public ResponseEntity<UserLogin> AuthenticationManagerBuilder(@RequestBody Optional<UserLogin> user){
-		return serviceU.login(user)
-				.map(resp -> ResponseEntity.status(200).body(resp))
-				.orElse(ResponseEntity.status(401).build());
+	public ResponseEntity<Object> AuthenticationManagerBuilder(@RequestBody Optional<UserLogin> user) {
+		return serviceU.login(user);
 	}
-	
+
 	/**
 	 * Rota para retornar todos os usuários
 	 * 
@@ -66,8 +65,8 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<User>> searchAll() {
-		List<User> listAll = repositoryU.findAll();
+	public ResponseEntity<List<Usuario>> searchAll() {
+		List<Usuario> listAll = repositoryU.findAll();
 		return ResponseEntity.status(200).body(listAll);
 	}
 
@@ -81,7 +80,7 @@ public class UserController {
 	 */
 	@GetMapping("/name/search")
 	public ResponseEntity<Object> searchByName(@RequestParam(defaultValue = "") String name) {
-		List<User> listOfNames = repositoryU.findAllByNameContainingIgnoreCase(name);
+		List<Usuario> listOfNames = repositoryU.findAllByNameContainingIgnoreCase(name);
 
 		if (!listOfNames.isEmpty()) {
 			return ResponseEntity.status(200).body(listOfNames);
@@ -99,7 +98,7 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/id/{id}")
-	public ResponseEntity<User> searchById(@PathVariable Long id) {
+	public ResponseEntity<Usuario> searchById(@PathVariable Long id) {
 		return repositoryU.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 
@@ -112,7 +111,7 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping("/register")
-	public ResponseEntity<Object> registerUser(@Valid @RequestBody User newUser) {
+	public ResponseEntity<Object> registerUser(@Valid @RequestBody Usuario newUser) {
 		return serviceU.registerUser(newUser);
 	}
 
@@ -127,7 +126,7 @@ public class UserController {
 	 * @return
 	 */
 	@PutMapping("/update/{idUser}")
-	public ResponseEntity<Object> updateUser(@Valid @RequestBody User updatedUser,
+	public ResponseEntity<Object> updateUser(@Valid @RequestBody Usuario updatedUser,
 			@Valid @PathVariable(value = "idUser") Long idUser) {
 		return serviceU.updateUser(idUser, updatedUser);
 	}
@@ -142,7 +141,7 @@ public class UserController {
 	 */
 	@DeleteMapping("/delete/{id_user}")
 	public ResponseEntity<String> deleteUser(@PathVariable Long id_user) {
-		Optional<User> existingUser = repositoryU.findById(id_user);
+		Optional<Usuario> existingUser = repositoryU.findById(id_user);
 
 		if (existingUser.isPresent()) {
 			repositoryU.deleteById(id_user);
@@ -178,7 +177,7 @@ public class UserController {
 	 */
 	@PostMapping("/posts/register/{idUser}/{themeName}")
 	public ResponseEntity<Object> registerPost(@PathVariable(value = "idUser") Long idUser,
-			@PathVariable(value = "themeName") String themeName, @RequestBody Post newPost) {
+			@PathVariable(value = "themeName") String themeName, @Valid @RequestBody Post newPost) {
 		return serviceU.registerPost(idUser, themeName, newPost);
 	}
 
@@ -229,7 +228,7 @@ public class UserController {
 	 * @return
 	 */
 	@PutMapping("/posts/add/theme/{themeName}/{idPost}")
-	public ResponseEntity<Object> addTheme(@PathVariable(value = "nomeTema") String themeName,
+	public ResponseEntity<Object> addTheme(@PathVariable(value = "themeName") String themeName,
 			@PathVariable(value = "idPost") Long idPost) {
 		return serviceU.addTag(idPost, themeName);
 	}
@@ -322,7 +321,7 @@ public class UserController {
 	 */
 	@PostMapping("/comments/register/{idUser}/{idPost}")
 	public ResponseEntity<Object> registerPost(@PathVariable(value = "idUser") Long idUser,
-			@PathVariable(value = "idPost") Long idPost, @RequestBody Comment newComment) {
+			@PathVariable(value = "idPost") Long idPost, @Valid @RequestBody Comment newComment) {
 		return serviceU.registerComment(idUser, idPost, newComment);
 	}
 
