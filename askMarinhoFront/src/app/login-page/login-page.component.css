@@ -102,6 +102,11 @@ h1{
     line-height: 84px;
     color: #6DD3CE;
 }
+
+body{
+    background-image: url('../../assets/img/login-page/bg2.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
 .mt-15{
     margin-top: 15rem;
 }
