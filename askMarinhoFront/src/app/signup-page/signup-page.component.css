@@ -37,8 +37,8 @@ select {
     margin: 14px 16px;
 }
 
-input[type=submit] {
-    width: 325px;
+.voltar {
+    width: 240px;
     height: 57px;
     background: #FFCAB1;
     border-radius: 5px;
@@ -50,6 +50,21 @@ input[type=submit] {
     font-size: 25px;
     line-height: 30px;
     color: #F27A7A;
+}
+
+.cadastrar {
+    width: 240px;
+    height: 57px;
+    background: #6DD3CE;
+    border-radius: 5px;
+    margin: 14px 16px;
+    border: none;
+    font-family: Corbel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 30px;
+    color: #ffffff;
 }
 
 input[type=date] {
