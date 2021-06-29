@@ -12,7 +12,7 @@ import { FooterComponent } from './footer/footer.component';
   declarations: [
     AppComponent,
     LoginPageComponent,
-    SignupPageComponent
+    SignupPageComponent,
     NavbarComponent,
     FooterComponent
   ],
