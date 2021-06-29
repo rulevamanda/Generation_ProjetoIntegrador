@@ -29,7 +29,7 @@ public class Report {
 	@ManyToMany()
 	@JoinTable(name = "reportsAndUsers", joinColumns = @JoinColumn(name = "fk_report"), inverseJoinColumns = @JoinColumn(name = "fk_user"))
 	@JsonIgnoreProperties({ "upvotes", "reports", "password", "birth", "gender", "comments", "posts", "favorites" })
-	private Set<User> userReport = new HashSet<>();
+	private Set<Usuario> userReport = new HashSet<>();
 
 	@OneToOne
 	@JsonIgnoreProperties({ "upvoted", "reports", "comment", "reports", "userPost", "tagRelation", "reported" })
@@ -47,11 +47,11 @@ public class Report {
 		this.idReport = idReport;
 	}
 
-	public Set<User> getUserReport() {
+	public Set<Usuario> getUserReport() {
 		return userReport;
 	}
 
-	public void setUserReport(Set<User> userReport) {
+	public void setUserReport(Set<Usuario> userReport) {
 		this.userReport = userReport;
 	}
 
