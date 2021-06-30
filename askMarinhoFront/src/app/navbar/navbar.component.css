@@ -1,6 +1,5 @@
-.navbar {
+.navbar-bg {
   background-color: #6DD3CE;
-  height: 70px;
 }
 
 .icon-nav {
@@ -22,11 +21,25 @@
     color: #95DCD1;
 }
 
-.btn{
-    color: white;
-}
-
 .input-style{
     width: 380px;
     height: 45px;
+}
+
+.lupa {
+
+  color: #BAF2E9;
+}
+
+.dropdown-menu {
+  border: none;
+}
+
+.dropdown-item{
+  background-color: #6DD3CE;
+  color: #BAF2E9;
+}
+
+.dropdown-item:hover{
+  background-color: #95DCD1;
 }
