@@ -10,22 +10,25 @@
                     <form class="formulario" action="">
 
                         <div class="text-center">
-                            <p>Seja bem-vinde ao</p>
-                            <h1>AskMarinho</h1>
+                            <h1>Editar Perfil</h1>
                         </div>
                         <div>
+                            <label for="nome">Nome</label>
                             <input class="form-control" type="text" placeholder="Qual é o seu lindo nome?" required>
+                            <label for="nome">Email</label>
                             <input class="form-control" type="email" placeholder="Qual seu email?" required>
+                            <label for="nome">Nome de usuário</label>
                             <input class="form-control" type="text" placeholder="Escolha seu nome de usuário" required>
+                            <label for="nome">Senha</label>
                             <input class="form-control" type="password" placeholder="Escolha sua nova senha" required>
-                            <input class="form-control" type="password" placeholder="Confirme sua nova senha" required>
+
                         </div>
                         <div>
-                            <p class="text-center mt-3" min="01-01-1910" max="01/12/2021">Data de Nascimento</p>
+                            <label for="nome">Data de nascimento</label>
                             <input type="date" class="form-control" required>
                         </div>
                         <div>
-                            <p class="text-center mt-4 ">Gênero</p>
+                            <label for="nome">Gênero</label>
 
                             <Select class="form-control" name="tipo" id="tipo" required>
                                 <option value="">Selecione:</option>
@@ -36,13 +39,9 @@
                             </Select>
 
                         </div>
-                        <div class="termos m-4">
-                            <span>Ao clicar em <a href="#">Cadastrar</a>, você concorda com nossos <a href="#">Termos</a>, <a href="#">Política de dados</a> e Política de Cookies.</span>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <input class="voltar" type="submit" routerLink="/login-page" value="Voltar">
 
-                            <input class="cadastrar" type="submit" value="Cadastrar">
+                        <div class="m-4">
+                            <input type="submit" routerLink="/login-page" value="Atualizar">
                         </div>
                     </form>
                 </div>

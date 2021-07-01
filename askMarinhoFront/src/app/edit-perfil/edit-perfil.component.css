@@ -37,8 +37,8 @@ select {
     margin: 14px 16px;
 }
 
-.voltar {
-    width: 240px;
+input[type=submit] {
+    width: 325px;
     height: 57px;
     background: #FFCAB1;
     border-radius: 5px;
@@ -50,21 +50,6 @@ select {
     font-size: 25px;
     line-height: 30px;
     color: #F27A7A;
-}
-
-.cadastrar {
-    width: 240px;
-    height: 57px;
-    background: #6DD3CE;
-    border-radius: 5px;
-    margin: 14px 16px;
-    border: none;
-    font-family: Corbel;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 25px;
-    line-height: 30px;
-    color: #ffffff;
 }
 
 input[type=date] {
@@ -84,9 +69,18 @@ h1 {
     font-family: Bebas NEUE;
     font-style: normal;
     font-weight: normal;
-    font-size: 70px;
+    font-size: 50px;
     line-height: 84px;
     color: #6DD3CE;
+}
+
+label {
+    padding-left: 30px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    font-family: Corbel;
+    color: #6DD3CE
 }
 
 .mt-15 {
