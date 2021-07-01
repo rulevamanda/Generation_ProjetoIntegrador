@@ -7,14 +7,20 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { EditPerfilComponent } from './edit-perfil/edit-perfil.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    SignupPageComponent
+    SignupPageComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    HomePageComponent,
+    EditPerfilComponent,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,
