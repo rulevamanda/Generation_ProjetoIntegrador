@@ -37,7 +37,7 @@ export class LoginPageComponent implements OnInit {
       console.log(environment.foto)
       console.log(environment.nome)
 
-      this.router.navigate(['/edit-perfil'])
+      this.router.navigate(['/home'])
     }, erro => {
       if (erro.status == 500) {
         alert("Email ou senha estão incorretos")
