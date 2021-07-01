@@ -24,10 +24,10 @@ body {
 }
 .tag-style-2{
 
+    background-color: #d6efeb;
     width: 250px;
-    /* height: 130px; */
+    height: 380px;
     border-radius: 15px;
-    
 }
 
 ul.list-style li{
@@ -57,10 +57,10 @@ ul.list-style li{
 .mano{
 
     font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 15px;
-    line-height: 18px;
+font-style: normal;
+font-weight: bold;
+font-size: 15px;
+line-height: 18px;
 
 color: #6DD3CE;
 }
@@ -81,13 +81,4 @@ a:visited{
 }
 a:hover{
     color: #8ee1dd
-}
-
-.plus-style{
-    color: #6DD3CE;
-    font-size: 80pt;
-}
-
-.ml-10{
-    margin-left: 85px;
 }
