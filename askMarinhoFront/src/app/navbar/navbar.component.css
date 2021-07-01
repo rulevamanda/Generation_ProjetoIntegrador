@@ -5,9 +5,10 @@
 .icon-nav {
   height: 50px;
   width: 50px;
+  margin-left: 85px;
 }
 
-.navbar-brand {
+.txt-marinho {
   color: #BAF2E9;
   font-family: Bebas Neue;
   font-style: normal;
@@ -15,9 +16,10 @@
   font-size: 40px;
   line-height: 48px;
   margin-left: 30px;
+  margin-right: 30px;
 }
 
-.navbar-brand:hover{
+.txt-marinho:hover{
     color: #95DCD1;
 }
 
@@ -27,12 +29,12 @@
 }
 
 .lupa {
-
   color: #BAF2E9;
 }
 
 .dropdown-menu {
   border: none;
+  background-color: #6DD3CE;
 }
 
 .dropdown-item{
@@ -42,4 +44,12 @@
 
 .dropdown-item:hover{
   background-color: #95DCD1;
+}
+
+.btn {
+  border: none;
+}
+
+li {
+  list-style-type: none;
 }
