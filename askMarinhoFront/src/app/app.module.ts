@@ -13,6 +13,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { EditPerfilComponent } from './edit-perfil/edit-perfil.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     EditPerfilComponent,
     ProfilePageComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
