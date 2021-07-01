@@ -41,10 +41,6 @@ a:hover{
     line-height: 24px
 }
 
-ul.rodape{
+ul.style li{
     list-style: none;
-}
-
-ul.rodape li{
-    display: inline;
 }
