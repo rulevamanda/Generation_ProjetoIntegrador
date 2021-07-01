@@ -10,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { EditPerfilComponent } from './edit-perfil/edit-perfil.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,8 +19,9 @@ import { EditPerfilComponent } from './edit-perfil/edit-perfil.component';
     NavbarComponent,
     FooterComponent,
     HomePageComponent,
-    EditPerfilComponent
+    EditPerfilComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule

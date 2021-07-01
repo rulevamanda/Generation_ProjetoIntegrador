@@ -1,0 +1,17 @@
+.box-post{
+    position: absolute;
+    width: 700px;
+    height: 122px;
+    left: 295px;
+    top: 90px;
+}
+
+.button-pergunta{
+    position: absolute;
+    width: 93px;
+    height: 36px;
+    left: 888px;
+    top: 166px;
+    background: #6DD3CE;
+    border-radius: 50px;
+}
