@@ -14,21 +14,29 @@
                             <h1>AskMarinho</h1>
                         </div>
                         <div>
-                            <input class="form-control" type="text" placeholder="Qual é o seu lindo nome?" required>
-                            <input class="form-control" type="email" placeholder="Qual seu email?" required>
-                            <input class="form-control" type="text" placeholder="Escolha seu nome de usuário" required>
-                            <input class="form-control" type="password" placeholder="Escolha sua nova senha" required>
-                            <input class="form-control" type="password" placeholder="Confirme sua nova senha" required>
+                            <input [(ngModel)]='user.name' id="nome" name="nome" class="form-control" type="text" placeholder="Qual é o seu lindo nome?" required>
+
+                            <input [(ngModel)]='user.email' id="email" name="email" class="form-control" type="email" placeholder="Qual seu email?" required>
+
+                            <input [(ngModel)]='user.userName' id="usuario" name="usuario" class="form-control" type="text" placeholder="Escolha seu nome de usuário" required>
+
+                            <input (input)='confirmSenha($event)' id="senha" name="senha" class="form-control" type="password" placeholder="Escolha sua nova senha" required>
+
+                            <input [(ngModel)]='user.password' id="confirmaSenha" name="confirmaSenha" class="form-control" type="password" placeholder="Confirme sua nova senha" required>
+
+                            <input [(ngModel)]='user.urlImage' id="foto" name="foto" class="form-control" type="text" placeholder="Link da foto" required>
                         </div>
+
                         <div>
-                            <p class="text-center mt-3" min="01-01-1910" max="01/12/2021">Data de Nascimento</p>
-                            <input type="date" class="form-control" required>
+                            <p class="text-center mt-3">Data de Nascimento</p>
+                            <input [(ngModel)]='user.birth' min="01-01-1910" max="01/12/2021" id="data" name="data" type="date" class="form-control" required>
                         </div>
+
                         <div>
                             <p class="text-center mt-4 ">Gênero</p>
 
-                            <Select class="form-control" name="tipo" id="tipo" required>
-                                <option value="">Selecione:</option>
+                            <Select (change)='generoUser($event)' class="form-control" name="genero" id="genero" required>
+                                <option>Selecione:</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Feminino">Feminino</option>
                                 <option value="Não binário">Não binário</option>
@@ -42,7 +50,7 @@
                         <div class="d-flex justify-content-center">
                             <input class="voltar" type="submit" routerLink="/login-page" value="Voltar">
 
-                            <input class="cadastrar" type="submit" value="Cadastrar">
+                            <input (click)='cadastrar()' class="cadastrar" type="submit" value="Cadastrar">
                         </div>
                     </form>
                 </div>
