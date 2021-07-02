@@ -11,6 +11,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { EditPerfilComponent } from './edit-perfil/edit-perfil.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+
 
 @NgModule({
   declarations: [
@@ -20,8 +22,10 @@ import { EditPerfilComponent } from './edit-perfil/edit-perfil.component';
     NavbarComponent,
     FooterComponent,
     HomePageComponent,
-    EditPerfilComponent
+    EditPerfilComponent,
+    ProfilePageComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
