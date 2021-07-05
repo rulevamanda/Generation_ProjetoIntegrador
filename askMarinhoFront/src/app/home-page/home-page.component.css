@@ -60,6 +60,16 @@ ul.list-style li{
     color: #6dd3ce;
 }
 
+.font-style3{
+
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 30px;
+    color: #6dd3ce;
+}
+
 .mano{
 
     font-family: Roboto;
@@ -92,8 +102,18 @@ a:hover{
 .plus-style{
     color: #6DD3CE;
     font-size: 80pt;
+    transition-duration: 0.2s;
+}
+
+.plus-style:hover {
+    color: #3a9b96;
+    cursor: pointer;
 }
 
 .ml-10{
     margin-left: 85px;
+}
+
+.pt-10{
+    padding-top: 150px;
 }
