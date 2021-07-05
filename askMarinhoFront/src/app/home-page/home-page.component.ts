@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { Post } from '../model/Post';
 import { Tag } from '../model/Tag';
@@ -20,20 +21,32 @@ export class HomePageComponent implements OnInit {
   postsFeed: Post[]
   postagensUser: Post[]
   todosPosts: Post[]
+  postLike: Post = new Post()
 
   constructor(
-    private homeService: HomeService
+    private homeService: HomeService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.pegarPeloId()
-    this.pegarFeed()
-    this.getAllPosts()
+
+    if (environment.token == '') {
+
+      this.router.navigate(['/login-page'])
+      
+    } else {
+      window.scroll(0,0)
+      this.homeService.refreshToken()
+      this.pegarPeloId()
+      this.pegarFeed()
+      this.getAllPosts()
+    }
   }
 
   getAllPosts() {
     this.homeService.allPosts().subscribe((resp: Post[]) => {
       this.todosPosts = resp
+      console.log(this.todosPosts.toString())
     })
   }
 
@@ -55,12 +68,13 @@ export class HomePageComponent implements OnInit {
   }
 
   adicionarTag() {
+    this.homeService.refreshToken()
     this.homeService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
       User) => {
         
         console.log("foi")
         this.pegarPeloId()
-        
+        this.tema = new Tag()
         this.usuario = resp
       })
     alert("teste")
@@ -68,7 +82,13 @@ export class HomePageComponent implements OnInit {
 
   postarPostagem() {
     this.homeService.postPostagem(environment.id, this.temaParaPost.tagName, this.novoPost).subscribe((resp: Post) => {
+      alert("Postagem cadastrada com sucesso!")
       this.novoPost = resp
+      this.getAllPosts()
+      this.pegarPeloId()
+      this.pegarFeed()
+      this.novoPost = new Post()
+      this.temaParaPost = new Tag()
       console.log("Funcionou")
     })
   } 
