@@ -1,9 +1,3 @@
-.body{
-    background-color: white;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 .profile-head {
     transform: translateY(5rem)
 }
@@ -30,10 +24,10 @@ body {
 }
 .tag-style-2{
 
+    background-color: #d6efeb;
     width: 250px;
-    /* height: 130px; */
+    height: 380px;
     border-radius: 15px;
-    
 }
 
 ul.list-style li{
@@ -51,16 +45,6 @@ ul.list-style li{
     color: #FFB18C;
 }
 #font-style-2{
-
-    font-family: Bebas Neue;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 30px;
-    line-height: 30px;
-    color: #6dd3ce;
-}
-
-.font-style3{
 
     font-family: Bebas Neue;
     font-style: normal;
@@ -97,23 +81,4 @@ a:visited{
 }
 a:hover{
     color: #8ee1dd
-}
-
-.plus-style{
-    color: #6DD3CE;
-    font-size: 80pt;
-    transition-duration: 0.2s;
-}
-
-.plus-style:hover {
-    color: #3a9b96;
-    cursor: pointer;
-}
-
-.ml-10{
-    margin-left: 85px;
-}
-
-.pt-10{
-    padding-top: 150px;
 }
