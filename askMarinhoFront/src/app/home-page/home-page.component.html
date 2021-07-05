@@ -9,36 +9,27 @@
                     <!-- NAV BOOTSTRAP -->
                     <nav>
                         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Feed</a>
-                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Todas as postagens</a>
-                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Minhas Postagens</a>
+                            <a class="nav-item nav-link active" id="nav-feed-tab" data-toggle="tab" href="#nav-feed" role="tab" aria-controls="nav-feed" aria-selected="true">Feed</a>
+                            <a class="nav-item nav-link" id="nav-todasPostagens-tab" data-toggle="tab" href="#nav-todasPostagens" role="tab" aria-controls="nav-todasPostagens" aria-selected="false">Todas as postagens</a>
+                            <a class="nav-item nav-link" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Minhas Postagens</a>
                         </div>
                     </nav>
 
-                    <!-- adicionar tag favorita -->
-                    <div class="form-control">
-                        <input [(ngModel)]='tema.tagName' type="text">
-                        <button (click)='adicionarTag()' class="btn">Teste</button>
-                    </div>
-
-                    <!-- Cadastrar postagem passando um tema -->
-                    <div class="form-control">
-
-                        <label for="">Título</label>
-                        <input [(ngModel)]='novoPost.title' type="text">
-
-                        <label for="">Descrição</label>
-                        <input [(ngModel)]='novoPost.description' type="text">
-
-                        <label for="">Tema</label>
-                        <input [(ngModel)]='temaParaPost.tagName' type="text">
-
-                        <button (click)='postarPostagem()' class="btn">Teste</button>
-                    </div>
-
-
                     <div class="tab-content d-flex justify-content-center" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="tab-pane fade show active" id="nav-feed" role="tabpanel" aria-labelledby="nav-feed-tab">
+
+                            <div *ngFor='let feed of postsFeed' class="card mb-5">
+                                <div class="card-body">
+                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                    <a routerLink="/profile">{{feed.userPost.name}}</a>
+                                    <h5 class="card-title text-center">{{feed.title}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
+                                    <p class="card-text">{{feed.description}}.</p>
+                                    <a *ngFor='let tagsDoPost of feed.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
+                                    <a href="#" class="card-link">{{feed.date}}</a>
+                                </div>
+                            </div>
+
                             <div class="card mb-5">
                                 <div class="card-body">
                                     <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
@@ -50,26 +41,16 @@
                                     <a href="#" class="card-link">Outro link</a>
                                 </div>
                             </div>
-                            <div *ngFor='let feed of postsFeed' class="card mb-5">
-                                <div class="card-body">
-                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                    <a routerLink="/profile"> Jessica Silva</a>
-                                    <h5 class="card-title text-center">{{feed.title}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                    <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-                                    <a *ngFor='let tagsDoPost of feed.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
-                                    <a href="#" class="card-link">Outro link</a>
-                                </div>
-                            </div>
+
                         </div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="tab-pane fade" id="nav-todasPostagens" role="tabpanel" aria-labelledby="nav-todasPostagens-tab">
                             <div *ngFor='let allPosts of todosPosts' class="card mb-5">
                                 <div class="card-body">
                                     <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                    <a routerLink="/profile">Jessica Silva</a>
+                                    <a routerLink="/profile">{{allPosts.userPost.name}}</a>
                                     <h5 class="card-title text-center">{{allPosts.title}}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                    <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+                                    <p class="card-text">{{allPosts.description}}</p>
                                     <a *ngFor='let tagsDoPost of allPosts.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
                                     <a href="#" class="card-link">Outro link</a>
                                 </div>
@@ -86,14 +67,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="tab-pane fade" id="nav-minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
                             <div *ngFor='let postsUser of postagensUser' class="card mb-5">
                                 <div class="card-body">
                                     <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                    <a routerLink="/profile"> Jessica Silva</a>
+                                    <a routerLink="/profile">{{usuario.name}}</a>
                                     <h5 class="card-title text-center">{{postsUser.title}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                    <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+                                    <h6 class="card-subtitle mb-2 text-muted">Subtítulo</h6>
+                                    <p class="card-text">{{postsUser.description}}</p>
                                     <a *ngFor='let tagsDoPost of postsUser.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
                                     <a href="#" class="card-link">Outro link</a>
                                 </div>
@@ -127,9 +108,12 @@
 
                             <ul class="py-0 px-2 text-center list-style">
 
-                                <li>
+                                <li data-toggle="modal" data-target="#novaPostagem">
+                                    <!-- Botão para acionar modal postagem -->
                                     <i class="fa fa-plus-circle plus-style" aria-hidden="true"></i>
-                                    <p class="font-style3">Nova postagem</p>
+
+                                    <p class="font-style3">NOVA POSTAGEM</p>
+
                                 </li>
 
                             </ul>
@@ -138,12 +122,14 @@
                         <div class="tag-style">
                             <ul class="py-3 px-2 text-center list-style">
 
-                                <h3 id="font-style">HOT TAGS</h3>
+                                <h3 id="font-style">Tags favoritas</h3>
+
                                 <li *ngFor='let tema of temas'>{{tema.tagName}}</li>
-                                <li>#qualquer coisa</li>
-                                <li>#qualquer coisa</li>
-                                <li>#qualquer coisa</li>
-                                <li>#qualquer coisa</li>
+
+                                <!-- Botão para acionar modal de tag favorita -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novaTagFav">
+                                    Adicionar tag favorita
+                                </button>
 
                             </ul>
                         </div>
@@ -154,6 +140,67 @@
                 <!-- /TABELAS TAGS -->
             </div>
 
+        </div>
+    </div>
+</div>
+
+<!-- Modal Postagem -->
+<div class="modal fade" id="novaPostagem" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Nova postagem</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="">Título</label>
+                    <input [(ngModel)]='novoPost.title' class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Descrição</label>
+                    <input [(ngModel)]='novoPost.description' class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Tema</label>
+                    <input [(ngModel)]='temaParaPost.tagName' class="form-control" type="text">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button (click)='postarPostagem()' type="button" class="btn btn-primary">Postar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="novaTagFav" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Nova tag favorita</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <!-- adicionar tag favorita -->
+                <div class="form-group">
+                    <label for="tagFav">Nome da tag</label>
+                    <input [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button (click)='adicionarTag()' type="button" class="btn btn-primary">Adicionar</button>
+            </div>
         </div>
     </div>
 </div>

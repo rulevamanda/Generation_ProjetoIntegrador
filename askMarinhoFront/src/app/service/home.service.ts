@@ -18,6 +18,12 @@ export class HomeService {
     headers: new HttpHeaders().set('Authorization', environment.token)
   }
 
+  refreshToken() {
+    this.token = {
+      headers: new HttpHeaders().set('Authorization', environment.token)
+    }
+  }
+
   addFavorite(idUser: number, nome: string): Observable<User> {
     console.log(idUser)
     console.log(nome)
