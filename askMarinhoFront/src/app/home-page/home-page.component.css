@@ -1,4 +1,4 @@
-.body{
+.body {
     background-color: white;
     background-repeat: no-repeat;
     background-size: cover;
@@ -21,28 +21,23 @@ body {
     overflow-x: hidden
 }
 
-.tag-style{
-
+.tag-style {
     background-color: #f0dbce;
     width: 250px;
-    height: 380px;
     border-radius: 15px;
 }
-.tag-style-2{
 
+.tag-style-2 {
     width: 250px;
     /* height: 130px; */
     border-radius: 15px;
-    
 }
 
-ul.list-style li{
-
+ul.list-style li {
     list-style: none;
 }
 
-#font-style{
-
+#font-style {
     font-family: Bebas Neue;
     font-style: normal;
     font-weight: normal;
@@ -50,8 +45,8 @@ ul.list-style li{
     line-height: 30px;
     color: #FFB18C;
 }
-#font-style-2{
 
+#font-style-2 {
     font-family: Bebas Neue;
     font-style: normal;
     font-weight: normal;
@@ -60,40 +55,52 @@ ul.list-style li{
     color: #6dd3ce;
 }
 
-.mano{
+.font-style3 {
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 30px;
+    color: #6dd3ce;
+}
 
+.mano {
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 15px;
     line-height: 18px;
-
-color: #6DD3CE;
+    color: #6DD3CE;
 }
 
-a:link{
-
-   color: #6DD3CE;
+a:link {
+    color: #6DD3CE;
     text-decoration: none;
 }
 
-a:active{
-
+a:active {
     color: #152e2d;
 }
 
-a:visited{
+a:visited {
     color: #51e7e0;
 }
-a:hover{
+
+a:hover {
     color: #8ee1dd
 }
 
-.plus-style{
+.plus-style {
     color: #6DD3CE;
     font-size: 80pt;
+    transition-duration: 0.2s;
 }
 
-.ml-10{
+.plus-style:hover {
+    color: #3a9b96;
+    cursor: pointer;
+}
+
+.ml-10 {
     margin-left: 85px;
 }
