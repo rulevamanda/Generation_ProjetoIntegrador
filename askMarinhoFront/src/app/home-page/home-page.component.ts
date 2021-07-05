@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+import { Comment } from '../model/Comment';
 import { Post } from '../model/Post';
 import { Tag } from '../model/Tag';
 import { User } from '../model/User';
+import { CommentService } from '../service/comment.service';
 import { HomeService } from '../service/home.service';
 
 @Component({
@@ -23,8 +25,13 @@ export class HomePageComponent implements OnInit {
   todosPosts: Post[]
   postLike: Post = new Post()
 
+  comentarioNoPost: Comment = new Comment()
+
+  idPostComentado: number
+
   constructor(
     private homeService: HomeService,
+    private commentService: CommentService,
     private router: Router
   ) { }
 
@@ -74,6 +81,8 @@ export class HomePageComponent implements OnInit {
         
         console.log("foi")
         this.pegarPeloId()
+        this.pegarFeed()
+        this.getAllPosts()
         this.tema = new Tag()
         this.usuario = resp
       })
@@ -92,5 +101,21 @@ export class HomePageComponent implements OnInit {
       console.log("Funcionou")
     })
   } 
+
+  chamou(idPost: number) {
+    this.idPostComentado = idPost
+  }
+
+  comentar() {
+    this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
+      this.comentarioNoPost = resp
+      console.log("Comentado com sucesso")
+      alert("comentado com sucesso")
+      this.getAllPosts()
+      this.pegarPeloId()
+      this.pegarFeed()
+      this.comentarioNoPost = new Comment()
+    })
+  }
 
 }
