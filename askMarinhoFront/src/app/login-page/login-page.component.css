@@ -105,3 +105,15 @@ h1 {
 .mt-15 {
     margin-top: 5rem;
 }
+
+ul.style li{
+    list-style: none;
+}
+
+.mt-150 {
+    margin-top: 150px;
+}
+
+.ml-6 {
+    margin-left: 30px;
+}
