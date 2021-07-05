@@ -5,30 +5,27 @@
         aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
         <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
-        <ul class="navbar-nav justify-content-center">
-            <!-- <li class="nav-item active">
-                    <form class="justify-content-center">
-                        <input class="form-control me-2" type="search" placeholder="Pesquisar no askMarinho"
-                            aria-label="pesquisar">
-                        <button class="btn" type="submit">
-                            <i class="fa fa-search lupa" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                </li> -->
-            <li class="nav-item text-center">
-                <a class="nav-link" href="#">Feed</a>
-            </li>
-        </ul>
+   
+    <div class="collapse navbar-collapse justify-content-center space" id="conteudoNavbarSuportado">
+        <form class="form-inline justify-content-center">
+            <input class="form-control tamanho" type="search" placeholder="Pesquisar no askMarinho"
+                aria-label="pesquisar">
+                <button class="btn" type="submit">
+                    <i class="fa fa-search lupa" aria-hidden="true"></i>
+                </button>       
+        </form>
     </div>
     <div class="collapse navbar-collapse justify-content-end" id="conteudoNavbarSuportado">
+        <label class="switch">
+            <input onclick="darkmode()" type="checkbox">
+            <span class="slider round"></span>
+          </label>
         <li class="nav-item dropdown text-center">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 Configurações
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu text-center t" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" routerLink="/edit">Editar perfil</a>
                 <a class="dropdown-item" href="#">Minhas tags</a>
                 <div class="dropdown-divider"></div>
