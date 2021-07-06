@@ -29,6 +29,13 @@
                                         <a href="#" class="card-link">{{feed.date}}</a>
                                     </div>
                                     <a (click)="chamou(feed.idPost)" class="text-center mb-3" data-toggle="modal" data-target="#comentado"><img src="https://i.imgur.com/uUoSLB1.png" alt=""></a>
+
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        {{feed.userUpvotePost.length}} <i (click)='upvotePost(feed.idPost)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                        <i (click)='reportPost(feed.idPost)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{feed.userReportPost.length}}
+                                    </div>
                                 </div>
                                 <div class="mb-2">
                                     <p class="font-style3 text-center">
@@ -48,8 +55,12 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <i class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
-                                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                        {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                                        <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -84,6 +95,13 @@
                                     </div>
                                     <a (click)="chamou(allPosts.idPost)" class="text-center mb-3" data-toggle="modal" data-target="#comentado"><img src="https://i.imgur.com/uUoSLB1.png" alt=""></a>
 
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        {{allPosts.userUpvotePost.length}} <i (click)='upvotePost(allPosts.idPost)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                        <i (click)='reportPost(allPosts.idPost)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{allPosts.userReportPost.length}}
+                                    </div>
+
                                 </div>
                                 <div class="mb-2">
                                     <p class="font-style3 text-center">
@@ -102,9 +120,12 @@
 
                                             </div>
                                             <div class="row">
+
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <i class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
-                                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                    {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                                    <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
                                                 </div>
                                             </div>
                                         </div>
@@ -136,6 +157,12 @@
                                         <a href="#" class="card-link">Outro link</a>
                                     </div>
                                     <a (click)="chamou(postsUser.idPost)" class="text-center mb-3" data-toggle="modal" data-target="#comentado"><img src="https://i.imgur.com/uUoSLB1.png" alt=""></a>
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        {{postsUser.userUpvotePost.length}} <i (click)='upvotePost(postsUser.idPost)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                        <i (click)='reportPost(postsUser.idPost)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{postsUser.userReportPost.length}}
+                                    </div>
                                 </div>
                                 <div class="mb-2">
                                     <p class="font-style3 text-center">
@@ -155,8 +182,12 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <i class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
-                                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                        {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                                        <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

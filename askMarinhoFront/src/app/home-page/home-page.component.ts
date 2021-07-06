@@ -24,6 +24,9 @@ export class HomePageComponent implements OnInit {
   postagensUser: Post[]
   todosPosts: Post[]
   postLike: Post = new Post()
+  comentarioLike: Comment = new Comment()
+  postReport: Post = new Post()
+  comentarioReport: Comment = new Comment()
 
   comentarioNoPost: Comment = new Comment()
 
@@ -115,6 +118,50 @@ export class HomePageComponent implements OnInit {
       this.pegarPeloId()
       this.pegarFeed()
       this.comentarioNoPost = new Comment()
+    })
+  }
+
+  upvoteComment(idComment: number) {
+   
+    this.homeService.postUpvoteComment(environment.id, idComment).subscribe((resp: Comment) => {
+      this.comentarioLike = resp
+      
+      this.pegarPeloId()
+      this.pegarFeed()
+      this.getAllPosts()
+    })
+  }
+
+  reportComment(idComment: number) {
+   
+    this.homeService.postReportComment(environment.id, idComment).subscribe((resp: Comment) => {
+      this.comentarioReport = resp
+      
+      this.pegarPeloId()
+      this.pegarFeed()
+      this.getAllPosts()
+    })
+  }
+
+  upvotePost(idPost: number) {
+   
+    this.homeService.postUpvotePost(environment.id, idPost).subscribe((resp: Post) => {
+      this.postLike = resp
+      
+      this.pegarPeloId()
+      this.pegarFeed()
+      this.getAllPosts()
+    })
+  }
+
+  reportPost(idPost: number) {
+   
+    this.homeService.postReportPost(environment.id, idPost).subscribe((resp: Post) => {
+      this.postReport = resp
+      
+      this.pegarPeloId()
+      this.pegarFeed()
+      this.getAllPosts()
     })
   }
 
