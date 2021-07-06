@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
+import { Comment } from '../model/Comment';
 import { Post } from '../model/Post';
 import { User } from '../model/User';
 
@@ -53,7 +54,25 @@ export class HomeService {
     return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/posts/register/${idUser}/${themeName}`, postagem, this.token)
   }
 
+  postUpvoteComment(idUser: number, idComment: number): Observable<Comment> {
+    console.log(environment.token)
+    return this.http.post<Comment>(`https://askmarinho.herokuapp.com/users/upvotes/comment/${idUser}/${idComment}`, this.token)
+  }
 
+  postReportComment(idUser: number, idComment: number): Observable<Comment> {
+    console.log(environment.token)
+    return this.http.post<Comment>(`https://askmarinho.herokuapp.com/users/reports/comment/${idUser}/${idComment}`, this.token)
+  }
+
+  postUpvotePost(idUser: number, idPost: number): Observable<Post> {
+    console.log(environment.token)
+    return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/upvotes/post/${idUser}/${idPost}`, this.token)
+  }
+
+  postReportPost(idUser: number, idPost: number): Observable<Post> {
+    console.log(environment.token)
+    return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/reports/post/${idUser}/${idPost}`, this.token)
+  }
 
   
 
