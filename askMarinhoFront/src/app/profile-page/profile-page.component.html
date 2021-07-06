@@ -63,11 +63,11 @@
                     </div>
                 </nav>
 
-                <div class="tab-content d-flex justify-content-center" id="nav-tabContent">
+                <div class="tab-content d-flex justify-content-center mt-5" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
                         <div *ngFor='let postsUser of postagensUser' class="card mb-5">
                             <div class="card-body">
-                                <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                <img class="rounded-circle img-fluid mr-2" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                 <a routerLink="/profile">{{usuario.name}}</a>
                                 <h5 class="card-title text-center">{{postsUser.title}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Subtítulo</h6>
@@ -109,8 +109,13 @@
                         <div *ngFor='let tema of temas' class="card mb-5">
                             <div class="card-body">
 
-                                <h5 class="card-title text-center">{{tema.tagName}}</h5>
-                                <button>qualquer coisa</button>
+                                    <div class="d-flex justify-content-center">
+                                        <h5 class="card-title text-center">#{{tema.tagName}}</h5>
+    
+                                        <button class="btn btn-info mr-3 ml-3">Editar</button>
+                                        <button class="btn btn-danger">Apagar</button>
+                                    </div>
+                               
 
                             </div>
                         </div>
@@ -125,10 +130,10 @@
 
                 <div class="py-4 px-4">
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="mb-0">Publicações Recentes</h5><a href="#" class="btn btn-link text-muted">Mostrar todas</a>
+                        <h5 class="mb-0">Publicações Recentes</h5><a href="#post" class="btn btn-link text-muted">Mostrar todas</a>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 mb-2 pr-lg-1"><img src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                        <div class="col-lg-6 mb-2 pr-lg-1" id="post"><img src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
                         <div class="col-lg-6 mb-2 pl-lg-1"><img src="https://images.unsplash.com/photo-1493571716545-b559a19edd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
                         <div class="col-lg-6 pr-lg-1 mb-2"><img src="https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
                         <div class="col-lg-6 pl-lg-1"><img src="https://images.unsplash.com/photo-1475724017904-b712052c192a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
