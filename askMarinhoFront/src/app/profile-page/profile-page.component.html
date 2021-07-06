@@ -86,7 +86,26 @@
 
 
                     </div>
-                    <div class="tab-pane fade mt-2 w-50" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
+
+                    <div class="tab-pane fade" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
+                        <div *ngFor='let comments of commentsUsuario' class="card mb-5">
+                            <div class="card-body">
+
+
+                                <h5 class="card-title text-center">{{comments.text}}</h5>
+
+
+
+                                <div class="form-group mt-3 mb-0 pb-0">
+                                    <button class="btn btn-danger mr-2">Apagar</button>
+                                    <button class="btn btn-info ml-2">Editar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
                         <div *ngFor='let tema of temas' class="card mb-5">
                             <div class="card-body">
 
