@@ -37,35 +37,42 @@
                                         <i (click)='reportPost(feed.idPost)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{feed.userReportPost.length}}
                                     </div>
                                 </div>
+
                                 <div class="mb-2">
-                                    <p class="font-style3 text-center">
+                                    <p class="font-style3 text-center" data-toggle="collapse" href="#commentsFeed" role="button" aria-expanded="false" aria-controls="collapseExample">
                                         Comentários
                                     </p>
                                 </div>
-                                <div>
-                                    <div *ngFor='let comentarios of feed.comment'>
-                                        <div class="card mb-2 mx-5 comentariosBg">
-                                            <div class="card-body">
-                                                <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                <a class="active" routerLink="/profile">{{comentarios.userComment.email}}</a>
-                                                <h5 class="card-title text-center">{{comentarios.text}}</h5>
-                                                <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                                <p class="card-text">{{feed.description}}</p>
 
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12 d-flex justify-content-center">
-                                                    <div class="col-md-12 d-flex justify-content-center">
-                                                        {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+                                <div class="collapse" id="commentsFeed">
+                                    <div class="card card-body">
+                                        <div>
+                                            <div *ngFor='let comentarios of feed.comment'>
+                                                <div class="card mb-2 mx-5 comentariosBg">
+                                                    <div class="card-body">
+                                                        <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                                        <a class="active" routerLink="/profile">{{comentarios.userComment.email}}</a>
+                                                        <h5 class="card-title text-center">{{comentarios.text}}</h5>
+                                                        <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
+                                                        <p class="card-text">{{feed.description}}</p>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 d-flex justify-content-center">
+                                                            <div class="col-md-12 d-flex justify-content-center">
+                                                                {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
 
 
-                                                        <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                                <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="card mb-5">
@@ -104,28 +111,30 @@
 
                                 </div>
                                 <div class="mb-2">
-                                    <p class="font-style3 text-center">
+                                    <p class="font-style3 text-center" data-toggle="collapse" href="#allComments" role="button" aria-expanded="false" aria-controls="collapseExample">
                                         Comentários
                                     </p>
                                 </div>
-                                <div>
-                                    <div *ngFor='let comentarios of allPosts.comment'>
-                                        <div class="card mb-2 mx-5 comentariosBg">
-                                            <div class="card-body">
-                                                <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                <a class="active" routerLink="/profile">{{comentarios.userComment.email}}</a>
-                                                <h5 class="card-title text-center">{{comentarios.text}}</h5>
-                                                <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                                <p class="card-text">{{allPosts.description}}</p>
+                                <div class="collapse" id="allComments">
+                                    <div>
+                                        <div *ngFor='let comentarios of allPosts.comment'>
+                                            <div class="card mb-2 mx-5 comentariosBg">
+                                                <div class="card-body">
+                                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                                    <a class="active" routerLink="/profile">{{comentarios.userComment.email}}</a>
+                                                    <h5 class="card-title text-center">{{comentarios.text}}</h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
+                                                    <p class="card-text">{{allPosts.description}}</p>
 
-                                            </div>
-                                            <div class="row">
+                                                </div>
+                                                <div class="row">
 
-                                                <div class="col-md-12 d-flex justify-content-center">
-                                                    {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                        {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
 
 
-                                                    <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                        <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -165,28 +174,30 @@
                                     </div>
                                 </div>
                                 <div class="mb-2">
-                                    <p class="font-style3 text-center">
+                                    <p class="font-style3 text-center" data-toggle="collapse" href="#commentsUser" role="button" aria-expanded="false" aria-controls="collapseExample">
                                         Comentários
                                     </p>
                                 </div>
-                                <div>
-                                    <div *ngFor='let comentarios of postsUser.comment'>
-                                        <div class="card mb-2 mx-5 comentariosBg">
-                                            <div class="card-body">
-                                                <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                <a class="active" routerLink="/profile">{{comentarios.userComment.email}}</a>
-                                                <h5 class="card-title text-center">{{comentarios.text}}</h5>
-                                                <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                                <p class="card-text">{{postsUser.description}}</p>
+                                <div class="collapse" id="commentsUser">
+                                    <div>
+                                        <div *ngFor='let comentarios of postsUser.comment'>
+                                            <div class="card mb-2 mx-5 comentariosBg">
+                                                <div class="card-body">
+                                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                                    <a class="active" routerLink="/profile">{{comentarios.userComment.email}}</a>
+                                                    <h5 class="card-title text-center">{{comentarios.text}}</h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
+                                                    <p class="card-text">{{postsUser.description}}</p>
 
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12 d-flex justify-content-center">
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-md-12 d-flex justify-content-center">
-                                                        {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+                                                        <div class="col-md-12 d-flex justify-content-center">
+                                                            {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
 
 
-                                                        <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                            <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
