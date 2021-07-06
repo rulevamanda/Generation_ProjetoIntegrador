@@ -1,7 +1,5 @@
 import { Comment } from "./Comment"
-import { Report } from "./Report"
 import { Tag } from "./Tag"
-import { Upvote } from "./Upvote"
 import { User } from "./User"
 
 export class Post {
@@ -13,6 +11,6 @@ export class Post {
     public comment: Comment[]
     public userPost: User
     public tagRelation: Tag[]
-    public reported: Report
-    public upvoted: Upvote
+    public userUpvotePost: User[]
+    public userReportPost: User[]
 }
