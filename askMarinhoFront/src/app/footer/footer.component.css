@@ -43,3 +43,8 @@ a:hover{
 ul.style li{
     list-style: none;
 }
+.dark-mode {
+    background-color: black;
+    color: white;
+  }
+  
