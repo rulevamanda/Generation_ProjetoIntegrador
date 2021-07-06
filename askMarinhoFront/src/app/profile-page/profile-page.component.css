@@ -15,28 +15,24 @@ body {
     overflow-x: hidden
 }
 
-.tag-style{
-
+.tag-style {
     background-color: #f0dbce;
     width: 250px;
-    height: 380px;
     border-radius: 15px;
 }
-.tag-style-2{
 
+.tag-style-2 {
     background-color: #d6efeb;
     width: 250px;
     height: 380px;
     border-radius: 15px;
 }
 
-ul.list-style li{
-
+ul.list-style li {
     list-style: none;
 }
 
-#font-style{
-
+#font-style {
     font-family: Bebas Neue;
     font-style: normal;
     font-weight: normal;
@@ -44,8 +40,8 @@ ul.list-style li{
     line-height: 30px;
     color: #FFB18C;
 }
-#font-style-2{
 
+#font-style-2 {
     font-family: Bebas Neue;
     font-style: normal;
     font-weight: normal;
@@ -54,31 +50,28 @@ ul.list-style li{
     color: #6dd3ce;
 }
 
-.mano{
-
+.mano {
     font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 15px;
-line-height: 18px;
-
-color: #6DD3CE;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 18px;
+    color: #6DD3CE;
 }
 
-a:link{
-
-   color: #6DD3CE;
+a:link {
+    color: #6DD3CE;
     text-decoration: none;
 }
 
-a:active{
-
+a:active {
     color: #152e2d;
 }
 
-a:visited{
+a:visited {
     color: #51e7e0;
 }
-a:hover{
+
+a:hover {
     color: #8ee1dd
 }
