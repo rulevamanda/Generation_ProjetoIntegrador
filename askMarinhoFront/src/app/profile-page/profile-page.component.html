@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid py-5">
     <div class="row py-5 px-0 d-flex justify-content-center">
 
         <!-- TABELAS TAGS -->
 
         <div class="mr-5">
-            <div class="col-md-3 pb-5">
+            <div class="col-md-3">
                 <div class="tag-style">
                     <ul class="py-3 px-2 text-center list-style">
 
@@ -13,33 +13,15 @@
                         <li *ngFor='let tema of temas'>{{tema.tagName}}</li>
 
                         <!-- Botão para acionar modal de tag favorita -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novaTagFav">
-                                    Adicionar tag favorita
+                        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#novaTagFav">
+                                    Adicionar
                         </button>
                     </ul>
                 </div>
             </div>
-            <!-- <div class="col-md-3 pb-5">
-                <div class="tag-style-2">
-                    <ul class="py-3 px-2 text-center list-style">
-
-                        <h4 id="font-style-2">TAGS FAVORITAS</h4>
-
-                        <li>#qualquer coisa</li>
-                        <li>#qualquer coisa</li>
-                        <li>#qualquer coisa</li>
-                        <li>#qualquer coisa</li>
-                        <li>#qualquer coisa</li>
-                    </ul>
-                </div>
-            </div> -->
         </div>
 
         <!-- /TABELAS TAGS -->
-
-
-
-
 
         <div class="col-md-6 ">
             <!-- Profile widget -->
@@ -60,8 +42,7 @@
                         <li class="list-inline-item">
                             <h5 class="mb-0">Sobre Jessica</h5>
                             <div class="p-4 rounded shadow-sm bg-light">
-                                <p class="font-italic mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt possimus porro tempore sequi dignissimos, debitis nostrum maiores suscipit illo reprehenderit asperiores hic! Reprehenderit, laborum earum adipisci quis
-                                    doloremque nulla eos?</p>
+                                <p class="font-italic mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt possimus porro tempore sequi dignissimos, debitis nostrum maiores suscipit illo reprehenderit asperiores hic! Reprehenderit, laborum earum adipisci quis doloremque nulla eos?</p>
                             </div>
                         </li>
                     </ul>
@@ -106,6 +87,7 @@
                             <div class="card-body">
 
                                 <h5 class="card-title text-center">{{tema.tagName}}</h5>
+                                <button>qualquer coisa</button>
 
                             </div>
                         </div>
