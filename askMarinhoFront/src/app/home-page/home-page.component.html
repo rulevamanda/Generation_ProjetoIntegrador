@@ -1,5 +1,5 @@
 <div class="body">
-    <div class="container">
+    <div class="container py-5">
         <div class="row py-5 px-4 d-flex justify-content-center">
 
             <div class="col-md-9">
@@ -238,18 +238,15 @@
 
                                 <h3 id="font-style">Tags favoritas</h3>
 
-                                <li *ngFor='let tema of temas'>{{tema.tagName}}</li>
+                                <li *ngFor='let tema of temas'>#{{tema.tagName}}</li>
 
                                <div class="row">
                                     <div class="col-md-12 d-flex justify-content-center">
                                         <!-- Botão para acionar modal de tag favorita -->
-                                        <button type="button" class="btn btn-primary mb-2 mr-2" data-toggle="modal" data-target="#novaTagFav">
+                                        <button type="button" class="btn btn-primary mb-2 mr-2 mt-3" data-toggle="modal" data-target="#novaTagFav">
                                             Adicionar
                                         </button>
-        
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#removeTagFav">
-                                            Remover
-                                        </button>
+
                                     </div>
                                </div>
 
@@ -316,7 +313,7 @@
                 <!-- adicionar tag favorita -->
                 <div class="form-group">
                     <label for="tagFav">Nome da tag</label>
-                    <input [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text">
+                    <input maxlength="25" [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text">
                 </div>
             </div>
             <div class="modal-footer">

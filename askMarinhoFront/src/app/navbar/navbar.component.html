@@ -45,11 +45,11 @@
                     <i style="font-size: 20px; margin-right: 15px;"> CONFIG</i>
                 </a>
                 <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="#">Nova postagem</a>
+                    <a class="dropdown-item" routerLink="/profile">Meu Perfil</a>
                     <a class="dropdown-item" routerLink="/edit">Editar perfil</a>
                     <a class="dropdown-item" routerLink="#">Minhas tags</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="#">Sair</a>
+                    <a (click)='sair()' class="dropdown-item">Sair</a>
                 </div>
             </li>
         </ul>

@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid py-5">
     <div class="row py-5 px-0 d-flex justify-content-center">
 
         <!-- TABELAS TAGS -->
 
         <div class="mr-5">
-            <div class="col-md-3 pb-5">
+            <div class="col-md-3">
                 <div class="tag-style">
                     <ul class="py-3 px-2 text-center list-style">
 
@@ -13,7 +13,7 @@
                         <li *ngFor='let tema of temas'>{{tema.tagName}}</li>
 
                         <!-- Botão para acionar modal de tag favorita -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novaTagFav">
+                        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#novaTagFav">
                                     Adicionar
                         </button>
                     </ul>
@@ -87,6 +87,7 @@
                             <div class="card-body">
 
                                 <h5 class="card-title text-center">{{tema.tagName}}</h5>
+                                <button>qualquer coisa</button>
 
                             </div>
                         </div>
