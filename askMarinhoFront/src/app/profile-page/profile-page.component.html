@@ -42,7 +42,8 @@
                         <li class="list-inline-item">
                             <h5 class="mb-0">Sobre Jessica</h5>
                             <div class="p-4 rounded shadow-sm bg-light">
-                                <p class="font-italic mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt possimus porro tempore sequi dignissimos, debitis nostrum maiores suscipit illo reprehenderit asperiores hic! Reprehenderit, laborum earum adipisci quis doloremque nulla eos?</p>
+                                <p class="font-italic mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt possimus porro tempore sequi dignissimos, debitis nostrum maiores suscipit illo reprehenderit asperiores hic! Reprehenderit, laborum earum adipisci quis
+                                    doloremque nulla eos?</p>
                             </div>
                         </li>
                     </ul>
@@ -56,6 +57,7 @@
                 <nav>
                     <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Minhas Postagens</a>
+                        <a class="nav-item nav-link" id="nav-comentarios-tab" data-toggle="tab" href="#nav-comentarios" role="tab" aria-controls="nav-comentarios" aria-selected="false">Comentários</a>
                         <a class="nav-item nav-link" id="nav-tagsFav-tab" data-toggle="tab" href="#nav-tagsFav" role="tab" aria-controls="nav-tagsFav" aria-selected="false">Tags favoritas</a>
 
                     </div>
@@ -74,6 +76,8 @@
                                 <a href="#" class="card-link">Outro link</a>
 
                                 <div class="form-group mt-3 mb-0 pb-0">
+                                    <!-- Botão modal -->
+                                    <button (click)="chamou(postsUser.idPost)" class="btn btn-success mr-2" data-toggle="modal" data-target="#addTagPost">Adicionar tema</button>
                                     <button class="btn btn-danger mr-2">Apagar postagem</button>
                                     <button class="btn btn-info ml-2">Editar postagem</button>
                                 </div>
@@ -142,6 +146,29 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <button (click)='adicionarTag()' type="button" class="btn btn-primary">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal add tag post -->
+<div class="modal fade" id="addTagPost" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Adicionar tag na postagem</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input [(ngModel)]='tagAdicionada.tagName' type="text" class="form-control" placeholder="Nome da tag">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                <button (click)="adicionarNovoTema()" type="button" class="btn btn-success">Adicionar</button>
             </div>
         </div>
     </div>
