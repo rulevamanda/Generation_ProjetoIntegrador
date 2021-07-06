@@ -2,12 +2,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { Comment } from '../model/Comment';
+import { Post } from '../model/Post';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommentService {
+export class ProfileService {
 
   constructor(
     private http: HttpClient
@@ -23,8 +23,8 @@ export class CommentService {
     }
   }
 
-  postComment(idUser: number, idPost: number, comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(`https://askmarinho.herokuapp.com/users/comments/register/${idUser}/${idPost}`, comment, this.token)
+  addTagPostagem(themeName: string, idPost: number): Observable<Post> {
+    return this.http.put<Post>(`https://askmarinho.herokuapp.com/users/posts/add/theme/${themeName}/${idPost}`, this.token)
   }
 
 }

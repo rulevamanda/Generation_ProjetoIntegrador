@@ -26,51 +26,38 @@ export class HomeService {
   }
 
   addFavorite(idUser: number, nome: string): Observable<User> {
-    console.log(idUser)
-    console.log(nome)
-    console.log(environment.token)
     return this.http.put<User>(`https://askmarinho.herokuapp.com/users/add/theme/${idUser}/${nome}`, this.token)
   }
 
   getUserById(idUser: number): Observable<User> {
-    console.log(idUser)
-    console.log(environment.token)
     return this.http.get<User>(`https://askmarinho.herokuapp.com/users/id/${idUser}`, this.token)
   }
 
   feedUser(idUser: number): Observable<Post[]> {
-    console.log(idUser)
-    console.log(environment.token)
     return this.http.get<Post[]>(`https://askmarinho.herokuapp.com/users/posts/favorites/${idUser}`, this.token)
   }
 
   allPosts(): Observable<Post[]> {
-    console.log(environment.token)
     return this.http.get<Post[]>("https://askmarinho.herokuapp.com/posts/all/", this.token)
   }
 
   postPostagem(idUser: number, themeName: string, postagem: Post): Observable<Post> {
-    console.log(environment.token)
     return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/posts/register/${idUser}/${themeName}`, postagem, this.token)
   }
 
   postUpvoteComment(idUser: number, idComment: number): Observable<Comment> {
-    console.log(environment.token)
     return this.http.post<Comment>(`https://askmarinho.herokuapp.com/users/upvotes/comment/${idUser}/${idComment}`, this.token)
   }
 
   postReportComment(idUser: number, idComment: number): Observable<Comment> {
-    console.log(environment.token)
     return this.http.post<Comment>(`https://askmarinho.herokuapp.com/users/reports/comment/${idUser}/${idComment}`, this.token)
   }
 
   postUpvotePost(idUser: number, idPost: number): Observable<Post> {
-    console.log(environment.token)
     return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/upvotes/post/${idUser}/${idPost}`, this.token)
   }
 
   postReportPost(idUser: number, idPost: number): Observable<Post> {
-    console.log(environment.token)
     return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/reports/post/${idUser}/${idPost}`, this.token)
   }
 
