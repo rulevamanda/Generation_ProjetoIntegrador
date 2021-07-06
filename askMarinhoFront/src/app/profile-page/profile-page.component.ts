@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+import { Comment } from '../model/Comment';
 import { Post } from '../model/Post';
 import { Tag } from '../model/Tag';
 import { User } from '../model/User';
 import { HomeService } from '../service/home.service';
+import { ProfileService } from '../service/profile.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -15,11 +17,15 @@ export class ProfilePageComponent implements OnInit {
 
   temas: Tag[]
   usuario: User = new User()
+  commentsUsuario: Comment[]
   postagensUser: Post[]
   tema: Tag = new Tag()
+  idPostComentado: number
+  tagAdicionada: Tag = new Tag()
 
   constructor(
     private homeService: HomeService,
+    private profileService: ProfileService,
     private router: Router
   ) { }
 
@@ -38,10 +44,9 @@ export class ProfilePageComponent implements OnInit {
   pegarPeloId() {
     this.homeService.getUserById(environment.id).subscribe((resp: User) => {
       this.usuario = resp
-      console.log("Foii")
       this.postagensUser = this.usuario.posts
       this.temas = this.usuario.favorites
-      console.log(this.temas)
+      this.commentsUsuario = this.usuario.comments
     })
   }
 
@@ -50,12 +55,23 @@ export class ProfilePageComponent implements OnInit {
     this.homeService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
       User) => {
         
-        console.log("foi")
         this.pegarPeloId()
         this.tema = new Tag()
         this.usuario = resp
       })
     alert("teste")
+  }
+
+  chamou(idPost: number) {
+    this.idPostComentado = idPost
+  }
+
+  adicionarNovoTema() {
+    this.profileService.addTagPostagem(this.tagAdicionada.tagName, this.idPostComentado).subscribe((resp: Post) => {
+      alert("Adicionada")
+      this.tagAdicionada = new Tag()
+      this.pegarPeloId()
+    })
   }
 
 }
