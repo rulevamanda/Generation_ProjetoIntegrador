@@ -4,6 +4,18 @@
     background-size: cover;
 }
 
+a {
+    cursor: pointer
+}
+
+.comentariosBg {
+    background-color: #BFDFDE;
+}
+
+.postagemBg {
+    background-color: #E8EDEC
+}
+
 .profile-head {
     transform: translateY(5rem)
 }
@@ -74,7 +86,7 @@ ul.list-style li {
 }
 
 a:link {
-    color: #6DD3CE;
+    color: #000;
     text-decoration: none;
 }
 
@@ -83,7 +95,7 @@ a:active {
 }
 
 a:visited {
-    color: #51e7e0;
+    color: #000;
 }
 
 a:hover {
