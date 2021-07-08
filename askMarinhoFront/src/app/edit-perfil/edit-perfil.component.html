@@ -5,46 +5,58 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-8">
 
-                    <div class="formulario mt-3 px-5 py-3">
+                    <div class="formulario mt-5 px-5">
                         <form class="formulario" action="">
 
-                            <div class="text-center">
-                                <h1>Editar Perfil</h1>
+                            <div class="text-center pt-5">
+                                <p>Seja bem-vinde ao</p>
+                                <h1>AskMarinho</h1>
                             </div>
                             <div>
-                                <label for="nome">Nome</label>
-                                <input class="form-control" type="text" placeholder="Qual é o seu lindo nome?" required>
-                                <label for="nome">Email</label>
-                                <input class="form-control" type="email" placeholder="Qual seu email?" required>
-                                <label for="nome">Nome de usuário</label>
-                                <input class="form-control" type="text" placeholder="Escolha seu nome de usuário" required>
-                                <label for="nome">Senha</label>
-                                <input class="form-control" type="password" placeholder="Escolha sua nova senha" required>
+                                <input [(ngModel)]='user.name' id="nome" name="nome" class="form-control my-4" type="text" placeholder="Qual é o seu lindo nome?" required>
 
+                                <input [(ngModel)]='user.email' id="email" name="email" class="form-control my-4" type="email" placeholder="Qual seu email?" required>
+
+                                <input [(ngModel)]='user.userName' id="usuario" name="usuario" class="form-control my-4" type="text" placeholder="Escolha seu nome de usuário" required>
+
+                                <input [(ngModel)]='user.description' id="usuario" name="usuario" class="form-control my-4" type="text" placeholder="Conte sobre você" required>
+
+                                <input (input)='confirmSenha($event)' id="senha" name="senha" class="form-control my-4" type="password" placeholder="Escolha sua nova senha" required>
+
+                                <input [(ngModel)]='user.password' id="confirmaSenha" name="confirmaSenha" class="form-control my-4" type="password" placeholder="Confirme sua nova senha" required>
+
+                                <input [(ngModel)]='user.urlImage' id="foto" name="foto" class="form-control my-4" type="text" placeholder="Link da foto" required>
                             </div>
+
                             <div>
-                                <label for="nome">Data de nascimento</label>
-                                <input type="date" class="form-control" required>
+                                <p class="text-center mt-3">Data de Nascimento</p>
+                                <input [(ngModel)]='user.birth' min="01-01-1910" max="01/12/2021" id="data" name="data" type="date" class="form-control mb-3" required>
                             </div>
+
                             <div>
-                                <label for="nome">Gênero</label>
+                                <p class="text-center mt-4 ">Gênero</p>
 
-                                <Select class="form-control" name="tipo" id="tipo" required>
-                                        <option value="">Selecione:</option>
-                                        <option value="Masculino">Masculino</option>
-                                        <option value="Feminino">Feminino</option>
-                                        <option value="Não binário">Não binário</option>
-                                        <option value="Prefiro não declarar">Prefiro não declarar</option>
-                                    </Select>
+                                <Select (change)='generoUser($event)' class="form-control mb-5" name="genero" id="genero" required>
+                                <option>Selecione:</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Não binário">Não binário</option>
+                                <option value="Prefiro não declarar">Prefiro não declarar</option>
+                            </Select>
 
                             </div>
+                            <div class="termos mb-5">
+                                <span>Ao clicar em <a href="#">Cadastrar</a>, você concorda com nossos <a href="#">Termos</a>, <a href="#">Política de dados</a> e Política de Cookies.</span>
+                            </div>
+                            <div class="d-flex justify-content-center pb-4 pt-5">
+                                <input class="voltar mr-3" type="submit" routerLink="/login-page" value="Voltar">
 
-                            <div class="my-4 text-center">
-                                <input type="submit" routerLink="/login-page" value="Atualizar">
+                                <input (click)='atualizar()' class="cadastrar ml-3" type="submit" value="Cadastrar">
                             </div>
                         </form>
                     </div>
                 </div>
+
             </div>
 
         </div>

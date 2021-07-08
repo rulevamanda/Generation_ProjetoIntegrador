@@ -5,6 +5,7 @@ import { Comment } from '../model/Comment';
 import { Post } from '../model/Post';
 import { Tag } from '../model/Tag';
 import { User } from '../model/User';
+import { CommentService } from '../service/comment.service';
 import { HomeService } from '../service/home.service';
 import { ProfileService } from '../service/profile.service';
 
@@ -15,6 +16,8 @@ import { ProfileService } from '../service/profile.service';
 })
 export class ProfilePageComponent implements OnInit {
 
+  idUser = environment.id
+
   temas: Tag[]
   usuario: User = new User()
   commentsUsuario: Comment[]
@@ -23,12 +26,15 @@ export class ProfilePageComponent implements OnInit {
   idPostComentado: number
   tagAdicionada: Tag = new Tag()
 
+  comentarioEnviado: Comment = new Comment()
+
   postagemDeletada: Post = new Post()
 
   idPostagemDelete: number
 
   idPostEditar: number
   postagemEditada: Post = new Post()
+  postagemEnviar: Post = new Post()
 
   idCommentModif: number
 
@@ -39,7 +45,8 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private homeService: HomeService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private commentService: CommentService
   ) { }
 
   ngOnInit() {
@@ -106,7 +113,12 @@ export class ProfilePageComponent implements OnInit {
   }
 
   atualizarPostagem() {
-    this.profileService.putPostagem(this.idPostEditar, this.postagemEditada).subscribe((resp: Post) => {
+    this.postagemEnviar.title = this.postagemEditada.title
+    this.postagemEnviar.date = this.postagemEditada.date
+    this.postagemEnviar.description = this.postagemEditada.description
+    this.postagemEnviar.urlImage = this.postagemEditada.urlImage
+
+    this.profileService.putPostagem(this.idPostEditar, this.postagemEnviar).subscribe((resp: Post) => {
       console.log("Editada")
       this.postagemEditada = new Post()
       this.idPostEditar = 0
@@ -164,8 +176,10 @@ export class ProfilePageComponent implements OnInit {
   }
 
   editarComment() {
+    this.comentarioEnviado.text = this.commentModif.text
+    console.log(this.comentarioEnviado)
    console.log(this.commentModif)
-    this.profileService.putComment(this.idCommentModif, this.commentModif).subscribe((resp: Comment) => {
+    this.commentService.putComment(this.idCommentModif, this.comentarioEnviado).subscribe((resp: Comment) => {
       console.log("Editou")
       alert("Comentário editado!")
       this.pegarPeloId()
