@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class NavbarComponent implements OnInit {
 
+  idUser = environment.id
+
   constructor(
     private router: Router
   ) { }

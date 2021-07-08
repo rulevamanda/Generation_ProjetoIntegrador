@@ -28,9 +28,9 @@
             <div class="bg-white shadow rounded overflow-hidden">
                 <div class="px-4 pt-0 pb-4 cover">
                     <div class="media align-items-end profile-head">
-                        <div class="profile mr-3"><img src="https://i.imgur.com/8WJY6UY.png" alt="..." width="155" class="img-fluid rounded-circle mb-2 img-thumbnail"><a routerLink="/edit" class="btn btn-outline-dark btn-sm btn-block">Editar perfil</a></div>
+                        <div class="profile mr-3"><img src="https://i.imgur.com/8WJY6UY.png" alt="..." width="155" class="img-fluid rounded-circle mb-2 img-thumbnail"><a [routerLink]="['/user-edit', idUser]" class="btn btn-outline-dark btn-sm btn-block">Editar perfil</a></div>
                         <div class="media-body mb-5 text-white">
-                            <h4 class="mt-0 mb-0">Jessica Silva</h4>
+                            <h4 class="mt-0 mb-0">{{usuario.name}}</h4>
                             <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>New York</p>
                         </div>
                     </div>
@@ -40,10 +40,9 @@
                 <div class="bg-light p-4 d-flex justify-content-center text-center">
                     <ul class="list-inline mb-0 mt-5">
                         <li class="list-inline-item">
-                            <h5 class="mb-0">Sobre Jessica</h5>
+                            <h5 class="mb-0">Sobre {{usuario.name}}</h5>
                             <div class="p-4 rounded shadow-sm bg-light">
-                                <p class="font-italic mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt possimus porro tempore sequi dignissimos, debitis nostrum maiores suscipit illo reprehenderit asperiores hic! Reprehenderit, laborum earum adipisci quis
-                                    doloremque nulla eos?</p>
+                                <p class="font-italic mb-0">{{usuario.description}}</p>
                             </div>
                         </li>
                     </ul>
@@ -76,8 +75,6 @@
                                 <a href="#" class="card-link">Outro link</a>
 
                                 <div class="form-group mt-3 mb-0 pb-0">
-                                    <!-- Botão modal adicionar tema-->
-                                    <button (click)="chamou(postsUser.idPost)" class="btn btn-success mr-2" data-toggle="modal" data-target="#addTagPost">Editar temas</button>
                                     <button (click)="idPostDelete(postsUser.idPost)" class="btn btn-danger mr-2" data-toggle="modal" data-target="#deletarPostagem">Apagar postagem</button>
                                     <!-- Modal editar postagem -->
                                     <button (click)='idPostEdit(postsUser.idPost)' class="btn btn-info ml-2" data-toggle="modal" data-target="#editarPostagem">Editar postagem</button>
@@ -140,59 +137,6 @@
     </div>
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="novaTagFav" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="TituloModalCentralizado">Nova tag favorita</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
-            <div class="modal-body">
-                <!-- adicionar tag favorita -->
-                <div class="form-group">
-                    <label for="tagFav">Nome da tag</label>
-                    <input [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button (click)='adicionarTag()' type="button" class="btn btn-primary">Adicionar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal add tag post -->
-<div class="modal fade" id="addTagPost" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="TituloModalCentralizado">Adicionar ou excluir tags</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
-            <div class="modal-body">
-
-                <div *ngFor='let tag of ' class="form-group">
-                    <a href=""></a>
-                </div>
-
-                <div class="form-group">
-                    <input [(ngModel)]='tagAdicionada.tagName' type="text" class="form-control" placeholder="Nome da tag">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                <button (click)="adicionarNovoTema()" type="button" class="btn btn-success">Adicionar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="editarPostagem" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
@@ -303,7 +247,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                <button (click)='deletarComment()' type="button" class="btn btn-primary">Sim</button>
+                <button (click)='deletarComment()' type="button" class="btn btn-primary" data-dismiss="modal">Sim</button>
             </div>
         </div>
     </div>
