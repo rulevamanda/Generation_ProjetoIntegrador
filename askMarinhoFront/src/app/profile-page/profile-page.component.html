@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid py-5">
     <div class="row py-5 px-0 d-flex justify-content-center">
 
         <!-- TABELAS TAGS -->
 
         <div class="mr-5">
-            <div class="col-md-3 pb-5">
+            <div class="col-md-3">
                 <div class="tag-style">
                     <ul class="py-3 px-2 text-center list-style">
 
@@ -13,33 +13,15 @@
                         <li *ngFor='let tema of temas'>{{tema.tagName}}</li>
 
                         <!-- Botão para acionar modal de tag favorita -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novaTagFav">
-                                    Adicionar tag favorita
+                        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#novaTagFav">
+                                    Adicionar
                         </button>
                     </ul>
                 </div>
             </div>
-            <!-- <div class="col-md-3 pb-5">
-                <div class="tag-style-2">
-                    <ul class="py-3 px-2 text-center list-style">
-
-                        <h4 id="font-style-2">TAGS FAVORITAS</h4>
-
-                        <li>#qualquer coisa</li>
-                        <li>#qualquer coisa</li>
-                        <li>#qualquer coisa</li>
-                        <li>#qualquer coisa</li>
-                        <li>#qualquer coisa</li>
-                    </ul>
-                </div>
-            </div> -->
         </div>
 
         <!-- /TABELAS TAGS -->
-
-
-
-
 
         <div class="col-md-6 ">
             <!-- Profile widget -->
@@ -75,6 +57,7 @@
                 <nav>
                     <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Minhas Postagens</a>
+                        <a class="nav-item nav-link" id="nav-comentarios-tab" data-toggle="tab" href="#nav-comentarios" role="tab" aria-controls="nav-comentarios" aria-selected="false">Comentários</a>
                         <a class="nav-item nav-link" id="nav-tagsFav-tab" data-toggle="tab" href="#nav-tagsFav" role="tab" aria-controls="nav-tagsFav" aria-selected="false">Tags favoritas</a>
 
                     </div>
@@ -93,19 +76,42 @@
                                 <a href="#" class="card-link">Outro link</a>
 
                                 <div class="form-group mt-3 mb-0 pb-0">
-                                    <button class="btn btn-danger mr-2">Apagar postagem</button>
-                                    <button class="btn btn-info ml-2">Editar postagem</button>
+                                    <!-- Botão modal adicionar tema-->
+                                    <button (click)="chamou(postsUser.idPost)" class="btn btn-success mr-2" data-toggle="modal" data-target="#addTagPost">Editar temas</button>
+                                    <button (click)="idPostDelete(postsUser.idPost)" class="btn btn-danger mr-2" data-toggle="modal" data-target="#deletarPostagem">Apagar postagem</button>
+                                    <!-- Modal editar postagem -->
+                                    <button (click)='idPostEdit(postsUser.idPost)' class="btn btn-info ml-2" data-toggle="modal" data-target="#editarPostagem">Editar postagem</button>
                                 </div>
                             </div>
                         </div>
 
 
                     </div>
+
+                    <div class="tab-pane fade" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
+                        <div *ngFor='let comments of commentsUsuario' class="card mb-5">
+                            <div class="card-body">
+
+
+                                <h5 class="card-title text-center">{{comments.text}}</h5>
+
+
+
+                                <div class="form-group mt-3 mb-0 pb-0">
+                                    <button (click)='CommentModificado(comments.idComment)' class="btn btn-danger mr-2" data-toggle="modal" data-target="#apagarComentario">Apagar</button>
+                                    <button (click)='CommentModificado(comments.idComment)' class="btn btn-info ml-2" data-toggle="modal" data-target="#editarComentario">Editar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div class="tab-pane fade" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
                         <div *ngFor='let tema of temas' class="card mb-5">
                             <div class="card-body">
 
                                 <h5 class="card-title text-center">{{tema.tagName}}</h5>
+                                <button (click)='idTagFavorita(tema.idTag)' class="btn btn-danger" data-toggle="modal" data-target="#removeTag">Remover</button>
 
                             </div>
                         </div>
@@ -155,6 +161,170 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <button (click)='adicionarTag()' type="button" class="btn btn-primary">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal add tag post -->
+<div class="modal fade" id="addTagPost" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Adicionar ou excluir tags</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+
+                <div *ngFor='let tag of ' class="form-group">
+                    <a href=""></a>
+                </div>
+
+                <div class="form-group">
+                    <input [(ngModel)]='tagAdicionada.tagName' type="text" class="form-control" placeholder="Nome da tag">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                <button (click)="adicionarNovoTema()" type="button" class="btn btn-success">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editarPostagem" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Atualizar postagem</h5>
+                <button (click)='limpar()' type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Título</label>
+                    <input [(ngModel)]='postagemEditada.title' class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Descrição</label>
+                    <input [(ngModel)]='postagemEditada.description' class="form-control" type="text">
+                </div>
+
+
+                <a *ngFor='let tagsDoPost of postagemEditada.tagRelation' class="card-link">{{tagsDoPost.tagName}} <button (click)='removerTagPost(tagsDoPost.idTag)' class="btn btn-danger">Remover</button></a>
+
+                <div class="form-group">
+                    <input [(ngModel)]='tagAdicionada.tagName' type="text" class="form-control" placeholder="Nome da tag">
+                    <button (click)="adicionarNovoTema()" type="button" class="btn btn-success">Adicionar</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)='limpar()' type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button (click)='atualizarPostagem()' type="button" class="btn btn-primary" data-dismiss="modal">Atualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal deletar postagem-->
+<div class="modal fade" id="deletarPostagem" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Tem certeza que deseja excluir essa postagem?</h5>
+                <button (click)='limpar()' type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                    <a routerLink="/profile">{{usuario.name}}</a>
+                    <h5 class="card-title text-center">{{postagemDeletada.title}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Subtítulo</h6>
+                    <p class="card-text">{{postagemDeletada.description}}</p>
+                    <a *ngFor='let tagsDoPost of postagemDeletada.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
+                    <a href="#" class="card-link">Outro link</a>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)='limpar()' type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                <button data-dismiss="modal" (click)=' deletarPostagem()' type="button" class="btn btn-primary">Sim</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editarComentario" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Editar comentário</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Texto</label>
+                    <input [(ngModel)]='commentModif.text' type="text" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button (click)='editarComment()' type="button" class="btn btn-primary">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="apagarComentario" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Tem certeza que deseja excluir esse comentário?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="card-title text-center">{{commentModif.text}}</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                <button (click)='deletarComment()' type="button" class="btn btn-primary">Sim</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="removeTag" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Tem certeza que deseja remover essa tag?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <!-- <div class="modal-body">
+          ...
+        </div> -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                <button (click)='deleteFavoriteTag()' type="button" class="btn btn-primary" data-dismiss="modal">Sim</button>
             </div>
         </div>
     </div>

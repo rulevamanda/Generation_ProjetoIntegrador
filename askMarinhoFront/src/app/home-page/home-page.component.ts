@@ -49,31 +49,27 @@ export class HomePageComponent implements OnInit {
       this.homeService.refreshToken()
       this.pegarPeloId()
       this.pegarFeed()
-      this.getAllPosts()
+      
     }
   }
 
   getAllPosts() {
     this.homeService.allPosts().subscribe((resp: Post[]) => {
       this.todosPosts = resp
-      console.log(this.todosPosts.toString())
     })
   }
 
   pegarFeed() {
     this.homeService.feedUser(environment.id).subscribe((resp: Post[]) => {
       this.postsFeed = resp
-      console.log(this.postsFeed.length)
     })
   }
 
   pegarPeloId() {
     this.homeService.getUserById(environment.id).subscribe((resp: User) => {
       this.usuario = resp
-      console.log("Foii")
       this.postagensUser = this.usuario.posts
       this.temas = this.usuario.favorites
-      console.log(this.temas)
     })
   }
 
@@ -82,7 +78,6 @@ export class HomePageComponent implements OnInit {
     this.homeService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
       User) => {
         
-        console.log("foi")
         this.pegarPeloId()
         this.pegarFeed()
         this.getAllPosts()
@@ -101,7 +96,6 @@ export class HomePageComponent implements OnInit {
       this.pegarFeed()
       this.novoPost = new Post()
       this.temaParaPost = new Tag()
-      console.log("Funcionou")
     })
   } 
 
@@ -112,7 +106,6 @@ export class HomePageComponent implements OnInit {
   comentar() {
     this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
       this.comentarioNoPost = resp
-      console.log("Comentado com sucesso")
       alert("comentado com sucesso")
       this.getAllPosts()
       this.pegarPeloId()

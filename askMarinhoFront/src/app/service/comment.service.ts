@@ -24,7 +24,6 @@ export class CommentService {
   }
 
   postComment(idUser: number, idPost: number, comment: Comment): Observable<Comment> {
-    console.log("Comentou")
     return this.http.post<Comment>(`https://askmarinho.herokuapp.com/users/comments/register/${idUser}/${idPost}`, comment, this.token)
   }
 

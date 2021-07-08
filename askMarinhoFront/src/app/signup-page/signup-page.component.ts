@@ -43,6 +43,12 @@ export class SignupPageComponent implements OnInit {
         this.router.navigate(['/login-page'])
 
         alert('Usuario cadastrado!')
+      } , erro => {
+        if (erro.status == 400) {
+          alert("Dados incorretos ou usuário já cadastrado")
+        } else {
+          alert("Dados incorretos ou usuário já cadastrado")
+        }
       })
     }
   }

@@ -21,6 +21,7 @@
 
 .txt-marinho:hover{
     color: #95DCD1;
+    text-decoration: none;
 }
 
 .input-style{
@@ -73,3 +74,4 @@ a{
 .ml-100{
   margin-right: 100px;
 }
+
