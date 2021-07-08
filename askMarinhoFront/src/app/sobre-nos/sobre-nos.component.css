@@ -1,0 +1,12 @@
+.card-about{
+    border-radius: 15px;
+}
+
+.icon{
+    font-size: 30px;
+    color: #6dd3ce;
+}
+
+i:hover{
+    color: #ffcab1
+}

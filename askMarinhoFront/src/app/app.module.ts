@@ -13,6 +13,8 @@ import { FooterComponent } from './footer/footer.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { EditPerfilComponent } from './edit-perfil/edit-perfil.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { SobreNosComponent } from './sobre-nos/sobre-nos.component';
+import { TermoComponent } from './termo/termo.component';
 import { VisitedProfileComponent } from './visited-profile/visited-profile.component';
 
 
@@ -26,7 +28,9 @@ import { VisitedProfileComponent } from './visited-profile/visited-profile.compo
     HomePageComponent,
     EditPerfilComponent,
     ProfilePageComponent,
-    VisitedProfileComponent
+    SobreNosComponent,
+    TermoComponent,
+    VisitedProfileComponent,
   ],
 
   imports: [
