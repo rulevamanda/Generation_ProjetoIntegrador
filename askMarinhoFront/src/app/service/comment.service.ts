@@ -27,4 +27,8 @@ export class CommentService {
     return this.http.post<Comment>(`https://askmarinho.herokuapp.com/users/comments/register/${idUser}/${idPost}`, comment, this.token)
   }
 
+  putComment(idComment: number, commentAtt: Comment): Observable<Comment> {
+    return this.http.put<Comment>(`https://askmarinho.herokuapp.com/users/comments/update/${idComment}`, commentAtt, this.token)
+  }
+
 }
