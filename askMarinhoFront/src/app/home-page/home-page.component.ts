@@ -49,7 +49,7 @@ export class HomePageComponent implements OnInit {
       this.homeService.refreshToken()
       this.pegarPeloId()
       this.pegarFeed()
-      this.getAllPosts()
+      
     }
   }
 
