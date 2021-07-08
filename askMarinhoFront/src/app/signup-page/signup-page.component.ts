@@ -10,7 +10,7 @@ import { AuthService } from '../service/auth.service';
 })
 export class SignupPageComponent implements OnInit {
 
-  user: User = new User
+  user: User = new User()
   confirmarSenha: string
   genero: string
 

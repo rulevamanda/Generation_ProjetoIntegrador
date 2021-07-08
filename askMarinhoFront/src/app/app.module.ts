@@ -15,6 +15,7 @@ import { EditPerfilComponent } from './edit-perfil/edit-perfil.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SobreNosComponent } from './sobre-nos/sobre-nos.component';
 import { TermoComponent } from './termo/termo.component';
+import { VisitedProfileComponent } from './visited-profile/visited-profile.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { TermoComponent } from './termo/termo.component';
     EditPerfilComponent,
     ProfilePageComponent,
     SobreNosComponent,
-    TermoComponent
+    TermoComponent,
+    VisitedProfileComponent,
   ],
 
   imports: [
