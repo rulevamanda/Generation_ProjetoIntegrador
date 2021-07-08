@@ -1,53 +1,58 @@
-<nav class="navbar navbar-expand-lg navbar-light">
-  <div class="container-fluid justify-content-space-evenly">
+<nav class="navbar navbar-bg navbar-expand-lg navbar-dark fixed-top">
 
-    <!-- ícone do marinho -->
-    <div class="container-fluid justify-content-start">
-      <img src="../../assets/img/navbar/marinho-navbar.svg" alt="logo marinho" class="icon-nav">
+    <img src="../../assets/img/navbar/marinho-navbar.svg" alt="logo marinho" class="icon-nav mr-2 ml-2">
+    <a class="txt-marinho" routerLink="/home">ASKMARINHO</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado"
+        aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
 
-      <!-- escrito marinho -->
-      <a class="navbar-brand" href="#">ASKMARINHO</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+    </button>
+
+    <!-- <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+        <ul class="navbar-nav justify-content-center">
+            <li class="nav-item active">
+                    <form class="justify-content-center">
+                        <input class="form-control me-2" type="search" placeholder="Pesquisar no askMarinho"
+                            aria-label="pesquisar">
+                        <button class="btn" type="submit">
+                            <i class="fa fa-search lupa" aria-hidden="true"></i>
+                        </button>
+                    </form>
+
+                </li>
+            <li class="nav-item">
+                
+
+                </li> -->
+     
+
+    <!-- <div class="collapse navbar-collapse justify-content-center" id="conteudoNavbarSuportado">
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control" type="search" placeholder="Pesquisar" aria-label="pesquisar">
+            <button class="btn" type="submit">
+                <i class="fa fa-search lupa text-left" aria-hidden="true"></i>
+            </button>
+        </form>
+
+    </div> -->
+
+    <div class="collapse navbar-collapse justify-content-end" id="conteudoNavbarSuportado">
+        <ul class="navbar-nav mr-0 text-center">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cog" aria-hidden="true" style="font-size: 30px;"></i>
+                    <i style="font-size: 20px; margin-right: 15px;"> CONFIG</i>
+                </a>
+                <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" routerLink="/profile">Meu Perfil</a>
+                    <a class="dropdown-item" routerLink="/edit">Editar perfil</a>
+                    <a class="dropdown-item" routerLink="#">Minhas tags</a>
+                    <div class="dropdown-divider"></div>
+                    <a (click)='sair()' class="dropdown-item">Sair</a>
+                </div>
+            </li>
+        </ul>
     </div>
 
-    <!-- pesquisa no meio -->
-    <div class="container-fluid justify-content-center">
-      <form class="d-flex">
-        <input class="form-control me-2 input-style" type="search" placeholder="pesquisar" aria-label="pesquisar">
-        <button class="btn" type="submit">
-          <i class="fa fa-search lupa" aria-hidden="true"></i>
-        </button>
-      </form>
-    </div>
-
-    <!-- foto de perfil -->
-    <div class="container-fluid justify-content-end">
-      <img class="mr-0" src="../../assets/img/navbar/jessica silva 4.svg" alt="foto de perfil">
-
-      <!-- engrenagem -->
-      <div class="dropdown">
-        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <img class="mr-auto" src="../../assets/img/navbar/engrenagem.svg" alt="engrenagem">
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">editar perfil</a>
-          <a class="dropdown-item" href="#">tags</a>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <a class="dropdown-item" href="#">sair</a>
-        </div>
-      </div>
-
-      <!-- lua -->
-      <img class="mr-2" src="../../assets/img/navbar/moon.svg" alt="lua">
-
-      <!-- toggle -->
-      <img src="../../assets/img/navbar/dark-mode.svg" alt="dark mode toggle">
-    </div>
-  </div>
 </nav>

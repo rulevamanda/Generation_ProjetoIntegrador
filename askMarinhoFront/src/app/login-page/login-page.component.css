@@ -1,4 +1,4 @@
-.formulario{
+.formulario {
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -7,15 +7,15 @@
     padding: 5px 5px;
 }
 
-input[type=email],[type=password]{
+input[type=email],
+[type=password] {
     border: 1px solid #BAF2E9;
     width: 369px;
     height: 57px;
     margin: 14px 16px;
-    
 }
 
-input[type=submit]{
+input[type=submit] {
     width: 204px;
     height: 57px;
     background: #FFCAB1;
@@ -25,47 +25,44 @@ input[type=submit]{
     font-family: Corbel;
     font-style: normal;
     font-weight: normal;
-    font-size: 25px;
+    font-size: 20px;
     line-height: 30px;
     color: #F27A7A;
 }
 
-input[type=submit]:hover{
+input[type=submit]:hover {
     opacity: 0.9;
 }
 
 ::-webkit-input-placeholder {
     text-align: center;
- }
+}
 
-.hr-style{
+.hr-style {
     width: 295px;
     height: 0px;
     border: 1px solid #BAF2E9;
 }
 
-a:link{
+a:link {
     color: #6DD3CE;
     text-decoration: none;
-    
 }
 
-a:active{
+a:active {
     color: #6DD3CE;
 }
 
-a:visited{
+a:visited {
     color: #55A5A1;
 }
 
-a:hover{
+a:hover {
     color: #84FDF7;
-
 }
 
-
-button{
-    background-color:#6DD3CE;
+button {
+    background-color: #6DD3CE;
     color: white;
     width: 369px;
     height: 57px;
@@ -74,16 +71,17 @@ button{
     font-family: Corbel;
     font-style: normal;
     font-weight: normal;
-    font-size: 30px;
+    font-size: 25px;
     line-height: 36px;
     margin-bottom: 10px;
     margin-left: 16px;
 }
-button:hover{
+
+button:hover {
     opacity: 0.9;
 }
 
-p{
+p {
     font-family: Corbel;
     font-style: normal;
     font-weight: normal;
@@ -94,19 +92,28 @@ p{
     height: 111px;
 }
 
-h1{
+h1 {
     font-family: Bebas NEUE;
     font-style: normal;
     font-weight: normal;
     font-size: 70px;
     line-height: 84px;
     color: #6DD3CE;
+    margin-top: 2rem;
 }
 
-body{
-    background-image: url('../../assets/img/login-page/bg2.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-.mt-15{
-    margin-top: 15rem;
+.mt-15 {
+    margin-top: 5rem;
+}
+
+ul.style li{
+    list-style: none;
+}
+
+.mt-150 {
+    margin-top: 150px;
+}
+
+.ml-6 {
+    margin-left: 30px;
 }
