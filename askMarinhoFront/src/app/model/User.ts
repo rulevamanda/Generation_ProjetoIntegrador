@@ -1,8 +1,7 @@
 import { Comment } from "./Comment"
 import { Post } from "./Post"
-import { Report } from "./Report"
 import { Tag } from "./Tag"
-import { Upvote } from "./Upvote"
+
 
 export class User {
     public idUser: number
@@ -14,9 +13,12 @@ export class User {
     public gender: string
     public urlImage: string
     public tipo: string
+    public description: string
     public comments: Comment[]
     public posts: Post[]
-    public reports: Report[]
-    public upvotes: Upvote[]
     public favorites: Tag[]
+    public upvotePost: Post[]
+    public upvoteComment: Comment[]
+    public reportPost: Post[]
+    public reportComment: Comment[]
 }

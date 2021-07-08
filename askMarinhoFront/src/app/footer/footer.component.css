@@ -1,11 +1,10 @@
 .bg-footer{
-    background-color: #929393;    
+    background-color: #BAF2E9;    
 }
 
 .bg-footer2{
-    background-color: #6a6b6b;    
+    background-color: #6DD3CE;    
 }
-
 
 a{
   text-decoration: none; 
@@ -17,7 +16,7 @@ a:link{
 }
 
 a:active{
-    color:#5e5f5f ;
+    color:#6DD3CE;
 }
 
 a:hover{
@@ -44,3 +43,8 @@ a:hover{
 ul.style li{
     list-style: none;
 }
+.dark-mode {
+    background-color: black;
+    color: white;
+  }
+  
