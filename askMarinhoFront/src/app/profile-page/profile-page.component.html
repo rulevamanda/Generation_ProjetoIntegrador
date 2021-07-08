@@ -28,7 +28,7 @@
             <div class="bg-white shadow rounded overflow-hidden">
                 <div class="px-4 pt-0 pb-4 cover">
                     <div class="media align-items-end profile-head">
-                        <div class="profile mr-3"><img src="https://i.imgur.com/8WJY6UY.png" alt="..." width="155" class="img-fluid rounded-circle mb-2 img-thumbnail"><a [routerLink]="['/user-edit', idUser]" class="btn btn-outline-dark btn-sm btn-block">Editar perfil</a></div>
+                        <div class="profile mr-3"><img src="{{usuario.urlImage}}" alt="..." width="155" class="img-fluid rounded-circle mb-2 img-thumbnail"><a [routerLink]="['/user-edit', idUser]" class="btn btn-outline-dark btn-sm btn-block">Editar perfil</a></div>
                         <div class="media-body mb-5 text-white">
                             <h4 class="mt-0 mb-0">{{usuario.name}}</h4>
                             <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>New York</p>
@@ -64,9 +64,9 @@
 
                 <div class="tab-content d-flex justify-content-center" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
-                        <div *ngFor='let postsUser of postagensUser' class="card mb-5">
+                        <div *ngFor='let postsUser of postagensUser' class="card mb-5 mt-5">
                             <div class="card-body">
-                                <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                <img class="rounded-circle img-fluid" src="{{usuario.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                 <a routerLink="/profile">{{usuario.name}}</a>
                                 <h5 class="card-title text-center">{{postsUser.title}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Subtítulo</h6>
@@ -85,7 +85,7 @@
 
                     </div>
 
-                    <div class="tab-pane fade" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
+                    <div class="tab-pane fade mt-5 mb-3" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
                         <div *ngFor='let comments of commentsUsuario' class="card mb-5">
                             <div class="card-body">
 
@@ -103,7 +103,7 @@
 
                     </div>
 
-                    <div class="tab-pane fade" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
+                    <div class="tab-pane fade mt-5 mb-3" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
                         <div *ngFor='let tema of temas' class="card mb-5">
                             <div class="card-body">
 
@@ -188,7 +188,7 @@
             </div>
             <div class="modal-body">
                 <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                    <img class="rounded-circle img-fluid" src="{{usuario.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                     <a routerLink="/profile">{{usuario.name}}</a>
                     <h5 class="card-title text-center">{{postagemDeletada.title}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Subtítulo</h6>
