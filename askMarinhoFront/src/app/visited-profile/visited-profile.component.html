@@ -1,0 +1,123 @@
+<div class="container-fluid py-5">
+    <div class="row py-5 px-0 d-flex justify-content-center">
+
+        <!-- TABELAS TAGS -->
+
+        <div class="mr-5">
+            <div class="col-md-3">
+                <div class="tag-style">
+                    <ul class="py-3 px-2 text-center list-style">
+
+                        <h3 id="font-style">Tags favoritas</h3>
+
+                        <li *ngFor='let tema of user.favorites'>{{tema.tagName}}</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- /TABELAS TAGS -->
+
+        <div class="col-md-6 ">
+            <!-- Profile widget -->
+            <div class="bg-white shadow rounded overflow-hidden">
+                <div class="px-4 pt-0 pb-4 cover">
+                    <div class="media align-items-end profile-head">
+                        <div class="profile mr-3"><img src="{{user.urlImage}}" alt="..." width="155" class="img-fluid rounded-circle mb-2 img-thumbnail"></div>
+                        <div class="media-body mb-5 text-white">
+                            <h4 class="mt-0 mb-0">{{user.name}}</h4>
+                            <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>New York</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABOUT -->
+                <div class="bg-light p-4 d-flex justify-content-center text-center">
+                    <ul class="list-inline mb-0 mt-5">
+                        <li class="list-inline-item">
+                            <h5 class="mb-0">Sobre {{user.name}}</h5>
+                            <div class="p-4 rounded shadow-sm bg-light">
+                                <p class="font-italic mb-0">{{user.description}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- /ABOUT -->
+
+                <!-- LINKS DE NAVEGAÇÃO -->
+
+                <!-- NAV BOOTSTRAP -->
+                <nav>
+                    <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Minhas Postagens</a>
+                        <a class="nav-item nav-link" id="nav-comentarios-tab" data-toggle="tab" href="#nav-comentarios" role="tab" aria-controls="nav-comentarios" aria-selected="false">Comentários</a>
+                        <a class="nav-item nav-link" id="nav-tagsFav-tab" data-toggle="tab" href="#nav-tagsFav" role="tab" aria-controls="nav-tagsFav" aria-selected="false">Tags favoritas</a>
+
+                    </div>
+                </nav>
+
+                <div class="tab-content d-flex justify-content-center mt-5" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
+                        <div *ngFor='let postsUser of user.posts' class="card mb-5">
+                            <div class="card-body">
+
+                                <img class="rounded-circle img-fluid" src="{{user.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                <a routerLink="/profile">{{user.name}}</a>
+                                <h5 class="card-title text-center">{{postsUser.title}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Subtítulo</h6>
+                                <p class="card-text">{{postsUser.description}}</p>
+                                <a *ngFor='let tagsDoPost of postsUser.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
+                                <a href="#" class="card-link">Outro link</a>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
+                        <div *ngFor='let commentarios of user.comments' class="card mb-5">
+                            <div class="card-body">
+
+
+                                <h5 class="card-title text-center">{{commentarios.text}}</h5>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
+                        <div *ngFor='let tema of user.favorites' class="card mb-5">
+                            <div class="card-body">
+
+                                <h5 class="card-title text-center">{{tema.tagName}}</h5>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /NAV BOOTSTRAP -->
+
+
+                <!-- /LINKS DE NAVEGAÇÃO -->
+
+                <div class="py-4 px-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h5 class="mb-0">Publicações Recentes</h5><a href="#" class="btn btn-link text-muted">Mostrar todas</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 mb-2 pr-lg-1"><img src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                        <div class="col-lg-6 mb-2 pl-lg-1"><img src="https://images.unsplash.com/photo-1493571716545-b559a19edd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                        <div class="col-lg-6 pr-lg-1 mb-2"><img src="https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                        <div class="col-lg-6 pl-lg-1"><img src="https://images.unsplash.com/photo-1475724017904-b712052c192a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

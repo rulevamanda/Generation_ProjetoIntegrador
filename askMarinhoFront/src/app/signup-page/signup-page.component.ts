@@ -10,7 +10,7 @@ import { AuthService } from '../service/auth.service';
 })
 export class SignupPageComponent implements OnInit {
 
-  user: User = new User
+  user: User = new User()
   confirmarSenha: string
   genero: string
 
@@ -43,6 +43,12 @@ export class SignupPageComponent implements OnInit {
         this.router.navigate(['/login-page'])
 
         alert('Usuario cadastrado!')
+      } , erro => {
+        if (erro.status == 400) {
+          alert("Dados incorretos ou usuário já cadastrado")
+        } else {
+          alert("Dados incorretos ou usuário já cadastrado")
+        }
       })
     }
   }
