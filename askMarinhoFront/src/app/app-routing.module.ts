@@ -24,6 +24,7 @@ const routes: Routes = [
   
   {path: 'user-edit/:id', component: EditPerfilComponent},
   {path: 'profile-visited/:id', component: VisitedProfileComponent}
+
 ];
 
 @NgModule({
