@@ -10,7 +10,7 @@
 
                         <h3 id="font-style">Tags favoritas</h3>
 
-                        <li *ngFor='let tema of temas'>{{tema.tagName}}</li>
+                        <li *ngFor='let tema of temas'>#{{tema.tagName}}</li>
 
                         <!-- Botão para acionar modal de tag favorita -->
                         <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#novaTagFav">
@@ -269,6 +269,31 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
                 <button (click)='deleteFavoriteTag()' type="button" class="btn btn-primary" data-dismiss="modal">Sim</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="novaTagFav" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Nova tag favorita</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <!-- adicionar tag favorita -->
+                <div class="form-group">
+                    <label for="tagFav">Nome da tag</label>
+                    <input maxlength="25" [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button (click)='adicionarTag()' type="button" class="btn btn-primary">Adicionar</button>
             </div>
         </div>
     </div>
