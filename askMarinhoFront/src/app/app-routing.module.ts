@@ -7,6 +7,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
+import { SobreNosComponent } from './sobre-nos/sobre-nos.component';
+import { TermoComponent } from './termo/termo.component';
 import { VisitedProfileComponent } from './visited-profile/visited-profile.component';
 
 const routes: Routes = [
@@ -17,6 +19,9 @@ const routes: Routes = [
   {path: 'navbar', component: NavbarComponent},
   {path:'profile', component: ProfilePageComponent},
   {path:'home', component: HomePageComponent},
+  {path: 'sobre-nos', component: SobreNosComponent},
+  {path: 'termo', component: TermoComponent},
+  
   {path: 'user-edit/:id', component: EditPerfilComponent},
   {path: 'profile-visited/:id', component: VisitedProfileComponent}
 ];
