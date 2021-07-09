@@ -10,7 +10,7 @@
 
                         <h3 id="font-style">Tags favoritas</h3>
 
-                        <li *ngFor='let tema of temas'>{{tema.tagName}}</li>
+                        <li *ngFor='let tema of temas'>#{{tema.tagName}}</li>
 
                         <!-- Botão para acionar modal de tag favorita -->
                         <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#novaTagFav">
@@ -94,7 +94,7 @@
 
 
 
-                                <div class="form-group mt-3 mb-0 pb-0">
+                                <div class="form-group text-center mt-3 mb-0 pb-0">
                                     <button (click)='CommentModificado(comments.idComment)' class="btn btn-danger mr-2" data-toggle="modal" data-target="#apagarComentario">Apagar</button>
                                     <button (click)='CommentModificado(comments.idComment)' class="btn btn-info ml-2" data-toggle="modal" data-target="#editarComentario">Editar</button>
                                 </div>
@@ -105,7 +105,7 @@
 
                     <div class="tab-pane fade mt-5 mb-3" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
                         <div *ngFor='let tema of temas' class="card mb-5">
-                            <div class="card-body">
+                            <div class="text-center card-body">
 
                                 <h5 class="card-title text-center">{{tema.tagName}}</h5>
                                 <button (click)='idTagFavorita(tema.idTag)' class="btn btn-danger" data-toggle="modal" data-target="#removeTag">Remover</button>
