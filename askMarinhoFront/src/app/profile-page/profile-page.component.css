@@ -1,3 +1,39 @@
+.warning-style{
+    color: crimson;
+    font-size: 30px;
+}
+
+.comment-style {
+    color: #6dd3ce;
+    font-size: 35px;
+}
+
+a.maoe-style{
+    font-size: 30px;
+}
+
+a.maoe-style:active{
+    color: blueviolet;
+}
+
+a.maoe-style:visited{
+    color: #929393;
+}
+
+a.maoe-style:hover{
+    color: red;
+}
+
+.ml-50{
+    margin-left: 66px;
+}
+
+a.nome-post:visited{
+    color: #929393;
+    font-size: 20px;
+    font-family: Roboto;
+}
+
 .btn-profile {
     border-radius: 15px;
     border: none;
@@ -6,6 +42,29 @@
     text-align: center;
     font-family: Roboto;
     font-size: 15px;
+}
+
+.btn-delete{
+    border: none;
+    color: #FF9665;
+    font-size: 30px;
+}
+
+.btn-editar {
+    border: none;
+    color: #6dd3ce;
+    font-size: 35px;
+}
+
+.bg-postagem {
+    background-color: #f4f4f4 !important;
+}
+
+.bg-color{
+    background-color: #e8edec !important;
+}
+.borderline{
+    border-radius: 15px;
 }
 
 .profile-head {
