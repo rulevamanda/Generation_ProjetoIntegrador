@@ -1,3 +1,4 @@
+
 <div class="bg-color">
     <div class="container-fluid py-5">
         <div class="row py-5 px-0 d-flex justify-content-center">
@@ -199,6 +200,7 @@
             </div>
         </div>
     </div>
+
     
     
     <!-- Modal -->
@@ -302,6 +304,7 @@
             </div>
         </div>
     </div>
+
     
     
     <!-- Modal -->
@@ -323,10 +326,12 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
                     <button (click)='deletarComment()' type="button" class="btn btn-primary"
                         data-dismiss="modal">Sim</button>
+
                 </div>
             </div>
         </div>
     </div>
+
     
     <!-- Modal -->
     <div class="modal fade" id="removeTag" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado"
@@ -350,4 +355,38 @@
             </div>
         </div>
     </div>
-</div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade bg-tag-modal" id="novaTagFav" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-tag-modal2">
+                <div class="modal-header">
+                    <div class="mr-auto ml-auto">
+                        <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVA TAG FAVORITA
+
+                        </h5>
+                    </div>
+                    <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label class="label-modal">Nome da tag</label>
+                        <input maxlength="25" [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
+                    <button (click)='adicionarTag()' type="button" class="btn postar" data-dismiss="modal">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
