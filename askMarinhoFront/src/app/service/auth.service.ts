@@ -36,6 +36,10 @@ export class AuthService {
     return this.http.put<User>(`https://askmarinho.herokuapp.com/users/update/${idUser}`, usuarioAtt, this.token)
   }
 
+  deleteUser(idUser: number): Observable<Object> {
+    return this.http.delete<Object>(`https://askmarinho.herokuapp.com/users/delete/${idUser}`, this.token)
+  }
+
   logado(){
     let ok = false
 
