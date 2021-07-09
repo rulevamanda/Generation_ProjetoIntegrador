@@ -9,8 +9,7 @@
                         <form class="formulario" action="">
 
                             <div class="text-center pt-5">
-                                <p>Seja bem-vinde ao</p>
-                                <h1>AskMarinho</h1>
+                                <h1>Atualizar dados</h1>
                             </div>
                             <div>
                                 <input [(ngModel)]='user.name' id="nome" name="nome" class="form-control my-4" type="text" placeholder="Qual é o seu lindo nome?" required>
@@ -49,9 +48,11 @@
                                 <span>Ao clicar em <a href="#">Cadastrar</a>, você concorda com nossos <a href="#">Termos</a>, <a href="#">Política de dados</a> e Política de Cookies.</span>
                             </div>
                             <div class="d-flex justify-content-center pb-4 pt-5">
-                                <input class="voltar mr-3" type="submit" routerLink="/login-page" value="Voltar">
+                                <input class="voltar mr-3" type="submit" value="Excluir conta" data-toggle="modal" data-target="#excluirConta">
 
-                                <input (click)='atualizar()' class="cadastrar ml-3" type="submit" value="Cadastrar">
+                                <input class="voltar mr-3" type="submit" routerLink="/profile" value="Voltar">
+
+                                <input (click)='atualizar()' class="cadastrar ml-3" type="submit" value="Atualizar">
                             </div>
                         </form>
                     </div>
@@ -62,54 +63,24 @@
         </div>
     </div>
 </div>
-<!-- <div class="container-fluid">
 
-    <div class="row d-flex align-items-center">
-
-        <div class="col-md-12 d-flex justify-content-center">
-
-            <div class="formulario mt-3 px-3">
-                <form class="formulario" action="">
-
-                    <div class="text-center">
-                        <h1>Editar Perfil</h1>
-                    </div>
-                    <div>
-                        <label for="nome">Nome</label>
-                        <input class="form-control" type="text" placeholder="Qual é o seu lindo nome?" required>
-                        <label for="nome">Email</label>
-                        <input class="form-control" type="email" placeholder="Qual seu email?" required>
-                        <label for="nome">Nome de usuário</label>
-                        <input class="form-control" type="text" placeholder="Escolha seu nome de usuário" required>
-                        <label for="nome">Senha</label>
-                        <input class="form-control" type="password" placeholder="Escolha sua nova senha" required>
-
-                    </div>
-                    <div>
-                        <label for="nome">Data de nascimento</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div>
-                        <label for="nome">Gênero</label>
-
-                        <Select class="form-control" name="tipo" id="tipo" required>
-                                <option value="">Selecione:</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Feminino">Feminino</option>
-                                <option value="Não binário">Não binário</option>
-                                <option value="Prefiro não declarar">Prefiro não declarar</option>
-                            </Select>
-
-                    </div>
-
-                    <div class="my-4">
-                        <input type="submit" routerLink="/login-page" value="Atualizar">
-                    </div>
-                </form>
+<!-- Modal -->
+<div class="modal fade" id="excluirConta" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Tem certeza que deseja excluir a sua conta?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
             </div>
-
-
+            <!-- <div class="modal-body">
+          ...
+        </div> -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                <button (click)='deleteConta()' data-dismiss="modal" type="button" class="btn btn-primary">Sim</button>
+            </div>
         </div>
-
     </div>
-</div> -->
+</div>

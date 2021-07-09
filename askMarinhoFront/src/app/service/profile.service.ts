@@ -60,6 +60,10 @@ export class ProfileService {
     return this.http.delete(`https://askmarinho.herokuapp.com/users/delete/theme/favorites/${idUser}/${idTag}`, this.token)
   } 
 
+
+  deleteUser(idUser: number): Observable<Object> {
+    return this.http.delete<Object>(`https://askmarinho.herokuapp.com/users/delete/${idUser}`, this.token)
+  }
   
   
 }
