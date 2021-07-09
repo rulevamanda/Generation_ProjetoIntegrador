@@ -17,7 +17,6 @@ import { SobreNosComponent } from './sobre-nos/sobre-nos.component';
 import { TermoComponent } from './termo/termo.component';
 import { VisitedProfileComponent } from './visited-profile/visited-profile.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +29,7 @@ import { VisitedProfileComponent } from './visited-profile/visited-profile.compo
     ProfilePageComponent,
     SobreNosComponent,
     TermoComponent,
-    VisitedProfileComponent,
+    VisitedProfileComponent
   ],
 
   imports: [
