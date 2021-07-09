@@ -1,95 +1,190 @@
-<div class="body pt-5">
-    <div class="container">
+<div class="body">
+    <div class="container py-5">
         <div class="row py-5 px-4 d-flex justify-content-center">
 
             <div class="col-md-9">
                 <!-- Profile widget -->
-                <div class="bg-white shadow rounded overflow-hidden">
+                <div class="bg-white rounded overflow-hidden">
 
                     <!-- NAV BOOTSTRAP -->
-                    <nav>
+                    <nav class="mb-3">
                         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-feed-tab" data-toggle="tab" href="#nav-feed" role="tab" aria-controls="nav-feed" aria-selected="true">Feed</a>
-                            <a class="nav-item nav-link" id="nav-todasPostagens-tab" data-toggle="tab" href="#nav-todasPostagens" role="tab" aria-controls="nav-todasPostagens" aria-selected="false">Todas as postagens</a>
+                            <a class="nav-item nav-link" id="nav-feed-tab" data-toggle="tab" href="#nav-feed" role="tab" aria-controls="nav-feed" aria-selected="true">Feed</a>
+                            <a (click)='getAllPosts()' class="nav-item nav-link" id="nav-todasPostagens-tab" data-toggle="tab" href="#nav-todasPostagens" role="tab" aria-controls="nav-todasPostagens" aria-selected="false">Todas as postagens</a>
                             <a class="nav-item nav-link" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Minhas Postagens</a>
                         </div>
                     </nav>
 
                     <div class="tab-content d-flex justify-content-center" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-feed" role="tabpanel" aria-labelledby="nav-feed-tab">
+                            <div *ngFor='let feed of postsFeed' class="pt-5">
+                                <div class="card mb-5 postagemBg">
+                                    <div class="card-body">
+                                        <img class="rounded-circle img-fluid" src="{{usuario.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                        <a [routerLink]="['/profile-visited', feed.userPost.idUser]">{{feed.userPost.name}}</a>
+                                        <h5 class="card-title text-center">{{feed.title}}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
+                                        <p class="card-text">{{feed.description}}.</p>
+                                        <a *ngFor='let tagsDoPost of feed.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
+                                        <a href="#" class="card-link">{{feed.date}}</a>
+                                    </div>
+                                    <a (click)="chamou(feed.idPost)" class="text-center mb-3" data-toggle="modal" data-target="#comentado"><img src="https://i.imgur.com/uUoSLB1.png" alt=""></a>
 
-                            <div *ngFor='let feed of postsFeed' class="card mb-5">
-                                <div class="card-body">
-                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                    <a routerLink="/profile">{{feed.userPost.name}}</a>
-                                    <h5 class="card-title text-center">{{feed.title}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                    <p class="card-text">{{feed.description}}.</p>
-                                    <a *ngFor='let tagsDoPost of feed.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
-                                    <a href="#" class="card-link">{{feed.date}}</a>
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        {{feed.userUpvotePost.length}} <i (click)='upvotePost(feed.idPost)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                        <i (click)='reportPost(feed.idPost)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{feed.userReportPost.length}}
+                                    </div>
                                 </div>
+
+                                <div class="mb-2">
+                                    <p class="font-style3 text-center" data-toggle="collapse" href="#commentsFeed" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Comentários
+                                    </p>
+                                </div>
+
+                                <div class="collapse show" id="commentsFeed">
+                                    <div class="card card-body">
+                                        <div>
+                                            <div *ngFor='let comentarios of feed.comment'>
+                                                <div class="card mb-2 mx-5 comentariosBg">
+                                                    <div class="card-body">
+                                                        <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                                        <a class="active" routerLink="/profile">{{comentarios.userComment.email}}</a>
+                                                        <h5 class="card-title text-center">{{comentarios.text}}</h5>
+                                                        <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
+                                                        <p class="card-text">{{feed.description}}</p>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 d-flex justify-content-center">
+                                                            <div class="col-md-12 d-flex justify-content-center">
+                                                                {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                                                <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
-                            <div class="card mb-5">
-                                <div class="card-body">
-                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                    <a routerLink="/profile">{{usuario.name}}</a>
-                                    <h5 class="card-title text-center">Título do card</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                    <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-                                    <a href="#" class="card-link">Link do card</a>
-                                    <a href="#" class="card-link">Outro link</a>
-                                </div>
-                            </div>
 
                         </div>
                         <div class="tab-pane fade" id="nav-todasPostagens" role="tabpanel" aria-labelledby="nav-todasPostagens-tab">
-                            <div *ngFor='let allPosts of todosPosts' class="card mb-5">
-                                <div class="card-body">
-                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                    <a routerLink="/profile">{{allPosts.userPost.name}}</a>
-                                    <h5 class="card-title text-center">{{allPosts.title}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                    <p class="card-text">{{allPosts.description}}</p>
-                                    <a *ngFor='let tagsDoPost of allPosts.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
-                                    <a href="#" class="card-link">Outro link</a>
+                            <div *ngFor='let allPosts of todosPosts' class="pt-5">
+                                <div class="card mb-5  postagemBg">
+                                    <div class="card-body">
+                                        <img class="rounded-circle img-fluid mr-3" src="{{allPosts.userPost.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                        <a [routerLink]="['/profile-visited', allPosts.userPost.idUser]">{{allPosts.userPost.name}}</a>
+                                        <h5 class="card-title text-center">{{allPosts.title}}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
+                                        <p class="card-text">{{allPosts.description}}</p>
+                                        <a *ngFor='let tagsDoPost of allPosts.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
+
+                                    </div>
+                                    <a (click)="chamou(allPosts.idPost)" class="text-center mb-3" data-toggle="modal" data-target="#comentado"><img src="https://i.imgur.com/uUoSLB1.png" alt=""></a>
+
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        {{allPosts.userUpvotePost.length}} <i (click)='upvotePost(allPosts.idPost)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                        <i (click)='reportPost(allPosts.idPost)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{allPosts.userReportPost.length}}
+                                    </div>
+
+                                </div>
+                                <div class="mb-2">
+                                    <p class="font-style3 text-center" data-toggle="collapse" href="#allComments" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Comentários
+                                    </p>
+                                </div>
+                                <div class="collapse show" id="allComments">
+                                    <div>
+                                        <div *ngFor='let comentarios of allPosts.comment'>
+                                            <div class="card mb-2 mx-5 comentariosBg">
+                                                <div class="card-body">
+                                                    <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                                    <a class="active" routerLink="/profile">{{comentarios.userComment.email}}</a>
+                                                    <h5 class="card-title text-center">{{comentarios.text}}</h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
+                                                    <p class="card-text">{{allPosts.description}}</p>
+
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                        {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                                        <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card mb-5">
-                                <div class="card-body">
-                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                    <a routerLink="/profile">Jessica Silva</a>
-                                    <h5 class="card-title text-center">Título do card</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                    <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-                                    <a href="#" class="card-link">Link do card</a>
-                                    <a href="#" class="card-link">Outro link</a>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="tab-pane fade" id="nav-minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
-                            <div *ngFor='let postsUser of postagensUser' class="card mb-5">
-                                <div class="card-body">
-                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                    <a routerLink="/profile">{{usuario.name}}</a>
-                                    <h5 class="card-title text-center">{{postsUser.title}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Subtítulo</h6>
-                                    <p class="card-text">{{postsUser.description}}</p>
-                                    <a *ngFor='let tagsDoPost of postsUser.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
-                                    <a href="#" class="card-link">Outro link</a>
+                            <div *ngFor='let postsUser of postagensUser' class="pt-5">
+                                <div class="card mb-5 postagemBg">
+                                    <div class="card-body">
+                                        <img class="rounded-circle img-fluid mr-3" src="{{usuario.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                        <a [routerLink]="['/profile-visited', usuario.idUser]">{{usuario.name}}</a>
+                                        <h5 class="card-title text-center">{{postsUser.title}}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">Subtítulo</h6>
+                                        <p class="card-text">{{postsUser.description}}</p>
+                                        <a *ngFor='let tagsDoPost of postsUser.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a>
+
+                                    </div>
+                                    <a (click)="chamou(postsUser.idPost)" class="text-center mb-3" data-toggle="modal" data-target="#comentado"><img src="https://i.imgur.com/uUoSLB1.png" alt=""></a>
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        {{postsUser.userUpvotePost.length}} <i (click)='upvotePost(postsUser.idPost)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                        <i (click)='reportPost(postsUser.idPost)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{postsUser.userReportPost.length}}
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <p class="font-style3 text-center" data-toggle="collapse" href="#commentsUser" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Comentários
+                                    </p>
+                                </div>
+                                <div class="collapse show" id="commentsUser">
+                                    <div>
+                                        <div *ngFor='let comentarios of postsUser.comment'>
+                                            <div class="card mb-2 mx-5 comentariosBg">
+                                                <div class="card-body">
+                                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                                    <a class="active" routerLink="/profile">{{comentarios.userComment.email}}</a>
+                                                    <h5 class="card-title text-center">{{comentarios.text}}</h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
+                                                    <p class="card-text">{{postsUser.description}}</p>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                        <div class="col-md-12 d-flex justify-content-center">
+                                                            {{comentarios.userUpvoteComment.length}} <i (click)='upvoteComment(comentarios.idComment)' class="fa fa-thumbs-o-up text-center mr-3 mb-3" aria-hidden="true"></i>
+
+
+                                                            <i (click)='reportComment(comentarios.idComment)' class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{comentarios.userReportComment.length}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card mb-5">
-                                <div class="card-body">
-                                    <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                    <a routerLink="/profile"> Jessica Silva</a>
-                                    <h5 class="card-title text-center">Título do card</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Subtitulo do card</h6>
-                                    <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-                                    <a href="#" class="card-link">Link do card</a>
-                                    <a href="#" class="card-link">Outro link</a>
-                                </div>
-                            </div>
+
 
                         </div>
                     </div>
@@ -111,9 +206,7 @@
                                 <li data-toggle="modal" data-target="#novaPostagem">
                                     <!-- Botão para acionar modal postagem -->
                                     <i class="fa fa-plus-circle plus-style" aria-hidden="true"></i>
-
                                     <p class="font-style3">NOVA POSTAGEM</p>
-
                                 </li>
 
                             </ul>
@@ -124,12 +217,17 @@
 
                                 <h3 id="font-style">Tags favoritas</h3>
 
-                                <li *ngFor='let tema of temas'>{{tema.tagName}}</li>
+                                <li *ngFor='let tema of temas'>#{{tema.tagName}}</li>
 
-                                <!-- Botão para acionar modal de tag favorita -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novaTagFav">
-                                    Adicionar tag favorita
-                                </button>
+                                <div class="row">
+                                    <div class="col-md-12 d-flex justify-content-center">
+                                        <!-- Botão para acionar modal de tag favorita -->
+                                        <button type="button" class="btn btn-primary mb-2 mr-2 mt-3" data-toggle="modal" data-target="#novaTagFav">
+                                            Adicionar
+                                        </button>
+
+                                    </div>
+                                </div>
 
                             </ul>
                         </div>
@@ -194,12 +292,35 @@
                 <!-- adicionar tag favorita -->
                 <div class="form-group">
                     <label for="tagFav">Nome da tag</label>
-                    <input [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text">
+                    <input maxlength="25" [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <button (click)='adicionarTag()' type="button" class="btn btn-primary">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para comentario -->
+<div class="modal fade" id="comentado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">Novo comentário</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input [(ngModel)]="comentarioNoPost.text" class="form-control" type="text" name="" id="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button (click)="comentar()" type="button" class="btn btn-primary">Comentar</button>
             </div>
         </div>
     </div>

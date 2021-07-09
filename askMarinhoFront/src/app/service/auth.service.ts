@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../model/User';
@@ -14,12 +14,30 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
+  token = {
+    headers: new HttpHeaders().set('Authorization', environment.token)
+  }
+
+  refreshToken() {
+    this.token = {
+      headers: new HttpHeaders().set('Authorization', environment.token)
+    }
+  }
+
   entrar(userLogin: UserLogin): Observable<UserLogin>{
     return this.http.post<UserLogin>('https://askmarinho.herokuapp.com/users/login', userLogin)
   }
 
   cadastrar(user: User): Observable<User>{
     return this.http.post<User>('https://askmarinho.herokuapp.com/users/register', user)
+  }
+
+  putUser(idUser: number, usuarioAtt: User): Observable<User> {
+    return this.http.put<User>(`https://askmarinho.herokuapp.com/users/update/${idUser}`, usuarioAtt, this.token)
+  }
+
+  deleteUser(idUser: number): Observable<Object> {
+    return this.http.delete<Object>(`https://askmarinho.herokuapp.com/users/delete/${idUser}`, this.token)
   }
 
   logado(){

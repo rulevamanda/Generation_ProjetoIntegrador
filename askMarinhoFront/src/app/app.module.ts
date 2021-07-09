@@ -13,7 +13,9 @@ import { FooterComponent } from './footer/footer.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { EditPerfilComponent } from './edit-perfil/edit-perfil.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
-
+import { SobreNosComponent } from './sobre-nos/sobre-nos.component';
+import { TermoComponent } from './termo/termo.component';
+import { VisitedProfileComponent } from './visited-profile/visited-profile.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     FooterComponent,
     HomePageComponent,
     EditPerfilComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    SobreNosComponent,
+    TermoComponent,
+    VisitedProfileComponent
   ],
 
   imports: [
