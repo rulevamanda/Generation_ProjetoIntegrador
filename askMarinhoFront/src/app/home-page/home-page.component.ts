@@ -48,13 +48,12 @@ export class HomePageComponent implements OnInit {
 
       this.router.navigate(['/login-page'])
       
-    } else {
+    }
       window.scroll(0,0)
       this.homeService.refreshToken()
       this.pegarPeloId()
-      this.pegarFeed()
-      
-    }
+      this.getAllPosts()      
+    
   }
 
   getAllPosts() {
