@@ -1,0 +1,50 @@
+.bg-footer{
+    background-color: #BAF2E9;    
+}
+
+.bg-footer2{
+    background-color: #6DD3CE;    
+}
+
+a{
+  text-decoration: none; 
+   
+}
+
+a:link{
+    color:#929393 ;
+}
+
+a:active{
+    color:#6DD3CE;
+}
+
+a:hover{
+    color: #6DD3CE;
+}
+
+.txt-rodape{
+    font-family: Corbel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px
+}
+
+.txt-askmarinho{
+    font-family: Bebas Neue;
+    color: #6DD3CE;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 24px
+}
+
+ul.style li{
+    list-style: none;
+}
+.dark-mode {
+    background-color: black;
+    color: white;
+  }
+  

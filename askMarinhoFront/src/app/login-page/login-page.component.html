@@ -1,0 +1,52 @@
+<div class="container-fluid mt-150">
+
+    <div class="row d-flex align-items-center justify-content-center">
+    <!-- Logo Marinho -->
+        <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <img src="../../assets/img/login-page/askMarinho-logo.svg" alt="logo askMarinho">
+        </div>
+    <!-- /Logo Marinho -->
+
+
+    <!-- DESCRIÇÃO LOGIN -->
+        <div class="d-flex align-items-center">
+            <ul class="style">
+                <li>
+                    <h1 class="display-4">AskMarinho</h1>
+                </li>
+                <li>
+                    <p> O <font color='#6DD3CE'>askmarinho</font> ajuda você a encontrar as repostas para as suas perguntas e compartilhar experiências com outras pessoas. </p>
+                </li>
+            </ul>
+        </div>
+    <!-- /DESCRIÇÃO LOGIN -->
+
+
+
+
+
+        <div class="col-md-4">
+            <div class="row d-flex justify-content-center">
+                <div class="formulario ml-6">
+
+                    <form class="formulario" action="">
+                        <div>
+                            <input [(ngModel)]='userLogin.email' class="form-control" type="email" id="email" name="email" placeholder="Digite seu email">
+                            <input [(ngModel)]='userLogin.password' class="form-control" type="password" id="senha" name="senha" placeholder="Digite sua senha">
+                            <button (click)='entrar()' type="submit">Entrar</button>
+                        </div>
+                        <span><a href="#">Ih, esqueceu a senha?
+
+                            </a></span>
+                        <hr class="hr-style">
+                        <div>
+                            <a routerLink="/signup-page"><input type="submit" value="Criar nova conta"></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

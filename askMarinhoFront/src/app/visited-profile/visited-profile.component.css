@@ -1,0 +1,123 @@
+.profile-head {
+    transform: translateY(5rem)
+}
+
+.cover {
+    background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+    background-size: cover;
+    background-repeat: no-repeat
+}
+
+.tag-style {
+    background-color: #f0dbce;
+    width: 250px;
+    border-radius: 15px;
+}
+
+.tag-style-2 {
+    background-color: #d6efeb;
+    width: 250px;
+    height: 380px;
+    border-radius: 15px;
+}
+
+ul.list-style li {
+    list-style: none;
+}
+
+#font-style {
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 30px;
+    color: #FFB18C;
+}
+
+#font-style-2 {
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 30px;
+    color: #6dd3ce;
+}
+
+.mano {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 18px;
+    color: #6DD3CE;
+}
+
+a:link {
+    color: #6DD3CE;
+    text-decoration: none;
+}
+
+a:active {
+    color: #152e2d;
+}
+
+a:visited {
+    color: #51e7e0;
+}
+
+a:hover {
+    color: #8ee1dd
+}
+
+
+.warning-style {
+    color: crimson;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.comment-style {
+    color: #6dd3ce;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+a.maoe-style {
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.maoe-style:active {
+    color: blueviolet;
+}
+
+a.maoe-style:visited {
+    color: #929393;
+}
+
+a.maoe-style:hover {
+    color: red;
+}
+
+.ml-50 {
+    margin-left: 66px;
+}
+
+a.nome-post:visited {
+    color: #929393;
+    font-size: 20px;
+    font-family: Roboto;
+}
+
+.borderline {
+    border-radius: 15px;
+}
+
+.bg-postagem {
+    background-color: #f4f4f4 !important;
+}
+.bg-color {
+    background-color: #e8edec !important;
+}

@@ -1,0 +1,83 @@
+.formulario {
+    background-color: #F4F4F4;
+    border-radius: 10px;
+}
+
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
+input[type=email],
+[type=password],
+[type=text],
+[type=date] {
+    border: 1px solid #BAF2E9;
+    height: 50px;
+}
+
+select {
+    border: 1px solid #BAF2E9;
+    height: 50px;
+}
+
+input[type=submit] {
+    height: 57px;
+    background: #FFCAB1;
+    border-radius: 5px;
+    border: none;
+    font-family: Corbel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 30px;
+    color: #F27A7A;
+}
+
+input[type=date] {
+    border: 1px solid #BAF2E9;
+    border-radius: 5px;
+    font-family: Corbel;
+    font-style: normal;
+    font-weight: normal;
+}
+
+input[type=submit]:hover {
+    opacity: 0.9;
+}
+
+h1 {
+    font-family: Bebas NEUE;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 84px;
+    color: #6DD3CE;
+}
+
+label {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    font-family: Corbel;
+    color: #6DD3CE
+}
+
+.mt-15 {
+    margin-top: 5rem;
+}
+
+#borda {
+    border: 1px solid #BAF2E9;
+}
+
+.termos {
+    margin-top: 10px;
+    height: 29px;
+}
+
+
+/* 
+
+
+
+ */
