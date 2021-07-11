@@ -210,3 +210,81 @@ li {
     background-color: #0a7041;
     border: 1px solid #3ed48e;
 }
+
+/* estilo dos icones de like, report e comment */
+
+.excluir:hover {
+    color: #929393;
+}
+
+.excluir:active {
+    color: #FF9665;
+}
+
+.editar:hover {
+    color: #929393;
+}
+
+.editar:active {
+    color: #6dd3ce;
+}
+
+.warning-style {
+    color: crimson;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.comment-style {
+    color: #6dd3ce;
+    font-size: 25px;
+}
+
+a.maoe-style {
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.maoe-style:active {
+    color: blueviolet;
+}
+
+a.maoe-style:visited {
+    color: #929393;
+}
+
+a.maoe-style:hover {
+    color: red;
+}
+
+a.nome-post:visited {
+    color: #929393;
+    font-size: 20px;
+    font-family: Roboto;
+}
+
+.btn-delete {
+    border: none;
+    color: #FF9665;
+    font-size: 30px;
+}
+
+.btn-editar {
+    border: none;
+    color: #6dd3ce;
+    font-size: 35px;
+}
+
+.bg-postagem {
+    background-color: #f4f4f4 !important;
+}
+
+.bg-color {
+    background-color: #e8edec !important;
+}
+
+.borderline {
+    border-radius: 15px;
+}
