@@ -1,4 +1,20 @@
-.warning-style{
+.excluir:hover {
+    color: #929393;
+}
+
+.excluir:active {
+    color: #FF9665;
+}
+
+.editar:hover {
+    color: #929393;
+}
+
+.editar:active {
+    color: #6dd3ce;
+}
+
+.warning-style {
     color: crimson;
     font-size: 30px;
 }
@@ -8,27 +24,27 @@
     font-size: 35px;
 }
 
-a.maoe-style{
+a.maoe-style {
     font-size: 30px;
 }
 
-a.maoe-style:active{
+a.maoe-style:active {
     color: blueviolet;
 }
 
-a.maoe-style:visited{
+a.maoe-style:visited {
     color: #929393;
 }
 
-a.maoe-style:hover{
+a.maoe-style:hover {
     color: red;
 }
 
-.ml-50{
+.ml-50 {
     margin-left: 66px;
 }
 
-a.nome-post:visited{
+a.nome-post:visited {
     color: #929393;
     font-size: 20px;
     font-family: Roboto;
@@ -44,7 +60,7 @@ a.nome-post:visited{
     font-size: 15px;
 }
 
-.btn-delete{
+.btn-delete {
     border: none;
     color: #FF9665;
     font-size: 30px;
@@ -60,10 +76,11 @@ a.nome-post:visited{
     background-color: #f4f4f4 !important;
 }
 
-.bg-color{
+.bg-color {
     background-color: #e8edec !important;
 }
-.borderline{
+
+.borderline {
     border-radius: 15px;
 }
 
@@ -121,4 +138,84 @@ a:link {
 
 a:hover {
     color: #3d3d3d;
+}
+
+.bg-post-modal {
+    background: #49aaa5af;
+}
+
+.bg-post-modal2 {
+    background: #3a9b96a9;
+    border: none;
+}
+
+.bg-tag-modal {
+    background: #1f4644d3;
+}
+
+.bg-tag-modal2 {
+    background: #25504ee3;
+    border: none;
+}
+
+.bg-comment-modal {
+    background: rgba(40, 48, 46, 0.87);
+}
+
+.bg-comment-modal2 {
+    background: rgba(45, 54, 52, 0.84);
+    border: none;
+}
+
+.fechar {
+    background-color: #ff844b;
+    color: #fff;
+    font-weight: bold;
+}
+
+.fechar:hover {
+    background-color: #ffa47a;
+    border: 1px solid #fd7a3d;
+}
+
+.titulo-pl {
+    font-family: Bebas Neue;
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.label-modal {
+    font-family: Roboto;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.fechar:active {
+    background-color: #bb5221;
+    border: 1px solid #FFB18C;
+}
+
+.postar {
+    background-color: #20ca7b;
+    color: #fff;
+    font-weight: bold;
+}
+
+.postar:hover {
+    background-color: #3ed48e;
+    border: 1px solid #17995c;
+}
+
+.postar:active {
+    background-color: #0a7041;
+    border: 1px solid #3ed48e;
+}
+
+.lixeira {
+    color: red;
+}
+
+.adicionar {
+    color: green
 }

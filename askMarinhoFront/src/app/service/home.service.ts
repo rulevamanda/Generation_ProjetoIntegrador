@@ -25,10 +25,6 @@ export class HomeService {
     }
   }
 
-  addFavorite(idUser: number, nome: string): Observable<User> {
-    return this.http.put<User>(`https://askmarinho.herokuapp.com/users/add/theme/${idUser}/${nome}`, this.token)
-  }
-
   getUserById(idUser: number): Observable<User> {
     return this.http.get<User>(`https://askmarinho.herokuapp.com/users/id/${idUser}`, this.token)
   }
@@ -45,23 +41,4 @@ export class HomeService {
     return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/posts/register/${idUser}/${themeName}`, postagem, this.token)
   }
 
-  postUpvoteComment(idUser: number, idComment: number): Observable<Comment> {
-    return this.http.post<Comment>(`https://askmarinho.herokuapp.com/users/upvotes/comment/${idUser}/${idComment}`, this.token)
-  }
-
-  postReportComment(idUser: number, idComment: number): Observable<Comment> {
-    return this.http.post<Comment>(`https://askmarinho.herokuapp.com/users/reports/comment/${idUser}/${idComment}`, this.token)
-  }
-
-  postUpvotePost(idUser: number, idPost: number): Observable<Post> {
-    return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/upvotes/post/${idUser}/${idPost}`, this.token)
-  }
-
-  postReportPost(idUser: number, idPost: number): Observable<Post> {
-    return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/reports/post/${idUser}/${idPost}`, this.token)
-  }
-
-  
-
-  ///https://askmarinho.herokuapp.com/users/add/theme/{idUser}/{tagName}
 }
