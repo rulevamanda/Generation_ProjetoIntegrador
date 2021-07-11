@@ -5,6 +5,7 @@ import { User } from '../model/User';
 import { AuthService } from '../service/auth.service';
 import { HomeService } from '../service/home.service';
 import { ProfileService } from '../service/profile.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-edit-perfil',
@@ -23,10 +24,10 @@ export class EditPerfilComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
     private homeService: HomeService,
     private route: ActivatedRoute,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -35,6 +36,7 @@ export class EditPerfilComponent implements OnInit {
       this.router.navigate(['/login-page'])
       
     } else {
+      this.userService.refreshToken()
       window.scroll(0,0)
       this.idUser = this.route.snapshot.params['id']
       this.findByIdUser(this.idUser)
@@ -72,7 +74,10 @@ export class EditPerfilComponent implements OnInit {
       this.usuarioEnviado.password = this.user.password
       this.usuarioEnviado.urlImage = this.user.urlImage
       this.usuarioEnviado.userName = this.user.userName
-      this.authService.putUser(this.idUser, this.usuarioEnviado).subscribe((resp: User) => {
+      
+      this.userService.refreshToken()
+
+      this.userService.putUser(this.idUser, this.usuarioEnviado).subscribe((resp: User) => {
         this.user = resp
 
         this.router.navigate(['/login-page'])
@@ -127,7 +132,8 @@ export class EditPerfilComponent implements OnInit {
     j=0
     i=0
 
-        this.profileService.deleteUser(this.idUser).subscribe((resp: Object) => {
+        this.userService.refreshToken()
+        this.userService.deleteUser(this.idUser).subscribe((resp: Object) => {
 
         }, deletou => {
           if (deletou.status == 200) {
