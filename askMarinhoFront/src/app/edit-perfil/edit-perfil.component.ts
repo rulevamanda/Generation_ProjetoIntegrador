@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { User } from '../model/User';
+import { AlertsService } from '../service/alerts.service';
 import { AuthService } from '../service/auth.service';
 import { HomeService } from '../service/home.service';
 
@@ -22,7 +23,8 @@ export class EditPerfilComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private homeService: HomeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alert: AlertsService
   ) { }
 
   ngOnInit() {
@@ -58,7 +60,7 @@ export class EditPerfilComponent implements OnInit {
     this.user.gender = this.genero
 
     if (this.user.password != this.confirmarSenha) {
-      alert('As senhas estão diferentes!')
+      this.alert.showAlertDanger('As senhas estão diferentes!')
     } else {
       this.usuarioEnviado.gender = this.user.gender
       this.usuarioEnviado.description = this.user.description
@@ -77,13 +79,13 @@ export class EditPerfilComponent implements OnInit {
         environment.nome = ''
         environment.id = 0
         environment.foto = ''
-        alert('Usuario atualizado!')
+        this.alert.showAlertSuccess('Usuario atualizado!')
       } , erro => {
         if (erro.status == 400) {
 
-          alert("Dados incorretos ou usuário já cadastrado")
+          this.alert.showAlertYellow("Dados incorretos ou usuário já cadastrado")
         } else {
-          alert("Dados incorretos ou usuário já cadastrado")
+          this.alert.showAlertYellow("Dados incorretos ou usuário já cadastrado")
         }
       })
     }

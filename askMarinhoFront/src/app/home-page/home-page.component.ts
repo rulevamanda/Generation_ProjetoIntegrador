@@ -5,6 +5,7 @@ import { Comment } from '../model/Comment';
 import { Post } from '../model/Post';
 import { Tag } from '../model/Tag';
 import { User } from '../model/User';
+import { AlertsService } from '../service/alerts.service';
 import { CommentService } from '../service/comment.service';
 import { HomeService } from '../service/home.service';
 
@@ -35,7 +36,8 @@ export class HomePageComponent implements OnInit {
   constructor(
     private homeService: HomeService,
     private commentService: CommentService,
-    private router: Router
+    private router: Router,
+    private alert: AlertsService
   ) { }
 
   ngOnInit() {
@@ -84,12 +86,12 @@ export class HomePageComponent implements OnInit {
         this.tema = new Tag()
         this.usuario = resp
       })
-    alert("teste")
+    this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
   }
 
   postarPostagem() {
     this.homeService.postPostagem(environment.id, this.temaParaPost.tagName, this.novoPost).subscribe((resp: Post) => {
-      alert("Postagem cadastrada com sucesso!")
+      this.alert.showAlertSuccess("Postagem cadastrada com sucesso!")
       this.novoPost = resp
       this.getAllPosts()
       this.pegarPeloId()
@@ -106,7 +108,7 @@ export class HomePageComponent implements OnInit {
   comentar() {
     this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
       this.comentarioNoPost = resp
-      alert("comentado com sucesso")
+      this.alert.showAlertSuccess("Comentado com sucesso")
       this.getAllPosts()
       this.pegarPeloId()
       this.pegarFeed()
