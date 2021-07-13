@@ -5,6 +5,7 @@ import { Comment } from '../model/Comment';
 import { Post } from '../model/Post';
 import { Tag } from '../model/Tag';
 import { User } from '../model/User';
+import { AlertsService } from '../service/alerts.service';
 import { CommentService } from '../service/comment.service';
 import { HomeService } from '../service/home.service';
 import { ProfileService } from '../service/profile.service';
@@ -53,6 +54,7 @@ export class ProfilePageComponent implements OnInit {
     private profileService: ProfileService,
     private router: Router,
     private commentService: CommentService,
+    private alert: AlertsService,
     private temaService: TemasService,
     private userService: UserService
   ) { }
@@ -92,7 +94,7 @@ export class ProfilePageComponent implements OnInit {
         this.tema = new Tag()
         this.usuario = resp
       })
-    alert("teste")
+    this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
   }
 
   chamou(idPost: number) {
@@ -101,7 +103,7 @@ export class ProfilePageComponent implements OnInit {
 
   adicionarNovoTema() {
     this.profileService.addTagPostagem(this.tagAdicionada.tagName, this.idPostEditar).subscribe((resp: Post) => {
-      alert("Adicionada")
+      this.alert.showAlertSuccess("Adicionada")
       this.tagAdicionada = new Tag()
       this.pegarPeloId()
       this.findByIdPost()
@@ -136,9 +138,9 @@ export class ProfilePageComponent implements OnInit {
       this.postagemEditada = new Post()
       this.idPostEditar = 0
       this.pegarPeloId()
-      alert("Postagem editada")
+      this.alert.showAlertSuccess("Postagem editada com sucesso!")
     }, err => {
-      alert("algum dado está incorreto")
+      this.alert.showAlertDanger("Há algum dado incorreto. Verifique e tente novamente.")
     }) 
   }
 
@@ -182,9 +184,9 @@ export class ProfilePageComponent implements OnInit {
       console.log("Excluiu")
       this.limpar()
       this.pegarPeloId()
-      alert("Postagem excluída")
+      this.alert.showAlertSuccess("Postagem excluída com sucesso!")
     }, erro => {
-      alert("Postagem excluída")
+      this.alert.showAlertSuccess("Postagem excluída com sucesso!")
       this.limpar()
       this.pegarPeloId()
     })
@@ -208,7 +210,7 @@ export class ProfilePageComponent implements OnInit {
    console.log(this.commentModif)
     this.commentService.putComment(this.idCommentModif, this.comentarioEnviado).subscribe((resp: Comment) => {
       console.log("Editou")
-      alert("Comentário editado!")
+      this.alert.showAlertSuccess("Comentário editado!")
       this.pegarPeloId()
     }, erro => {
       console.log(this.commentModif)
@@ -245,12 +247,12 @@ export class ProfilePageComponent implements OnInit {
       
     }, objeto => {
       if(objeto.status == 202) {
-        alert("Tema favorito retirado")
+        this.alert.showAlertSuccess("Tema favorito excluído")
         this.pegarPeloId()
       } else if (objeto.status == 200) {
-        alert("Esse usuário não possui esse tema")
+        this.alert.showAlertYellow("Esse usuário não possui esse tema")
       } else if (objeto.status == 400) {
-        alert("Tema e/ou usuário não existem")
+        this.alert.showAlertDanger("Tema e/ou usuário não existem")
       }
       
     })
@@ -303,7 +305,7 @@ export class ProfilePageComponent implements OnInit {
    comentar() {
     this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
       this.comentarioNoPost = resp
-      alert("comentado com sucesso")
+      this.alert.showAlertSuccess("Comentário adicionado com sucesso!")
       
       this.pegarPeloId()
      

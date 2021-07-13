@@ -16,16 +16,21 @@
 
 .warning-style {
     color: crimson;
-    font-size: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .comment-style {
     color: #6dd3ce;
-    font-size: 35px;
+    font-size: 25px;
+    cursor: pointer;
 }
 
 a.maoe-style {
-    font-size: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 a.maoe-style:active {
