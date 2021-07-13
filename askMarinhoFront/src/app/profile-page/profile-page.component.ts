@@ -305,7 +305,7 @@ export class ProfilePageComponent implements OnInit {
    comentar() {
     this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
       this.comentarioNoPost = resp
-      alert("comentado com sucesso")
+      this.alert.showAlertSuccess("Comentário adicionado com sucesso!")
       
       this.pegarPeloId()
      

@@ -139,7 +139,7 @@ export class EditPerfilComponent implements OnInit {
 
         }, deletou => {
           if (deletou.status == 200) {
-            alert("Usuário deletado com sucesso!")
+            this.alert.showAlertSuccess("Usuário deletado com sucesso!")
           
             environment.token = ''
             environment.nome = ''
@@ -151,7 +151,7 @@ export class EditPerfilComponent implements OnInit {
           } else if (deletou.status == 500) {
             console.log("Clique novamente")
           } else if (deletou.status == 400) {
-            alert("Usuário não existe")
+            this.alert.showAlertDanger("Usuário não existe")
             
           }
         })
