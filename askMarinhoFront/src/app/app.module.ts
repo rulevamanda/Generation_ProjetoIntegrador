@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { OrderModule } from 'ngx-order-pipe';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -18,6 +19,7 @@ import { SobreNosComponent } from './sobre-nos/sobre-nos.component';
 import { TermoComponent } from './termo/termo.component';
 import { VisitedProfileComponent } from './visited-profile/visited-profile.component';
 import { AlertComponent } from './alert/alert.component';
+
 
 
 @NgModule({
@@ -42,7 +44,8 @@ import { AlertComponent } from './alert/alert.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    OrderModule
   ],
   providers: [{
     provide: LocationStrategy,
