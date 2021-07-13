@@ -19,7 +19,7 @@
 
 
                         <div class="tab-pane fade show active w-100" id="nav-feed" role="tabpanel" aria-labelledby="nav-feed-tab">
-                            <div *ngFor='let feed of postsFeed'>
+                            <div *ngFor='let feed of postsFeed | orderBy : key : reverse'>
                                 <div class="card mb-2 mt-5 borderline">
                                     <div class="card-body bg-postagem borderline">
                                         <div>
@@ -37,7 +37,7 @@
                                         <h5 class="card-title text-left mt-2 ml-50">{{feed.title}}</h5>
                                         <p class="card-text ml-50">{{feed.description}}</p>
                                         <div class="text-center">
-                                            <a *ngFor='let tagsDoPost of feed.tagRelation' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
+                                            <a *ngFor='let tagsDoPost of feed.tagRelation | orderBy : key : reverse' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
                                         </div>
                                         <hr>
                                         <div class="row">
@@ -58,7 +58,7 @@
                                     </p>
                                 </div>
                                 <div class="collapse show" id="commentsUser">
-                                    <div *ngFor='let comentarios of feed.comment' class="mb-2">
+                                    <div *ngFor='let comentarios of feed.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                             <div class="row">
@@ -85,10 +85,16 @@
 
                         <div class="tab-pane fade w-100" id="nav-todasPostagens" role="tabpanel" aria-labelledby="nav-todasPostagens-tab">
 
+                            <div class="row d-flex justify-content-center mt-5 mb-5">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <input [(ngModel)]='tituloPost' (keyup)='findByTituloPostagem()' type="text" class="form-control" id="titulo" placeholder="Digite um título para pesquisar">
+                                    </div>
+                                </div>
+                            </div>
 
 
-
-                            <div *ngFor='let allPosts of todosPosts'>
+                            <div *ngFor='let allPosts of todosPosts | orderBy : key : reverse'>
                                 <div class="card mb-2 mt-5 borderline">
                                     <div class="card-body bg-postagem borderline">
                                         <div>
@@ -106,7 +112,7 @@
                                         <h5 class="card-title text-left mt-2 ml-50">{{allPosts.title}}</h5>
                                         <p class="card-text ml-50">{{allPosts.description}}</p>
                                         <div class="text-center">
-                                            <a *ngFor='let tagsDoPost of allPosts.tagRelation' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
+                                            <a *ngFor='let tagsDoPost of allPosts.tagRelation | orderBy : key : reverse' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
                                         </div>
                                         <hr>
                                         <div class="row">
@@ -127,7 +133,7 @@
                                     </p>
                                 </div>
                                 <div class="collapse show" id="commentsUser">
-                                    <div *ngFor='let comentarios of allPosts.comment' class="mb-2">
+                                    <div *ngFor='let comentarios of allPosts.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                             <div class="row">
@@ -152,7 +158,7 @@
                         </div>
 
                         <div class="tab-pane fade w-100" id="nav-minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
-                            <div *ngFor='let postsUser of postagensUser'>
+                            <div *ngFor='let postsUser of postagensUser | orderBy : key : reverse'>
                                 <div class="card mb-2 mt-5 borderline">
                                     <div class="card-body bg-postagem borderline">
                                         <div>
@@ -169,7 +175,7 @@
                                         <h5 class="card-title text-left mt-2 ml-50">{{postsUser.title}}</h5>
                                         <p class="card-text ml-50">{{postsUser.description}}</p>
                                         <div class="text-center">
-                                            <a *ngFor='let tagsDoPost of postsUser.tagRelation' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
+                                            <a *ngFor='let tagsDoPost of postsUser.tagRelation | orderBy : key : reverse' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
                                         </div>
                                         <hr>
                                         <div class="row">
@@ -190,7 +196,7 @@
                                     </p>
                                 </div>
                                 <div class="collapse show" id="commentsUser">
-                                    <div *ngFor='let comentarios of postsUser.comment' class="mb-2">
+                                    <div *ngFor='let comentarios of postsUser.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                             <div class="row">
@@ -243,7 +249,7 @@
 
                                 <h3 id="font-style">Tags favoritas</h3>
 
-                                <li *ngFor='let tema of temas'>#{{tema.tagName}}</li>
+                                <li *ngFor='let tema of temas | orderBy : key : reverse'>#{{tema.tagName}}</li>
 
                                 <div class="row">
                                     <div class="col-md-12 d-flex justify-content-center">

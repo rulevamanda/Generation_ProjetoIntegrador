@@ -7,7 +7,7 @@ import { Tag } from '../model/Tag';
 import { User } from '../model/User';
 import { AlertsService } from '../service/alerts.service';
 import { CommentService } from '../service/comment.service';
-import { HomeService } from '../service/home.service';
+import { PostService } from '../service/post.service';
 import { TemasService } from '../service/tag.service';
 import { UserService } from '../service/user.service';
 
@@ -35,13 +35,18 @@ export class HomePageComponent implements OnInit {
 
   idPostComentado: number
 
+  tituloPost: string
+
+  key = 'data'
+  reverse = true
+
   constructor(
-    private homeService: HomeService,
     private commentService: CommentService,
     private router: Router,
     private alert: AlertsService,
-    private temaService: TemasService,
-    private userService: UserService
+    private tagService: TemasService,
+    private userService: UserService,
+    private postService: PostService
   ) { }
 
   ngOnInit() {
@@ -52,7 +57,8 @@ export class HomePageComponent implements OnInit {
       
     } else {
       window.scroll(0,0)
-      this.homeService.refreshToken()
+      this.postService.refreshToken()
+      this.commentService.refreshToken()
       this.pegarPeloId()
       this.getAllPosts()
       this.pegarFeed()
@@ -60,19 +66,29 @@ export class HomePageComponent implements OnInit {
   }
 
   getAllPosts() {
-    this.homeService.allPosts().subscribe((resp: Post[]) => {
+    this.postService.allPosts().subscribe((resp: Post[]) => {
       this.todosPosts = resp
     })
   }
 
+  ordemData(a: Post, b: Post) {
+    return a.date < b.date
+  }
+
+  
+
   pegarFeed() {
-    this.homeService.feedUser(environment.id).subscribe((resp: Post[]) => {
+
+    this.userService.feedUser(environment.id).subscribe((resp: Post[]) => {
       this.postsFeed = resp
+
+      this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+
     })
   }
 
   pegarPeloId() {
-    this.homeService.getUserById(environment.id).subscribe((resp: User) => {
+    this.userService.getUserById(environment.id).subscribe((resp: User) => {
       this.usuario = resp
       this.postagensUser = this.usuario.posts
       this.temas = this.usuario.favorites
@@ -80,13 +96,25 @@ export class HomePageComponent implements OnInit {
   }
 
   adicionarTag() {
-    this.temaService.refreshToken()
-    this.temaService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
+    this.tagService.refreshToken()
+    this.userService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
       User) => {
         
         this.pegarPeloId()
         this.pegarFeed()
-        this.getAllPosts()
+        if (this.tituloPost == '') {
+
+          this.getAllPosts()
+          
+        } else {
+    
+          this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+            this.todosPosts = resp
+            this.comentarioNoPost = new Comment()
+          })
+    
+        }
+        
         this.tema = new Tag()
         this.usuario = resp
       })
@@ -94,10 +122,23 @@ export class HomePageComponent implements OnInit {
   }
 
   postarPostagem() {
-    this.homeService.postPostagem(environment.id, this.temaParaPost.tagName, this.novoPost).subscribe((resp: Post) => {
+    this.postService.postPostagem(environment.id, this.temaParaPost.tagName, this.novoPost).subscribe((resp: Post) => {
       this.alert.showAlertSuccess("Postagem cadastrada com sucesso!")
       this.novoPost = resp
-      this.getAllPosts()
+      
+      if (this.tituloPost == '') {
+
+        this.getAllPosts()
+        this.comentarioNoPost = new Comment()
+      } else {
+  
+        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+          this.todosPosts = resp
+          this.comentarioNoPost = new Comment()
+        })
+  
+      }
+
       this.pegarPeloId()
       this.pegarFeed()
       this.novoPost = new Post()
@@ -113,7 +154,20 @@ export class HomePageComponent implements OnInit {
     this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
       this.comentarioNoPost = resp
       this.alert.showAlertSuccess("Comentado com sucesso")
-      this.getAllPosts()
+      
+      if (this.tituloPost == '') {
+
+        this.getAllPosts()
+        this.comentarioNoPost = new Comment()
+      } else {
+  
+        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+          this.todosPosts = resp
+          this.comentarioNoPost = new Comment()
+        })
+  
+      }
+      
       this.pegarPeloId()
       this.pegarFeed()
       this.comentarioNoPost = new Comment()
@@ -127,7 +181,19 @@ export class HomePageComponent implements OnInit {
       
       this.pegarPeloId()
       this.pegarFeed()
-      this.getAllPosts()
+      
+      if (this.tituloPost == '') {
+
+        this.getAllPosts()
+        this.comentarioNoPost = new Comment()
+      } else {
+  
+        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+          this.todosPosts = resp
+          this.comentarioNoPost = new Comment()
+        })
+  
+      }
     })
   }
 
@@ -138,7 +204,19 @@ export class HomePageComponent implements OnInit {
       
       this.pegarPeloId()
       this.pegarFeed()
-      this.getAllPosts()
+      
+      if (this.tituloPost == '') {
+
+        this.getAllPosts()
+        this.comentarioNoPost = new Comment()
+      } else {
+  
+        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+          this.todosPosts = resp
+          this.comentarioNoPost = new Comment()
+        })
+  
+      }
     })
   }
 
@@ -149,7 +227,19 @@ export class HomePageComponent implements OnInit {
       
       this.pegarPeloId()
       this.pegarFeed()
-      this.getAllPosts()
+
+      if (this.tituloPost == '') {
+
+        this.getAllPosts()
+        this.comentarioNoPost = new Comment()
+      } else {
+  
+        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+          this.todosPosts = resp
+          this.comentarioNoPost = new Comment()
+        })
+  
+      }
     })
   }
 
@@ -160,8 +250,39 @@ export class HomePageComponent implements OnInit {
       
       this.pegarPeloId()
       this.pegarFeed()
-      this.getAllPosts()
+
+      if (this.tituloPost == '') {
+
+        this.getAllPosts()
+        this.comentarioNoPost = new Comment()
+      } else {
+  
+        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+          this.todosPosts = resp
+          this.comentarioNoPost = new Comment()
+        })
+  
+      }
+      
     })
+  }
+
+  findByTituloPostagem() {
+
+    if (this.tituloPost == '') {
+
+      this.getAllPosts()
+      this.comentarioNoPost = new Comment()
+    } else {
+
+      this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+        this.todosPosts = resp
+        this.comentarioNoPost = new Comment()
+      })
+
+    }
+
+    
   }
 
 }
