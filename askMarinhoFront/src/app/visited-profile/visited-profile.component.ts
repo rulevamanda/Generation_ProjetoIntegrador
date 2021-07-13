@@ -6,7 +6,6 @@ import { Post } from '../model/Post';
 import { User } from '../model/User';
 import { AlertsService } from '../service/alerts.service';
 import { CommentService } from '../service/comment.service';
-import { HomeService } from '../service/home.service';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -30,11 +29,8 @@ export class VisitedProfileComponent implements OnInit {
   comentarioReport: Comment = new Comment()
   comentarioNoPost: Comment = new Comment()
   
-
-
   constructor(
     private router: Router,
-    private homeService: HomeService,
     private route: ActivatedRoute,
     private userService: UserService,
     private commentService: CommentService,
@@ -54,14 +50,23 @@ export class VisitedProfileComponent implements OnInit {
     }
   }
 
+  redirecionar() {
+    window.scroll(0,0)
+      this.idUser = this.route.snapshot.params['id']
+      this.findByIdUser(this.idUser)
+      this.pegarPeloId()
+  }
+
+
   findByIdUser(id: number) {
-    this.homeService.getUserById(id).subscribe((resp: User) => {
+    this.userService.getUserById(id).subscribe((resp: User) => {
       this.user = resp
       console.log(this.user.userName)
     })
   }
+
   pegarPeloId() {
-    this.homeService.getUserById(this.idUser).subscribe((resp: User) => {
+    this.userService.getUserById(this.idUser).subscribe((resp: User) => {
       this.user = resp
       this.postagensUser = this.user.posts
     })

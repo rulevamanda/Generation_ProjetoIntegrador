@@ -25,6 +25,14 @@ export class UserService {
     }
   }
 
+  getUserById(idUser: number): Observable<User> {
+    return this.http.get<User>(`https://askmarinho.herokuapp.com/users/id/${idUser}`, this.token)
+  }
+
+  feedUser(idUser: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`https://askmarinho.herokuapp.com/users/posts/favorites/${idUser}`, this.token)
+  }
+
   putUser(idUser: number, usuarioAtt: User): Observable<User> {
     return this.http.put<User>(`https://askmarinho.herokuapp.com/users/update/${idUser}`, usuarioAtt, this.token)
   }
@@ -47,6 +55,14 @@ export class UserService {
 
   postReportPost(idUser: number, idPost: number): Observable<Post> {
     return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/reports/post/${idUser}/${idPost}`, this.token)
+  }
+
+  addFavorite(idUser: number, nome: string): Observable<User> {
+    return this.http.put<User>(`https://askmarinho.herokuapp.com/users/add/theme/${idUser}/${nome}`, this.token)
+  }
+
+  deleteTag(idUser: number, idTag: number) {
+    return this.http.delete(`https://askmarinho.herokuapp.com/users/delete/theme/favorites/${idUser}/${idTag}`, this.token)
   }
 
 }

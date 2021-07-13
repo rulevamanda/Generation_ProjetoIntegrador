@@ -7,8 +7,7 @@ import { Tag } from '../model/Tag';
 import { User } from '../model/User';
 import { AlertsService } from '../service/alerts.service';
 import { CommentService } from '../service/comment.service';
-import { HomeService } from '../service/home.service';
-import { ProfileService } from '../service/profile.service';
+import { PostService } from '../service/post.service';
 import { TemasService } from '../service/tag.service';
 import { UserService } from '../service/user.service';
 
@@ -47,16 +46,17 @@ export class ProfilePageComponent implements OnInit {
   comentarioLike: Comment = new Comment()
   postReport: Post = new Post()
   comentarioReport: Comment = new Comment()
-  
 
+  key = 'data'
+  reverse = true
+  
   constructor(
-    private homeService: HomeService,
-    private profileService: ProfileService,
     private router: Router,
     private commentService: CommentService,
     private alert: AlertsService,
-    private temaService: TemasService,
-    private userService: UserService
+    private tagService: TemasService,
+    private userService: UserService,
+    private postService: PostService
   ) { }
 
   ngOnInit() {
@@ -66,9 +66,10 @@ export class ProfilePageComponent implements OnInit {
       
     } else {
       window.scroll(0,0)
-      this.homeService.refreshToken()
+      this.postService.refreshToken()
+      this.commentService.refreshToken()
+      this.userService.refreshToken()
       this.pegarPeloId()
-
     }
   }
 
@@ -77,7 +78,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   pegarPeloId() {
-    this.homeService.getUserById(environment.id).subscribe((resp: User) => {
+    this.userService.getUserById(environment.id).subscribe((resp: User) => {
       this.usuario = resp
       this.postagensUser = this.usuario.posts
       this.temas = this.usuario.favorites
@@ -86,8 +87,9 @@ export class ProfilePageComponent implements OnInit {
   }
 
   adicionarTag() {
-    this.temaService.refreshToken()
-    this.temaService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
+    this.tagService.refreshToken()
+    this.userService.refreshToken()
+    this.userService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
       User) => {
         
         this.pegarPeloId()
@@ -102,7 +104,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   adicionarNovoTema() {
-    this.profileService.addTagPostagem(this.tagAdicionada.tagName, this.idPostEditar).subscribe((resp: Post) => {
+    this.postService.addTagPostagem(this.tagAdicionada.tagName, this.idPostEditar).subscribe((resp: Post) => {
       this.alert.showAlertSuccess("Adicionada")
       this.tagAdicionada = new Tag()
       this.pegarPeloId()
@@ -116,13 +118,13 @@ export class ProfilePageComponent implements OnInit {
   }
 
   findByIdPost() {
-    this.profileService.postagemFindById(this.idPostEditar).subscribe((resp: Post) => {
+    this.postService.postagemFindById(this.idPostEditar).subscribe((resp: Post) => {
       this.postagemEditada = resp
     })
   }
 
   findByIdPostagem() {
-    this.profileService.postagemFindById(this.idPostagemDelete).subscribe((resp: Post) => {
+    this.postService.postagemFindById(this.idPostagemDelete).subscribe((resp: Post) => {
       this.postagemDeletada = resp
     })
   }
@@ -133,7 +135,7 @@ export class ProfilePageComponent implements OnInit {
     this.postagemEnviar.description = this.postagemEditada.description
     this.postagemEnviar.urlImage = this.postagemEditada.urlImage
 
-    this.profileService.putPostagem(this.idPostEditar, this.postagemEnviar).subscribe((resp: Post) => {
+    this.postService.putPostagem(this.idPostEditar, this.postagemEnviar).subscribe((resp: Post) => {
       console.log("Editada")
       this.postagemEditada = new Post()
       this.idPostEditar = 0
@@ -145,7 +147,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   removerTagPost(idTag: number) {
-    this.profileService.deleteTagPostagem(this.idPostEditar, idTag).subscribe((resp: Post) => {
+    this.postService.deleteTagPostagem(this.idPostEditar, idTag).subscribe((resp: Post) => {
       console.log("Oi")
       this.pegarPeloId()
       this.findByIdPost()
@@ -180,7 +182,7 @@ export class ProfilePageComponent implements OnInit {
 
   deletarPostagem() {
     console.log(this.idPostagemDelete)
-    this.profileService.deletePostagem(this.idPostagemDelete).subscribe(() => {
+    this.postService.deletePostagem(this.idPostagemDelete).subscribe(() => {
       console.log("Excluiu")
       this.limpar()
       this.pegarPeloId()
@@ -194,7 +196,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   findByIdComment() {
-    this.profileService.commentFindById(this.idCommentModif).subscribe((resp: Comment) => {
+    this.commentService.commentFindById(this.idCommentModif).subscribe((resp: Comment) => {
       this.commentModif = resp
     })
   }
@@ -219,7 +221,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   deletarComment() {
-    this.profileService.deleteComment(this.idCommentModif).subscribe(() => {
+    this.commentService.deleteComment(this.idCommentModif).subscribe(() => {
       console.log("Deletado")
       this.pegarPeloId()
       this.idCommentModif = 0
@@ -234,7 +236,7 @@ export class ProfilePageComponent implements OnInit {
 
   idTagFavorita(idTagFav: number) {
     this.idTagDelete = idTagFav
-    this.profileService.tagFindById(this.idTagDelete).subscribe((resp: Tag) => {
+    this.tagService.tagFindById(this.idTagDelete).subscribe((resp: Tag) => {
       this.tagDelete = resp
       this.tagFoiChamada = true
       this.tagChamada()
@@ -242,7 +244,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   deleteFavoriteTag() {
-    this.profileService.deleteTag(environment.id, this.idTagDelete).subscribe(() => {
+    this.userService.deleteTag(environment.id, this.idTagDelete).subscribe(() => {
       
       
     }, objeto => {

@@ -3,9 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { User } from '../model/User';
 import { AlertsService } from '../service/alerts.service';
-import { AuthService } from '../service/auth.service';
-import { HomeService } from '../service/home.service';
-import { ProfileService } from '../service/profile.service';
+import { CommentService } from '../service/comment.service';
+import { PostService } from '../service/post.service';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -25,11 +24,11 @@ export class EditPerfilComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private homeService: HomeService,
     private route: ActivatedRoute,
     private alert: AlertsService,
-    private profileService: ProfileService,
-    private userService: UserService
+    private userService: UserService,
+    private commentService: CommentService,
+    private postService: PostService
   ) { }
 
   ngOnInit() {
@@ -46,7 +45,7 @@ export class EditPerfilComponent implements OnInit {
   }
 
   findByIdUser(id: number) {
-    this.homeService.getUserById(id).subscribe((resp: User) => {
+    this.userService.getUserById(id).subscribe((resp: User) => {
       this.user = resp
       console.log(this.user.userName)
     })
@@ -111,7 +110,7 @@ export class EditPerfilComponent implements OnInit {
 
       for (i = 0; i < this.numComments; i++) {
         console.log(this.user.comments[i].idComment)
-        this.profileService.deleteComment(this.user.comments[i].idComment).subscribe((resp: Object) => {
+        this.commentService.deleteComment(this.user.comments[i].idComment).subscribe((resp: Object) => {
  
         }, apagou => {
 
@@ -120,11 +119,11 @@ export class EditPerfilComponent implements OnInit {
 
       for (j = 0; j < this.numPosts; j++) {
         console.log(this.user.posts[j].idPost)
-        this.profileService.deletePostagem(this.user.posts[j].idPost).subscribe((resp: Object) => {
+        this.postService.deletePostagem(this.user.posts[j].idPost).subscribe((resp: Object) => {
 
         }, apagou => {
           if (apagou.status == 500) {
-            this.profileService.deletePostagem(this.user.posts[j].idPost).subscribe((resp: Object) => {
+            this.postService.deletePostagem(this.user.posts[j].idPost).subscribe((resp: Object) => {
 
             })
           }
