@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { UserLogin } from '../model/UserLogin';
+import { AlertsService } from '../service/alerts.service';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -15,11 +16,11 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private alert: AlertsService
   ) { }
 
   ngOnInit() {
-    
     window.scroll(0,0)
   }
 
@@ -32,15 +33,12 @@ export class LoginPageComponent implements OnInit {
       environment.foto = this.userLogin.urlImage
       environment.nome = this.userLogin.name
 
-      console.log(environment.token)
-      console.log(environment.id)
-      console.log(environment.foto)
-      console.log(environment.nome)
-
       this.router.navigate(['/home'])
     }, erro => {
       if (erro.status == 500) {
-        alert("Email ou senha estão incorretos")
+        this.alert.showAlertDanger("Email ou senha estão incorretos")
+      } else {
+        this.alert.showAlertDanger("Email ou senha estão incorretos")
       }
     })
   }

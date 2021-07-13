@@ -2,70 +2,23 @@
 
     <img src="../../assets/img/navbar/marinho-navbar.svg" alt="logo marinho" class="icon-nav mr-2 ml-2">
     <a class="txt-marinho" routerLink="/home">ASKMARINHO</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado"
-        aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
 
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
-        <ul class="navbar-nav justify-content-center">
-            <li class="nav-item active">
-                    <form class="justify-content-center">
-                        <input class="form-control me-2" type="search" placeholder="Pesquisar no askMarinho"
-                            aria-label="pesquisar">
-                        <button class="btn" type="submit">
-                            <i class="fa fa-search lupa" aria-hidden="true"></i>
-                        </button>
-                    </form>
-
-                </li>
-            <li class="nav-item">
-                
-
-                </li> -->
-            <li class="nav-item text-center">
-                <a class="nav-link" routerLink="/home">Feed</a>
-            </li>
-            <li class="nav-item dropdown text-center">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Configurações
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="/edit">Editar perfil</a>
-                    <a class="dropdown-item">Minhas tags</a>
-                    <div class="dropdown-divider"></div>
-                    <a (click)='sair()' class="dropdown-item">Sair</a>
-                </div>
-
-            </li>
-        </ul>
-    </div> 
-
-    <!-- <div class="collapse navbar-collapse justify-content-center" id="conteudoNavbarSuportado">
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control" type="search" placeholder="Pesquisar" aria-label="pesquisar">
-            <button class="btn" type="submit">
-                <i class="fa fa-search lupa text-left" aria-hidden="true"></i>
-            </button>
-        </form>
-
-    </div> -->
-
     <div class="collapse navbar-collapse justify-content-end" id="conteudoNavbarSuportado">
         <ul class="navbar-nav mr-0 text-center">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-cog" aria-hidden="true" style="font-size: 30px;"></i>
                     <i style="font-size: 20px; margin-right: 15px;"> CONFIG</i>
                 </a>
                 <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="#">Nova postagem</a>
-                    <a class="dropdown-item" routerLink="/edit">Editar perfil</a>
-                    <a class="dropdown-item" routerLink="#">Minhas tags</a>
+                    <a class="dropdown-item" routerLink="/profile">Meu Perfil</a>
+                    <a class="dropdown-item" [routerLink]="['/user-edit', idUser]">Editar perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="#">Sair</a>
+                    <a (click)='sair()' class="dropdown-item">Sair</a>
                 </div>
             </li>
         </ul>
