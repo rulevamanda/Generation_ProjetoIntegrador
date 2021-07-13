@@ -1,30 +1,107 @@
+.excluir:hover {
+    color: #929393;
+}
+
+.excluir:active {
+    color: #FF9665;
+}
+
+.editar:hover {
+    color: #929393;
+}
+
+.editar:active {
+    color: #6dd3ce;
+}
+
+.warning-style {
+    color: crimson;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.comment-style {
+    color: #6dd3ce;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+a.maoe-style {
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.maoe-style:active {
+    color: blueviolet;
+}
+
+a.maoe-style:visited {
+    color: #929393;
+}
+
+a.maoe-style:hover {
+    color: red;
+}
+
+.ml-50 {
+    margin-left: 66px;
+}
+
+a.nome-post:visited {
+    color: #929393;
+    font-size: 20px;
+    font-family: Roboto;
+}
+
+.btn-profile {
+    border-radius: 15px;
+    border: none;
+    color: #535353;
+    background-color: #6dd3ce;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 15px;
+}
+
+.btn-delete {
+    border: none;
+    color: #FF9665;
+    font-size: 30px;
+}
+
+.btn-editar {
+    border: none;
+    color: #6dd3ce;
+    font-size: 35px;
+}
+
+.bg-postagem {
+    background-color: #f4f4f4 !important;
+}
+
+.bg-color {
+    background-color: #e8edec !important;
+}
+
+.borderline {
+    border-radius: 15px;
+}
+
 .profile-head {
     transform: translateY(5rem)
 }
 
 .cover {
-    background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+    background-image: url(https://i.imgur.com/aMWcqJM.png);
     background-size: cover;
     background-repeat: no-repeat
-}
-
-body {
-    background: #654ea3;
-    background: linear-gradient(to right, #e96443, #904e95);
-    min-height: 1000vh;
-    overflow-x: hidden
 }
 
 .tag-style {
     background-color: #f0dbce;
     width: 250px;
-    border-radius: 15px;
-}
-
-.tag-style-2 {
-    background-color: #d6efeb;
-    width: 250px;
-    height: 380px;
     border-radius: 15px;
 }
 
@@ -60,18 +137,90 @@ ul.list-style li {
 }
 
 a:link {
-    color: #6DD3CE;
+    color: #5caca8;
     text-decoration: none;
 }
 
-a:active {
-    color: #152e2d;
-}
-
-a:visited {
-    color: #51e7e0;
-}
-
 a:hover {
-    color: #8ee1dd
+    color: #3d3d3d;
+}
+
+.bg-post-modal {
+    background: #49aaa5af;
+}
+
+.bg-post-modal2 {
+    background: #3a9b96a9;
+    border: none;
+}
+
+.bg-tag-modal {
+    background: #1f4644d3;
+}
+
+.bg-tag-modal2 {
+    background: #25504ee3;
+    border: none;
+}
+
+.bg-comment-modal {
+    background: rgba(40, 48, 46, 0.87);
+}
+
+.bg-comment-modal2 {
+    background: rgba(45, 54, 52, 0.84);
+    border: none;
+}
+
+.fechar {
+    background-color: #ff844b;
+    color: #fff;
+    font-weight: bold;
+}
+
+.fechar:hover {
+    background-color: #ffa47a;
+    border: 1px solid #fd7a3d;
+}
+
+.titulo-pl {
+    font-family: Bebas Neue;
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.label-modal {
+    font-family: Roboto;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.fechar:active {
+    background-color: #bb5221;
+    border: 1px solid #FFB18C;
+}
+
+.postar {
+    background-color: #20ca7b;
+    color: #fff;
+    font-weight: bold;
+}
+
+.postar:hover {
+    background-color: #3ed48e;
+    border: 1px solid #17995c;
+}
+
+.postar:active {
+    background-color: #0a7041;
+    border: 1px solid #3ed48e;
+}
+
+.lixeira {
+    color: red;
+}
+
+.adicionar {
+    color: green
 }

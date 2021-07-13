@@ -9,6 +9,8 @@ import { AlertsService } from '../service/alerts.service';
 import { CommentService } from '../service/comment.service';
 import { HomeService } from '../service/home.service';
 import { ProfileService } from '../service/profile.service';
+import { TemasService } from '../service/tag.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -18,37 +20,43 @@ import { ProfileService } from '../service/profile.service';
 export class ProfilePageComponent implements OnInit {
 
   idUser = environment.id
+  usuario: User = new User()
 
   temas: Tag[]
-  usuario: User = new User()
-  commentsUsuario: Comment[]
-  postagensUser: Post[]
-  tema: Tag = new Tag()
-  idPostComentado: number
   tagAdicionada: Tag = new Tag()
-
-  comentarioEnviado: Comment = new Comment()
-
-  postagemDeletada: Post = new Post()
-
+  tagDelete: Tag = new Tag()
+  tema: Tag = new Tag()
+  idTagDelete: number
+  tagFoiChamada = false
+  
+  postagensUser: Post[]
+  idPostComentado: number
   idPostagemDelete: number
-
+  postagemDeletada: Post = new Post()
   idPostEditar: number
   postagemEditada: Post = new Post()
   postagemEnviar: Post = new Post()
 
+  comentarioEnviado: Comment = new Comment()
+  commentsUsuario: Comment[]
   idCommentModif: number
-
   commentModif: Comment = new Comment()
+  comentarioNoPost: Comment = new Comment()
 
-  idTagDelete: number
+  postLike: Post = new Post()
+  comentarioLike: Comment = new Comment()
+  postReport: Post = new Post()
+  comentarioReport: Comment = new Comment()
+  
 
   constructor(
     private homeService: HomeService,
     private profileService: ProfileService,
     private router: Router,
     private commentService: CommentService,
-    private alert: AlertsService
+    private alert: AlertsService,
+    private temaService: TemasService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -60,7 +68,12 @@ export class ProfilePageComponent implements OnInit {
       window.scroll(0,0)
       this.homeService.refreshToken()
       this.pegarPeloId()
+
     }
+  }
+
+  tagChamada() {
+    return this.tagFoiChamada
   }
 
   pegarPeloId() {
@@ -73,8 +86,8 @@ export class ProfilePageComponent implements OnInit {
   }
 
   adicionarTag() {
-    this.homeService.refreshToken()
-    this.homeService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
+    this.temaService.refreshToken()
+    this.temaService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
       User) => {
         
         this.pegarPeloId()
@@ -142,8 +155,22 @@ export class ProfilePageComponent implements OnInit {
   }
 
   limpar() {
+    this.tema = new Tag()
+    this.tagAdicionada = new Tag()
+    this.tagDelete = new Tag()
+    this.idTagDelete = 0
+    this.tagFoiChamada = false
+
     this.idPostEditar = 0
     this.postagemEditada = new Post()
+    this.idPostComentado = 0
+    this.idPostagemDelete = 0
+    this.postagemDeletada = new Post()
+    this.postagemEnviar = new Post()
+
+    this.comentarioEnviado = new Comment()
+    this.idCommentModif = 0
+    this.commentModif = new Comment()
   }
 
   idPostDelete(idPost: number) {
@@ -207,6 +234,11 @@ export class ProfilePageComponent implements OnInit {
 
   idTagFavorita(idTagFav: number) {
     this.idTagDelete = idTagFav
+    this.profileService.tagFindById(this.idTagDelete).subscribe((resp: Tag) => {
+      this.tagDelete = resp
+      this.tagFoiChamada = true
+      this.tagChamada()
+    })
   }
 
   deleteFavoriteTag() {
@@ -223,6 +255,61 @@ export class ProfilePageComponent implements OnInit {
         this.alert.showAlertDanger("Tema e/ou usuário não existem")
       }
       
+    })
+  }
+
+  upvoteComment(idComment: number) {
+    this.userService.refreshToken()
+    this.userService.postUpvoteComment(environment.id, idComment).subscribe((resp: Comment) => {
+      this.comentarioLike = resp
+      
+       this.pegarPeloId()
+      // this.pegarFeed()
+      // this.getAllPosts()
+    })
+  }
+
+  reportComment(idComment: number) {
+    this.userService.refreshToken()
+     this.userService.postReportComment(environment.id, idComment).subscribe((resp: Comment) => {
+       this.comentarioReport = resp
+       
+        this.pegarPeloId()
+      //  this.pegarFeed()
+      //  this.getAllPosts()
+     })
+   }
+
+   upvotePost(idPost: number) {
+    this.userService.refreshToken()
+     this.userService.postUpvotePost(environment.id, idPost).subscribe((resp: Post) => {
+       this.postLike = resp
+       
+        this.pegarPeloId()
+      //  this.pegarFeed()
+      //  this.getAllPosts()
+     })
+   }
+ 
+   reportPost(idPost: number) {
+     this.userService.refreshToken()
+     this.userService.postReportPost(environment.id, idPost).subscribe((resp: Post) => {
+       this.postReport = resp
+       
+       this.pegarPeloId()
+      //  this.pegarFeed()
+      //  this.getAllPosts()
+     })
+   }
+
+   comentar() {
+    this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
+      this.comentarioNoPost = resp
+      alert("comentado com sucesso")
+      
+      this.pegarPeloId()
+     
+      this.comentarioNoPost = new Comment()
     })
   }
 

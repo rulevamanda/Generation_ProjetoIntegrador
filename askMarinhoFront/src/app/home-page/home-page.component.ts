@@ -8,6 +8,8 @@ import { User } from '../model/User';
 import { AlertsService } from '../service/alerts.service';
 import { CommentService } from '../service/comment.service';
 import { HomeService } from '../service/home.service';
+import { TemasService } from '../service/tag.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-home-page',
@@ -37,7 +39,9 @@ export class HomePageComponent implements OnInit {
     private homeService: HomeService,
     private commentService: CommentService,
     private router: Router,
-    private alert: AlertsService
+    private alert: AlertsService,
+    private temaService: TemasService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -46,13 +50,12 @@ export class HomePageComponent implements OnInit {
 
       this.router.navigate(['/login-page'])
       
-    } else {
+    }
       window.scroll(0,0)
       this.homeService.refreshToken()
       this.pegarPeloId()
-      this.pegarFeed()
-      
-    }
+      this.getAllPosts()      
+    
   }
 
   getAllPosts() {
@@ -76,8 +79,8 @@ export class HomePageComponent implements OnInit {
   }
 
   adicionarTag() {
-    this.homeService.refreshToken()
-    this.homeService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
+    this.temaService.refreshToken()
+    this.temaService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
       User) => {
         
         this.pegarPeloId()
@@ -117,8 +120,8 @@ export class HomePageComponent implements OnInit {
   }
 
   upvoteComment(idComment: number) {
-   
-    this.homeService.postUpvoteComment(environment.id, idComment).subscribe((resp: Comment) => {
+    this.userService.refreshToken()
+    this.userService.postUpvoteComment(environment.id, idComment).subscribe((resp: Comment) => {
       this.comentarioLike = resp
       
       this.pegarPeloId()
@@ -128,8 +131,8 @@ export class HomePageComponent implements OnInit {
   }
 
   reportComment(idComment: number) {
-   
-    this.homeService.postReportComment(environment.id, idComment).subscribe((resp: Comment) => {
+   this.userService.refreshToken()
+    this.userService.postReportComment(environment.id, idComment).subscribe((resp: Comment) => {
       this.comentarioReport = resp
       
       this.pegarPeloId()
@@ -139,8 +142,8 @@ export class HomePageComponent implements OnInit {
   }
 
   upvotePost(idPost: number) {
-   
-    this.homeService.postUpvotePost(environment.id, idPost).subscribe((resp: Post) => {
+   this.userService.refreshToken()
+    this.userService.postUpvotePost(environment.id, idPost).subscribe((resp: Post) => {
       this.postLike = resp
       
       this.pegarPeloId()
@@ -150,8 +153,8 @@ export class HomePageComponent implements OnInit {
   }
 
   reportPost(idPost: number) {
-   
-    this.homeService.postReportPost(environment.id, idPost).subscribe((resp: Post) => {
+    this.userService.refreshToken()
+    this.userService.postReportPost(environment.id, idPost).subscribe((resp: Post) => {
       this.postReport = resp
       
       this.pegarPeloId()

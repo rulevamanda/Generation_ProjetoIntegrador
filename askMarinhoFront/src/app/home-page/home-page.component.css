@@ -117,7 +117,174 @@ a:hover {
     margin-left: 85px;
 }
 
-.pt-10{
+.pt-10 {
     padding-top: 150px;
 }
 
+
+/* modals */
+
+.titulo-pl {
+    font-family: Bebas Neue;
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.label-modal {
+    font-family: Roboto;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.bg-post-modal {
+    background: #49aaa5af;
+}
+
+.bg-post-modal2 {
+    background: #3a9b96a9;
+    border: none;
+}
+
+.bg-tag-modal {
+    background: #1f4644d3;
+}
+
+.bg-tag-modal2 {
+    background: #25504ee3;
+    border: none;
+}
+
+.bg-comment-modal {
+    background: rgba(40, 48, 46, 0.87);
+}
+
+.bg-comment-modal2 {
+    background: rgba(45, 54, 52, 0.84);
+    border: none;
+}
+
+.plus-style {
+    color: #6DD3CE;
+    font-size: 80pt;
+    transition-duration: 0.2s;
+}
+
+.plus-style:hover {
+    color: #3a9b96;
+    cursor: pointer;
+}
+
+li {
+    list-style: none;
+}
+
+.fechar {
+    background-color: #ff844b;
+    color: #fff;
+    font-weight: bold;
+}
+
+.fechar:hover {
+    background-color: #ffa47a;
+    border: 1px solid #fd7a3d;
+}
+
+.fechar:active {
+    background-color: #bb5221;
+    border: 1px solid #FFB18C;
+}
+
+.postar {
+    background-color: #20ca7b;
+    color: #fff;
+    font-weight: bold;
+}
+
+.postar:hover {
+    background-color: #3ed48e;
+    border: 1px solid #17995c;
+}
+
+.postar:active {
+    background-color: #0a7041;
+    border: 1px solid #3ed48e;
+}
+
+/* estilo dos icones de like, report e comment */
+
+.excluir:hover {
+    color: #929393;
+}
+
+.excluir:active {
+    color: #FF9665;
+}
+
+.editar:hover {
+    color: #929393;
+}
+
+.editar:active {
+    color: #6dd3ce;
+}
+
+.warning-style {
+    color: crimson;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.comment-style {
+    color: #6dd3ce;
+    font-size: 25px;
+}
+
+a.maoe-style {
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.maoe-style:active {
+    color: blueviolet;
+}
+
+a.maoe-style:visited {
+    color: #929393;
+}
+
+a.maoe-style:hover {
+    color: red;
+}
+
+a.nome-post:visited {
+    color: #929393;
+    font-size: 20px;
+    font-family: Roboto;
+}
+
+.btn-delete {
+    border: none;
+    color: #FF9665;
+    font-size: 30px;
+}
+
+.btn-editar {
+    border: none;
+    color: #6dd3ce;
+    font-size: 35px;
+}
+
+.bg-postagem {
+    background-color: #f4f4f4 !important;
+}
+
+.bg-color {
+    background-color: #e8edec !important;
+}
+
+.borderline {
+    border-radius: 15px;
+}

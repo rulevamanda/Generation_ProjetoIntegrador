@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Comment } from '../model/Comment';
 import { Post } from '../model/Post';
+import { Tag } from '../model/Tag';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,9 @@ export class ProfileService {
     return this.http.delete(`https://askmarinho.herokuapp.com/users/delete/theme/favorites/${idUser}/${idTag}`, this.token)
   } 
 
+  tagFindById(id: number): Observable<Tag> {
+    return this.http.get<Tag>(`https://askmarinho.herokuapp.com/theme/id/${id}`, this.token)
+  }
   
   
 }

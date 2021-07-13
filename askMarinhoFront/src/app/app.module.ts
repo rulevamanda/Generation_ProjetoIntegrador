@@ -20,7 +20,6 @@ import { VisitedProfileComponent } from './visited-profile/visited-profile.compo
 import { AlertComponent } from './alert/alert.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +34,7 @@ import { AlertComponent } from './alert/alert.component';
     TermoComponent,
     VisitedProfileComponent,
     AlertComponent,
+    VisitedProfileComponent
   ],
 
   imports: [

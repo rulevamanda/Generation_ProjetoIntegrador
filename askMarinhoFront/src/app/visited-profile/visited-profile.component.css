@@ -8,13 +8,6 @@
     background-repeat: no-repeat
 }
 
-body {
-    background: #654ea3;
-    background: linear-gradient(to right, #e96443, #904e95);
-    min-height: 1000vh;
-    overflow-x: hidden
-}
-
 .tag-style {
     background-color: #f0dbce;
     width: 250px;
@@ -74,4 +67,57 @@ a:visited {
 
 a:hover {
     color: #8ee1dd
+}
+
+
+.warning-style {
+    color: crimson;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.comment-style {
+    color: #6dd3ce;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+a.maoe-style {
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.maoe-style:active {
+    color: blueviolet;
+}
+
+a.maoe-style:visited {
+    color: #929393;
+}
+
+a.maoe-style:hover {
+    color: red;
+}
+
+.ml-50 {
+    margin-left: 66px;
+}
+
+a.nome-post:visited {
+    color: #929393;
+    font-size: 20px;
+    font-family: Roboto;
+}
+
+.borderline {
+    border-radius: 15px;
+}
+
+.bg-postagem {
+    background-color: #f4f4f4 !important;
+}
+.bg-color {
+    background-color: #e8edec !important;
 }
