@@ -297,8 +297,8 @@
 
                     <div class="py-4 px-4">
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h5 class="mb-0">Publicações Recentes</h5><a href="#"
-                                class="btn btn-link text-muted">Mostrar
+                            <h5 class="mb-0">Publicações Recentes</h5><a href="#mostrarMais"
+                                class="btn btn-link text-muted" id="mostrarMais">Mostrar
                                 todas</a>
                         </div>
                         <div class="row">
@@ -399,9 +399,9 @@
 
                 <div class="modal-body">
                     <div class="card-body">
-                        <img class="rounded-circle img-fluid" src="https://i.imgur.com/8WJY6UY.png"
+                        <img class="rounded-circle img-fluid" src="{{usuario.urlImage}}"
                             style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                        <label for="" class="label-modal">{{usuario.name}}</label>
+                        <label for="" class="label-modal ml-3"> {{usuario.name}}</label>
                         <h5 class="card-title text-center label-modal">{{postagemDeletada.title}}</h5>
                         <p class="card-text label-modal">{{postagemDeletada.description}}</p>
                         <a *ngFor='let tagsDoPost of postagemDeletada.tagRelation'
