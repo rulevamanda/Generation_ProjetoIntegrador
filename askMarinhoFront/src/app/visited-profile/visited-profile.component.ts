@@ -28,6 +28,9 @@ export class VisitedProfileComponent implements OnInit {
   postReport: Post = new Post()
   comentarioReport: Comment = new Comment()
   comentarioNoPost: Comment = new Comment()
+
+  key = 'data'
+  reverse = true
   
   constructor(
     private router: Router,
@@ -61,7 +64,6 @@ export class VisitedProfileComponent implements OnInit {
   findByIdUser(id: number) {
     this.userService.getUserById(id).subscribe((resp: User) => {
       this.user = resp
-      console.log(this.user.userName)
     }, err => {
       if (err.status == 500) {
         this.alert.showAlertDanger("Por favor atualize a página")
