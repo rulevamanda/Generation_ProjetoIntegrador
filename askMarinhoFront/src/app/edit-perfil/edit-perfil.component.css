@@ -20,19 +20,6 @@ select {
     height: 50px;
 }
 
-input[type=submit] {
-    height: 57px;
-    background: #FFCAB1;
-    border-radius: 5px;
-    border: none;
-    font-family: Corbel;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 25px;
-    line-height: 30px;
-    color: #F27A7A;
-}
-
 input[type=date] {
     border: 1px solid #BAF2E9;
     border-radius: 5px;
@@ -75,9 +62,38 @@ label {
     height: 29px;
 }
 
+.voltar{
+    padding: 10px;
+}
 
-/* 
+.fechar {
+    background-color: #ffcab1;
+    color: #ee966e;
+    font-weight: bold;
+}
 
+.fechar:hover {
+    background-color: #fad0bc;
+    border: 1px solid #dfb6a4;
+}
 
+.fechar:active {
+    background-color: #bb5221;
+    border: 1px solid #FFB18C;
+}
 
- */
+.postar {
+    background-color: #6dd3ce;
+    color: #0db4ac;
+    font-weight: bold;
+}
+
+.postar:hover {
+    background-color: #aafaf6;
+    border: 1px solid #6dd3ce;
+}
+
+.postar:active {
+    background-color: #6dd3ce;
+    border: 1px solid #6dd3ce;
+}

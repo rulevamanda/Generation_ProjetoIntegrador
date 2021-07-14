@@ -3,7 +3,7 @@
 
         <div class="col-md-12 my-5">
             <div class="row d-flex justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-4">
 
                     <div class="formulario mt-5 px-5">
                         <form class="formulario" action="">
@@ -36,7 +36,7 @@
                                 <p class="text-center mt-4 ">Gênero</p>
 
                                 <Select (change)='generoUser($event)' class="form-control mb-5" name="genero" id="genero" required>
-                                <option>Selecione:</option>
+                                <option>Selecione</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Feminino">Feminino</option>
                                 <option value="Não binário">Não binário</option>
@@ -44,15 +44,13 @@
                             </Select>
 
                             </div>
-                            <div class="termos mb-5">
-                                <span>Ao clicar em <a href="#">Cadastrar</a>, você concorda com nossos <a href="#">Termos</a>, <a href="#">Política de dados</a> e Política de Cookies.</span>
-                            </div>
+                    
                             <div class="d-flex justify-content-center pb-4 pt-5">
-                                <input class="voltar mr-3" type="submit" value="Excluir conta" data-toggle="modal" data-target="#excluirConta">
+                                <input class="btn btn-danger mr-3" type="submit" value="Excluir conta" data-toggle="modal" data-target="#excluirConta">
 
-                                <input class="voltar mr-3" type="submit" routerLink="/profile" value="Voltar">
+                                <input class="btn fechar mr-3" type="submit" routerLink="/profile" value="Voltar">
 
-                                <input (click)='atualizar()' class="cadastrar" type="submit" value="Atualizar">
+                                <input (click)='atualizar()' class="btn postar" type="submit" value="Atualizar">
                             </div>
                         </form>
                     </div>
