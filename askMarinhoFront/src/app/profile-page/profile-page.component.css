@@ -58,9 +58,10 @@ a.nome-post:visited {
 .btn-profile {
     border-radius: 15px;
     border: none;
-    color: #535353;
+    color: #0db4ac;
     background-color: #6dd3ce;
     text-align: center;
+    font-weight: bolder;
     font-family: Roboto;
     font-size: 15px;
 }
@@ -146,54 +147,54 @@ a:hover {
 }
 
 .bg-post-modal {
-    background: #49aaa5af;
+    background: #94e2deaf;
 }
 
 .bg-post-modal2 {
-    background: #3a9b96a9;
+    background: #e8edec;
     border: none;
 }
 
 .bg-tag-modal {
-    background: #1f4644d3;
+    background: #94e2deaf;
 }
 
 .bg-tag-modal2 {
-    background: #25504ee3;
+    background: #e8edec;
     border: none;
 }
 
 .bg-comment-modal {
-    background: rgba(40, 48, 46, 0.87);
+    background: #94e2deaf;
 }
 
 .bg-comment-modal2 {
-    background: rgba(45, 54, 52, 0.84);
+    background: #e8edec;
     border: none;
 }
 
 .fechar {
-    background-color: #ff844b;
-    color: #fff;
+    background-color: #ffcab1;
+    color: #ee966e;
     font-weight: bold;
 }
 
 .fechar:hover {
-    background-color: #ffa47a;
-    border: 1px solid #fd7a3d;
+    background-color: #fad0bc;
+    border: 1px solid #dfb6a4;
 }
 
 .titulo-pl {
     font-family: Bebas Neue;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
-    color: #ffffff;
+    color: #6dd3ce;
 }
 
 .label-modal {
     font-family: Roboto;
     font-weight: bold;
-    color: #ffffff;
+    color: #6dd3ce;
 }
 
 .fechar:active {
@@ -202,19 +203,19 @@ a:hover {
 }
 
 .postar {
-    background-color: #20ca7b;
-    color: #fff;
+    background-color: #6dd3ce;
+    color: #0db4ac;
     font-weight: bold;
 }
 
 .postar:hover {
-    background-color: #3ed48e;
-    border: 1px solid #17995c;
+    background-color: #aafaf6;
+    border: 1px solid #6dd3ce;
 }
 
 .postar:active {
-    background-color: #0a7041;
-    border: 1px solid #3ed48e;
+    background-color: #6dd3ce;
+    border: 1px solid #6dd3ce;
 }
 
 .lixeira {
@@ -222,5 +223,27 @@ a:hover {
 }
 
 .adicionar {
-    color: green
+    color: #6dd3ce;
+    font-size: 40px;
+}
+
+
+.nav-comments-title {
+    color: #6dd3ce;
+    font-family: BEBAS Neue;
+    font-size: 40px;
+}
+
+.delete-style{
+    color: red;
+}
+
+.delete-style:hover{
+    color: rgb(153, 0, 0);
+}
+
+.tag-color{
+    color: #929393;
+    font-weight: bolder;
+    font-size: 20px;
 }

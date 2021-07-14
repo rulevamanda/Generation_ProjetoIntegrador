@@ -25,8 +25,7 @@
                 <div class="bg-color rounded overflow-hidden">
                     <div class="px-4 pt-0 pb-4 cover">
                         <div class="media align-items-end profile-head">
-                            <div class="profile mr-3"><img src="{{user.urlImage}}" alt="..." width="155"
-                                    class="img-fluid rounded-circle mb-2 img-thumbnail"></div>
+                            <div class="profile mr-3"><img src="{{user.urlImage}}" alt="..." width="155" class="img-fluid rounded-circle mb-2 img-thumbnail"></div>
                             <div class="media-body mb-5 text-white">
                                 <h4 class="mt-0 mb-0">{{user.name}}</h4>
                                 <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>New York</p>
@@ -53,14 +52,9 @@
                     <!-- NAV BOOTSTRAP -->
                     <nav>
                         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-minhasPostagens-tab" data-toggle="tab"
-                                href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens"
-                                aria-selected="false">Minhas Postagens</a>
-                            <a class="nav-item nav-link" id="nav-comentarios-tab" data-toggle="tab"
-                                href="#nav-comentarios" role="tab" aria-controls="nav-comentarios"
-                                aria-selected="false">Comentários</a>
-                            <a class="nav-item nav-link" id="nav-tagsFav-tab" data-toggle="tab" href="#nav-tagsFav"
-                                role="tab" aria-controls="nav-tagsFav" aria-selected="false">Tags favoritas</a>
+                            <a class="nav-item nav-link active" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Minhas Postagens</a>
+                            <a class="nav-item nav-link" id="nav-comentarios-tab" data-toggle="tab" href="#nav-comentarios" role="tab" aria-controls="nav-comentarios" aria-selected="false">Comentários</a>
+                            <a class="nav-item nav-link" id="nav-tagsFav-tab" data-toggle="tab" href="#nav-tagsFav" role="tab" aria-controls="nav-tagsFav" aria-selected="false">Tags favoritas</a>
 
                         </div>
                     </nav>
@@ -68,38 +62,67 @@
                     <!-- ---------------------------------------------------------- MINHAS POSTAGENS ---------------------------------------------------------------------- -->
 
                     <div class="tab-content d-flex justify-content-center mt-5" id="nav-tabContent">
-                        <div class="tab-pane fade show active w-100" id="nav-minhasPostagens" role="tabpanel"
-                            aria-labelledby="nav-minhasPostagens-tab">
-                            <div *ngFor='let postsUser of user.posts' class="card mb-5 borderline bg-postagem">
-                                <div class="card-body borderline bg-postagem">
+                        <div class="tab-pane fade show active w-100" id="nav-minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
+                            <div *ngFor='let postsUser of user.posts'>
+                                <div class="card mb-5 borderline bg-postagem">
+                                    <div class="card-body borderline bg-postagem">
 
-                                    <img class="rounded-circle img-fluid mr-3" src="{{user.urlImage}}"
-                                        style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                    <a routerLink="/profile" class="name-post">{{user.name}}</a>
-                                    <h5 class="card-title text-center">{{postsUser.title}}</h5>
-                                    <p class="card-text">{{postsUser.description}}</p>
-                                    <p class="card-text text-center"><small class="text-muted">{{postsUser.date | date:
+                                        <img class="rounded-circle img-fluid mr-3" src="{{user.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                        <a class="name-post">{{user.name}}</a>
+                                        <h5 class="card-title text-center">{{postsUser.title}}</h5>
+                                        <p class="card-text">{{postsUser.description}}</p>
+                                        <p class="card-text text-center"><small class="text-muted">{{postsUser.date | date:
                                             'dd/MM/yyyy'}} às {{postsUser.date | date: 'HH:mm a'}}</small></p>
-                                    <p class="text-center"><a *ngFor='let tagsDoPost of postsUser.tagRelation' href="#"
-                                            class="card-link">{{tagsDoPost.tagName}}</a></p>
+                                        <p class="text-center"><a *ngFor='let tagsDoPost of postsUser.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a></p>
 
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-md-12 d-flex justify-content-center">
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12 d-flex justify-content-center">
 
-                                            <a (click)='upvotePost(postsUser.idPost)'
-                                                class="maoe-style mr-4">{{postsUser.userUpvotePost.length}}<i
+                                                <a (click)='upvotePost(postsUser.idPost)' class="maoe-style mr-4">{{postsUser.userUpvotePost.length}}<i
                                                     class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
-                                            <a (click)="chamou(postsUser.idPost)" class="comment-style mr-4"><i
+                                                <a (click)="chamou(postsUser.idPost)" class="comment-style mr-4"><i
                                                     class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                     data-toggle="modal" data-target="#comentado"></i></a>
 
-                                            <a (click)='reportPost(postsUser.idPost)' id="maoe"
-                                                class="warning-style">{{postsUser.userReportPost.length}}<i
+                                                <a (click)='reportPost(postsUser.idPost)' id="maoe" class="warning-style">{{postsUser.userReportPost.length}}<i
                                                     class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="mb-2">
+                                    <p class="font-style3 text-center" data-toggle="collapse" href="#commentsUser" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Comentários
+                                    </p>
+                                </div>
+                                <div class="collapse show" id="commentsUser">
+                                    <div *ngFor='let comentarios of postsUser.comment' class="mb-2">
+                                        <div class="card-body borderline bg-postagem mx-5">
+                                            <img class="mr-3 rounded-circle img-fluid" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                            <a class="nome-post"><b>{{comentarios.userComment.name}}</b></a>
+                                            <div class="row">
+                                                <div class="col-md-10 d-flex justify-content-start align-items-center">
+                                                    <h5 class="card-title text-left mt-2 ml-50">{{comentarios.text}}</h5>
+                                                </div>
+
+                                            </div>
+                                            <p class="card-text text-center"><small class="text-muted">{{comentarios.date | date: 'dd/MM/yyyy'}} às {{comentarios.date | date: 'HH:mm a'}}</small></p>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-12 d-flex justify-content-center">
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
+                                                        class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
+
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
+                                                        class="fa fa-exclamation-triangle"
+                                                        aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -108,8 +131,7 @@
                         <!-- ---------------------------------------------------------- COMENTÁRIOS ---------------------------------------------------------------------- -->
 
 
-                        <div class="tab-pane fade mt-5 mb-5 w-100" id="nav-comentarios" role="tabpanel"
-                            aria-labelledby="nav-comentarios-tab">
+                        <div class="tab-pane fade mt-5 mb-5 w-100" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
                             <div *ngFor='let comments of user.comments' class="card mb-5 borderline">
                                 <h3 class="text-center">Postagem</h3>
 
@@ -118,11 +140,8 @@
                                         <div>
                                             <div class="row">
                                                 <div class="col-md-4 d-flex justify-content-start align-items-center">
-                                                    <img class="rounded-circle img-fluid mr-3"
-                                                        src="{{comments.post.userPost.urlImage}}"
-                                                        style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                    <a routerLink="/profile"
-                                                        class="nome-post"><b>{{comments.post.userPost.name}}</b></a>
+                                                    <img class="rounded-circle img-fluid mr-3" src="{{comments.post.userPost.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                                    <a class="nome-post"><b>{{comments.post.userPost.name}}</b></a>
                                                 </div>
                                                 <div class="col-md-8 d-flex justify-content-end align-items-center">
 
@@ -132,24 +151,23 @@
 
                                         <h5 class="card-title text-left mt-2 ml-50">{{comments.post.title}}</h5>
                                         <p class="card-text ml-50">{{comments.post.description}}</p>
+                                        <p class="card-text text-center"><small class="text-muted">{{comments.post.date | date:
+                                            'dd/MM/yyyy'}} às {{comments.post.date | date: 'HH:mm a'}}</small></p>
                                         <div class="text-center">
-                                            <a *ngFor='let tagsDoPost of comments.post.tagRelation' href="#"
-                                                class="card-link small">#{{tagsDoPost.tagName}}</a>
+                                            <a *ngFor='let tagsDoPost of comments.post.tagRelation' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
                                         </div>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(comments.post.idPost)'
-                                                    class="maoe-style mr-4">{{comments.post.userUpvotePost.length}}<i
+                                                <a (click)='upvotePost(comments.post.idPost)' class="maoe-style mr-4">{{comments.post.userUpvotePost.length}}<i
                                                         class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(comments.post.idPost)" class="comment-style mr-4"><i
                                                         class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                         data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(comments.post.idPost)' id="maoe"
-                                                    class="warning-style">{{comments.post.userReportPost.length}}<i
+                                                <a (click)='reportPost(comments.post.idPost)' id="maoe" class="warning-style">{{comments.post.userReportPost.length}}<i
                                                         class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
 
                                             </div>
@@ -165,16 +183,18 @@
                                             <h5 class="card-title text-center">{{comments.text}}</h5>
                                         </div>
 
+                                        <p class="card-text text-center"><small class="text-muted">{{comments.date | date:
+                                            'dd/MM/yyyy'}} às {{comments.date | date: 'HH:mm a'}}</small></p>
 
                                     </div>
                                     <hr>
 
                                     <div class="row">
                                         <div class="col-md-12 d-flex justify-content-center">
-                                            <a class="maoe-style mr-4">{{comments.userUpvoteComment.length}}<i
+                                            <a (click)='upvoteComment(comments.idComment)' class="maoe-style mr-4">{{comments.userUpvoteComment.length}}<i
                                                     class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
-                                            <a class="warning-style">{{comments.userReportComment.length}}<i
+                                            <a (click)='reportComment(comments.idComment)' id="maoe" class="warning-style">{{comments.userReportComment.length}}<i
                                                     class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
@@ -187,8 +207,7 @@
 
                         <!-- ------------------------------------------------------- TAGS ----------------------------------------------------------- -->
 
-                        <div class="tab-pane fade mt-5 mb-3 w-100" id="nav-tagsFav" role="tabpanel"
-                            aria-labelledby="nav-tagsFav-tab">
+                        <div class="tab-pane fade mt-5 mb-3 w-100" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
                             <div *ngFor='let tema of user.favorites' class="card mb-5 borderline">
                                 <div class="card-body text-center bg-white borderline">
 
@@ -206,25 +225,51 @@
 
                     <div class="py-4 px-4">
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h5 class="mb-0">Publicações Recentes</h5><a href="#"
-                                class="btn btn-link text-muted">Mostrar todas</a>
+                            <h5 class="mb-0">Publicações Recentes</h5><a href="#mostrarMais" class="btn btn-link text-muted" id="mostrarMais">Mostrar todas</a>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 mb-2 pr-lg-1"><img
-                                    src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                                    alt="" class="img-fluid rounded shadow-sm"></div>
-                            <div class="col-lg-6 mb-2 pl-lg-1"><img
-                                    src="https://images.unsplash.com/photo-1493571716545-b559a19edd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                                    alt="" class="img-fluid rounded shadow-sm"></div>
-                            <div class="col-lg-6 pr-lg-1 mb-2"><img
-                                    src="https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-                                    alt="" class="img-fluid rounded shadow-sm"></div>
-                            <div class="col-lg-6 pl-lg-1"><img
-                                    src="https://images.unsplash.com/photo-1475724017904-b712052c192a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                                    alt="" class="img-fluid rounded shadow-sm"></div>
+                            <div class="col-lg-6 mb-2 pr-lg-1"><img src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                            <div class="col-lg-6 mb-2 pl-lg-1"><img src="https://images.unsplash.com/photo-1493571716545-b559a19edd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                            <div class="col-lg-6 pr-lg-1 mb-2"><img src="https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
+                            <div class="col-lg-6 pl-lg-1"><img src="https://images.unsplash.com/photo-1475724017904-b712052c192a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para comentario -->
+
+<div class="modal fade bg-comment-modal" id="comentado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-comment-modal2">
+            <div class="modal-header">
+                <div class="mr-auto ml-auto">
+                    <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVO COMENTÁRIO
+
+                    </h5>
+                </div>
+                <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="label-modal">Comentário</label>
+                    <input maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Insira seu comentário aqui">
+                </div>
+
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
+                <button (click)="comentar()" type="button" class="btn postar" data-dismiss="modal">Comentar</button>
             </div>
         </div>
     </div>

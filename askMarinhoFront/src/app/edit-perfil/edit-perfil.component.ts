@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { User } from '../model/User';
-import { AuthService } from '../service/auth.service';
-import { HomeService } from '../service/home.service';
-import { ProfileService } from '../service/profile.service';
+import { AlertsService } from '../service/alerts.service';
+import { CommentService } from '../service/comment.service';
+import { PostService } from '../service/post.service';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -24,10 +24,11 @@ export class EditPerfilComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private homeService: HomeService,
     private route: ActivatedRoute,
-    private profileService: ProfileService,
-    private userService: UserService
+    private alert: AlertsService,
+    private userService: UserService,
+    private commentService: CommentService,
+    private postService: PostService
   ) { }
 
   ngOnInit() {
@@ -44,9 +45,8 @@ export class EditPerfilComponent implements OnInit {
   }
 
   findByIdUser(id: number) {
-    this.homeService.getUserById(id).subscribe((resp: User) => {
+    this.userService.getUserById(id).subscribe((resp: User) => {
       this.user = resp
-      console.log(this.user.userName)
     })
   }
 
@@ -63,7 +63,7 @@ export class EditPerfilComponent implements OnInit {
     this.user.gender = this.genero
 
     if (this.user.password != this.confirmarSenha) {
-      alert('As senhas estão diferentes!')
+      this.alert.showAlertDanger('As senhas estão diferentes!')
     } else {
       this.usuarioEnviado.gender = this.user.gender
       this.usuarioEnviado.description = this.user.description
@@ -85,14 +85,25 @@ export class EditPerfilComponent implements OnInit {
         environment.nome = ''
         environment.id = 0
         environment.foto = ''
-        alert('Usuario atualizado!')
-      } , erro => {
-        if (erro.status == 400) {
+        this.alert.showAlertSuccess('Usuario atualizado!')
+      }, erro => {
 
-          alert("Dados incorretos ou usuário já cadastrado")
+        if (erro.status == 303) {
+          this.alert.showAlertDanger("O nome não pode conter caracteres especiais")
+        } else if (erro.status == 403) {
+          this.alert.showAlertDanger("O email possui caracteres inválidos")
+        } else if (erro.status == 405) {
+          this.alert.showAlertDanger("O nome de usuário não pode conter caracteres especiais")
+          console.clear()
+        } else if (erro.status == 444) {
+          this.alert.showAlertYellow("Já estão utilizando esse nome de usuário")
+        } else if (erro.status == 406) {
+          this.alert.showAlertYellow("Já estão utilizando esse email")
         } else {
-          alert("Dados incorretos ou usuário já cadastrado")
+          this.alert.showAlertYellow("Dados incorretos ou usuário já cadastrado")
         }
+
+        
       })
     }
   }
@@ -108,8 +119,7 @@ export class EditPerfilComponent implements OnInit {
 
 
       for (i = 0; i < this.numComments; i++) {
-        console.log(this.user.comments[i].idComment)
-        this.profileService.deleteComment(this.user.comments[i].idComment).subscribe((resp: Object) => {
+        this.commentService.deleteComment(this.user.comments[i].idComment).subscribe((resp: Object) => {
  
         }, apagou => {
 
@@ -117,12 +127,11 @@ export class EditPerfilComponent implements OnInit {
       }
 
       for (j = 0; j < this.numPosts; j++) {
-        console.log(this.user.posts[j].idPost)
-        this.profileService.deletePostagem(this.user.posts[j].idPost).subscribe((resp: Object) => {
+        this.postService.deletePostagem(this.user.posts[j].idPost).subscribe((resp: Object) => {
 
         }, apagou => {
           if (apagou.status == 500) {
-            this.profileService.deletePostagem(this.user.posts[j].idPost).subscribe((resp: Object) => {
+            this.postService.deletePostagem(this.user.posts[j].idPost).subscribe((resp: Object) => {
 
             })
           }
@@ -137,7 +146,7 @@ export class EditPerfilComponent implements OnInit {
 
         }, deletou => {
           if (deletou.status == 200) {
-            alert("Usuário deletado com sucesso!")
+            this.alert.showAlertSuccess("Usuário deletado com sucesso!")
           
             environment.token = ''
             environment.nome = ''
@@ -149,7 +158,7 @@ export class EditPerfilComponent implements OnInit {
           } else if (deletou.status == 500) {
             console.log("Clique novamente")
           } else if (deletou.status == 400) {
-            alert("Usuário não existe")
+            this.alert.showAlertDanger("Usuário não existe")
             
           }
         })
