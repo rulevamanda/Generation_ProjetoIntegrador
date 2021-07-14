@@ -108,7 +108,7 @@
                                                 </div>
 
                                             </div>
-                                            <p class="card-text text-center"><small class="text-muted">{{postsUser.date | date: 'dd/MM/yyyy'}} às {{postsUser.date | date: 'HH:mm a'}}</small></p>
+                                            <p class="card-text text-center"><small class="text-muted">{{comentarios.date | date: 'dd/MM/yyyy'}} às {{comentarios.date | date: 'HH:mm a'}}</small></p>
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
@@ -151,6 +151,8 @@
 
                                         <h5 class="card-title text-left mt-2 ml-50">{{comments.post.title}}</h5>
                                         <p class="card-text ml-50">{{comments.post.description}}</p>
+                                        <p class="card-text text-center"><small class="text-muted">{{comments.post.date | date:
+                                            'dd/MM/yyyy'}} às {{comments.post.date | date: 'HH:mm a'}}</small></p>
                                         <div class="text-center">
                                             <a *ngFor='let tagsDoPost of comments.post.tagRelation' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
                                         </div>
@@ -181,6 +183,8 @@
                                             <h5 class="card-title text-center">{{comments.text}}</h5>
                                         </div>
 
+                                        <p class="card-text text-center"><small class="text-muted">{{comments.date | date:
+                                            'dd/MM/yyyy'}} às {{comments.date | date: 'HH:mm a'}}</small></p>
 
                                     </div>
                                     <hr>

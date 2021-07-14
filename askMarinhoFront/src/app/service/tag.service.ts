@@ -30,7 +30,6 @@ export class TemasService {
 
   getAllTags(): Observable<Tag[]> {
     return this.http.get<Tag[]>("https://askmarinho.herokuapp.com/theme/all", this.token)
-  }
- 
+  } 
 
 }
