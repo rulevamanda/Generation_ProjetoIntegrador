@@ -2,14 +2,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { Comment } from '../model/Comment';
 import { Post } from '../model/Post';
-import { Tag } from '../model/Tag';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
+export class PostService {
 
   constructor(
     private http: HttpClient
@@ -29,6 +27,18 @@ export class ProfileService {
     return this.http.get<Post>(`https://askmarinho.herokuapp.com/posts/id/${id}`, this.token)
   }
 
+  allPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>("https://askmarinho.herokuapp.com/posts/all/", this.token)
+  }
+
+  getByTituloPostagem(title: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`https://askmarinho.herokuapp.com/posts/title/${title}`, this.token)
+  }
+
+  postPostagem(idUser: number, themeName: string, postagem: Post): Observable<Post> {
+    return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/posts/register/${idUser}/${themeName}`, postagem, this.token)
+  }
+
   addTagPostagem(themeName: string, idPost: number): Observable<Post> {
     return this.http.put<Post>(`https://askmarinho.herokuapp.com/users/posts/add/theme/${themeName}/${idPost}`, this.token)
   }
@@ -43,27 +53,19 @@ export class ProfileService {
 
   deletePostagem(id: number) {
     return this.http.delete(`https://askmarinho.herokuapp.com/users/posts/delete/${id}`, this.token)
-  }  
-
-  commentFindById(id: number): Observable<Comment> {
-    return this.http.get<Comment>(`https://askmarinho.herokuapp.com/comments/id/${id}`, this.token)
   }
 
-  putComment(idComment: number, commentAtt: Comment): Observable<Comment> {
-    return this.http.put<Comment>(`https://askmarinho.herokuapp.com/users/comments/update/${idComment}`, commentAtt, this.token)
+  getPostByTagNameFeed(idUser: number, tagName: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`https://askmarinho.herokuapp.com/users/posts/favorites/${idUser}/${tagName}`, this.token)
   }
 
-  deleteComment(idComment: number) {
-    return this.http.delete(`https://askmarinho.herokuapp.com/users/comments/delete/${idComment}`, this.token)
-  }  
-
-  deleteTag(idUser: number, idTag: number) {
-    return this.http.delete(`https://askmarinho.herokuapp.com/users/delete/theme/favorites/${idUser}/${idTag}`, this.token)
-  } 
-
-  tagFindById(id: number): Observable<Tag> {
-    return this.http.get<Tag>(`https://askmarinho.herokuapp.com/theme/id/${id}`, this.token)
+  getPostByAllTags(): Observable<Post[]> {
+    return this.http.get<Post[]>("https://askmarinho.herokuapp.com/users/posts/all/tags/", this.token)
   }
-  
+
+  getPostByTagNames(tagName: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`https://askmarinho.herokuapp.com/users/posts/favorites/tagName/${tagName}`, this.token)
+  }
+
   
 }

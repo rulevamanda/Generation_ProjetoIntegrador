@@ -23,12 +23,20 @@ export class CommentService {
     }
   }
 
+  commentFindById(id: number): Observable<Comment> {
+    return this.http.get<Comment>(`https://askmarinho.herokuapp.com/comments/id/${id}`, this.token)
+  }
+
   postComment(idUser: number, idPost: number, comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(`https://askmarinho.herokuapp.com/users/comments/register/${idUser}/${idPost}`, comment, this.token)
   }
 
   putComment(idComment: number, commentAtt: Comment): Observable<Comment> {
     return this.http.put<Comment>(`https://askmarinho.herokuapp.com/users/comments/update/${idComment}`, commentAtt, this.token)
+  }
+  
+  deleteComment(idComment: number) {
+    return this.http.delete(`https://askmarinho.herokuapp.com/users/comments/delete/${idComment}`, this.token)
   }
 
 }
