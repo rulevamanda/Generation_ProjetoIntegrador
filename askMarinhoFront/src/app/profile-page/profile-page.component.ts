@@ -83,6 +83,10 @@ export class ProfilePageComponent implements OnInit {
       this.postagensUser = this.usuario.posts
       this.temas = this.usuario.favorites
       this.commentsUsuario = this.usuario.comments
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -95,8 +99,17 @@ export class ProfilePageComponent implements OnInit {
         this.pegarPeloId()
         this.tema = new Tag()
         this.usuario = resp
-      })
-    this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
+        this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
+      }, err => {
+        if (err.status == 500) {
+          this.alert.showAlertInfo("Por favor atualize a página")
+        } else if (err.status == 403) {
+          this.alert.showAlertDanger("A tag não pode conter caracteres especiais")
+        } else if (err.status == 400) {
+          this.alert.showAlertDanger("Usuário não existe, por favor recarregue a página")
+        }
+    })
+    
   }
 
   chamou(idPost: number) {
@@ -109,6 +122,14 @@ export class ProfilePageComponent implements OnInit {
       this.tagAdicionada = new Tag()
       this.pegarPeloId()
       this.findByIdPost()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O nome da tag não pode conter caracteres especiais")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("A postagem não existe")
+      }
     })
   }
 
@@ -120,12 +141,20 @@ export class ProfilePageComponent implements OnInit {
   findByIdPost() {
     this.postService.postagemFindById(this.idPostEditar).subscribe((resp: Post) => {
       this.postagemEditada = resp
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
   findByIdPostagem() {
     this.postService.postagemFindById(this.idPostagemDelete).subscribe((resp: Post) => {
       this.postagemDeletada = resp
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -143,17 +172,26 @@ export class ProfilePageComponent implements OnInit {
       this.tagAdicionada = new Tag()
       this.alert.showAlertSuccess("Postagem editada com sucesso!")
     }, err => {
-      this.alert.showAlertDanger("Há algum dado incorreto. Verifique e tente novamente.")
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O título não pode ser vazio")
+      } else if (err.status == 405) {
+        this.alert.showAlertDanger("A descrição não pode ser vazia")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("A postagem não existe")
+      }
     }) 
   }
 
   removerTagPost(idTag: number) {
     this.postService.deleteTagPostagem(this.idPostEditar, idTag).subscribe((resp: Post) => {
-      console.log("Oi")
       this.pegarPeloId()
       this.findByIdPost()
     }, err => {
-      console.log("nao")
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -189,7 +227,12 @@ export class ProfilePageComponent implements OnInit {
       this.pegarPeloId()
       this.alert.showAlertSuccess("Postagem excluída com sucesso!")
     }, erro => {
-      this.alert.showAlertSuccess("Postagem excluída com sucesso!")
+      if (erro.status == 200) {
+        this.alert.showAlertSuccess("Postagem excluída com sucesso!")
+      } else if (erro.status == 500) {
+        this.alert.showAlertSuccess("Por favor atualize a página")
+      }
+      
       this.limpar()
       this.pegarPeloId()
     })
@@ -199,6 +242,10 @@ export class ProfilePageComponent implements OnInit {
   findByIdComment() {
     this.commentService.commentFindById(this.idCommentModif).subscribe((resp: Comment) => {
       this.commentModif = resp
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertSuccess("Por favor atualize a página")
+      }
     })
   }
 
@@ -215,20 +262,29 @@ export class ProfilePageComponent implements OnInit {
       console.log("Editou")
       this.alert.showAlertSuccess("Comentário editado!")
       this.pegarPeloId()
-    }, erro => {
-      console.log(this.commentModif)
-      console.log(this.commentModif.text)
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertSuccess("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertSuccess("O texto do comentário não pode ser vazio")
+      } else if (err.status == 404) {
+        this.alert.showAlertSuccess("O comentário não existe, por favor atualize a página")
+      }
     })
   }
 
   deletarComment() {
     this.commentService.deleteComment(this.idCommentModif).subscribe(() => {
-      console.log("Deletado")
+      this.alert.showAlertSuccess("Comentário excluído")
       this.pegarPeloId()
       this.idCommentModif = 0
       this.commentModif = new Comment()
     }, erro => {
-      console.log("Deletado tbm")
+      if (erro.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (erro.status == 200) {
+        this.alert.showAlertSuccess("Comentário excluído")
+      }
       this.pegarPeloId()
       this.idCommentModif = 0
       this.commentModif = new Comment()
@@ -241,6 +297,10 @@ export class ProfilePageComponent implements OnInit {
       this.tagDelete = resp
       this.tagFoiChamada = true
       this.tagChamada()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -249,7 +309,9 @@ export class ProfilePageComponent implements OnInit {
       
       
     }, objeto => {
-      if(objeto.status == 202) {
+      if (objeto.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if(objeto.status == 202) {
         this.alert.showAlertSuccess("Tema favorito excluído")
         this.pegarPeloId()
       } else if (objeto.status == 200) {
@@ -257,7 +319,6 @@ export class ProfilePageComponent implements OnInit {
       } else if (objeto.status == 400) {
         this.alert.showAlertDanger("Tema e/ou usuário não existem")
       }
-      
     })
   }
 
@@ -267,8 +328,11 @@ export class ProfilePageComponent implements OnInit {
       this.comentarioLike = resp
       
        this.pegarPeloId()
-      // this.pegarFeed()
-      // this.getAllPosts()
+ 
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -278,8 +342,7 @@ export class ProfilePageComponent implements OnInit {
        this.comentarioReport = resp
        
         this.pegarPeloId()
-      //  this.pegarFeed()
-      //  this.getAllPosts()
+
      })
    }
 
@@ -289,8 +352,11 @@ export class ProfilePageComponent implements OnInit {
        this.postLike = resp
        
         this.pegarPeloId()
-      //  this.pegarFeed()
-      //  this.getAllPosts()
+
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
  
@@ -300,8 +366,11 @@ export class ProfilePageComponent implements OnInit {
        this.postReport = resp
        
        this.pegarPeloId()
-      //  this.pegarFeed()
-      //  this.getAllPosts()
+    
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
 
@@ -313,6 +382,16 @@ export class ProfilePageComponent implements OnInit {
       this.pegarPeloId()
      
       this.comentarioNoPost = new Comment()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O texto não pode ser vazio")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
+      } else if (err.status == 404) {
+        this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+      }
     })
   }
 
