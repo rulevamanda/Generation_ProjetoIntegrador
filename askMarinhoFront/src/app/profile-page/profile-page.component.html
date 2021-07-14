@@ -14,7 +14,8 @@
                             <li *ngFor='let tema of temas | orderBy : key : reverse'>#{{tema.tagName}}</li>
 
                             <!-- Botão para acionar modal de tag favorita -->
-                            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#novaTagFav">
+                            <button type="button" class="btn postar mt-3" data-toggle="modal"
+                                data-target="#novaTagFav">
                                 Adicionar
                             </button>
                         </ul>
@@ -155,7 +156,7 @@
 
 
                         <div class="tab-pane fade mt-5 mb-5 w-100" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
-                            <div *ngFor='let comments of commentsUsuario | orderBy : key : reverse' class="card mb-5 borderline">
+                            <div *ngFor='let comments of commentsUsuario | orderBy : key : reverse' class="card mb-5 borderline bg-postagem">
                                 <h3 class="text-center">Postagem</h3>
 
                                 <div>
@@ -197,7 +198,7 @@
 
                                 </div>
                                 <hr>
-                                <h2 class="text-center">Comentário</h2>
+                                <h2 class="text-center nav-comments-title mt-2">Comentário</h2>
                                 <div class="card-body borderline bg-postagem">
                                     <div class="row">
                                         <div class="col-md-10 d-flex justify-content-start align-items-center">
@@ -238,8 +239,8 @@
                         <!-- -------------------------------------------------------------- TAGS ----------------------------------------------------------------------------- -->
 
                         <div class="tab-pane fade mt-5 mb-3 w-100" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
-                            <div *ngFor='let tema of temas | orderBy : key : reverse' class="card mb-5">
-                                <div class="card-body text-center bg-white borderline">
+                            <div *ngFor='let tema of temas | orderBy : key : reverse' class="card mb-5 borderline">
+                                <div class="card-body text-center bg-postagem borderline">
 
                                     <h5 class="card-title text-center">{{tema.tagName}}</h5>
 
@@ -304,14 +305,14 @@
                     <div class="form-group">
                         <label for="" class="label-modal">Tags da postagem</label>
                         <div class="form-group">
-                            <a *ngFor='let tagsDoPost of postagemEditada.tagRelation | orderBy : key : reverse' class="card-link label-modal">{{tagsDoPost.tagName}} <i
-                                    (click)='removerTagPost(tagsDoPost.idTag)' class="fa fa-trash-o lixeira"
-                                    aria-hidden="true"></i> </a>
+                            <a *ngFor='let tagsDoPost of postagemEditada.tagRelation | orderBy : key : reverse' class="card-link tag-color">{{tagsDoPost.tagName}} <i (click)='removerTagPost(tagsDoPost.idTag)' class="fa fa-times delete-style" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="" class="label-modal">Adicionar mais tags</label>
-                        <input [(ngModel)]='tagAdicionada.tagName' type="text" class="form-control" placeholder="Nome da tag"> <i (click)="adicionarNovoTema()" class="fa fa-plus adicionar" aria-hidden="true"></i>
+                        <input [(ngModel)]='tagAdicionada.tagName' type="text" class="form-control"
+                            placeholder="Nome da tag"> 
+                            <button (click)="adicionarNovoTema()" class="btn postar mt-2">Adicionar</button>
                     </div>
                 </div>
 
@@ -325,7 +326,8 @@
 
 
     <!-- Modal deletar postagem-->
-    <<div class="modal fade bg-post-modal" id="deletarPostagem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade bg-post-modal" id="deletarPostagem" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-post-modal2">
                 <div class="modal-header">
@@ -425,8 +427,9 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade bg-tag-modal" id="removeTag" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal remover tag favorita-->
+<div class="modal fade bg-tag-modal" id="removeTag" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-tag-modal2">
             <div class="modal-header">
@@ -441,13 +444,13 @@
             </div>
             <div *ngIf='tagChamada()' class="modal-body">
                 <div class="form-group">
-                    <p>{{tagDelete.tagName}}</p>
+                    <p><b>#{{tagDelete.tagName}}</b></p>
                 </div>
                 <div class="form-group">
-                    <p> {{tagDelete.posts.length}} postagens estão utilizando essa tag.</p>
+                    <p> Existem {{tagDelete.posts.length}} postagens que estão utilizando essa tag!</p>
                 </div>
                 <div class="form-group">
-                    <p> {{tagDelete.userTags.length}} usuários estão seguindo essa tag.</p>
+                    <p> Existem {{tagDelete.userTags.length}} usuários que estão seguindo essa tag!</p>
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
@@ -460,15 +463,14 @@
 
 
 
-<!-- Modal -->
-<div class="modal fade bg-tag-modal" id="novaTagFav" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal tabela tag favorita-->
+<div class="modal fade bg-tag-modal" id="novaTagFav" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-tag-modal2">
             <div class="modal-header">
                 <div class="mr-auto ml-auto">
-                    <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVA TAG FAVORITA
-
-                    </h5>
+                    <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVA TAG FAVORITA</h5>
                 </div>
                 <button (click)='limpar()' type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
