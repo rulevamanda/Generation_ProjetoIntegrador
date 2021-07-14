@@ -7,8 +7,7 @@ import { Tag } from '../model/Tag';
 import { User } from '../model/User';
 import { AlertsService } from '../service/alerts.service';
 import { CommentService } from '../service/comment.service';
-import { HomeService } from '../service/home.service';
-import { ProfileService } from '../service/profile.service';
+import { PostService } from '../service/post.service';
 import { TemasService } from '../service/tag.service';
 import { UserService } from '../service/user.service';
 
@@ -47,16 +46,17 @@ export class ProfilePageComponent implements OnInit {
   comentarioLike: Comment = new Comment()
   postReport: Post = new Post()
   comentarioReport: Comment = new Comment()
-  
 
+  key = 'data'
+  reverse = true
+  
   constructor(
-    private homeService: HomeService,
-    private profileService: ProfileService,
     private router: Router,
     private commentService: CommentService,
     private alert: AlertsService,
-    private temaService: TemasService,
-    private userService: UserService
+    private tagService: TemasService,
+    private userService: UserService,
+    private postService: PostService
   ) { }
 
   ngOnInit() {
@@ -66,9 +66,10 @@ export class ProfilePageComponent implements OnInit {
       
     } else {
       window.scroll(0,0)
-      this.homeService.refreshToken()
+      this.postService.refreshToken()
+      this.commentService.refreshToken()
+      this.userService.refreshToken()
       this.pegarPeloId()
-
     }
   }
 
@@ -77,24 +78,38 @@ export class ProfilePageComponent implements OnInit {
   }
 
   pegarPeloId() {
-    this.homeService.getUserById(environment.id).subscribe((resp: User) => {
+    this.userService.getUserById(environment.id).subscribe((resp: User) => {
       this.usuario = resp
       this.postagensUser = this.usuario.posts
       this.temas = this.usuario.favorites
       this.commentsUsuario = this.usuario.comments
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
   adicionarTag() {
-    this.temaService.refreshToken()
-    this.temaService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
+    this.tagService.refreshToken()
+    this.userService.refreshToken()
+    this.userService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
       User) => {
         
         this.pegarPeloId()
         this.tema = new Tag()
         this.usuario = resp
-      })
-    this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
+        this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
+      }, err => {
+        if (err.status == 500) {
+          this.alert.showAlertInfo("Por favor atualize a página")
+        } else if (err.status == 403) {
+          this.alert.showAlertDanger("A tag não pode conter caracteres especiais")
+        } else if (err.status == 400) {
+          this.alert.showAlertDanger("Usuário não existe, por favor recarregue a página")
+        }
+    })
+    
   }
 
   chamou(idPost: number) {
@@ -102,11 +117,19 @@ export class ProfilePageComponent implements OnInit {
   }
 
   adicionarNovoTema() {
-    this.profileService.addTagPostagem(this.tagAdicionada.tagName, this.idPostEditar).subscribe((resp: Post) => {
+    this.postService.addTagPostagem(this.tagAdicionada.tagName, this.idPostEditar).subscribe((resp: Post) => {
       this.alert.showAlertSuccess("Adicionada")
       this.tagAdicionada = new Tag()
       this.pegarPeloId()
       this.findByIdPost()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O nome da tag não pode conter caracteres especiais")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("A postagem não existe")
+      }
     })
   }
 
@@ -116,14 +139,22 @@ export class ProfilePageComponent implements OnInit {
   }
 
   findByIdPost() {
-    this.profileService.postagemFindById(this.idPostEditar).subscribe((resp: Post) => {
+    this.postService.postagemFindById(this.idPostEditar).subscribe((resp: Post) => {
       this.postagemEditada = resp
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
   findByIdPostagem() {
-    this.profileService.postagemFindById(this.idPostagemDelete).subscribe((resp: Post) => {
+    this.postService.postagemFindById(this.idPostagemDelete).subscribe((resp: Post) => {
       this.postagemDeletada = resp
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -133,24 +164,34 @@ export class ProfilePageComponent implements OnInit {
     this.postagemEnviar.description = this.postagemEditada.description
     this.postagemEnviar.urlImage = this.postagemEditada.urlImage
 
-    this.profileService.putPostagem(this.idPostEditar, this.postagemEnviar).subscribe((resp: Post) => {
+    this.postService.putPostagem(this.idPostEditar, this.postagemEnviar).subscribe((resp: Post) => {
       console.log("Editada")
       this.postagemEditada = new Post()
       this.idPostEditar = 0
       this.pegarPeloId()
+      this.tagAdicionada = new Tag()
       this.alert.showAlertSuccess("Postagem editada com sucesso!")
     }, err => {
-      this.alert.showAlertDanger("Há algum dado incorreto. Verifique e tente novamente.")
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O título não pode ser vazio")
+      } else if (err.status == 405) {
+        this.alert.showAlertDanger("A descrição não pode ser vazia")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("A postagem não existe")
+      }
     }) 
   }
 
   removerTagPost(idTag: number) {
-    this.profileService.deleteTagPostagem(this.idPostEditar, idTag).subscribe((resp: Post) => {
-      console.log("Oi")
+    this.postService.deleteTagPostagem(this.idPostEditar, idTag).subscribe((resp: Post) => {
       this.pegarPeloId()
       this.findByIdPost()
     }, err => {
-      console.log("nao")
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -180,13 +221,18 @@ export class ProfilePageComponent implements OnInit {
 
   deletarPostagem() {
     console.log(this.idPostagemDelete)
-    this.profileService.deletePostagem(this.idPostagemDelete).subscribe(() => {
+    this.postService.deletePostagem(this.idPostagemDelete).subscribe(() => {
       console.log("Excluiu")
       this.limpar()
       this.pegarPeloId()
       this.alert.showAlertSuccess("Postagem excluída com sucesso!")
     }, erro => {
-      this.alert.showAlertSuccess("Postagem excluída com sucesso!")
+      if (erro.status == 200) {
+        this.alert.showAlertSuccess("Postagem excluída com sucesso!")
+      } else if (erro.status == 500) {
+        this.alert.showAlertSuccess("Por favor atualize a página")
+      }
+      
       this.limpar()
       this.pegarPeloId()
     })
@@ -194,8 +240,12 @@ export class ProfilePageComponent implements OnInit {
   }
 
   findByIdComment() {
-    this.profileService.commentFindById(this.idCommentModif).subscribe((resp: Comment) => {
+    this.commentService.commentFindById(this.idCommentModif).subscribe((resp: Comment) => {
       this.commentModif = resp
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertSuccess("Por favor atualize a página")
+      }
     })
   }
 
@@ -212,20 +262,29 @@ export class ProfilePageComponent implements OnInit {
       console.log("Editou")
       this.alert.showAlertSuccess("Comentário editado!")
       this.pegarPeloId()
-    }, erro => {
-      console.log(this.commentModif)
-      console.log(this.commentModif.text)
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertSuccess("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertSuccess("O texto do comentário não pode ser vazio")
+      } else if (err.status == 404) {
+        this.alert.showAlertSuccess("O comentário não existe, por favor atualize a página")
+      }
     })
   }
 
   deletarComment() {
-    this.profileService.deleteComment(this.idCommentModif).subscribe(() => {
-      console.log("Deletado")
+    this.commentService.deleteComment(this.idCommentModif).subscribe(() => {
+      this.alert.showAlertSuccess("Comentário excluído")
       this.pegarPeloId()
       this.idCommentModif = 0
       this.commentModif = new Comment()
     }, erro => {
-      console.log("Deletado tbm")
+      if (erro.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (erro.status == 200) {
+        this.alert.showAlertSuccess("Comentário excluído")
+      }
       this.pegarPeloId()
       this.idCommentModif = 0
       this.commentModif = new Comment()
@@ -234,19 +293,25 @@ export class ProfilePageComponent implements OnInit {
 
   idTagFavorita(idTagFav: number) {
     this.idTagDelete = idTagFav
-    this.profileService.tagFindById(this.idTagDelete).subscribe((resp: Tag) => {
+    this.tagService.tagFindById(this.idTagDelete).subscribe((resp: Tag) => {
       this.tagDelete = resp
       this.tagFoiChamada = true
       this.tagChamada()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
   deleteFavoriteTag() {
-    this.profileService.deleteTag(environment.id, this.idTagDelete).subscribe(() => {
+    this.userService.deleteTag(environment.id, this.idTagDelete).subscribe(() => {
       
       
     }, objeto => {
-      if(objeto.status == 202) {
+      if (objeto.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if(objeto.status == 202) {
         this.alert.showAlertSuccess("Tema favorito excluído")
         this.pegarPeloId()
       } else if (objeto.status == 200) {
@@ -254,7 +319,6 @@ export class ProfilePageComponent implements OnInit {
       } else if (objeto.status == 400) {
         this.alert.showAlertDanger("Tema e/ou usuário não existem")
       }
-      
     })
   }
 
@@ -264,8 +328,11 @@ export class ProfilePageComponent implements OnInit {
       this.comentarioLike = resp
       
        this.pegarPeloId()
-      // this.pegarFeed()
-      // this.getAllPosts()
+ 
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -275,8 +342,7 @@ export class ProfilePageComponent implements OnInit {
        this.comentarioReport = resp
        
         this.pegarPeloId()
-      //  this.pegarFeed()
-      //  this.getAllPosts()
+
      })
    }
 
@@ -286,8 +352,11 @@ export class ProfilePageComponent implements OnInit {
        this.postLike = resp
        
         this.pegarPeloId()
-      //  this.pegarFeed()
-      //  this.getAllPosts()
+
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
  
@@ -297,8 +366,11 @@ export class ProfilePageComponent implements OnInit {
        this.postReport = resp
        
        this.pegarPeloId()
-      //  this.pegarFeed()
-      //  this.getAllPosts()
+    
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
 
@@ -310,6 +382,16 @@ export class ProfilePageComponent implements OnInit {
       this.pegarPeloId()
      
       this.comentarioNoPost = new Comment()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O texto não pode ser vazio")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
+      } else if (err.status == 404) {
+        this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+      }
     })
   }
 

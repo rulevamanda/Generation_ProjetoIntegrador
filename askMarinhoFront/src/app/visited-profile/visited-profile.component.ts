@@ -6,7 +6,6 @@ import { Post } from '../model/Post';
 import { User } from '../model/User';
 import { AlertsService } from '../service/alerts.service';
 import { CommentService } from '../service/comment.service';
-import { HomeService } from '../service/home.service';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -30,11 +29,8 @@ export class VisitedProfileComponent implements OnInit {
   comentarioReport: Comment = new Comment()
   comentarioNoPost: Comment = new Comment()
   
-
-
   constructor(
     private router: Router,
-    private homeService: HomeService,
     private route: ActivatedRoute,
     private userService: UserService,
     private commentService: CommentService,
@@ -54,17 +50,34 @@ export class VisitedProfileComponent implements OnInit {
     }
   }
 
+  redirecionar() {
+    window.scroll(0,0)
+      this.idUser = this.route.snapshot.params['id']
+      this.findByIdUser(this.idUser)
+      this.pegarPeloId()
+  }
+
+
   findByIdUser(id: number) {
-    this.homeService.getUserById(id).subscribe((resp: User) => {
+    this.userService.getUserById(id).subscribe((resp: User) => {
       this.user = resp
       console.log(this.user.userName)
-    })
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+     })
   }
+
   pegarPeloId() {
-    this.homeService.getUserById(this.idUser).subscribe((resp: User) => {
+    this.userService.getUserById(this.idUser).subscribe((resp: User) => {
       this.user = resp
       this.postagensUser = this.user.posts
-    })
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+     })
   }
 
   chamou(idPost: number) {
@@ -77,6 +90,10 @@ export class VisitedProfileComponent implements OnInit {
       this.postLike = resp
       
       this.pegarPeloId()
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
  
@@ -86,6 +103,10 @@ export class VisitedProfileComponent implements OnInit {
       this.postReport = resp
       
       this.pegarPeloId()
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
 
@@ -95,9 +116,12 @@ export class VisitedProfileComponent implements OnInit {
       this.comentarioLike = resp
       
        this.pegarPeloId()
-      // this.pegarFeed()
-      // this.getAllPosts()
-    })
+
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+     })
   }
 
   reportComment(idComment: number) {
@@ -106,8 +130,11 @@ export class VisitedProfileComponent implements OnInit {
        this.comentarioReport = resp
        
         this.pegarPeloId()
-      //  this.pegarFeed()
-      //  this.getAllPosts()
+  
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
 
@@ -119,7 +146,17 @@ export class VisitedProfileComponent implements OnInit {
       this.pegarPeloId()
      
       this.comentarioNoPost = new Comment()
-    })
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O texto não pode ser vazio")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
+      } else if (err.status == 404) {
+        this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+      }
+     })
   }
 
 }

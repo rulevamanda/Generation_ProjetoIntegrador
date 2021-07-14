@@ -45,12 +45,19 @@ export class SignupPageComponent implements OnInit {
         this.router.navigate(['/login-page'])
 
         this.alert.showAlertSuccess('Usuário cadastrado com sucesso!')
-      } , erro => {
-        if (erro.status == 400) {
-          this.alert.showAlertDanger("Dados incorretos ou usuário já cadastrado")
+      }, erro => {
+
+        if (erro.status == 303) {
+          this.alert.showAlertDanger("O nome não pode conter caracteres especiais")
+        } else if (erro.status == 403) {
+          this.alert.showAlertDanger("O email possui caracteres inválidos")
+        } else if (erro.status == 405) {
+          this.alert.showAlertDanger("O nome de usuário não pode conter caracteres especiais")
+          console.clear()
         } else {
-          this.alert.showAlertDanger("Dados incorretos ou usuário já cadastrado")
+          this.alert.showAlertYellow("Dados incorretos ou nome de usuário e/ou email já estão sendo utilizados")
         }
+
       })
     }
   }
