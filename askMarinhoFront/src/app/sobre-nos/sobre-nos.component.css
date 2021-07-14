@@ -22,3 +22,31 @@ p{
 .mb-70{
     margin-bottom: 30px;
 }
+
+.titulo-um {
+    color: #6dd3ce;
+    font-family: Bebas Neue;
+    font-size: 70px;
+    font-weight: bolder;
+}
+
+.titulo-dois {
+    color: #6dd3ce;
+    font-family: Bebas Neue;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+
+.bg-dicupa {
+    background-color: #e8edec;
+    border-radius: 25px;
+    border: none;
+}
+
+.texto {
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: lighter;
+    color: #929393;
+}
