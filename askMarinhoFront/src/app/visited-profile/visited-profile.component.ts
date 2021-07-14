@@ -62,14 +62,22 @@ export class VisitedProfileComponent implements OnInit {
     this.userService.getUserById(id).subscribe((resp: User) => {
       this.user = resp
       console.log(this.user.userName)
-    })
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+     })
   }
 
   pegarPeloId() {
     this.userService.getUserById(this.idUser).subscribe((resp: User) => {
       this.user = resp
       this.postagensUser = this.user.posts
-    })
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+     })
   }
 
   chamou(idPost: number) {
@@ -82,6 +90,10 @@ export class VisitedProfileComponent implements OnInit {
       this.postLike = resp
       
       this.pegarPeloId()
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
  
@@ -91,6 +103,10 @@ export class VisitedProfileComponent implements OnInit {
       this.postReport = resp
       
       this.pegarPeloId()
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
 
@@ -100,9 +116,12 @@ export class VisitedProfileComponent implements OnInit {
       this.comentarioLike = resp
       
        this.pegarPeloId()
-      // this.pegarFeed()
-      // this.getAllPosts()
-    })
+
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+     })
   }
 
   reportComment(idComment: number) {
@@ -111,8 +130,11 @@ export class VisitedProfileComponent implements OnInit {
        this.comentarioReport = resp
        
         this.pegarPeloId()
-      //  this.pegarFeed()
-      //  this.getAllPosts()
+  
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
 
@@ -124,7 +146,17 @@ export class VisitedProfileComponent implements OnInit {
       this.pegarPeloId()
      
       this.comentarioNoPost = new Comment()
-    })
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O texto não pode ser vazio")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
+      } else if (err.status == 404) {
+        this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+      }
+     })
   }
 
 }
