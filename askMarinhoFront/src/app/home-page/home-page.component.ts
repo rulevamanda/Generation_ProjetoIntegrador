@@ -24,7 +24,7 @@ export class HomePageComponent implements OnInit {
   novoPost: Post = new Post()
   temas: Tag[]
   postsFeed: Post[]
-  postagensUser: Post[]
+  postsByTags: Post[]
   todosPosts: Post[]
   postLike: Post = new Post()
   comentarioLike: Comment = new Comment()
@@ -36,6 +36,8 @@ export class HomePageComponent implements OnInit {
   idPostComentado: number
 
   tituloPost: string
+  tagNameFeed: string
+  tagNamePost: string
 
   key = 'data'
   reverse = true
@@ -59,9 +61,14 @@ export class HomePageComponent implements OnInit {
       window.scroll(0,0)
       this.postService.refreshToken()
       this.commentService.refreshToken()
+      this.tituloPost = ''
+      this.tagNameFeed = ''
+      this.tagNamePost = ''
       this.pegarPeloId()
       this.getAllPosts()
       this.pegarFeed()
+      this.getAllPostsByAllTags()
+      
     }    
   }
 
@@ -90,7 +97,6 @@ export class HomePageComponent implements OnInit {
   pegarPeloId() {
     this.userService.getUserById(environment.id).subscribe((resp: User) => {
       this.usuario = resp
-      this.postagensUser = this.usuario.posts
       this.temas = this.usuario.favorites
     })
   }
@@ -101,8 +107,19 @@ export class HomePageComponent implements OnInit {
       User) => {
         
         this.pegarPeloId()
-        this.pegarFeed()
-        if (this.tituloPost == '') {
+        if(this.tagNameFeed == '') {
+
+          this.pegarFeed()
+    
+        } else {
+    
+        this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+          this.postsFeed = resp
+    
+          this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+        })
+      }
+        if (this.tituloPost != '') {
 
           this.getAllPosts()
           
@@ -111,6 +128,18 @@ export class HomePageComponent implements OnInit {
           this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
             this.todosPosts = resp
             this.comentarioNoPost = new Comment()
+          })
+    
+        }
+
+        if (this.tagNamePost == '') {
+
+          this.getAllPostsByAllTags()
+    
+        } else {
+          
+          this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+            this.postsByTags = resp
           })
     
         }
@@ -140,7 +169,30 @@ export class HomePageComponent implements OnInit {
       }
 
       this.pegarPeloId()
-      this.pegarFeed()
+      if(this.tagNameFeed == '') {
+
+        this.pegarFeed()
+  
+      } else {
+  
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+  
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
+
+    if (this.tagNamePost == '') {
+
+      this.getAllPostsByAllTags()
+
+    } else {
+      
+      this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+        this.postsByTags = resp
+      })
+
+    }
       this.novoPost = new Post()
       this.temaParaPost = new Tag()
     })
@@ -169,7 +221,30 @@ export class HomePageComponent implements OnInit {
       }
       
       this.pegarPeloId()
-      this.pegarFeed()
+      if(this.tagNameFeed == '') {
+
+        this.pegarFeed()
+  
+      } else {
+  
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+  
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
+
+    if (this.tagNamePost == '') {
+
+      this.getAllPostsByAllTags()
+
+    } else {
+      
+      this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+        this.postsByTags = resp
+      })
+
+    }
       this.comentarioNoPost = new Comment()
     })
   }
@@ -180,7 +255,18 @@ export class HomePageComponent implements OnInit {
       this.comentarioLike = resp
       
       this.pegarPeloId()
-      this.pegarFeed()
+      if(this.tagNameFeed == '') {
+
+        this.pegarFeed()
+  
+      } else {
+  
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+  
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
       
       if (this.tituloPost == '') {
 
@@ -191,6 +277,18 @@ export class HomePageComponent implements OnInit {
         this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
           this.todosPosts = resp
           this.comentarioNoPost = new Comment()
+        })
+  
+      }
+
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+  
+      } else {
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
         })
   
       }
@@ -203,7 +301,18 @@ export class HomePageComponent implements OnInit {
       this.comentarioReport = resp
       
       this.pegarPeloId()
-      this.pegarFeed()
+      if(this.tagNameFeed == '') {
+
+        this.pegarFeed()
+  
+      } else {
+  
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+  
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
       
       if (this.tituloPost == '') {
 
@@ -214,6 +323,18 @@ export class HomePageComponent implements OnInit {
         this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
           this.todosPosts = resp
           this.comentarioNoPost = new Comment()
+        })
+  
+      }
+
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+  
+      } else {
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
         })
   
       }
@@ -226,7 +347,18 @@ export class HomePageComponent implements OnInit {
       this.postLike = resp
       
       this.pegarPeloId()
-      this.pegarFeed()
+      if(this.tagNameFeed == '') {
+
+        this.pegarFeed()
+  
+      } else {
+  
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+  
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
 
       if (this.tituloPost == '') {
 
@@ -240,6 +372,17 @@ export class HomePageComponent implements OnInit {
         })
   
       }
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+  
+      } else {
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
+        })
+  
+      }
     })
   }
 
@@ -249,7 +392,18 @@ export class HomePageComponent implements OnInit {
       this.postReport = resp
       
       this.pegarPeloId()
-      this.pegarFeed()
+      if(this.tagNameFeed == '') {
+
+        this.pegarFeed()
+  
+      } else {
+  
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+  
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
 
       if (this.tituloPost == '') {
 
@@ -260,6 +414,18 @@ export class HomePageComponent implements OnInit {
         this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
           this.todosPosts = resp
           this.comentarioNoPost = new Comment()
+        })
+  
+      }
+
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+  
+      } else {
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
         })
   
       }
@@ -282,6 +448,43 @@ export class HomePageComponent implements OnInit {
 
     }
 
+  }
+
+  findPostsByTagNameFeed() {
+
+    if(this.tagNameFeed == '') {
+
+      this.pegarFeed()
+
+    } else {
+
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
+  }
+
+  getAllPostsByAllTags() {
+    this.postService.getPostByAllTags().subscribe((resp: Post[]) => {
+      this.postsByTags = resp
+    })
+  }
+
+  getAllPostsByTagNames() {
+
+    if (this.tagNamePost == '') {
+
+      this.getAllPostsByAllTags()
+
+    } else {
+      
+      this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+        this.postsByTags = resp
+      })
+
+    }
     
   }
 

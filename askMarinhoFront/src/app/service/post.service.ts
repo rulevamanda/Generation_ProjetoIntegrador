@@ -54,4 +54,18 @@ export class PostService {
   deletePostagem(id: number) {
     return this.http.delete(`https://askmarinho.herokuapp.com/users/posts/delete/${id}`, this.token)
   }
+
+  getPostByTagNameFeed(idUser: number, tagName: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`https://askmarinho.herokuapp.com/users/posts/favorites/${idUser}/${tagName}`, this.token)
+  }
+
+  getPostByAllTags(): Observable<Post[]> {
+    return this.http.get<Post[]>("https://askmarinho.herokuapp.com/users/posts/all/tags/", this.token)
+  }
+
+  getPostByTagNames(tagName: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`https://askmarinho.herokuapp.com/users/posts/favorites/tagName/${tagName}`, this.token)
+  }
+
+  
 }

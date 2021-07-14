@@ -140,6 +140,7 @@ export class ProfilePageComponent implements OnInit {
       this.postagemEditada = new Post()
       this.idPostEditar = 0
       this.pegarPeloId()
+      this.tagAdicionada = new Tag()
       this.alert.showAlertSuccess("Postagem editada com sucesso!")
     }, err => {
       this.alert.showAlertDanger("Há algum dado incorreto. Verifique e tente novamente.")
