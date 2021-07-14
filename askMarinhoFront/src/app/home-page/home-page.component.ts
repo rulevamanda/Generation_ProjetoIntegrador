@@ -91,6 +91,10 @@ export class HomePageComponent implements OnInit {
 
       this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
 
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertInfo("Por favor atualize a página")
+      }
     })
   }
 
@@ -98,6 +102,10 @@ export class HomePageComponent implements OnInit {
     this.userService.getUserById(environment.id).subscribe((resp: User) => {
       this.usuario = resp
       this.temas = this.usuario.favorites
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertInfo("Por favor atualize a página")
+      }
     })
   }
 
@@ -105,20 +113,20 @@ export class HomePageComponent implements OnInit {
     this.tagService.refreshToken()
     this.userService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
       User) => {
-        
+        this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
         this.pegarPeloId()
         if(this.tagNameFeed == '') {
 
           this.pegarFeed()
-    
+          
         } else {
     
-        this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
-          this.postsFeed = resp
-    
-          this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
-        })
-      }
+            this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+              this.postsFeed = resp
+        
+              this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+            })
+        }
         if (this.tituloPost != '') {
 
           this.getAllPosts()
@@ -146,55 +154,75 @@ export class HomePageComponent implements OnInit {
         
         this.tema = new Tag()
         this.usuario = resp
+      }, err => {
+        if (err.status == 500) {
+          this.alert.showAlertInfo("Por favor atualize a página")
+        } else if (err.status == 403) {
+          this.alert.showAlertDanger("A tag não pode conter caracteres especiais")
+        } else if (err.status == 400) {
+          this.alert.showAlertDanger("Usuário não existe, por favor recarregue a página")
+        }
       })
-    this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
+    
   }
 
   postarPostagem() {
     this.postService.postPostagem(environment.id, this.temaParaPost.tagName, this.novoPost).subscribe((resp: Post) => {
-      this.alert.showAlertSuccess("Postagem cadastrada com sucesso!")
-      this.novoPost = resp
-      
-      if (this.tituloPost == '') {
+        this.alert.showAlertSuccess("Postagem cadastrada com sucesso!")
+        this.novoPost = resp
+        
+        if (this.tituloPost == '') {
 
-        this.getAllPosts()
-        this.comentarioNoPost = new Comment()
-      } else {
-  
-        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
-          this.todosPosts = resp
+          this.getAllPosts()
           this.comentarioNoPost = new Comment()
+        } else {
+    
+          this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+            this.todosPosts = resp
+            this.comentarioNoPost = new Comment()
+          })
+    
+        }
+
+        this.pegarPeloId()
+        if(this.tagNameFeed == '') {
+
+          this.pegarFeed()
+    
+        } else {
+    
+        this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+          this.postsFeed = resp
+    
+          this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
         })
-  
       }
 
-      this.pegarPeloId()
-      if(this.tagNameFeed == '') {
+      if (this.tagNamePost == '') {
 
-        this.pegarFeed()
-  
+        this.getAllPostsByAllTags()
+
       } else {
-  
-      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
-        this.postsFeed = resp
-  
-        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
-      })
-    }
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
+        })
 
-    if (this.tagNamePost == '') {
-
-      this.getAllPostsByAllTags()
-
-    } else {
-      
-      this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
-        this.postsByTags = resp
-      })
-
-    }
-      this.novoPost = new Post()
-      this.temaParaPost = new Tag()
+      }
+        this.novoPost = new Post()
+        this.temaParaPost = new Tag()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 303) {
+        this.alert.showAlertDanger("O nome da tag não pode ter caracteres especiais")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O título não pode ser vazio")
+      } else if (err.status == 405) {
+        this.alert.showAlertDanger("A descrição não pode ser vazia")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+      }
     })
   } 
 
@@ -204,48 +232,58 @@ export class HomePageComponent implements OnInit {
 
   comentar() {
     this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
-      this.comentarioNoPost = resp
-      this.alert.showAlertSuccess("Comentado com sucesso")
-      
-      if (this.tituloPost == '') {
+        this.comentarioNoPost = resp
+        this.alert.showAlertSuccess("Comentado com sucesso")
+        
+        if (this.tituloPost == '') {
 
-        this.getAllPosts()
-        this.comentarioNoPost = new Comment()
-      } else {
-  
-        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
-          this.todosPosts = resp
+          this.getAllPosts()
           this.comentarioNoPost = new Comment()
+        } else {
+    
+          this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+            this.todosPosts = resp
+            this.comentarioNoPost = new Comment()
+          })
+    
+        }
+        
+        this.pegarPeloId()
+        if(this.tagNameFeed == '') {
+
+          this.pegarFeed()
+    
+        } else {
+    
+        this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+          this.postsFeed = resp
+    
+          this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
         })
-  
       }
-      
-      this.pegarPeloId()
-      if(this.tagNameFeed == '') {
 
-        this.pegarFeed()
-  
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+
       } else {
-  
-      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
-        this.postsFeed = resp
-  
-        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
-      })
-    }
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
+        })
 
-    if (this.tagNamePost == '') {
-
-      this.getAllPostsByAllTags()
-
-    } else {
-      
-      this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
-        this.postsByTags = resp
-      })
-
-    }
-      this.comentarioNoPost = new Comment()
+      }
+        this.comentarioNoPost = new Comment()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O texto não pode ser vazio")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
+      } else if (err.status == 404) {
+        this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+      }
     })
   }
 
@@ -291,6 +329,10 @@ export class HomePageComponent implements OnInit {
           this.postsByTags = resp
         })
   
+      }
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
       }
     })
   }
@@ -338,6 +380,10 @@ export class HomePageComponent implements OnInit {
         })
   
       }
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -382,6 +428,10 @@ export class HomePageComponent implements OnInit {
           this.postsByTags = resp
         })
   
+      }
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
       }
     })
   }
@@ -430,6 +480,10 @@ export class HomePageComponent implements OnInit {
   
       }
       
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -444,6 +498,10 @@ export class HomePageComponent implements OnInit {
       this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
         this.todosPosts = resp
         this.comentarioNoPost = new Comment()
+      } , err => {
+        if (err.status == 500) {
+          this.alert.showAlertDanger("Por favor atualize a página")
+        }
       })
 
     }
@@ -462,6 +520,10 @@ export class HomePageComponent implements OnInit {
         this.postsFeed = resp
 
         this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      } , err => {
+        if (err.status == 500) {
+          this.alert.showAlertDanger("Por favor atualize a página")
+        }
       })
     }
   }
@@ -469,6 +531,10 @@ export class HomePageComponent implements OnInit {
   getAllPostsByAllTags() {
     this.postService.getPostByAllTags().subscribe((resp: Post[]) => {
       this.postsByTags = resp
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
@@ -482,6 +548,10 @@ export class HomePageComponent implements OnInit {
       
       this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
         this.postsByTags = resp
+      } , err => {
+        if (err.status == 500) {
+          this.alert.showAlertDanger("Por favor atualize a página")
+        }
       })
 
     }
