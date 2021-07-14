@@ -10,3 +10,15 @@
 i:hover{
     color: #ffcab1
 }
+
+p{
+    font-size: 24px;
+}
+
+.mt-100{
+    margin-top: 100px;
+}
+
+.mb-70{
+    margin-bottom: 30px;
+}

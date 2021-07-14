@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+import { Comment } from '../model/Comment';
 import { Post } from '../model/Post';
 import { User } from '../model/User';
-import { AuthService } from '../service/auth.service';
-import { HomeService } from '../service/home.service';
-import { ProfileService } from '../service/profile.service';
+import { AlertsService } from '../service/alerts.service';
+import { CommentService } from '../service/comment.service';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -27,15 +27,14 @@ export class VisitedProfileComponent implements OnInit {
 
   postReport: Post = new Post()
   comentarioReport: Comment = new Comment()
-
-
+  comentarioNoPost: Comment = new Comment()
+  
   constructor(
     private router: Router,
-    private authService: AuthService,
-    private homeService: HomeService,
     private route: ActivatedRoute,
     private userService: UserService,
-    private profileService: ProfileService,
+    private commentService: CommentService,
+    private alert: AlertsService
   ) { }
 
   ngOnInit(){
@@ -47,20 +46,38 @@ export class VisitedProfileComponent implements OnInit {
       window.scroll(0,0)
       this.idUser = this.route.snapshot.params['id']
       this.findByIdUser(this.idUser)
+      
     }
   }
 
+  redirecionar() {
+    window.scroll(0,0)
+      this.idUser = this.route.snapshot.params['id']
+      this.findByIdUser(this.idUser)
+      this.pegarPeloId()
+  }
+
+
   findByIdUser(id: number) {
-    this.homeService.getUserById(id).subscribe((resp: User) => {
+    this.userService.getUserById(id).subscribe((resp: User) => {
       this.user = resp
       console.log(this.user.userName)
-    })
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+     })
   }
+
   pegarPeloId() {
-    this.homeService.getUserById(environment.id).subscribe((resp: User) => {
+    this.userService.getUserById(this.idUser).subscribe((resp: User) => {
       this.user = resp
       this.postagensUser = this.user.posts
-    })
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+     })
   }
 
   chamou(idPost: number) {
@@ -73,6 +90,10 @@ export class VisitedProfileComponent implements OnInit {
       this.postLike = resp
       
       this.pegarPeloId()
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
  
@@ -82,7 +103,60 @@ export class VisitedProfileComponent implements OnInit {
       this.postReport = resp
       
       this.pegarPeloId()
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
      })
    }
+
+   upvoteComment(idComment: number) {
+    this.userService.refreshToken()
+    this.userService.postUpvoteComment(environment.id, idComment).subscribe((resp: Comment) => {
+      this.comentarioLike = resp
+      
+       this.pegarPeloId()
+
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+     })
+  }
+
+  reportComment(idComment: number) {
+    this.userService.refreshToken()
+     this.userService.postReportComment(environment.id, idComment).subscribe((resp: Comment) => {
+       this.comentarioReport = resp
+       
+        this.pegarPeloId()
+  
+     }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+     })
+   }
+
+   comentar() {
+    this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
+      this.comentarioNoPost = resp
+      this.alert.showAlertSuccess("Comentário adicionado com sucesso!")
+      
+      this.pegarPeloId()
+     
+      this.comentarioNoPost = new Comment()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O texto não pode ser vazio")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
+      } else if (err.status == 404) {
+        this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+      }
+     })
+  }
 
 }
