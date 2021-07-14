@@ -5,8 +5,11 @@ import { Comment } from '../model/Comment';
 import { Post } from '../model/Post';
 import { Tag } from '../model/Tag';
 import { User } from '../model/User';
+import { AlertsService } from '../service/alerts.service';
 import { CommentService } from '../service/comment.service';
-import { HomeService } from '../service/home.service';
+import { PostService } from '../service/post.service';
+import { TemasService } from '../service/tag.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-home-page',
@@ -21,7 +24,7 @@ export class HomePageComponent implements OnInit {
   novoPost: Post = new Post()
   temas: Tag[]
   postsFeed: Post[]
-  postagensUser: Post[]
+  postsByTags: Post[]
   todosPosts: Post[]
   postLike: Post = new Post()
   comentarioLike: Comment = new Comment()
@@ -32,10 +35,20 @@ export class HomePageComponent implements OnInit {
 
   idPostComentado: number
 
+  tituloPost: string
+  tagNameFeed: string
+  tagNamePost: string
+
+  key = 'data'
+  reverse = true
+
   constructor(
-    private homeService: HomeService,
     private commentService: CommentService,
-    private router: Router
+    private router: Router,
+    private alert: AlertsService,
+    private tagService: TemasService,
+    private userService: UserService,
+    private postService: PostService
   ) { }
 
   ngOnInit() {
@@ -46,56 +59,170 @@ export class HomePageComponent implements OnInit {
       
     } else {
       window.scroll(0,0)
-      this.homeService.refreshToken()
+      this.postService.refreshToken()
+      this.commentService.refreshToken()
+      this.tituloPost = ''
+      this.tagNameFeed = ''
+      this.tagNamePost = ''
       this.pegarPeloId()
+      this.getAllPosts()
       this.pegarFeed()
+      this.getAllPostsByAllTags()
       
-    }
+    }    
   }
 
   getAllPosts() {
-    this.homeService.allPosts().subscribe((resp: Post[]) => {
+    this.postService.allPosts().subscribe((resp: Post[]) => {
       this.todosPosts = resp
     })
   }
 
+  ordemData(a: Post, b: Post) {
+    return a.date < b.date
+  }
+
+  
+
   pegarFeed() {
-    this.homeService.feedUser(environment.id).subscribe((resp: Post[]) => {
+
+    this.userService.feedUser(environment.id).subscribe((resp: Post[]) => {
       this.postsFeed = resp
+
+      this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertInfo("Por favor atualize a página")
+      }
     })
   }
 
   pegarPeloId() {
-    this.homeService.getUserById(environment.id).subscribe((resp: User) => {
+    this.userService.getUserById(environment.id).subscribe((resp: User) => {
       this.usuario = resp
-      this.postagensUser = this.usuario.posts
       this.temas = this.usuario.favorites
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertInfo("Por favor atualize a página")
+      }
     })
   }
 
   adicionarTag() {
-    this.homeService.refreshToken()
-    this.homeService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
+    this.tagService.refreshToken()
+    this.userService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
       User) => {
-        
+        this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
         this.pegarPeloId()
-        this.pegarFeed()
-        this.getAllPosts()
+        if(this.tagNameFeed == '') {
+
+          this.pegarFeed()
+          
+        } else {
+    
+            this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+              this.postsFeed = resp
+        
+              this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+            })
+        }
+        if (this.tituloPost != '') {
+
+          this.getAllPosts()
+          
+        } else {
+    
+          this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+            this.todosPosts = resp
+            this.comentarioNoPost = new Comment()
+          })
+    
+        }
+
+        if (this.tagNamePost == '') {
+
+          this.getAllPostsByAllTags()
+    
+        } else {
+          
+          this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+            this.postsByTags = resp
+          })
+    
+        }
+        
         this.tema = new Tag()
         this.usuario = resp
+      }, err => {
+        if (err.status == 500) {
+          this.alert.showAlertInfo("Por favor atualize a página")
+        } else if (err.status == 403) {
+          this.alert.showAlertDanger("A tag não pode conter caracteres especiais")
+        } else if (err.status == 400) {
+          this.alert.showAlertDanger("Usuário não existe, por favor recarregue a página")
+        }
       })
-    alert("teste")
+    
   }
 
   postarPostagem() {
-    this.homeService.postPostagem(environment.id, this.temaParaPost.tagName, this.novoPost).subscribe((resp: Post) => {
-      alert("Postagem cadastrada com sucesso!")
-      this.novoPost = resp
-      this.getAllPosts()
-      this.pegarPeloId()
-      this.pegarFeed()
-      this.novoPost = new Post()
-      this.temaParaPost = new Tag()
+    this.postService.postPostagem(environment.id, this.temaParaPost.tagName, this.novoPost).subscribe((resp: Post) => {
+        this.alert.showAlertSuccess("Postagem cadastrada com sucesso!")
+        this.novoPost = resp
+        
+        if (this.tituloPost == '') {
+
+          this.getAllPosts()
+          this.comentarioNoPost = new Comment()
+        } else {
+    
+          this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+            this.todosPosts = resp
+            this.comentarioNoPost = new Comment()
+          })
+    
+        }
+
+        this.pegarPeloId()
+        if(this.tagNameFeed == '') {
+
+          this.pegarFeed()
+    
+        } else {
+    
+        this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+          this.postsFeed = resp
+    
+          this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+        })
+      }
+
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+
+      } else {
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
+        })
+
+      }
+        this.novoPost = new Post()
+        this.temaParaPost = new Tag()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 303) {
+        this.alert.showAlertDanger("O nome da tag não pode ter caracteres especiais")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O título não pode ser vazio")
+      } else if (err.status == 405) {
+        this.alert.showAlertDanger("A descrição não pode ser vazia")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+      }
     })
   } 
 
@@ -105,57 +232,330 @@ export class HomePageComponent implements OnInit {
 
   comentar() {
     this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
-      this.comentarioNoPost = resp
-      alert("comentado com sucesso")
-      this.getAllPosts()
-      this.pegarPeloId()
-      this.pegarFeed()
-      this.comentarioNoPost = new Comment()
+        this.comentarioNoPost = resp
+        this.alert.showAlertSuccess("Comentado com sucesso")
+        
+        if (this.tituloPost == '') {
+
+          this.getAllPosts()
+          this.comentarioNoPost = new Comment()
+        } else {
+    
+          this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+            this.todosPosts = resp
+            this.comentarioNoPost = new Comment()
+          })
+    
+        }
+        
+        this.pegarPeloId()
+        if(this.tagNameFeed == '') {
+
+          this.pegarFeed()
+    
+        } else {
+    
+        this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+          this.postsFeed = resp
+    
+          this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+        })
+      }
+
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+
+      } else {
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
+        })
+
+      }
+        this.comentarioNoPost = new Comment()
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      } else if (err.status == 403) {
+        this.alert.showAlertDanger("O texto não pode ser vazio")
+      } else if (err.status == 400) {
+        this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
+      } else if (err.status == 404) {
+        this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+      }
     })
   }
 
   upvoteComment(idComment: number) {
-   
-    this.homeService.postUpvoteComment(environment.id, idComment).subscribe((resp: Comment) => {
+    this.userService.refreshToken()
+    this.userService.postUpvoteComment(environment.id, idComment).subscribe((resp: Comment) => {
       this.comentarioLike = resp
       
       this.pegarPeloId()
-      this.pegarFeed()
-      this.getAllPosts()
+      if(this.tagNameFeed == '') {
+
+        this.pegarFeed()
+  
+      } else {
+  
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+  
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
+      
+      if (this.tituloPost == '') {
+
+        this.getAllPosts()
+        this.comentarioNoPost = new Comment()
+      } else {
+  
+        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+          this.todosPosts = resp
+          this.comentarioNoPost = new Comment()
+        })
+  
+      }
+
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+  
+      } else {
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
+        })
+  
+      }
+    }, err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
   reportComment(idComment: number) {
-   
-    this.homeService.postReportComment(environment.id, idComment).subscribe((resp: Comment) => {
+   this.userService.refreshToken()
+    this.userService.postReportComment(environment.id, idComment).subscribe((resp: Comment) => {
       this.comentarioReport = resp
       
       this.pegarPeloId()
-      this.pegarFeed()
-      this.getAllPosts()
+      if(this.tagNameFeed == '') {
+
+        this.pegarFeed()
+  
+      } else {
+  
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+  
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
+      
+      if (this.tituloPost == '') {
+
+        this.getAllPosts()
+        this.comentarioNoPost = new Comment()
+      } else {
+  
+        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+          this.todosPosts = resp
+          this.comentarioNoPost = new Comment()
+        })
+  
+      }
+
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+  
+      } else {
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
+        })
+  
+      }
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
   upvotePost(idPost: number) {
-   
-    this.homeService.postUpvotePost(environment.id, idPost).subscribe((resp: Post) => {
+   this.userService.refreshToken()
+    this.userService.postUpvotePost(environment.id, idPost).subscribe((resp: Post) => {
       this.postLike = resp
       
       this.pegarPeloId()
-      this.pegarFeed()
-      this.getAllPosts()
+      if(this.tagNameFeed == '') {
+
+        this.pegarFeed()
+  
+      } else {
+  
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+  
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
+
+      if (this.tituloPost == '') {
+
+        this.getAllPosts()
+        this.comentarioNoPost = new Comment()
+      } else {
+  
+        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+          this.todosPosts = resp
+          this.comentarioNoPost = new Comment()
+        })
+  
+      }
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+  
+      } else {
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
+        })
+  
+      }
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
   }
 
   reportPost(idPost: number) {
-   
-    this.homeService.postReportPost(environment.id, idPost).subscribe((resp: Post) => {
+    this.userService.refreshToken()
+    this.userService.postReportPost(environment.id, idPost).subscribe((resp: Post) => {
       this.postReport = resp
       
       this.pegarPeloId()
-      this.pegarFeed()
-      this.getAllPosts()
+      if(this.tagNameFeed == '') {
+
+        this.pegarFeed()
+  
+      } else {
+  
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+  
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      })
+    }
+
+      if (this.tituloPost == '') {
+
+        this.getAllPosts()
+        this.comentarioNoPost = new Comment()
+      } else {
+  
+        this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+          this.todosPosts = resp
+          this.comentarioNoPost = new Comment()
+        })
+  
+      }
+
+      if (this.tagNamePost == '') {
+
+        this.getAllPostsByAllTags()
+  
+      } else {
+        
+        this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+          this.postsByTags = resp
+        })
+  
+      }
+      
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
     })
+  }
+
+  findByTituloPostagem() {
+
+    if (this.tituloPost == '') {
+
+      this.getAllPosts()
+      this.comentarioNoPost = new Comment()
+    } else {
+
+      this.postService.getByTituloPostagem(this.tituloPost).subscribe((resp: Post[]) => {
+        this.todosPosts = resp
+        this.comentarioNoPost = new Comment()
+      } , err => {
+        if (err.status == 500) {
+          this.alert.showAlertDanger("Por favor atualize a página")
+        }
+      })
+
+    }
+
+  }
+
+  findPostsByTagNameFeed() {
+
+    if(this.tagNameFeed == '') {
+
+      this.pegarFeed()
+
+    } else {
+
+      this.postService.getPostByTagNameFeed(environment.id, this.tagNameFeed).subscribe((resp: Post[]) => {
+        this.postsFeed = resp
+
+        this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
+      } , err => {
+        if (err.status == 500) {
+          this.alert.showAlertDanger("Por favor atualize a página")
+        }
+      })
+    }
+  }
+
+  getAllPostsByAllTags() {
+    this.postService.getPostByAllTags().subscribe((resp: Post[]) => {
+      this.postsByTags = resp
+    } , err => {
+      if (err.status == 500) {
+        this.alert.showAlertDanger("Por favor atualize a página")
+      }
+    })
+  }
+
+  getAllPostsByTagNames() {
+
+    if (this.tagNamePost == '') {
+
+      this.getAllPostsByAllTags()
+
+    } else {
+      
+      this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
+        this.postsByTags = resp
+      } , err => {
+        if (err.status == 500) {
+          this.alert.showAlertDanger("Por favor atualize a página")
+        }
+      })
+
+    }
+    
   }
 
 }

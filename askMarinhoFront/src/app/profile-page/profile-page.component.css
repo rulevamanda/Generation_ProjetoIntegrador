@@ -1,34 +1,55 @@
-.warning-style{
+.excluir:hover {
+    color: #929393;
+}
+
+.excluir:active {
+    color: #FF9665;
+}
+
+.editar:hover {
+    color: #929393;
+}
+
+.editar:active {
+    color: #6dd3ce;
+}
+
+.warning-style {
     color: crimson;
-    font-size: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .comment-style {
     color: #6dd3ce;
-    font-size: 35px;
+    font-size: 25px;
+    cursor: pointer;
 }
 
-a.maoe-style{
-    font-size: 30px;
+a.maoe-style {
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-a.maoe-style:active{
+a.maoe-style:active {
     color: blueviolet;
 }
 
-a.maoe-style:visited{
+a.maoe-style:visited {
     color: #929393;
 }
 
-a.maoe-style:hover{
+a.maoe-style:hover {
     color: red;
 }
 
-.ml-50{
+.ml-50 {
     margin-left: 66px;
 }
 
-a.nome-post:visited{
+a.nome-post:visited {
     color: #929393;
     font-size: 20px;
     font-family: Roboto;
@@ -37,14 +58,15 @@ a.nome-post:visited{
 .btn-profile {
     border-radius: 15px;
     border: none;
-    color: #535353;
+    color: #0db4ac;
     background-color: #6dd3ce;
     text-align: center;
+    font-weight: bolder;
     font-family: Roboto;
     font-size: 15px;
 }
 
-.btn-delete{
+.btn-delete {
     border: none;
     color: #FF9665;
     font-size: 30px;
@@ -60,10 +82,11 @@ a.nome-post:visited{
     background-color: #f4f4f4 !important;
 }
 
-.bg-color{
+.bg-color {
     background-color: #e8edec !important;
 }
-.borderline{
+
+.borderline {
     border-radius: 15px;
 }
 
@@ -121,4 +144,106 @@ a:link {
 
 a:hover {
     color: #3d3d3d;
+}
+
+.bg-post-modal {
+    background: #94e2deaf;
+}
+
+.bg-post-modal2 {
+    background: #e8edec;
+    border: none;
+}
+
+.bg-tag-modal {
+    background: #94e2deaf;
+}
+
+.bg-tag-modal2 {
+    background: #e8edec;
+    border: none;
+}
+
+.bg-comment-modal {
+    background: #94e2deaf;
+}
+
+.bg-comment-modal2 {
+    background: #e8edec;
+    border: none;
+}
+
+.fechar {
+    background-color: #ffcab1;
+    color: #ee966e;
+    font-weight: bold;
+}
+
+.fechar:hover {
+    background-color: #fad0bc;
+    border: 1px solid #dfb6a4;
+}
+
+.titulo-pl {
+    font-family: Bebas Neue;
+    font-size: 30px;
+    font-weight: bold;
+    color: #6dd3ce;
+}
+
+.label-modal {
+    font-family: Roboto;
+    font-weight: bold;
+    color: #6dd3ce;
+}
+
+.fechar:active {
+    background-color: #bb5221;
+    border: 1px solid #FFB18C;
+}
+
+.postar {
+    background-color: #6dd3ce;
+    color: #0db4ac;
+    font-weight: bold;
+}
+
+.postar:hover {
+    background-color: #aafaf6;
+    border: 1px solid #6dd3ce;
+}
+
+.postar:active {
+    background-color: #6dd3ce;
+    border: 1px solid #6dd3ce;
+}
+
+.lixeira {
+    color: red;
+}
+
+.adicionar {
+    color: #6dd3ce;
+    font-size: 40px;
+}
+
+
+.nav-comments-title {
+    color: #6dd3ce;
+    font-family: BEBAS Neue;
+    font-size: 40px;
+}
+
+.delete-style{
+    color: red;
+}
+
+.delete-style:hover{
+    color: rgb(153, 0, 0);
+}
+
+.tag-color{
+    color: #929393;
+    font-weight: bolder;
+    font-size: 20px;
 }

@@ -9,7 +9,7 @@ import { User } from '../model/User';
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService {
+export class UserService {
 
   constructor(
     private http: HttpClient
@@ -25,10 +25,6 @@ export class HomeService {
     }
   }
 
-  addFavorite(idUser: number, nome: string): Observable<User> {
-    return this.http.put<User>(`https://askmarinho.herokuapp.com/users/add/theme/${idUser}/${nome}`, this.token)
-  }
-
   getUserById(idUser: number): Observable<User> {
     return this.http.get<User>(`https://askmarinho.herokuapp.com/users/id/${idUser}`, this.token)
   }
@@ -37,12 +33,12 @@ export class HomeService {
     return this.http.get<Post[]>(`https://askmarinho.herokuapp.com/users/posts/favorites/${idUser}`, this.token)
   }
 
-  allPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>("https://askmarinho.herokuapp.com/posts/all/", this.token)
+  putUser(idUser: number, usuarioAtt: User): Observable<User> {
+    return this.http.put<User>(`https://askmarinho.herokuapp.com/users/update/${idUser}`, usuarioAtt, this.token)
   }
 
-  postPostagem(idUser: number, themeName: string, postagem: Post): Observable<Post> {
-    return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/posts/register/${idUser}/${themeName}`, postagem, this.token)
+  deleteUser(idUser: number): Observable<Object> {
+    return this.http.delete<Object>(`https://askmarinho.herokuapp.com/users/delete/${idUser}`, this.token)
   }
 
   postUpvoteComment(idUser: number, idComment: number): Observable<Comment> {
@@ -61,7 +57,12 @@ export class HomeService {
     return this.http.post<Post>(`https://askmarinho.herokuapp.com/users/reports/post/${idUser}/${idPost}`, this.token)
   }
 
-  
+  addFavorite(idUser: number, nome: string): Observable<User> {
+    return this.http.put<User>(`https://askmarinho.herokuapp.com/users/add/theme/${idUser}/${nome}`, this.token)
+  }
 
-  ///https://askmarinho.herokuapp.com/users/add/theme/{idUser}/{tagName}
+  deleteTag(idUser: number, idTag: number) {
+    return this.http.delete(`https://askmarinho.herokuapp.com/users/delete/theme/favorites/${idUser}/${idTag}`, this.token)
+  }
+
 }
