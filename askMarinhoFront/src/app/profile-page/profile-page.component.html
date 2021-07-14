@@ -60,7 +60,7 @@
                     <!-- NAV BOOTSTRAP -->
                     <nav>
                         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Minhas Postagens</a>
+                            <a class="nav-item nav-link active" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Postagens de {{usuario.name}}</a>
                             <a class="nav-item nav-link" id="nav-comentarios-tab" data-toggle="tab" href="#nav-comentarios" role="tab" aria-controls="nav-comentarios" aria-selected="false">Comentários</a>
                             <a class="nav-item nav-link" id="nav-tagsFav-tab" data-toggle="tab" href="#nav-tagsFav" role="tab" aria-controls="nav-tagsFav" aria-selected="false">Tags favoritas</a>
 
@@ -125,8 +125,11 @@
                                 <div class="collapse show" id="commentsUser">
                                     <div *ngFor='let comentarios of postsUser.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
-                                            <img class="mr-3 rounded-circle img-fluid" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                            <a routerLink="/profile" class="nome-post"><b>{{usuario.name}}</b></a>
+                                            <img class="mr-3 rounded-circle img-fluid"
+                                                src="{{comentarios.userComment.urlImage}}"
+                                                style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                                <a routerLink="/profile"
+                                                class="nome-post"><b>{{comentarios.userComment.name}}</b></a>
                                             <div class="row">
                                                 <div class="col-md-10 d-flex justify-content-start align-items-center">
                                                     <h5 class="card-title text-left mt-2 ml-50">{{comentarios.text}}</h5>
