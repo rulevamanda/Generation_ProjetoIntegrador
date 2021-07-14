@@ -39,29 +39,21 @@
                     <!-- NAV BOOTSTRAP -->
                     <nav class="mb-3">
                         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-feed-tab" data-toggle="tab" href="#nav-feed"
-                                role="tab" aria-controls="nav-feed" aria-selected="true">Feed</a>
-                            <a (click)='getAllPosts()' class="nav-item nav-link" id="nav-todasPostagens-tab"
-                                data-toggle="tab" href="#nav-todasPostagens" role="tab"
-                                aria-controls="nav-todasPostagens" aria-selected="false">Todas as postagens</a>
-                            <a class="nav-item nav-link" id="nav-minhasPostagens-tab" data-toggle="tab"
-                                href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens"
-                                aria-selected="false">Minhas Postagens</a>
+                            <a class="nav-item nav-link active" id="nav-feed-tab" data-toggle="tab" href="#nav-feed" role="tab" aria-controls="nav-feed" aria-selected="true">Feed</a>
+                            <a (click)='getAllPosts()' class="nav-item nav-link" id="nav-todasPostagens-tab" data-toggle="tab" href="#nav-todasPostagens" role="tab" aria-controls="nav-todasPostagens" aria-selected="false">Todas as postagens</a>
+                            <a class="nav-item nav-link" id="nav-todasTag-tab" data-toggle="tab" href="#nav-todasTag" role="tab" aria-controls="nav-todasTag" aria-selected="false">Postagens por tag</a>
                         </div>
                     </nav>
 
                     <div class="tab-content d-flex justify-content-center" id="nav-tabContent">
 
 
-                        <div class="tab-pane fade show active w-100" id="nav-feed" role="tabpanel"
-                            aria-labelledby="nav-feed-tab">
+                        <div class="tab-pane fade show active w-100" id="nav-feed" role="tabpanel" aria-labelledby="nav-feed-tab">
 
                             <div class="row d-flex justify-content-center mt-5 mb-5">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <input [(ngModel)]='tagNameFeed' (keyup)='findPostsByTagNameFeed()' type="text"
-                                            class="form-control" id="titulo"
-                                            placeholder="Digite um nome de tag para pesquisar">
+                                        <input [(ngModel)]='tagNameFeed' (keyup)='findPostsByTagNameFeed()' type="text" class="form-control" id="titulo" placeholder="Digite um nome de tag para pesquisar">
                                     </div>
                                 </div>
                             </div>
@@ -72,11 +64,8 @@
                                         <div>
                                             <div class="row">
                                                 <div class="col-md-4 d-flex justify-content-start align-items-center">
-                                                    <img class="rounded-circle img-fluid mr-3"
-                                                        src="{{feed.userPost.urlImage}}"
-                                                        style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                    <a
-                                                        [routerLink]="['/profile-visited', feed.userPost.idUser]"><b>{{feed.userPost.name}}</b></a>
+                                                    <img class="rounded-circle img-fluid mr-3" src="{{feed.userPost.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                                    <a [routerLink]="['/profile-visited', feed.userPost.idUser]"><b>{{feed.userPost.name}}</b></a>
                                                 </div>
                                                 <div class="col-md-8 d-flex justify-content-end align-items-center">
 
@@ -90,46 +79,39 @@
                                                 'dd/MM/yyyy'}} às {{feed.date | date: 'HH:mm a'}}</small></p>
 
                                         <div class="text-center">
-                                            <a *ngFor='let tagsDoPost of feed.tagRelation | orderBy : key : reverse'
-                                                href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
+                                            <a *ngFor='let tagsDoPost of feed.tagRelation | orderBy : key : reverse' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
                                         </div>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(feed.idPost)'
-                                                    class="maoe-style mr-4">{{feed.userUpvotePost.length}}<i
+                                                <a (click)='upvotePost(feed.idPost)' class="maoe-style mr-4">{{feed.userUpvotePost.length}}<i
                                                         class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(feed.idPost)" class="comment-style mr-4"><i
                                                         class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                         data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(feed.idPost)' id="maoe"
-                                                    class="warning-style">{{feed.userReportPost.length}}<i
+                                                <a (click)='reportPost(feed.idPost)' id="maoe" class="warning-style">{{feed.userReportPost.length}}<i
                                                         class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-2">
-                                    <p class="font-style3 text-center" data-toggle="collapse" href="#commentsUser"
-                                        role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <p class="font-style3 text-center" data-toggle="collapse" href="#commentsUser" role="button" aria-expanded="false" aria-controls="collapseExample">
                                         Comentários
                                     </p>
                                 </div>
                                 <div class="collapse show" id="commentsUser">
-                                    <div *ngFor='let comentarios of feed.comment | orderBy : key : reverse'
-                                        class="mb-2">
+                                    <div *ngFor='let comentarios of feed.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
-                                            <img class="rounded-circle img-fluid mr-3"
-                                                src="{{comentarios.userComment.urlImage}}"
-                                                style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                <a [routerLink]="['/profile-visited', feed.userPost.idUser]"><b>{{feed.userPost.name}}</b></a>
+                                            <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                            <a [routerLink]="['/profile-visited', feed.userPost.idUser]"><b>{{feed.userPost.name}}</b></a>
                                             <div class="row ml-5">
                                                 <div class="col-md-10 d-flex justify-content-start align-items-center">
                                                     <h5 class="card-title text-center">{{comentarios.text}}</h5>
-                                            
+
                                                 </div>
                                             </div>
                                             <div class="row d-flex justify-content-center">
@@ -144,12 +126,10 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <a (click)='upvoteComment(comentarios.idComment)'
-                                                        class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
                                                             class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
-                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe"
-                                                        class="warning-style">{{comentarios.userReportComment.length}}<i
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
                                                             class="fa fa-exclamation-triangle"
                                                             aria-hidden="true"></i></a>
                                                 </div>
@@ -163,345 +143,299 @@
                         </div>
 
 
-                        <div class="tab-pane fade w-100" id="nav-todasPostagens" role="tabpanel"
-                            aria-labelledby="nav-todasPostagens-tab">
-                            <div *ngFor='let allPosts of todosPosts'>
+                        <div class="tab-pane fade w-100" id="nav-todasPostagens" role="tabpanel" aria-labelledby="nav-todasPostagens-tab">
+                            <div class="row d-flex justify-content-center mt-5 mb-5">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <input [(ngModel)]='tituloPost' (keyup)='findByTituloPostagem()' type="text" class="form-control" id="titulo" placeholder="Digite um título para pesquisar">
+                                    </div>
+                                </div>
+                            </div>
 
-                                <div class="row d-flex justify-content-center mt-5 mb-5">
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <input [(ngModel)]='tituloPost' (keyup)='findByTituloPostagem()' type="text"
-                                                class="form-control" id="titulo"
-                                                placeholder="Digite um título para pesquisar">
+                            <div *ngFor='let allPosts of todosPosts | orderBy : key : reverse'>
+                                <div class="card mb-2 mt-5 borderline">
+                                    <div class="card-body bg-postagem borderline">
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                                                    <img class="rounded-circle img-fluid mr-3" src="{{allPosts.userPost.urlImage}}" style="width: 50px; height: 50px;" alt="foto-perfil-usuario">
+                                                    <a [routerLink]="['/profile-visited', allPosts.userPost.idUser]" class="nome-post"><b> {{allPosts.userPost.name}} </b></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h5 class="card-title text-left mt-2 ml-50">{{allPosts.title}}</h5>
+                                        <p class="card-text ml-50">{{allPosts.description}}</p>
+                                        <div class="row d-flex justify-content-center">
+
+                                            <div class="col-md-12">
+                                                <div class="text-center">
+                                                    <p class="card-text text-center"><small class="text-muted">{{allPosts.date | date: 'dd/MM/yyyy'}} às {{allPosts.date | date: 'HH:mm
+                                                                a'}}</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <a *ngFor='let tagsDoPost of allPosts.tagRelation | orderBy : key : reverse' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12 d-flex justify-content-center">
+
+                                                <a (click)='upvotePost(allPosts.idPost)' class="maoe-style mr-4">{{allPosts.userUpvotePost.length}}<i
+                                                            class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
+
+                                                <a (click)="chamou(allPosts.idPost)" class="comment-style mr-4"><i
+                                                            class="fa fa-comment-o" aria-hidden="true" id="maoe"
+                                                            data-toggle="modal" data-target="#comentado"></i></a>
+
+                                                <a (click)='reportPost(allPosts.idPost)' id="maoe" class="warning-style">{{allPosts.userReportPost.length}}<i
+                                                            class="fa fa-exclamation-triangle"
+                                                            aria-hidden="true"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="mb-2">
+                                    <p class="font-style3 text-center" data-toggle="collapse" href="#commentsUser" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Comentários
+                                    </p>
+                                </div>
+                                <div class="collapse show" id="commentsUser">
+                                    <div *ngFor='let comentarios of allPosts.comment | orderBy : key : reverse' class="mb-2">
+                                        <div class="card-body borderline bg-postagem mx-5">
+                                            <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                            <a [routerLink]="['/profile-visited', allPosts.userPost.idUser]" class="nome-post"><b> {{comentarios.userComment.name}} </b></a>
+                                            <div class="row">
+                                                <div class="col-md-10 d-flex justify-content-start align-items-center">
+                                                    <h5 class="card-title text-center">{{comentarios.text}}</h5>
 
 
-                                <div *ngFor='let allPosts of todosPosts | orderBy : key : reverse'>
-                                    <div class="card mb-2 mt-5 borderline">
-                                        <div class="card-body bg-postagem borderline">
-                                            <div>
-                                                <div class="row">
-                                                    <div
-                                                        class="col-md-4 d-flex justify-content-start align-items-center">
-                                                        <img class="rounded-circle img-fluid mr-3"
-                                                            src="{{allPosts.userPost.urlImage}}"
-                                                            style="width: 50px; height: 50px;"
-                                                            alt="foto-perfil-usuario">
-                                                        <a [routerLink]="['/profile-visited', allPosts.userPost.idUser]" class="nome-post"><b> {{allPosts.userPost.name}} </b></a>
-                                                    </div>
                                                 </div>
                                             </div>
-                                            <h5 class="card-title text-left mt-2 ml-50">{{allPosts.title}}</h5>
-                                            <p class="card-text ml-50">{{allPosts.description}}</p>
                                             <div class="row d-flex justify-content-center">
 
                                                 <div class="col-md-12">
                                                     <div class="text-center">
-                                                        <p class="card-text text-center"><small class="text-muted">{{allPosts.date | date: 'dd/MM/yyyy'}} às {{allPosts.date | date: 'HH:mm
-                                                                a'}}</small></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-center">
-                                                <a *ngFor='let tagsDoPost of allPosts.tagRelation | orderBy : key : reverse'
-                                                    href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-md-12 d-flex justify-content-center">
-
-                                                    <a (click)='upvotePost(allPosts.idPost)'
-                                                        class="maoe-style mr-4">{{allPosts.userUpvotePost.length}}<i
-                                                            class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
-
-                                                    <a (click)="chamou(allPosts.idPost)" class="comment-style mr-4"><i
-                                                            class="fa fa-comment-o" aria-hidden="true" id="maoe"
-                                                            data-toggle="modal" data-target="#comentado"></i></a>
-
-                                                    <a (click)='reportPost(allPosts.idPost)' id="maoe"
-                                                        class="warning-style">{{allPosts.userReportPost.length}}<i
-                                                            class="fa fa-exclamation-triangle"
-                                                            aria-hidden="true"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-2">
-                                        <p class="font-style3 text-center" data-toggle="collapse" href="#commentsUser"
-                                            role="button" aria-expanded="false" aria-controls="collapseExample">
-                                            Comentários
-                                        </p>
-                                    </div>
-                                    <div class="collapse show" id="commentsUser">
-                                        <div *ngFor='let comentarios of allPosts.comment | orderBy : key : reverse'
-                                            class="mb-2">
-                                            <div class="card-body borderline bg-postagem mx-5">
-                                                <img class="rounded-circle img-fluid mr-3"
-                                                    src="{{comentarios.userComment.urlImage}}"
-                                                    style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                    <a [routerLink]="['/profile-visited', allPosts.userPost.idUser]" class="nome-post"><b> {{comentarios.userComment.name}} </b></a>
-                                                <div class="row">
-                                                    <div
-                                                        class="col-md-10 d-flex justify-content-start align-items-center">
-                                                        <h5 class="card-title text-center">{{comentarios.text}}</h5>
-
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="row d-flex justify-content-center">
-
-                                                    <div class="col-md-12">
-                                                        <div class="text-center">
-                                                            <p class="card-text text-center"><small class="text-muted">{{comentarios.date | date: 'dd/MM/yyyy'}} às {{comentarios.date | date: 'HH:mm
+                                                        <p class="card-text text-center"><small class="text-muted">{{comentarios.date | date: 'dd/MM/yyyy'}} às {{comentarios.date | date: 'HH:mm
                                                                     a'}}</small></p>
-                                                        </div>
                                                     </div>
                                                 </div>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-md-12 d-flex justify-content-center">
-                                                        <a (click)='upvoteComment(comentarios.idComment)'
-                                                            class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
-                                                                class="fa fa-heart" aria-hidden="true"
-                                                                id="maoe"></i></a>
-
-                                                        <a (click)='reportComment(comentarios.idComment)' id="maoe"
-                                                            class="warning-style">{{comentarios.userReportComment.length}}<i
-                                                                class="fa fa-exclamation-triangle"
-                                                                aria-hidden="true"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="tab-pane fade w-100" id="nav-minhasPostagens" role="tabpanel"
-                                aria-labelledby="nav-minhasPostagens-tab">
-
-                                <div class="row d-flex justify-content-center mt-5 mb-5">
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <input [(ngModel)]='tagNamePost' (keyup)='getAllPostsByTagNames()'
-                                                type="text" class="form-control" id="titulo"
-                                                placeholder="Digite um nome de tag para pesquisar">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div *ngFor='let postsTags of postsByTags | orderBy : key : reverse'>
-                                    <div class="card mb-2 mt-5 borderline">
-                                        <div class="card-body bg-postagem borderline">
-                                            <div>
-                                                <div class="row">
-                                                    <div
-                                                        class="col-md-4 d-flex justify-content-start align-items-center">
-                                                        <img class="rounded-circle img-fluid mr-3"
-                                                            src="{{postsTags.userPost.urlImage}}"
-                                                            style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                        <a routerLink="/profile"
-                                                            class="nome-post"><b>{{postsTags.userPost.name}}</b></a>
-                                                    </div>
-                                                    <div class="col-md-8 d-flex justify-content-end align-items-center">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title text-left mt-2 ml-50">{{postsTags.title}}</h5>
-                                            <p class="card-text ml-50">{{postsTags.description}}</p>
-                                            <div class="text-center">
-                                                <a *ngFor='let tagsDoPost of postsTags.tagRelation | orderBy : key : reverse'
-                                                    href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
                                             </div>
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-
-                                                    <a (click)='upvotePost(postsTags.idPost)'
-                                                        class="maoe-style mr-4">{{postsTags.userUpvotePost.length}}<i
-                                                            class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
-
-                                                    <a (click)="chamou(postsTags.idPost)" class="comment-style mr-4"><i
-                                                            class="fa fa-comment-o" aria-hidden="true" id="maoe"
-                                                            data-toggle="modal" data-target="#comentado"></i></a>
-
-                                                    <a (click)='reportPost(postsTags.idPost)' id="maoe"
-                                                        class="warning-style">{{postsTags.userReportPost.length}}<i
-                                                            class="fa fa-exclamation-triangle"
-                                                            aria-hidden="true"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-2">
-                                        <p class="font-style3 text-center" data-toggle="collapse" href="#commentsUser"
-                                            role="button" aria-expanded="false" aria-controls="collapseExample">
-                                            Comentários
-                                        </p>
-                                    </div>
-                                    <div class="collapse show" id="commentsUser">
-                                        <div *ngFor='let comentarios of postsTags.comment | orderBy : key : reverse'
-                                            class="mb-2">
-                                            <div class="card-body borderline bg-postagem mx-5">
-                                                <img class="rounded-circle img-fluid mr-3"
-                                                    src="{{comentarios.userComment.urlImage}}"
-                                                    style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                <div class="row">
-                                                    <div
-                                                        class="col-md-10 d-flex justify-content-start align-items-center">
-                                                        <h5 class="card-title text-center">{{comentarios.text}}</h5>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-md-12 d-flex justify-content-center">
-                                                        <a (click)='upvoteComment(comentarios.idComment)'
-                                                            class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
                                                                 class="fa fa-heart" aria-hidden="true"
                                                                 id="maoe"></i></a>
 
-                                                        <a (click)='reportComment(comentarios.idComment)' id="maoe"
-                                                            class="warning-style">{{comentarios.userReportComment.length}}<i
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
                                                                 class="fa fa-exclamation-triangle"
                                                                 aria-hidden="true"></i></a>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade w-100" id="nav-todasTag" role="tabpanel" aria-labelledby="nav-todasTag-tab">
+
+                            <div class="row d-flex justify-content-center mt-5 mb-5">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <input [(ngModel)]='tagNamePost' (keyup)='getAllPostsByTagNames()' type="text" class="form-control" id="titulo" placeholder="Digite um nome de tag para pesquisar">
                                     </div>
                                 </div>
-
                             </div>
+
+                            <div *ngFor='let postsTags of postsByTags | orderBy : key : reverse'>
+                                <div class="card mb-2 mt-5 borderline">
+                                    <div class="card-body bg-postagem borderline">
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                                                    <img class="rounded-circle img-fluid mr-3" src="{{postsTags.userPost.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                                    <a routerLink="/profile" class="nome-post"><b>{{postsTags.userPost.name}}</b></a>
+                                                </div>
+                                                <div class="col-md-8 d-flex justify-content-end align-items-center">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h5 class="card-title text-left mt-2 ml-50">{{postsTags.title}}</h5>
+                                        <p class="card-text ml-50">{{postsTags.description}}</p>
+                                        <div class="text-center">
+                                            <a *ngFor='let tagsDoPost of postsTags.tagRelation | orderBy : key : reverse' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12 d-flex justify-content-center">
+
+                                                <a (click)='upvotePost(postsTags.idPost)' class="maoe-style mr-4">{{postsTags.userUpvotePost.length}}<i
+                                                            class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
+
+                                                <a (click)="chamou(postsTags.idPost)" class="comment-style mr-4"><i
+                                                            class="fa fa-comment-o" aria-hidden="true" id="maoe"
+                                                            data-toggle="modal" data-target="#comentado"></i></a>
+
+                                                <a (click)='reportPost(postsTags.idPost)' id="maoe" class="warning-style">{{postsTags.userReportPost.length}}<i
+                                                            class="fa fa-exclamation-triangle"
+                                                            aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <p class="font-style3 text-center" data-toggle="collapse" href="#commentsUser" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Comentários
+                                    </p>
+                                </div>
+                                <div class="collapse show" id="commentsUser">
+                                    <div *ngFor='let comentarios of postsTags.comment | orderBy : key : reverse' class="mb-2">
+                                        <div class="card-body borderline bg-postagem mx-5">
+                                            <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                            <div class="row">
+                                                <div class="col-md-10 d-flex justify-content-start align-items-center">
+                                                    <h5 class="card-title text-center">{{comentarios.text}}</h5>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-12 d-flex justify-content-center">
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
+                                                                class="fa fa-heart" aria-hidden="true"
+                                                                id="maoe"></i></a>
+
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
+                                                                class="fa fa-exclamation-triangle"
+                                                                aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
-                        <!-- /NAV BOOTSTRAP -->
-
                     </div>
+                    <!-- /NAV BOOTSTRAP -->
 
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Modal Postagem -->
-    <div class="modal fade bg-post-modal" id="novaPostagem" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-post-modal2">
-                <div class="modal-header">
-                    <div class="text-center">
-                        <h5 class="modal-title titulo-pl text-center" id="exampleModalLabel">NOVA POSTAGEM</h5>
-                    </div>
-                    <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
+<!-- Modal Postagem -->
+<div class="modal fade bg-post-modal" id="novaPostagem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-post-modal2">
+            <div class="modal-header">
+                <div class="text-center">
+                    <h5 class="modal-title titulo-pl text-center" id="exampleModalLabel">NOVA POSTAGEM</h5>
+                </div>
+                <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
 
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="" class="label-modal">Título</label>
+                    <input [(ngModel)]='novoPost.title' class="form-control" type="text" placeholder="Título da postagem">
                 </div>
 
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="" class="label-modal">Título</label>
-                        <input [(ngModel)]='novoPost.title' class="form-control" type="text"
-                            placeholder="Título da postagem">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="" class="label-modal">Descrição</label>
-                        <textarea [(ngModel)]='novoPost.description' class="form-control borderInput"
-                            id="exampleFormControlTextarea1" rows="3" placeholder="Escreva sua postagem"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="" class="label-modal">Tema</label>
-                        <input [(ngModel)]='temaParaPost.tagName' class="form-control" type="text"
-                            placeholder="Digite um tema para a sua postagem">
-                    </div>
-
+                <div class="form-group">
+                    <label for="" class="label-modal">Descrição</label>
+                    <textarea [(ngModel)]='novoPost.description' class="form-control borderInput" id="exampleFormControlTextarea1" rows="3" placeholder="Escreva sua postagem"></textarea>
                 </div>
 
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
-                    <button (click)='postarPostagem()' type="button" class="btn postar"
-                        data-dismiss="modal">Postar</button>
+                <div class="form-group">
+                    <label for="" class="label-modal">Tema</label>
+                    <input [(ngModel)]='temaParaPost.tagName' class="form-control" type="text" placeholder="Digite um tema para a sua postagem">
                 </div>
+
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
+                <button (click)='postarPostagem()' type="button" class="btn postar" data-dismiss="modal">Postar</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Modal tag favorita -->
+<!-- Modal tag favorita -->
 
 
-    <div class="modal fade bg-tag-modal" id="novaTagFav" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-tag-modal2">
-                <div class="modal-header">
-                    <div class="mr-auto ml-auto">
-                        <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVA TAG FAVORITA
+<div class="modal fade bg-tag-modal" id="novaTagFav" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-tag-modal2">
+            <div class="modal-header">
+                <div class="mr-auto ml-auto">
+                    <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVA TAG FAVORITA
 
-                        </h5>
-                    </div>
-                    <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
+                    </h5>
+                </div>
+                <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
 
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="label-modal">Nome da tag</label>
+                    <input maxlength="25" [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
                 </div>
 
-                <div class="modal-body">
+            </div>
 
-                    <div class="form-group">
-                        <label class="label-modal">Nome da tag</label>
-                        <input maxlength="25" [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav"
-                            type="text" placeholder="Nome da tag">
-                    </div>
-
-                </div>
-
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
-                    <button (click)='adicionarTag()' type="button" class="btn postar"
-                        data-dismiss="modal">Adicionar</button>
-                </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
+                <button (click)='adicionarTag()' type="button" class="btn postar" data-dismiss="modal">Adicionar</button>
             </div>
         </div>
     </div>
+</div>
 
 
-    <!-- Modal para comentario -->
+<!-- Modal para comentario -->
 
-    <div class="modal fade bg-comment-modal" id="comentado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-comment-modal2">
-                <div class="modal-header">
-                    <div class="mr-auto ml-auto">
-                        <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVO COMENTÁRIO
-    
-                        </h5>
-                    </div>
-                    <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
+<div class="modal fade bg-comment-modal" id="comentado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-comment-modal2">
+            <div class="modal-header">
+                <div class="mr-auto ml-auto">
+                    <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVO COMENTÁRIO
+
+                    </h5>
+                </div>
+                <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
-    
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="label-modal">Comentário</label>
+                    <input maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
                 </div>
-    
-                <div class="modal-body">
-    
-                    <div class="form-group">
-                        <label class="label-modal">Comentário</label>
-                        <input maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
-                    </div>
-    
-                </div>
-    
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
-                    <button (click)="comentar()" type="button" class="btn postar" data-dismiss="modal">Comentar</button>
-                </div>
+
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
+                <button (click)="comentar()" type="button" class="btn postar" data-dismiss="modal">Comentar</button>
             </div>
         </div>
     </div>

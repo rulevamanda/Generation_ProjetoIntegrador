@@ -11,7 +11,7 @@
 
                             <h3 id="font-style">Tags favoritas</h3>
 
-                            <li *ngFor='let tema of user.favorites'>{{tema.tagName}}</li>
+                            <li *ngFor='let tema of user.favorites | orderBy : key : reverse'>{{tema.tagName}}</li>
 
                         </ul>
                     </div>
@@ -25,7 +25,9 @@
                 <div class="bg-color rounded overflow-hidden">
                     <div class="px-4 pt-0 pb-4 cover">
                         <div class="media align-items-end profile-head">
-                            <div class="profile mr-3"><img src="{{user.urlImage}}" alt="..." width="155" class="img-fluid rounded-circle mb-2 img-thumbnail"></div>
+                            <div class="profile mr-3"><img src="{{user.urlImage}}" alt="..." width="155" class="img-fluid rounded-circle mb-2 img-thumbnail">
+                                <p class="small mb-4"> <i class="mr-2"></i> {{user.gender}}</p>
+                            </div>
                             <div class="media-body mb-5 text-white">
                                 <h4 class="mt-0 mb-0">{{user.name}}</h4>
                                 <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>New York</p>
@@ -63,7 +65,7 @@
 
                     <div class="tab-content d-flex justify-content-center mt-5" id="nav-tabContent">
                         <div class="tab-pane fade show active w-100" id="nav-minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
-                            <div *ngFor='let postsUser of user.posts'>
+                            <div *ngFor='let postsUser of user.posts | orderBy : key : reverse'>
                                 <div class="card mb-5 borderline bg-postagem">
                                     <div class="card-body borderline bg-postagem">
 
@@ -73,7 +75,7 @@
                                         <p class="card-text">{{postsUser.description}}</p>
                                         <p class="card-text text-center"><small class="text-muted">{{postsUser.date | date:
                                             'dd/MM/yyyy'}} às {{postsUser.date | date: 'HH:mm a'}}</small></p>
-                                        <p class="text-center"><a *ngFor='let tagsDoPost of postsUser.tagRelation' href="#" class="card-link">{{tagsDoPost.tagName}}</a></p>
+                                        <p class="text-center"><a *ngFor='let tagsDoPost of postsUser.tagRelation | orderBy : key : reverse' href="#" class="card-link">{{tagsDoPost.tagName}}</a></p>
 
                                         <hr>
                                         <div class="row">
@@ -98,7 +100,7 @@
                                     </p>
                                 </div>
                                 <div class="collapse show" id="commentsUser">
-                                    <div *ngFor='let comentarios of postsUser.comment' class="mb-2">
+                                    <div *ngFor='let comentarios of postsUser.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="mr-3 rounded-circle img-fluid" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                             <a class="nome-post"><b>{{comentarios.userComment.name}}</b></a>
@@ -132,7 +134,11 @@
 
 
                         <div class="tab-pane fade mt-5 mb-5 w-100" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
-                            <div *ngFor='let comments of user.comments' class="card mb-5 borderline">
+
+
+
+
+                            <div *ngFor='let comments of user.comments | orderBy : key : reverse' class="card mb-5 borderline bg-postagem">
                                 <h3 class="text-center">Postagem</h3>
 
                                 <div>
@@ -141,7 +147,7 @@
                                             <div class="row">
                                                 <div class="col-md-4 d-flex justify-content-start align-items-center">
                                                     <img class="rounded-circle img-fluid mr-3" src="{{comments.post.userPost.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                    <a class="nome-post"><b>{{comments.post.userPost.name}}</b></a>
+                                                    <a routerLink="/profile" class="nome-post"><b>{{comments.post.userPost.name}}</b></a>
                                                 </div>
                                                 <div class="col-md-8 d-flex justify-content-end align-items-center">
 
@@ -151,10 +157,9 @@
 
                                         <h5 class="card-title text-left mt-2 ml-50">{{comments.post.title}}</h5>
                                         <p class="card-text ml-50">{{comments.post.description}}</p>
-                                        <p class="card-text text-center"><small class="text-muted">{{comments.post.date | date:
-                                            'dd/MM/yyyy'}} às {{comments.post.date | date: 'HH:mm a'}}</small></p>
                                         <div class="text-center">
-                                            <a *ngFor='let tagsDoPost of comments.post.tagRelation' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
+                                            <a *ngFor='let tagsDoPost of comments.post.tagRelation | orderBy : key : reverse' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
+                                            <p class="card-text text-center"><small class="text-muted">{{comments.post.date | date: 'dd/MM/yyyy'}} às {{comments.post.date | date: 'HH:mm a'}}</small></p>
                                         </div>
                                         <hr>
                                         <div class="row">
@@ -176,13 +181,12 @@
 
                                 </div>
                                 <hr>
-                                <h2 class="text-center">Comentário</h2>
+                                <h2 class="text-center nav-comments-title mt-2">Comentário</h2>
                                 <div class="card-body borderline bg-postagem">
-                                    <div class="row">
-                                        <div class="col-md-10 d-flex justify-content-start align-items-center">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-10 d-flex justify-content-center align-items-center">
                                             <h5 class="card-title text-center">{{comments.text}}</h5>
                                         </div>
-
                                         <p class="card-text text-center"><small class="text-muted">{{comments.date | date:
                                             'dd/MM/yyyy'}} às {{comments.date | date: 'HH:mm a'}}</small></p>
 
@@ -208,7 +212,7 @@
                         <!-- ------------------------------------------------------- TAGS ----------------------------------------------------------- -->
 
                         <div class="tab-pane fade mt-5 mb-3 w-100" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
-                            <div *ngFor='let tema of user.favorites' class="card mb-5 borderline">
+                            <div *ngFor='let tema of user.favorites | orderBy : key : reverse' class="card mb-5 borderline">
                                 <div class="card-body text-center bg-white borderline">
 
                                     <h5 class="card-title text-center bg-white">{{tema.tagName}}</h5>

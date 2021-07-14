@@ -165,7 +165,7 @@ export class ProfilePageComponent implements OnInit {
     this.postagemEnviar.urlImage = this.postagemEditada.urlImage
 
     this.postService.putPostagem(this.idPostEditar, this.postagemEnviar).subscribe((resp: Post) => {
-      console.log("Editada")
+      
       this.postagemEditada = new Post()
       this.idPostEditar = 0
       this.pegarPeloId()
@@ -220,9 +220,9 @@ export class ProfilePageComponent implements OnInit {
   }
 
   deletarPostagem() {
-    console.log(this.idPostagemDelete)
+    
     this.postService.deletePostagem(this.idPostagemDelete).subscribe(() => {
-      console.log("Excluiu")
+      
       this.limpar()
       this.pegarPeloId()
       this.alert.showAlertSuccess("Postagem excluída com sucesso!")
@@ -256,10 +256,10 @@ export class ProfilePageComponent implements OnInit {
 
   editarComment() {
     this.comentarioEnviado.text = this.commentModif.text
-    console.log(this.comentarioEnviado)
-   console.log(this.commentModif)
+    
+   
     this.commentService.putComment(this.idCommentModif, this.comentarioEnviado).subscribe((resp: Comment) => {
-      console.log("Editou")
+      
       this.alert.showAlertSuccess("Comentário editado!")
       this.pegarPeloId()
     }, err => {
