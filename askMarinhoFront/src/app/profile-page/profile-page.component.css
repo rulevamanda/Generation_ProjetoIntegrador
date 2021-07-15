@@ -147,34 +147,35 @@ a:hover {
 }
 
 .bg-post-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-post-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
+    ;
     border: none;
 }
 
 .bg-tag-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-tag-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
 .bg-comment-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-comment-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
 .fechar {
-    background-color: #ffcab1;
+    background-color: #ffd6c3;
     color: #ee966e;
     font-weight: bold;
 }
@@ -203,7 +204,7 @@ a:hover {
 }
 
 .postar {
-    background-color: #6dd3ce;
+    background-color: #8eece8;
     color: #0db4ac;
     font-weight: bold;
 }
@@ -227,23 +228,26 @@ a:hover {
     font-size: 40px;
 }
 
-
 .nav-comments-title {
     color: #6dd3ce;
     font-family: BEBAS Neue;
     font-size: 40px;
 }
 
-.delete-style{
+.delete-style {
     color: red;
 }
 
-.delete-style:hover{
+.delete-style:hover {
     color: rgb(153, 0, 0);
 }
 
-.tag-color{
-    color: #929393;
+.tag-color {
+    color: #fff;
     font-weight: bolder;
     font-size: 20px;
+}
+
+.color-p-tag {
+    color: #fff;
 }
