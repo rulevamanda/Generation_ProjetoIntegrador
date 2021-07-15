@@ -107,7 +107,7 @@
                                     <div *ngFor='let comentarios of feed.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                            <a [routerLink]="['/profile-visited', feed.userPost.idUser]"><b>{{feed.userPost.name}}</b></a>
+                                            <a [routerLink]="['/profile-visited', comentarios.userComment.idUser]"><b>{{comentarios.userComment.name}}</b></a>
                                             <div class="row ml-5">
                                                 <div class="col-md-10 d-flex justify-content-start align-items-center">
                                                     <h5 class="card-title text-center">{{comentarios.text}}</h5>
@@ -204,7 +204,7 @@
                                     <div *ngFor='let comentarios of allPosts.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                            <a [routerLink]="['/profile-visited', allPosts.userPost.idUser]" class="nome-post"><b> {{comentarios.userComment.name}} </b></a>
+                                            <a [routerLink]="['/profile-visited',comentarios.userComment.idUser]" class="nome-post"><b> {{comentarios.userComment.name}} </b></a>
                                             <div class="row">
                                                 <div class="col-md-10 d-flex justify-content-start align-items-center">
                                                     <h5 class="card-title text-center">{{comentarios.text}}</h5>
@@ -258,7 +258,7 @@
                                             <div class="row">
                                                 <div class="col-md-4 d-flex justify-content-start align-items-center">
                                                     <img class="rounded-circle img-fluid mr-3" src="{{postsTags.userPost.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                    <a routerLink="/profile" class="nome-post"><b>{{postsTags.userPost.name}}</b></a>
+                                                    <a [routerLink]="['/profile-visited', postsTags.userPost.idUser]" class="nome-post"><b>{{postsTags.userPost.name}}</b></a>
                                                 </div>
                                                 <div class="col-md-8 d-flex justify-content-end align-items-center">
 
@@ -267,7 +267,10 @@
                                         </div>
                                         <h5 class="card-title text-left mt-2 ml-50">{{postsTags.title}}</h5>
                                         <p class="card-text ml-50">{{postsTags.description}}</p>
+
                                         <div class="text-center">
+                                            <p class="card-text"><small class="text-muted">{{postsTags.date | date:
+                                                'dd/MM/yyyy'}} às {{postsTags.date | date: 'HH:mm a'}}</small></p>
                                             <a *ngFor='let tagsDoPost of postsTags.tagRelation | orderBy : key : reverse' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
                                         </div>
                                         <hr>
@@ -297,9 +300,21 @@
                                     <div *ngFor='let comentarios of postsTags.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                            <a [routerLink]="['/profile-visited', comentarios.userComment.idUser]" class="nome-post"><b> {{comentarios.userComment.name}} </b></a>
                                             <div class="row">
                                                 <div class="col-md-10 d-flex justify-content-start align-items-center">
                                                     <h5 class="card-title text-center">{{comentarios.text}}</h5>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-center">
+
+                                                <div class="col-md-12">
+                                                    <div class="text-center">
+                                                        <p class="card-text text-center"><small class="text-muted">{{comentarios.date | date: 'dd/MM/yyyy'}} às {{comentarios.date | date: 'HH:mm
+                                                                    a'}}</small></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <hr>
@@ -428,7 +443,7 @@
 
                 <div class="form-group">
                     <label class="label-modal">Comentário</label>
-                    <input maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
+                    <input maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Comentário">
                 </div>
 
             </div>

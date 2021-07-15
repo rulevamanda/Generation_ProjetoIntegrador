@@ -138,29 +138,30 @@ a:hover {
 }
 
 .bg-post-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-post-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
+    ;
     border: none;
 }
 
 .bg-tag-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-tag-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
 .bg-comment-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-comment-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
@@ -180,7 +181,7 @@ li {
 }
 
 .fechar {
-    background-color: #ffcab1;
+    background-color: #ffd6c3;
     color: #ee966e;
     font-weight: bold;
 }
@@ -196,7 +197,7 @@ li {
 }
 
 .postar {
-    background-color: #6dd3ce;
+    background-color: #8eece8;
     color: #0db4ac;
     font-weight: bold;
 }
@@ -210,6 +211,7 @@ li {
     background-color: #6dd3ce;
     border: 1px solid #6dd3ce;
 }
+
 
 /* estilo dos icones de like, report e comment */
 
