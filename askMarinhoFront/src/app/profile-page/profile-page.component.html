@@ -325,7 +325,7 @@
 
                 <div class="modal-footer d-flex justify-content-center">
                     <button (click)='limpar()' type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
-                    <button (click)='atualizarPostagem()' type="button" class="btn postar" data-dismiss="modal">Postar</button>
+                    <button (click)='atualizarPostagem()' type="button" class="btn postar" data-dismiss="modal">Atualizar</button>
                 </div>
             </div>
         </div>
@@ -353,7 +353,7 @@
                         <label for="" class="label-modal ml-3"> {{usuario.name}}</label>
                         <h5 class="card-title text-center label-modal">{{postagemDeletada.title}}</h5>
                         <p class="card-text label-modal">{{postagemDeletada.description}}</p>
-                        <a *ngFor='let tagsDoPost of postagemDeletada.tagRelation | orderBy : key : reverse' class="card-link label-modal">{{tagsDoPost.tagName}}</a>
+                        <a *ngFor='let tagsDoPost of postagemDeletada.tagRelation | orderBy : key : reverse' class="card-link color-p-tag">#{{tagsDoPost.tagName}}</a>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -452,10 +452,10 @@
                         <p><b>#{{tagDelete.tagName}}</b></p>
                     </div>
                     <div class="form-group">
-                        <p> Existem {{tagDelete.posts.length}} postagens que estão utilizando essa tag!</p>
+                        <p class="color-p-tag"> Existem {{tagDelete.posts.length}} postagens que estão utilizando essa tag!</p>
                     </div>
                     <div class="form-group">
-                        <p> Existem {{tagDelete.userTags.length}} usuários que estão seguindo essa tag!</p>
+                        <p class="color-p-tag"> Existem {{tagDelete.userTags.length}} usuários que estão seguindo essa tag!</p>
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">

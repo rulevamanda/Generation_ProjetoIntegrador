@@ -122,37 +122,56 @@ a.nome-post:visited {
     background-color: #e8edec !important;
 }
 
+.bg-post-modal {
+    background: rgba(37, 136, 131, 0.686)
+}
+
+.bg-post-modal2 {
+    background: rgba(39, 133, 128, 0.774);
+    ;
+    border: none;
+}
+
+.bg-tag-modal {
+    background: rgba(37, 136, 131, 0.686)
+}
+
+.bg-tag-modal2 {
+    background: rgba(39, 133, 128, 0.774);
+    border: none;
+}
+
 .bg-comment-modal {
-    background: rgba(40, 48, 46, 0.87);
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-comment-modal2 {
-    background: rgba(45, 54, 52, 0.84);
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
 .fechar {
-    background-color: #ff844b;
-    color: #fff;
+    background-color: #ffd6c3;
+    color: #ee966e;
     font-weight: bold;
 }
 
 .fechar:hover {
-    background-color: #ffa47a;
-    border: 1px solid #fd7a3d;
+    background-color: #fad0bc;
+    border: 1px solid #dfb6a4;
 }
 
 .titulo-pl {
     font-family: Bebas Neue;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
-    color: #ffffff;
+    color: #6dd3ce;
 }
 
 .label-modal {
     font-family: Roboto;
     font-weight: bold;
-    color: #ffffff;
+    color: #6dd3ce;
 }
 
 .fechar:active {
@@ -161,17 +180,17 @@ a.nome-post:visited {
 }
 
 .postar {
-    background-color: #20ca7b;
-    color: #fff;
+    background-color: #8eece8;
+    color: #0db4ac;
     font-weight: bold;
 }
 
 .postar:hover {
-    background-color: #3ed48e;
-    border: 1px solid #17995c;
+    background-color: #aafaf6;
+    border: 1px solid #6dd3ce;
 }
 
 .postar:active {
-    background-color: #0a7041;
-    border: 1px solid #3ed48e;
+    background-color: #6dd3ce;
+    border: 1px solid #6dd3ce;
 }
