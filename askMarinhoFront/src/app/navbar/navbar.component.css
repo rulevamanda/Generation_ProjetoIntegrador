@@ -30,7 +30,8 @@
 }
 
 .lupa {
-  color: #BAF2E9;
+  color: #ffcab1;
+  
 }
 
 .dropdown-menu {
@@ -73,5 +74,13 @@ a{
 
 .ml-100{
   margin-right: 100px;
+}
+
+a.white{
+  color: white;
+}
+
+i.white{
+  color: white;
 }
 

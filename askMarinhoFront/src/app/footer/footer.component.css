@@ -1,26 +1,26 @@
 .bg-footer{
-    background-color: #BAF2E9;    
-}
-
-.bg-footer2{
     background-color: #6DD3CE;    
 }
+
+/* .bg-footer2{
+    background-color: #6DD3CE;    
+} */
 
 a{
   text-decoration: none; 
    
 }
 
-a:link{
-    color:#000000 ;
+a:footerLink{
+    color:#BAF2E9 ;
 }
 
 a:active{
-    color:#6DD3CE;
+    color:#BAF2E9;
 }
 
 a:hover{
-    color: #ff651e;
+    color: #ffcab1;
 }
 
 .txt-rodape{
@@ -33,7 +33,7 @@ a:hover{
 
 .txt-askmarinho{
     font-family: Bebas Neue;
-    color: #6DD3CE;
+    color: #BAF2E9;
     font-style: normal;
     font-weight: normal;
     font-size: 30px;
