@@ -39,7 +39,7 @@ export class HomePageComponent implements OnInit {
   tagNameFeed: string
   tagNamePost: string
 
-  key = 'data'
+  key = 'date'
   reverse = true
 
   constructor(

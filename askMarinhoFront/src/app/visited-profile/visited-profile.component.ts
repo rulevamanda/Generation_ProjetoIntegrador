@@ -29,7 +29,7 @@ export class VisitedProfileComponent implements OnInit {
   comentarioReport: Comment = new Comment()
   comentarioNoPost: Comment = new Comment()
 
-  key = 'data'
+  key = 'date'
   reverse = true
   
   constructor(
