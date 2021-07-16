@@ -47,7 +47,7 @@ export class ProfilePageComponent implements OnInit {
   postReport: Post = new Post()
   comentarioReport: Comment = new Comment()
 
-  key = 'data'
+  key = 'date'
   reverse = true
   
   constructor(

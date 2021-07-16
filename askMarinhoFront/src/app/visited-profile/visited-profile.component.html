@@ -11,7 +11,7 @@
 
                             <h3 id="font-style">Tags favoritas</h3>
 
-                            <li *ngFor='let tema of user.favorites | orderBy : key : reverse'>{{tema.tagName}}</li>
+                            <li *ngFor='let tema of user.favorites | orderBy : key : reverse'>#{{tema.tagName}}</li>
 
                         </ul>
                     </div>
@@ -54,9 +54,9 @@
                     <!-- NAV BOOTSTRAP -->
                     <nav>
                         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Postagens de {{user.name}}</a>
-                            <a class="nav-item nav-link" id="nav-comentarios-tab" data-toggle="tab" href="#nav-comentarios" role="tab" aria-controls="nav-comentarios" aria-selected="false">Comentários</a>
-                            <a class="nav-item nav-link" id="nav-tagsFav-tab" data-toggle="tab" href="#nav-tagsFav" role="tab" aria-controls="nav-tagsFav" aria-selected="false">Tags favoritas</a>
+                            <a class="nav-item nav-link active bg-color color-navegacao" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false"><i class="fa fa-list-alt" aria-hidden="true"></i> Postagens</a>
+                            <a class="nav-item nav-link bg-color color-navegacao" id="nav-comentarios-tab" data-toggle="tab" href="#nav-comentarios" role="tab" aria-controls="nav-comentarios" aria-selected="false"><i class="fa fa-comment-o" aria-hidden="true"></i> Comentários</a>
+                            <a class="nav-item nav-link bg-color color-navegacao" id="nav-tagsFav-tab" data-toggle="tab" href="#nav-tagsFav" role="tab" aria-controls="nav-tagsFav" aria-selected="false"><i class="fa fa-hashtag" aria-hidden="true"></i> Tags favoritas</a>
 
                         </div>
                     </nav>
@@ -106,7 +106,7 @@
                                             <a class="nome-post"><b>{{comentarios.userComment.name}}</b></a>
                                             <div class="row">
                                                 <div class="col-md-10 d-flex justify-content-start align-items-center">
-                                                    <h5 class="card-title text-left mt-2 ml-50">{{comentarios.text}}</h5>
+                                                    <textarea style="resize: none" class="form-control text-area" rows='3' name="" id="" disabled>{{comentarios.text}}</textarea>
                                                 </div>
 
                                             </div>
@@ -133,9 +133,7 @@
                         <!-- ---------------------------------------------------------- COMENTÁRIOS ---------------------------------------------------------------------- -->
 
 
-                        <div class="tab-pane fade mt-5 mb-5 w-100" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
-
-
+                        <div class="tab-pane fade w-100" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
 
 
                             <div *ngFor='let comments of user.comments | orderBy : key : reverse' class="card mb-5 borderline bg-postagem">
@@ -185,7 +183,7 @@
                                 <div class="card-body borderline bg-postagem">
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-md-10 d-flex justify-content-center align-items-center">
-                                            <h5 class="card-title text-center">{{comments.text}}</h5>
+                                            <textarea style="resize: none" class="form-control text-area" rows='3' name="" id="" disabled>{{comments.text}}</textarea>
                                         </div>
                                         <p class="card-text text-center"><small class="text-muted">{{comments.date | date:
                                             'dd/MM/yyyy'}} às {{comments.date | date: 'HH:mm a'}}</small></p>
@@ -211,7 +209,7 @@
 
                         <!-- ------------------------------------------------------- TAGS ----------------------------------------------------------- -->
 
-                        <div class="tab-pane fade mt-5 mb-3 w-100" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
+                        <div class="tab-pane fade w-100" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
                             <div *ngFor='let tema of user.favorites | orderBy : key : reverse' class="card mb-5 borderline">
                                 <div class="card-body text-center bg-white borderline">
 
@@ -266,7 +264,7 @@
 
                 <div class="form-group">
                     <label class="label-modal">Comentário</label>
-                    <input maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Insira seu comentário aqui">
+                    <textarea maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control borderInput" id="exampleFormControlTextarea1" rows="3" placeholder="Comentário"></textarea>
                 </div>
 
             </div>

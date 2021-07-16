@@ -12,7 +12,7 @@ a{
 }
 
 a:link{
-    color:#929393 ;
+    color:#000000 ;
 }
 
 a:active{
@@ -20,7 +20,7 @@ a:active{
 }
 
 a:hover{
-    color: #6DD3CE;
+    color: #ff651e;
 }
 
 .txt-rodape{

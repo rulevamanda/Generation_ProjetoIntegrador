@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Comment } from '../model/Comment';
+import { User } from '../model/User';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,10 @@ export class CommentService {
   
   deleteComment(idComment: number) {
     return this.http.delete(`https://askmarinho.herokuapp.com/users/comments/delete/${idComment}`, this.token)
+  }
+
+  deleteAllComments(idUser: number): Observable<User> {
+    return this.http.delete<User>(`https://askmarinho.herokuapp.com/users/comments/delete/all/${idUser}`, this.token)
   }
 
 }

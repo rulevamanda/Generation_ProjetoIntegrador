@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Post } from '../model/Post';
+import { User } from '../model/User';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,10 @@ export class PostService {
 
   getPostByTagNames(tagName: string): Observable<Post[]> {
     return this.http.get<Post[]>(`https://askmarinho.herokuapp.com/users/posts/favorites/tagName/${tagName}`, this.token)
+  }
+
+  deleteAllPosts(idUser: number): Observable<User> {
+    return this.http.delete<User>(`https://askmarinho.herokuapp.com/users/posts/delete/all/${idUser}`, this.token)
   }
 
   
