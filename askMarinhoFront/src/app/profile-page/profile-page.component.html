@@ -303,12 +303,12 @@
 
                     <div class="form-group">
                         <label for="" class="label-modal">Título</label>
-                        <input [(ngModel)]='postagemEditada.title' class="form-control" type="text">
+                        <input [(ngModel)]='postagemEditada.title' minlength="3" maxlength="100" class="form-control" type="text">
                     </div>
 
                     <div class="form-group">
                         <label for="" class="label-modal">Descrição</label>
-                        <input [(ngModel)]='postagemEditada.description' class="form-control" type="text">
+                        <input [(ngModel)]='postagemEditada.description' minlength="3" maxlength="500" class="form-control" type="text">
                     </div>
                     <div class="form-group">
                         <label for="" class="label-modal">Tags da postagem</label>
@@ -318,7 +318,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="label-modal">Adicionar mais tags</label>
-                        <input [(ngModel)]='tagAdicionada.tagName' type="text" class="form-control" placeholder="Nome da tag">
+                        <input [(ngModel)]='tagAdicionada.tagName' minlength="3" maxlength="25" type="text" class="form-control" placeholder="Nome da tag">
                         <button (click)="adicionarNovoTema()" class="btn postar mt-2">Adicionar</button>
                     </div>
                 </div>
@@ -389,7 +389,7 @@
 
                     <div class="form-group">
                         <label for="" class="label-modal">Texto</label>
-                        <input [(ngModel)]='commentModif.text' type="text" class="form-control" placeholder="Comentário">
+                        <input [(ngModel)]='commentModif.text' minlength="1" maxlength="100" type="text" class="form-control" placeholder="Comentário">
                     </div>
 
                 </div>
@@ -404,7 +404,7 @@
 
 
 
-    <!-- Modal editar comentário -->
+    <!-- Modal apagar comentário -->
     <div class="modal fade bg-comment-modal" id="apagarComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-comment-modal2">
@@ -486,7 +486,7 @@
 
                     <div class="form-group">
                         <label class="label-modal">Nome da tag</label>
-                        <input maxlength="25" [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
+                        <input [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" minlength="3" maxlength="25" type="text" placeholder="Nome da tag">
                     </div>
 
                 </div>
@@ -521,7 +521,7 @@
 
                     <div class="form-group">
                         <label class="label-modal">Comentário</label>
-                        <textarea maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control borderInput" id="exampleFormControlTextarea1" rows="3" placeholder="Comentário"></textarea>
+                        <textarea [(ngModel)]="comentarioNoPost.text" class="form-control borderInput" minlength="1" maxlength="100" id="exampleFormControlTextarea1" rows="3" placeholder="Comentário"></textarea>
                     </div>
 
                 </div>

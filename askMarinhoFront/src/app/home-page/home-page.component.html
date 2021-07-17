@@ -363,17 +363,17 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="" class="label-modal">Título</label>
-                    <input [(ngModel)]='novoPost.title' class="form-control" type="text" placeholder="Título da postagem">
+                    <input [(ngModel)]='novoPost.title' minlength="3" maxlength="100" class="form-control" type="text" placeholder="Título da postagem">
                 </div>
 
                 <div class="form-group">
                     <label for="" class="label-modal">Descrição</label>
-                    <textarea [(ngModel)]='novoPost.description' class="form-control borderInput" id="exampleFormControlTextarea1" rows="3" placeholder="Escreva sua postagem"></textarea>
+                    <textarea [(ngModel)]='novoPost.description' minlength="3" maxlength="500" class="form-control borderInput" id="exampleFormControlTextarea1" rows="3" placeholder="Escreva sua postagem"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="" class="label-modal">Tema</label>
-                    <input [(ngModel)]='temaParaPost.tagName' class="form-control" type="text" placeholder="Digite um tema para a sua postagem">
+                    <input [(ngModel)]='temaParaPost.tagName' minlength="3" maxlength="25" class="form-control" type="text" placeholder="Digite um tema para a sua postagem">
                 </div>
 
             </div>
@@ -408,7 +408,7 @@
 
                 <div class="form-group">
                     <label class="label-modal">Nome da tag</label>
-                    <input maxlength="25" [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
+                    <input [(ngModel)]='tema.tagName' minlength="3" maxlength="25" class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
                 </div>
 
             </div>
@@ -445,7 +445,7 @@
                     <label class="label-modal">Comentário</label>
 
 
-                    <textarea maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control borderInput" id="exampleFormControlTextarea1" rows="3" placeholder="Comentário"></textarea>
+                    <textarea [(ngModel)]="comentarioNoPost.text" class="form-control borderInput" minlength="1" maxlength="100" id="exampleFormControlTextarea1" rows="3" placeholder="Comentário"></textarea>
 
                 </div>
 
