@@ -264,7 +264,7 @@
 
                 <div class="form-group">
                     <label class="label-modal">Comentário</label>
-                    <textarea maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control borderInput" id="exampleFormControlTextarea1" rows="3" placeholder="Comentário"></textarea>
+                    <textarea [(ngModel)]="comentarioNoPost.text" class="form-control borderInput" minlength="1" maxlength="155" id="exampleFormControlTextarea1" rows="3" placeholder="Comentário"></textarea>
                 </div>
 
             </div>
