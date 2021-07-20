@@ -1,0 +1,940 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ask-marinho documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ask-marinho documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li
+  >
+  SignupPageComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/signup-page/signup-page.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-signup-page</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./signup-page.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./signup-page.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#confirmarSenha" >confirmarSenha</a>
+                            </li>
+                            <li>
+                                <a href="#genero" >genero</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cadastrar" >cadastrar</a>
+                            </li>
+                            <li>
+                                <a href="#confirmSenha" >confirmSenha</a>
+                            </li>
+                            <li>
+                                <a href="#generoUser" >generoUser</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, alert: <a href="../injectables/AlertsService.html" target="_self">AlertsService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/signup-page/signup-page.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>alert</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AlertsService.html" target="_self" >AlertsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cadastrar"></a>
+                    <span class="name">
+                        <span ><b>cadastrar</b></span>
+                        <a href="#cadastrar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cadastrar()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">src/app/signup-page/signup-page.component.ts:36</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmSenha"></a>
+                    <span class="name">
+                        <span ><b>confirmSenha</b></span>
+                        <a href="#confirmSenha"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmSenha(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/app/signup-page/signup-page.component.ts:28</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generoUser"></a>
+                    <span class="name">
+                        <span ><b>generoUser</b></span>
+                        <a href="#generoUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generoUser(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/app/signup-page/signup-page.component.ts:32</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/app/signup-page/signup-page.component.ts:24</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmarSenha"></a>
+                    <span class="name">
+                        <span ><b>confirmarSenha</b></span>
+                        <a href="#confirmarSenha"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/signup-page/signup-page.component.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="genero"></a>
+                    <span class="name">
+                        <span ><b>genero</b></span>
+                        <a href="#genero"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/signup-page/signup-page.component.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new User()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/signup-page/signup-page.component.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { User } from &#x27;../model/User&#x27;;
+import { AlertsService } from &#x27;../service/alerts.service&#x27;;
+import { AuthService } from &#x27;../service/auth.service&#x27;;
+
+@Component({
+  selector: &#x27;app-signup-page&#x27;,
+  templateUrl: &#x27;./signup-page.component.html&#x27;,
+  styleUrls: [&#x27;./signup-page.component.css&#x27;]
+})
+export class SignupPageComponent implements OnInit {
+
+  user: User &#x3D; new User()
+  confirmarSenha: string
+  genero: string
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private alert: AlertsService
+  ) { }
+
+  ngOnInit(){
+    window.scroll(0,0)
+  }
+
+  confirmSenha(event: any) {
+    this.confirmarSenha &#x3D; event.target.value
+  }
+
+  generoUser(event: any) {
+    this.genero &#x3D; event.target.value
+  }
+
+  cadastrar() {
+    this.user.gender &#x3D; this.genero
+
+   
+
+    if (this.user.password !&#x3D; this.confirmarSenha) {
+      this.alert.showAlertDanger(&#x27;As senhas estão diferentes!&#x27;)
+    } else if (this.user.password &#x3D;&#x3D; undefined) {
+      this.alert.showAlertDanger(&#x27;A senha não pode ser nula!&#x27;)
+    } else if (this.user.password.length &lt; 3 || this.user.password.length &gt; 16) {
+      this.alert.showAlertDanger(&quot;A senha deve ter entre 3 e 16 caracteres!&quot;)
+    } else if (this.user.name &#x3D;&#x3D; undefined) {
+      this.alert.showAlertDanger(&quot;O nome não pode ser nulo!&quot;)
+    } else if (this.user.name.length &lt; 3 || this.user.name.length &gt; 50) {
+      this.alert.showAlertDanger(&quot;O nome deve ter entre 3 e 50 caracteres!&quot;)
+    } else if (this.user.email &#x3D;&#x3D; undefined) {
+      this.alert.showAlertDanger(&#x27;O email não pode ser nulo!&#x27;)
+    } else if (this.user.email.length &lt; 10 || this.user.email.length &gt; 100) {
+      this.alert.showAlertDanger(&quot;O email deve ter entre 10 e 100 caracteres!&quot;)
+    } else if (!this.user.email.includes(&quot;@&quot;)) {
+      this.alert.showAlertDanger(&quot;O email está inválido!&quot;)
+    } else if (this.user.userName &#x3D;&#x3D; undefined) {
+      this.alert.showAlertDanger(&quot;O nome de usuário não pode ser nulo!&quot;)
+    } else if (this.user.userName.length &lt; 3 || this.user.userName.length &gt; 15) {
+      this.alert.showAlertDanger(&quot;O nome de usuário deve ter entre 3 e 15 caracteres!&quot;)
+    } else if (this.user.gender &#x3D;&#x3D; undefined) {
+      this.alert.showAlertDanger(&quot;Marque um valor para o gênero&quot;)
+    } else if (this.user.birth &#x3D;&#x3D; undefined) {
+      this.alert.showAlertDanger(&quot;A data de nascimento não pode ser nula&quot;)
+    } else if (this.user.birth.length &gt; 10) {
+      this.alert.showAlertDanger(&quot;Data de nascimento inválida!&quot;)
+    } else {
+      this.authService.cadastrar(this.user).subscribe((resp: User) &#x3D;&gt; {
+        this.user &#x3D; resp
+
+        this.router.navigate([&#x27;/login-page&#x27;])
+
+        this.alert.showAlertSuccess(&#x27;Usuário cadastrado com sucesso!&#x27;)
+      }, erro &#x3D;&gt; {
+
+        if (erro.status &#x3D;&#x3D; 303) {
+          this.alert.showAlertDanger(&quot;O nome não pode conter caracteres especiais&quot;)
+        } else if (erro.status &#x3D;&#x3D; 403) {
+          this.alert.showAlertDanger(&quot;O email possui caracteres inválidos&quot;)
+        } else if (erro.status &#x3D;&#x3D; 405) {
+          this.alert.showAlertDanger(&quot;O nome de usuário não pode conter caracteres especiais&quot;)
+          console.clear()
+        } else {
+          this.alert.showAlertYellow(&quot;Dados incorretos ou nome de usuário e/ou email já estão sendo utilizados&quot;)
+        }
+
+      })
+    }
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container-fluid&quot;&gt;
+    &lt;div class&#x3D;&quot;row d-flex justify-content-center&quot;&gt;
+        &lt;div class&#x3D;&quot;col-md-6&quot;&gt;
+            &lt;div class&#x3D;&quot;formulario mt-5 mb-5 px-5&quot;&gt;
+                &lt;form class&#x3D;&quot;formulario&quot; action&#x3D;&quot;&quot;&gt;
+                    &lt;div class&#x3D;&quot;text-center pt-5&quot;&gt;
+                        &lt;p class&#x3D;&quot;m-0&quot;&gt;Seja bem-vinde ao&lt;/p&gt;
+                        &lt;h1 class&#x3D;&quot;m-0&quot;&gt;AskMarinho&lt;/h1&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;input [(ngModel)]&#x3D;&#x27;user.name&#x27; id&#x3D;&quot;nome&quot; name&#x3D;&quot;nome&quot; class&#x3D;&quot;form-control my-4&quot; type&#x3D;&quot;text&quot; placeholder&#x3D;&quot;Qual é o seu lindo nome?&quot; required&gt;
+
+                        &lt;input [(ngModel)]&#x3D;&#x27;user.email&#x27; id&#x3D;&quot;email&quot; name&#x3D;&quot;email&quot; class&#x3D;&quot;form-control my-4&quot; type&#x3D;&quot;email&quot; placeholder&#x3D;&quot;Qual seu email?&quot; required&gt;
+
+                        &lt;input [(ngModel)]&#x3D;&#x27;user.userName&#x27; id&#x3D;&quot;usuario&quot; name&#x3D;&quot;usuario&quot; class&#x3D;&quot;form-control my-4&quot; type&#x3D;&quot;text&quot; placeholder&#x3D;&quot;Escolha seu nome de usuário&quot; required&gt;
+
+                        &lt;input (input)&#x3D;&#x27;confirmSenha($event)&#x27; id&#x3D;&quot;senha&quot; name&#x3D;&quot;senha&quot; class&#x3D;&quot;form-control my-4&quot; type&#x3D;&quot;password&quot; placeholder&#x3D;&quot;Escolha sua nova senha&quot; required&gt;
+
+                        &lt;input [(ngModel)]&#x3D;&#x27;user.password&#x27; id&#x3D;&quot;confirmaSenha&quot; name&#x3D;&quot;confirmaSenha&quot; class&#x3D;&quot;form-control my-4&quot; type&#x3D;&quot;password&quot; placeholder&#x3D;&quot;Confirme sua nova senha&quot; required&gt;
+
+                        &lt;input [(ngModel)]&#x3D;&#x27;user.urlImage&#x27; id&#x3D;&quot;foto&quot; name&#x3D;&quot;foto&quot; class&#x3D;&quot;form-control my-4&quot; type&#x3D;&quot;text&quot; placeholder&#x3D;&quot;Link da foto&quot; required&gt;
+                    &lt;/div&gt;
+
+                    &lt;div&gt;
+                        &lt;p class&#x3D;&quot;text-center mt-3&quot;&gt;Data de Nascimento&lt;/p&gt;
+                        &lt;input [(ngModel)]&#x3D;&#x27;user.birth&#x27; min&#x3D;&quot;01-01-1910&quot; max&#x3D;&quot;01/12/2021&quot; id&#x3D;&quot;data&quot; name&#x3D;&quot;data&quot; type&#x3D;&quot;date&quot; class&#x3D;&quot;form-control mb-3&quot; required&gt;
+                    &lt;/div&gt;
+
+                    &lt;div&gt;
+                        &lt;p class&#x3D;&quot;text-center mt-4 &quot;&gt;Gênero&lt;/p&gt;
+
+                        &lt;Select (change)&#x3D;&#x27;generoUser($event)&#x27; class&#x3D;&quot;form-control mb-5&quot; name&#x3D;&quot;genero&quot; id&#x3D;&quot;genero&quot; required&gt;
+                            &lt;option&gt;Selecione&lt;/option&gt;
+                            &lt;option value&#x3D;&quot;Masculino&quot;&gt;Masculino&lt;/option&gt;
+                            &lt;option value&#x3D;&quot;Feminino&quot;&gt;Feminino&lt;/option&gt;
+                            &lt;option value&#x3D;&quot;Não binário&quot;&gt;Não binário&lt;/option&gt;
+                            &lt;option value&#x3D;&quot;Prefiro não declarar&quot;&gt;Prefiro não declarar&lt;/option&gt;
+                        &lt;/Select&gt;
+
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;termos mb-5&quot;&gt;
+                        &lt;span&gt;Ao clicar em Cadastrar, você concorda com nossos &lt;a routerLink&#x3D;&quot;/termo&quot;
+                                target&#x3D;&quot;_blank&quot;&gt;Termos, Política de dados e Política de Cookies.&lt;/a&gt;&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;d-flex justify-content-center pb-4 pt-5&quot;&gt;
+                        &lt;input class&#x3D;&quot;btn fechar mr-3&quot; type&#x3D;&quot;submit&quot; routerLink&#x3D;&quot;/login-page&quot; value&#x3D;&quot;Voltar&quot;&gt;
+
+                        &lt;input (click)&#x3D;&#x27;cadastrar()&#x27; class&#x3D;&quot;btn postar ml-3&quot; type&#x3D;&quot;submit&quot; value&#x3D;&quot;Cadastrar&quot;&gt;
+                    &lt;/div&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./signup-page.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">p {
+    font-family: Bebas NEUE;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: #929393;
+}
+
+.formulario {
+    background-color: #F4F4F4;
+    border-radius: 10px;
+}
+
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
+input[type&#x3D;email],
+[type&#x3D;password],
+[type&#x3D;text],
+[type&#x3D;date] {
+    border: 1px solid #BAF2E9;
+    height: 50px;
+}
+
+select {
+    border: 1px solid #BAF2E9;
+    height: 50px;
+}
+
+.voltar {
+    height: 57px;
+    background: #FFCAB1;
+    border-radius: 5px;
+    border: none;
+    font-family: Corbel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    color: #F27A7A;
+}
+
+.cadastrar {
+    height: 57px;
+    background: #6DD3CE;
+    border-radius: 5px;
+    border: none;
+    font-family: Corbel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 30px;
+    color: #ffffff;
+}
+
+input[type&#x3D;date] {
+    border: 1px solid #BAF2E9;
+    border-radius: 5px;
+    font-family: Corbel;
+    font-style: normal;
+    font-weight: normal;
+}
+
+input[type&#x3D;submit]:hover {
+    opacity: 0.9;
+}
+
+h1 {
+    font-family: Bebas NEUE;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 60px;
+    line-height: 84px;
+    color: #6DD3CE;
+}
+
+.mt-15 {
+    margin-top: 5rem;
+}
+
+#borda {
+    border: 1px solid #BAF2E9;
+}
+
+.termos {
+    margin-top: 10px;
+    height: 29px;
+}
+
+.fechar {
+    background-color: #ffcab1;
+    color: #ee966e;
+    font-weight: bold;
+}
+
+.fechar:hover {
+    background-color: #fad0bc;
+    border: 1px solid #dfb6a4;
+}
+
+.fechar:active {
+    background-color: #bb5221;
+    border: 1px solid #FFB18C;
+}
+
+.postar {
+    background-color: #6dd3ce;
+    color: #0db4ac;
+    font-weight: bold;
+}
+
+.postar:hover {
+    background-color: #aafaf6;
+    border: 1px solid #6dd3ce;
+}
+
+.postar:active {
+    background-color: #6dd3ce;
+    border: 1px solid #6dd3ce;
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="container-fluid">    <div class="row d-flex justify-content-center">        <div class="col-md-6">            <div class="formulario mt-5 mb-5 px-5">                <form class="formulario" action="">                    <div class="text-center pt-5">                        <p class="m-0">Seja bem-vinde ao</p>                        <h1 class="m-0">AskMarinho</h1>                    </div>                    <div>                        <input [(ngModel)]=\'user.name\' id="nome" name="nome" class="form-control my-4" type="text" placeholder="Qual é o seu lindo nome?" required>                        <input [(ngModel)]=\'user.email\' id="email" name="email" class="form-control my-4" type="email" placeholder="Qual seu email?" required>                        <input [(ngModel)]=\'user.userName\' id="usuario" name="usuario" class="form-control my-4" type="text" placeholder="Escolha seu nome de usuário" required>                        <input (input)=\'confirmSenha($event)\' id="senha" name="senha" class="form-control my-4" type="password" placeholder="Escolha sua nova senha" required>                        <input [(ngModel)]=\'user.password\' id="confirmaSenha" name="confirmaSenha" class="form-control my-4" type="password" placeholder="Confirme sua nova senha" required>                        <input [(ngModel)]=\'user.urlImage\' id="foto" name="foto" class="form-control my-4" type="text" placeholder="Link da foto" required>                    </div>                    <div>                        <p class="text-center mt-3">Data de Nascimento</p>                        <input [(ngModel)]=\'user.birth\' min="01-01-1910" max="01/12/2021" id="data" name="data" type="date" class="form-control mb-3" required>                    </div>                    <div>                        <p class="text-center mt-4 ">Gênero</p>                        <Select (change)=\'generoUser($event)\' class="form-control mb-5" name="genero" id="genero" required>                            <option>Selecione</option>                            <option value="Masculino">Masculino</option>                            <option value="Feminino">Feminino</option>                            <option value="Não binário">Não binário</option>                            <option value="Prefiro não declarar">Prefiro não declarar</option>                        </Select>                    </div>                    <div class="termos mb-5">                        <span>Ao clicar em Cadastrar, você concorda com nossos <a routerLink="/termo"                                target="_blank">Termos, Política de dados e Política de Cookies.</a></span>                    </div>                    <div class="d-flex justify-content-center pb-4 pt-5">                        <input class="btn fechar mr-3" type="submit" routerLink="/login-page" value="Voltar">                        <input (click)=\'cadastrar()\' class="btn postar ml-3" type="submit" value="Cadastrar">                    </div>                </form>            </div>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AlertComponent', 'selector': 'app-alert'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'EditPerfilComponent', 'selector': 'app-edit-perfil'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'LoginPageComponent', 'selector': 'app-login-page'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'ProfilePageComponent', 'selector': 'app-profile-page'},{'name': 'SignupPageComponent', 'selector': 'app-signup-page'},{'name': 'SobreNosComponent', 'selector': 'app-sobre-nos'},{'name': 'TermoComponent', 'selector': 'app-termo'},{'name': 'VisitedProfileComponent', 'selector': 'app-visited-profile'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SignupPageComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SignupPageComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
