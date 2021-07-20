@@ -28,13 +28,14 @@
 }
 
 a.maoe-style {
+    color: #929393;
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
 }
 
 a.maoe-style:active {
-    color: blueviolet;
+    color: #6dd3ce;
 }
 
 a.maoe-style:visited {
@@ -49,10 +50,22 @@ a.maoe-style:hover {
     margin-left: 66px;
 }
 
+a.nome-post{
+    font-size: 15px;
+    font-family: Roboto;
+    text-decoration: none;
+}
+
 a.nome-post:visited {
     color: #929393;
-    font-size: 20px;
-    font-family: Roboto;
+}
+
+a.nome-post:link {
+    color: #929393;
+}
+
+a.nome-post:hover {
+    color: #6dd3c3;
 }
 
 .btn-profile {
@@ -250,4 +263,45 @@ a:hover {
 
 .color-p-tag {
     color: #fff;
+}
+
+.font-style3 {
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 30px;
+    color: #6dd3ce;
+}
+
+.font-style3:hover {
+    color: #037771;
+}
+
+.font-style3:active {
+    color: #005547;
+}
+
+.color-navegacao {
+    font-family: Bebas Neue;
+    font-size: 25px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #4a8b88 !important;
+    border-color: #6dd3ce #6dd3ce #6dd3ce !important;
+}
+
+.nav-link {
+    color: #6dd3ce !important;
+}
+
+.nav-link:hover {
+    color: #83acaa !important;
+}
+
+.text-area {
+    background-color: #f4f4f4;
+    border: none;
 }

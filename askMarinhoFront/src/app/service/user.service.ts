@@ -65,4 +65,20 @@ export class UserService {
     return this.http.delete(`https://askmarinho.herokuapp.com/users/delete/theme/favorites/${idUser}/${idTag}`, this.token)
   }
 
+  deleteAllUpvotesPost(idUser: number): Observable<User> {
+    return this.http.delete<User>(`https://askmarinho.herokuapp.com/users/posts/delete/allUpvotes/${idUser}`, this.token)
+  }
+
+  deleteAllReportsPost(idUser: number): Observable<User> {
+    return this.http.delete<User>(`https://askmarinho.herokuapp.com/users/posts/delete/allReports/${idUser}`, this.token)
+  }
+
+  deleteAllUpvotesComments(idUser: number): Observable<User> {
+    return this.http.delete<User>(`https://askmarinho.herokuapp.com/users/comments/delete/allUpvotes/${idUser}`, this.token)
+  }
+
+  deleteAllReportsComments(idUser: number): Observable<User> {
+    return this.http.delete<User>(`https://askmarinho.herokuapp.com/users/comments/delete/allReports/${idUser}`, this.token)
+  }
+
 }

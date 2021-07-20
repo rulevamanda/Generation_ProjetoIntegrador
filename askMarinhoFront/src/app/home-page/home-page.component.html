@@ -1,47 +1,49 @@
 <div class="body">
     <div class="container py-5">
-        <div class="row py-5 px-4 d-flex justify-content-center">
-            <div class="col-md-3 w-100 mt-4">
-                <div class="tag-style-2">
+        <div class="row py-5 d-flex justify-content-center">
+            <div>
+                <div class="col-md-3 w-100 mt-4 mx-3">
+                    <div class="tag-style-2">
 
-                    <ul class="py-0 px-2 text-center list-style">
+                        <ul class="py-0 px-2 text-center list-style">
 
-                        <li data-toggle="modal" data-target="#novaPostagem">
-                            <!-- Botão para acionar modal postagem -->
-                            <i class="fa fa-plus-circle plus-style" aria-hidden="true"></i>
-                            <p class="font-style3">NOVA POSTAGEM</p>
-                        </li>
+                            <li data-toggle="modal" data-target="#novaPostagem">
+                                <!-- Botão para acionar modal postagem -->
+                                <i class="fa fa-plus-circle plus-style" aria-hidden="true"></i>
+                                <p class="font-style3">NOVA POSTAGEM</p>
+                            </li>
 
-                    </ul>
-                </div>
-                <div class="tag-style">
-                    <ul class="py-3 px-2 text-center list-style">
+                        </ul>
+                    </div>
+                    <div class="tag-style">
+                        <ul class="py-3 px-2 text-center list-style">
 
-                        <h3 id="font-style">Tags favoritas</h3>
+                            <h3 id="font-style">Tags favoritas</h3>
 
-                        <li *ngFor='let tema of temas'>#{{tema.tagName}}</li>
+                            <li *ngFor='let tema of temas'>#{{tema.tagName}}</li>
 
-                        <!-- Botão para acionar modal de tag favorita -->
-                        <button type="button" class="btn postar mt-3" data-toggle="modal" data-target="#novaTagFav">
+                            <!-- Botão para acionar modal de tag favorita -->
+                            <button type="button" class="btn postar mt-3" data-toggle="modal" data-target="#novaTagFav">
                             Adicionar
                         </button>
-                    </ul>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
 
 
 
-
-            <div class="col-md-8">
+            <div class="col-md-8 mx-4">
                 <!-- Profile widget -->
-                <div class="bg-white rounded overflow-hidden">
+                <div class="bg-color rounded overflow-hidden">
 
                     <!-- NAV BOOTSTRAP -->
                     <nav class="mb-3">
                         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-feed-tab" data-toggle="tab" href="#nav-feed" role="tab" aria-controls="nav-feed" aria-selected="true">Feed</a>
-                            <a (click)='getAllPosts()' class="nav-item nav-link" id="nav-todasPostagens-tab" data-toggle="tab" href="#nav-todasPostagens" role="tab" aria-controls="nav-todasPostagens" aria-selected="false">Todas as postagens</a>
-                            <a class="nav-item nav-link" id="nav-todasTag-tab" data-toggle="tab" href="#nav-todasTag" role="tab" aria-controls="nav-todasTag" aria-selected="false">Postagens por tag</a>
+                            <a class="nav-item nav-link active bg-color color-navegacao" id="nav-feed-tab" data-toggle="tab" href="#nav-feed" role="tab" aria-controls="nav-feed" aria-selected="true"><i class="fa fa-star" aria-hidden="true"></i> Feed</a>
+                            <a (click)='getAllPosts()' class="nav-item nav-link bg-color color-navegacao" id="nav-todasPostagens-tab" data-toggle="tab" href="#nav-todasPostagens" role="tab" aria-controls="nav-todasPostagens" aria-selected="false"><i class="fa fa-list-alt" aria-hidden="true"></i> Todas as postagens</a>
+                            <a class="nav-item nav-link bg-color color-navegacao" id="nav-todasTag-tab" data-toggle="tab" href="#nav-todasTag" role="tab" aria-controls="nav-todasTag" aria-selected="false"><i class="fa fa-hashtag" aria-hidden="true"></i> Postagens por tag </a>
                         </div>
                     </nav>
 
@@ -50,7 +52,7 @@
 
                         <div class="tab-pane fade show active w-100" id="nav-feed" role="tabpanel" aria-labelledby="nav-feed-tab">
 
-                            <div class="row d-flex justify-content-center mt-5 mb-5">
+                            <div class="row d-flex justify-content-center mt-3 mb-3">
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <input [(ngModel)]='tagNameFeed' (keyup)='findPostsByTagNameFeed()' type="text" class="form-control" id="titulo" placeholder="Digite um nome de tag para pesquisar">
@@ -63,14 +65,11 @@
                                     <div class="card-body bg-postagem borderline">
                                         <div>
                                             <div class="row">
-                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                                                <div class="col-md-8 d-flex justify-content-start align-items-center">
                                                     <img class="rounded-circle img-fluid mr-3" src="{{feed.userPost.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                    <a [routerLink]="['/profile-visited', feed.userPost.idUser]"><b>{{feed.userPost.name}}</b></a>
+                                                    <a [routerLink]="['/profile-visited', feed.userPost.idUser]" class="nome-post">{{feed.userPost.name}}</a>
                                                 </div>
-                                                <div class="col-md-8 d-flex justify-content-end align-items-center">
 
-
-                                                </div>
                                             </div>
                                         </div>
                                         <h5 class="card-title text-left mt-2 ml-50">{{feed.title}}</h5>
@@ -85,14 +84,14 @@
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(feed.idPost)' class="maoe-style mr-4">{{feed.userUpvotePost.length}}<i
+                                                <a (click)='upvotePost(feed.idPost)' class="maoe-style mr-4">{{feed.userUpvotePost.length}}  <i
                                                         class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(feed.idPost)" class="comment-style mr-4"><i
                                                         class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                         data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(feed.idPost)' id="maoe" class="warning-style">{{feed.userReportPost.length}}<i
+                                                <a (click)='reportPost(feed.idPost)' id="maoe" class="warning-style">{{feed.userReportPost.length}}  <i
                                                         class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
@@ -107,10 +106,11 @@
                                     <div *ngFor='let comentarios of feed.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                            <a [routerLink]="['/profile-visited', comentarios.userComment.idUser]"><b>{{comentarios.userComment.name}}</b></a>
+                                            <a [routerLink]="['/profile-visited', comentarios.userComment.idUser]" class="nome-post">{{comentarios.userComment.name}}</a>
                                             <div class="row ml-5">
                                                 <div class="col-md-10 d-flex justify-content-start align-items-center">
-                                                    <h5 class="card-title text-center">{{comentarios.text}}</h5>
+
+                                                    <textarea style="resize: none" class="form-control text-area" rows='3' name="" id="" disabled>{{comentarios.text}}</textarea>
 
                                                 </div>
                                             </div>
@@ -126,10 +126,10 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}  <i
                                                             class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
-                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}  <i
                                                             class="fa fa-exclamation-triangle"
                                                             aria-hidden="true"></i></a>
                                                 </div>
@@ -144,7 +144,7 @@
 
 
                         <div class="tab-pane fade w-100" id="nav-todasPostagens" role="tabpanel" aria-labelledby="nav-todasPostagens-tab">
-                            <div class="row d-flex justify-content-center mt-5 mb-5">
+                            <div class="row d-flex justify-content-center mt-3 mb-3">
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <input [(ngModel)]='tituloPost' (keyup)='findByTituloPostagem()' type="text" class="form-control" id="titulo" placeholder="Digite um título para pesquisar">
@@ -157,7 +157,7 @@
                                     <div class="card-body bg-postagem borderline">
                                         <div>
                                             <div class="row">
-                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                                                <div class="col-md-8 d-flex justify-content-start align-items-center">
                                                     <img class="rounded-circle img-fluid mr-3" src="{{allPosts.userPost.urlImage}}" style="width: 50px; height: 50px;" alt="foto-perfil-usuario">
                                                     <a [routerLink]="['/profile-visited', allPosts.userPost.idUser]" class="nome-post"><b> {{allPosts.userPost.name}} </b></a>
                                                 </div>
@@ -181,14 +181,14 @@
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(allPosts.idPost)' class="maoe-style mr-4">{{allPosts.userUpvotePost.length}}<i
+                                                <a (click)='upvotePost(allPosts.idPost)' class="maoe-style mr-4">{{allPosts.userUpvotePost.length}}  <i
                                                             class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(allPosts.idPost)" class="comment-style mr-4"><i
                                                             class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                             data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(allPosts.idPost)' id="maoe" class="warning-style">{{allPosts.userReportPost.length}}<i
+                                                <a (click)='reportPost(allPosts.idPost)' id="maoe" class="warning-style">{{allPosts.userReportPost.length}}  <i
                                                             class="fa fa-exclamation-triangle"
                                                             aria-hidden="true"></i></a>
                                             </div>
@@ -205,11 +205,9 @@
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                             <a [routerLink]="['/profile-visited',comentarios.userComment.idUser]" class="nome-post"><b> {{comentarios.userComment.name}} </b></a>
-                                            <div class="row">
-                                                <div class="col-md-10 d-flex justify-content-start align-items-center">
-                                                    <h5 class="card-title text-center">{{comentarios.text}}</h5>
-
-
+                                            <div class="row ml-5">
+                                                <div class="col-md-10 d-flex justify-content-center align-items-center">
+                                                    <textarea style="resize: none" class="form-control text-area" rows='3' name="" id="" disabled>{{comentarios.text}}</textarea>
                                                 </div>
                                             </div>
                                             <div class="row d-flex justify-content-center">
@@ -224,11 +222,11 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}  <i
                                                                 class="fa fa-heart" aria-hidden="true"
                                                                 id="maoe"></i></a>
 
-                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}  <i
                                                                 class="fa fa-exclamation-triangle"
                                                                 aria-hidden="true"></i></a>
                                                 </div>
@@ -243,7 +241,7 @@
 
                         <div class="tab-pane fade w-100" id="nav-todasTag" role="tabpanel" aria-labelledby="nav-todasTag-tab">
 
-                            <div class="row d-flex justify-content-center mt-5 mb-5">
+                            <div class="row d-flex justify-content-center mt-3 mb-3">
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <input [(ngModel)]='tagNamePost' (keyup)='getAllPostsByTagNames()' type="text" class="form-control" id="titulo" placeholder="Digite um nome de tag para pesquisar">
@@ -256,7 +254,7 @@
                                     <div class="card-body bg-postagem borderline">
                                         <div>
                                             <div class="row">
-                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                                                <div class="col-md-8 d-flex justify-content-start align-items-center">
                                                     <img class="rounded-circle img-fluid mr-3" src="{{postsTags.userPost.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                                     <a [routerLink]="['/profile-visited', postsTags.userPost.idUser]" class="nome-post"><b>{{postsTags.userPost.name}}</b></a>
                                                 </div>
@@ -277,14 +275,14 @@
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(postsTags.idPost)' class="maoe-style mr-4">{{postsTags.userUpvotePost.length}}<i
+                                                <a (click)='upvotePost(postsTags.idPost)' class="maoe-style mr-4">{{postsTags.userUpvotePost.length}}  <i
                                                             class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(postsTags.idPost)" class="comment-style mr-4"><i
                                                             class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                             data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(postsTags.idPost)' id="maoe" class="warning-style">{{postsTags.userReportPost.length}}<i
+                                                <a (click)='reportPost(postsTags.idPost)' id="maoe" class="warning-style">{{postsTags.userReportPost.length}}  <i
                                                             class="fa fa-exclamation-triangle"
                                                             aria-hidden="true"></i></a>
                                             </div>
@@ -301,9 +299,9 @@
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                             <a [routerLink]="['/profile-visited', comentarios.userComment.idUser]" class="nome-post"><b> {{comentarios.userComment.name}} </b></a>
-                                            <div class="row">
-                                                <div class="col-md-10 d-flex justify-content-start align-items-center">
-                                                    <h5 class="card-title text-center">{{comentarios.text}}</h5>
+                                            <div class="row ml-5">
+                                                <div class="col-md-10 d-flex justify-content-center align-items-center">
+                                                    <textarea style="resize: none" class="form-control text-area" rows='3' name="" id="" disabled>{{comentarios.text}}</textarea>
 
 
                                                 </div>
@@ -320,11 +318,11 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}  <i
                                                                 class="fa fa-heart" aria-hidden="true"
                                                                 id="maoe"></i></a>
 
-                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}  <i
                                                                 class="fa fa-exclamation-triangle"
                                                                 aria-hidden="true"></i></a>
                                                 </div>
@@ -363,17 +361,17 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="" class="label-modal">Título</label>
-                    <input [(ngModel)]='novoPost.title' class="form-control" type="text" placeholder="Título da postagem">
+                    <input [(ngModel)]='novoPost.title' minlength="3" maxlength="100" class="form-control" type="text" placeholder="Título da postagem">
                 </div>
 
                 <div class="form-group">
                     <label for="" class="label-modal">Descrição</label>
-                    <textarea [(ngModel)]='novoPost.description' class="form-control borderInput" id="exampleFormControlTextarea1" rows="3" placeholder="Escreva sua postagem"></textarea>
+                    <textarea [(ngModel)]='novoPost.description' minlength="3" maxlength="500" class="form-control borderInput" id="exampleFormControlTextarea1" rows="3" placeholder="Escreva sua postagem"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="" class="label-modal">Tema</label>
-                    <input [(ngModel)]='temaParaPost.tagName' class="form-control" type="text" placeholder="Digite um tema para a sua postagem">
+                    <input [(ngModel)]='temaParaPost.tagName' minlength="3" maxlength="25" class="form-control" type="text" placeholder="Digite um tema para a sua postagem">
                 </div>
 
             </div>
@@ -408,7 +406,7 @@
 
                 <div class="form-group">
                     <label class="label-modal">Nome da tag</label>
-                    <input maxlength="25" [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
+                    <input [(ngModel)]='tema.tagName' minlength="3" maxlength="25" class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
                 </div>
 
             </div>
@@ -443,7 +441,10 @@
 
                 <div class="form-group">
                     <label class="label-modal">Comentário</label>
-                    <input maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Comentário">
+
+
+                    <textarea [(ngModel)]="comentarioNoPost.text" class="form-control borderInput" minlength="1" maxlength="155" id="exampleFormControlTextarea1" rows="3" placeholder="Comentário"></textarea>
+
                 </div>
 
             </div>
