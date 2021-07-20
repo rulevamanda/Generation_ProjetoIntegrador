@@ -1,3 +1,9 @@
+.nav-comments-title {
+    color: #6dd3ce;
+    font-family: BEBAS Neue;
+    font-size: 40px;
+}
+
 .profile-head {
     transform: translateY(5rem)
 }
@@ -66,13 +72,14 @@ ul.list-style li {
 }
 
 a.maoe-style {
+    color: #929393;
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
 }
 
 a.maoe-style:active {
-    color: blueviolet;
+    color: #6dd3ce;
 }
 
 a.maoe-style:visited {

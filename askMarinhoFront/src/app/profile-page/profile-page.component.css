@@ -28,13 +28,14 @@
 }
 
 a.maoe-style {
+    color: #929393;
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
 }
 
 a.maoe-style:active {
-    color: blueviolet;
+    color: #6dd3ce;
 }
 
 a.maoe-style:visited {

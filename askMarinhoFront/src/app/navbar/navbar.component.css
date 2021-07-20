@@ -14,19 +14,12 @@
     font-weight: normal;
     font-size: 40px;
     line-height: 48px;
-    /* margin-left: 30px;
-  margin-right: 30px; */
 }
 
 .txt-marinho:hover {
     color: #95DCD1;
     text-decoration: none;
 }
-
-/* .input-style {
-    width: 380px;
-    height: 45px;
-} */
 
 .lupa {
   color: #ffffff;
@@ -54,14 +47,6 @@ a.dropdown-item:hover {
 li {
     list-style-type: none;
 }
-
-/* a:active {
-    color: #BAF2E9;
-}
-
-a:visited {
-    color: #BAF2E9;
-} */
 
 a {
     cursor: pointer;
