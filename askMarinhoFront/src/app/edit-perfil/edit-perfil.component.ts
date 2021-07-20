@@ -110,59 +110,78 @@ export class EditPerfilComponent implements OnInit {
 
   deleteConta() {
 
-    this.numComments = this.user.comments.length
-    this.numPosts = this.user.posts.length
 
-    
-    let i : number
-    let j : number
+  if (this.user.comments.length > 0) {
+    this.commentService.deleteAllComments(this.idUser).subscribe((resp: User) => {
+      console.log("deletou comments")
+      this.user = resp
+    })
+  }
 
 
-      for (i = 0; i < this.numComments; i++) {
-        this.commentService.deleteComment(this.user.comments[i].idComment).subscribe((resp: Object) => {
- 
-        }, apagou => {
+  if(this.user.posts.length > 0) {
+    this.postService.deleteAllPosts(this.idUser).subscribe((resp: User) => {
+      console.log("deletou posts")
+      this.user = resp
+    })
+  }
 
-        })
-      }
 
-      for (j = 0; j < this.numPosts; j++) {
-        this.postService.deletePostagem(this.user.posts[j].idPost).subscribe((resp: Object) => {
+  if(this.user.reportComment.length > 0) {
+    this.userService.deleteAllReportsComments(this.idUser).subscribe((resp: User) => {
+      console.log("deletou reports comments")
+      this.user = resp
+    })
+  }
 
-        }, apagou => {
-          if (apagou.status == 500) {
-            this.postService.deletePostagem(this.user.posts[j].idPost).subscribe((resp: Object) => {
+  if(this.user.upvoteComment.length > 0) {
+    this.userService.deleteAllUpvotesComments(this.idUser).subscribe((resp: User) => {
+      console.log("deletou upvotes comments")
+      this.user = resp
+    })
+  }
 
-            })
-          }
-   
-      })
-    }
-    j=0
-    i=0
+  if(this.user.reportPost.length > 0) {
+    this.userService.deleteAllReportsPost(this.idUser).subscribe((resp: User) => {
+      console.log("deletou reports posts")
+      this.user = resp
+    })
+  }
 
+  if(this.user.upvotePost.length > 0) {
+    this.userService.deleteAllUpvotesPost(this.idUser).subscribe((resp: User) => {
+      console.log("deletou upvotes posts")
+      this.user = resp
+    })
+  }
+
+  let i: number
+  for (i = 0; i < 2; i++) {
         this.userService.refreshToken()
         this.userService.deleteUser(this.idUser).subscribe((resp: Object) => {
 
         }, deletou => {
           if (deletou.status == 200) {
-            this.alert.showAlertSuccess("Usuário deletado com sucesso!")
-          
+            
+            
             environment.token = ''
             environment.nome = ''
             environment.id = 0
             environment.foto = ''
 
-            console.clear()
-            this.router.navigate(['/login-page'])        
+            
+            this.alert.showAlertSuccess("Usuário deletado com sucesso!")
+            this.router.navigate(['/login-page'])  
+
+            window.location.reload()      
+            
           } else if (deletou.status == 500) {
-            console.log("Clique novamente")
+            console.clear()
           } else if (deletou.status == 400) {
             this.alert.showAlertDanger("Usuário não existe")
-            
           }
         })
     }
+  }
   
-
 }

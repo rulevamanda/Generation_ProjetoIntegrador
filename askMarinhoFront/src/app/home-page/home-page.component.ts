@@ -39,8 +39,10 @@ export class HomePageComponent implements OnInit {
   tagNameFeed: string
   tagNamePost: string
 
-  key = 'data'
+  key = 'date'
   reverse = true
+  reverso = false 
+
 
   constructor(
     private commentService: CommentService,
@@ -127,7 +129,7 @@ export class HomePageComponent implements OnInit {
               this.postsFeed.sort((a, b) => (a.date < b.date) ? -1 : 1)
             })
         }
-        if (this.tituloPost != '') {
+        if (this.tituloPost == '') {
 
           this.getAllPosts()
           
@@ -531,6 +533,8 @@ export class HomePageComponent implements OnInit {
   getAllPostsByAllTags() {
     this.postService.getPostByAllTags().subscribe((resp: Post[]) => {
       this.postsByTags = resp
+
+      this.postsByTags.sort((a, b) => (a.date < b.date) ? -1 : 1)
     } , err => {
       if (err.status == 500) {
         this.alert.showAlertDanger("Por favor atualize a página")
@@ -548,6 +552,8 @@ export class HomePageComponent implements OnInit {
       
       this.postService.getPostByTagNames(this.tagNamePost).subscribe((resp: Post[]) => {
         this.postsByTags = resp
+
+        this.postsByTags.sort((a, b) => (a.date < b.date) ? -1 : 1)
       } , err => {
         if (err.status == 500) {
           this.alert.showAlertDanger("Por favor atualize a página")

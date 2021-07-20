@@ -49,10 +49,22 @@ a.maoe-style:hover {
     margin-left: 66px;
 }
 
+a.nome-post{
+    font-size: 15px;
+    font-family: Roboto;
+    text-decoration: none;
+}
+
 a.nome-post:visited {
     color: #929393;
-    font-size: 20px;
-    font-family: Roboto;
+}
+
+a.nome-post:link {
+    color: #929393;
+}
+
+a.nome-post:hover {
+    color: #6dd3c3;
 }
 
 .btn-profile {
@@ -147,34 +159,35 @@ a:hover {
 }
 
 .bg-post-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-post-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
+    ;
     border: none;
 }
 
 .bg-tag-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-tag-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
 .bg-comment-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-comment-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
 .fechar {
-    background-color: #ffcab1;
+    background-color: #ffd6c3;
     color: #ee966e;
     font-weight: bold;
 }
@@ -203,7 +216,7 @@ a:hover {
 }
 
 .postar {
-    background-color: #6dd3ce;
+    background-color: #8eece8;
     color: #0db4ac;
     font-weight: bold;
 }
@@ -227,23 +240,67 @@ a:hover {
     font-size: 40px;
 }
 
-
 .nav-comments-title {
     color: #6dd3ce;
     font-family: BEBAS Neue;
     font-size: 40px;
 }
 
-.delete-style{
+.delete-style {
     color: red;
 }
 
-.delete-style:hover{
+.delete-style:hover {
     color: rgb(153, 0, 0);
 }
 
-.tag-color{
-    color: #929393;
+.tag-color {
+    color: #fff;
     font-weight: bolder;
     font-size: 20px;
+}
+
+.color-p-tag {
+    color: #fff;
+}
+
+.font-style3 {
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 30px;
+    color: #6dd3ce;
+}
+
+.font-style3:hover {
+    color: #037771;
+}
+
+.font-style3:active {
+    color: #005547;
+}
+
+.color-navegacao {
+    font-family: Bebas Neue;
+    font-size: 25px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #4a8b88 !important;
+    border-color: #6dd3ce #6dd3ce #6dd3ce !important;
+}
+
+.nav-link {
+    color: #6dd3ce !important;
+}
+
+.nav-link:hover {
+    color: #83acaa !important;
+}
+
+.text-area {
+    background-color: #f4f4f4;
+    border: none;
 }

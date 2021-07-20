@@ -14,8 +14,7 @@
                             <li *ngFor='let tema of temas | orderBy : key : reverse'>#{{tema.tagName}}</li>
 
                             <!-- Botão para acionar modal de tag favorita -->
-                            <button type="button" class="btn postar mt-3" data-toggle="modal"
-                                data-target="#novaTagFav">
+                            <button type="button" class="btn postar mt-3" data-toggle="modal" data-target="#novaTagFav">
                                 Adicionar
                             </button>
                         </ul>
@@ -60,9 +59,9 @@
                     <!-- NAV BOOTSTRAP -->
                     <nav>
                         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false">Postagens de {{usuario.name}}</a>
-                            <a class="nav-item nav-link" id="nav-comentarios-tab" data-toggle="tab" href="#nav-comentarios" role="tab" aria-controls="nav-comentarios" aria-selected="false">Comentários</a>
-                            <a class="nav-item nav-link" id="nav-tagsFav-tab" data-toggle="tab" href="#nav-tagsFav" role="tab" aria-controls="nav-tagsFav" aria-selected="false">Tags favoritas</a>
+                            <a class="nav-item nav-link active color-navegacao bg-color" id="nav-minhasPostagens-tab" data-toggle="tab" href="#nav-minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false"><i class="fa fa-list-alt" aria-hidden="true"></i> Minhas postagens</a>
+                            <a class="nav-item nav-link color-navegacao bg-color" id="nav-comentarios-tab" data-toggle="tab" href="#nav-comentarios" role="tab" aria-controls="nav-comentarios" aria-selected="false"><i class="fa fa-comment-o" aria-hidden="true"></i> Comentários</a>
+                            <a class="nav-item nav-link color-navegacao bg-color" id="nav-tagsFav-tab" data-toggle="tab" href="#nav-tagsFav" role="tab" aria-controls="nav-tagsFav" aria-selected="false"><i class="fa fa-hashtag" aria-hidden="true"></i>  Tags favoritas</a>
 
                         </div>
                     </nav>
@@ -78,11 +77,11 @@
                                     <div class="card-body bg-postagem borderline">
                                         <div>
                                             <div class="row">
-                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                                                <div class="col-md-8 d-flex justify-content-start align-items-center">
                                                     <img class="rounded-circle img-fluid mr-3" src="{{usuario.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                                     <a routerLink="/profile" class="nome-post"><b>{{usuario.name}}</b></a>
                                                 </div>
-                                                <div class="col-md-8 d-flex justify-content-end align-items-center">
+                                                <div class="col-md-4 d-flex justify-content-end align-items-center">
                                                     <button (click)='idPostEdit(postsUser.idPost)' class="btn-editar mr-2 bg-postagem" data-toggle="modal" data-target="#editarPostagem"><i
                                                             class="fa fa-pencil-square-o editar" aria-hidden="true"></i>
                                                     </button>
@@ -123,16 +122,13 @@
                                     </p>
                                 </div>
                                 <div class="collapse show" id="commentsUser">
-                                    <div *ngFor='let comentarios of postsUser.comment | orderBy : key : reverse' class="mb-2">
+                                    <div *ngFor='let comentarios of postsUser.comment | orderBy : key : reverso' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
-                                            <img class="mr-3 rounded-circle img-fluid"
-                                                src="{{comentarios.userComment.urlImage}}"
-                                                style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                <a routerLink="/profile"
-                                                class="nome-post"><b>{{comentarios.userComment.name}}</b></a>
-                                            <div class="row">
+                                            <img class="mr-3 rounded-circle img-fluid" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
+                                            <a routerLink="/profile" class="nome-post"><b>{{comentarios.userComment.name}}</b></a>
+                                            <div class="row d-flex justify-content-center">
                                                 <div class="col-md-10 d-flex justify-content-start align-items-center">
-                                                    <h5 class="card-title text-left mt-2 ml-50">{{comentarios.text}}</h5>
+                                                    <textarea style="resize: none" class="form-control text-area" rows='3' name="" id="" disabled>{{comentarios.text}}</textarea>
                                                 </div>
 
                                             </div>
@@ -180,6 +176,8 @@
                                         <p class="card-text ml-50">{{comments.post.description}}</p>
                                         <div class="text-center">
                                             <a *ngFor='let tagsDoPost of comments.post.tagRelation | orderBy : key : reverse' href="#" class="card-link small">#{{tagsDoPost.tagName}}</a>
+                                            <p class="card-text text-center"><small class="text-muted">{{comments.post.date | date:
+                                                'dd/MM/yyyy'}} às {{comments.post.date | date: 'HH:mm a'}}</small></p>
                                         </div>
                                         <hr>
                                         <div class="row">
@@ -203,24 +201,16 @@
                                 <hr>
                                 <h2 class="text-center nav-comments-title mt-2">Comentário</h2>
                                 <div class="card-body borderline bg-postagem">
-                                    <div class="row">
-                                        <div class="col-md-10 d-flex justify-content-start align-items-center">
-                                            <h5 class="card-title text-center">{{comments.text}}</h5>
+
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-10 d-flex justify-content-center align-items-center">
+                                            <textarea style="resize: none" class="form-control text-area" rows='3' name="" id="" disabled>{{comments.text}}</textarea>
                                         </div>
-                                        <div class="col-md-2 d-flex justify-content-center">
-                                            <div class="form-group mb-0 pb-0 text-center">
-                                                <!-- Botão editar -->
-                                                <button (click)='CommentModificado(comments.idComment)' class="btn-editar mr-2 bg-postagem" data-toggle="modal" data-target="#editarComentario">
-                                                    <i class="fa fa-pencil-square-o mt-4 editar" aria-hidden="true"></i>
-                                                </button>
-                                                <!-- Botão apagar -->
-                                                <button (click)='CommentModificado(comments.idComment)' class="btn-delete bg-postagem" data-toggle="modal" data-target="#apagarComentario"><i class="fa fa-trash excluir"
-                                                        aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        <p class="card-text text-center"><small class="text-muted">{{comments.date | date:
+                                                'dd/MM/yyyy'}} às {{comments.date | date: 'HH:mm a'}}</small></p>
 
                                     </div>
+
                                     <hr>
 
                                     <div class="row">
@@ -232,7 +222,21 @@
                                                     class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
-
+                                    <hr>
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-12">
+                                            <div class="form-group mb-0 pb-0 text-center">
+                                                <!-- Botão editar -->
+                                                <button (click)='CommentModificado(comments.idComment)' class="btn-editar mr-2 bg-postagem" data-toggle="modal" data-target="#editarComentario">
+                                                    <i class="fa fa-pencil-square-o mt-4 editar" aria-hidden="true"></i>
+                                                </button>
+                                                <!-- Botão apagar -->
+                                                <button (click)='CommentModificado(comments.idComment)' class="btn-delete bg-postagem" data-toggle="modal" data-target="#apagarComentario"><i class="fa fa-trash excluir"
+                                                        aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -298,12 +302,12 @@
 
                     <div class="form-group">
                         <label for="" class="label-modal">Título</label>
-                        <input [(ngModel)]='postagemEditada.title' class="form-control" type="text">
+                        <input [(ngModel)]='postagemEditada.title' minlength="3" maxlength="100" class="form-control" type="text">
                     </div>
 
                     <div class="form-group">
                         <label for="" class="label-modal">Descrição</label>
-                        <input [(ngModel)]='postagemEditada.description' class="form-control" type="text">
+                        <input [(ngModel)]='postagemEditada.description' minlength="3" maxlength="500" class="form-control" type="text">
                     </div>
                     <div class="form-group">
                         <label for="" class="label-modal">Tags da postagem</label>
@@ -313,15 +317,14 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="label-modal">Adicionar mais tags</label>
-                        <input [(ngModel)]='tagAdicionada.tagName' type="text" class="form-control"
-                            placeholder="Nome da tag"> 
-                            <button (click)="adicionarNovoTema()" class="btn postar mt-2">Adicionar</button>
+                        <input [(ngModel)]='tagAdicionada.tagName' minlength="3" maxlength="25" type="text" class="form-control" placeholder="Nome da tag">
+                        <button (click)="adicionarNovoTema()" class="btn postar mt-2">Adicionar</button>
                     </div>
                 </div>
 
                 <div class="modal-footer d-flex justify-content-center">
                     <button (click)='limpar()' type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
-                    <button (click)='atualizarPostagem()' type="button" class="btn postar" data-dismiss="modal">Postar</button>
+                    <button (click)='atualizarPostagem()' type="button" class="btn postar" data-dismiss="modal">Atualizar</button>
                 </div>
             </div>
         </div>
@@ -329,8 +332,7 @@
 
 
     <!-- Modal deletar postagem-->
-    <div class="modal fade bg-post-modal" id="deletarPostagem" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade bg-post-modal" id="deletarPostagem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-post-modal2">
                 <div class="modal-header">
@@ -350,7 +352,7 @@
                         <label for="" class="label-modal ml-3"> {{usuario.name}}</label>
                         <h5 class="card-title text-center label-modal">{{postagemDeletada.title}}</h5>
                         <p class="card-text label-modal">{{postagemDeletada.description}}</p>
-                        <a *ngFor='let tagsDoPost of postagemDeletada.tagRelation | orderBy : key : reverse' class="card-link label-modal">{{tagsDoPost.tagName}}</a>
+                        <a *ngFor='let tagsDoPost of postagemDeletada.tagRelation | orderBy : key : reverse' class="card-link color-p-tag">#{{tagsDoPost.tagName}}</a>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -361,174 +363,172 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 
 
-<!-- Modal -->
+    <!-- Modal -->
 
-<div class="modal fade bg-comment-modal" id="editarComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-comment-modal2">
-            <div class="modal-header">
-                <div class="mr-auto ml-auto">
-                    <h5 class="modal-title titulo-pl" id="exampleModalLabel">EDITAR COMENTÁRIO
+    <div class="modal fade bg-comment-modal" id="editarComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-comment-modal2">
+                <div class="modal-header">
+                    <div class="mr-auto ml-auto">
+                        <h5 class="modal-title titulo-pl" id="exampleModalLabel">EDITAR COMENTÁRIO
 
-                    </h5>
-                </div>
-                <button (click)='limpar()' type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
+                        </h5>
+                    </div>
+                    <button (click)='limpar()' type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-            </div>
-
-            <div class="modal-body">
-
-
-                <div class="form-group">
-                    <label for="" class="label-modal">Texto</label>
-                    <input [(ngModel)]='commentModif.text' type="text" class="form-control" placeholder="Comentário">
                 </div>
 
-            </div>
+                <div class="modal-body">
 
-            <div class="modal-footer d-flex justify-content-center">
-                <button (click)='limpar()' type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
-                <button (click)='editarComment()' type="button" class="btn postar" data-dismiss="modal">Editar</button>
+
+                    <div class="form-group">
+                        <label for="" class="label-modal">Texto</label>
+                        <input [(ngModel)]='commentModif.text' minlength="1" maxlength="155" type="text" class="form-control" placeholder="Comentário">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center">
+                    <button (click)='limpar()' type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
+                    <button (click)='editarComment()' type="button" class="btn postar" data-dismiss="modal">Editar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
-<!-- Modal editar comentário -->
-<div class="modal fade bg-comment-modal" id="apagarComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-comment-modal2">
-            <div class="modal-header">
-                <div class="mr-auto ml-auto">
-                    <h5 class="modal-title titulo-pl" id="exampleModalLabel">
-                        Tem certeza de que deseja apagar esse comentário?
-                    </h5>
-                </div>
-                <button (click)='limpar()' type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
+    <!-- Modal apagar comentário -->
+    <div class="modal fade bg-comment-modal" id="apagarComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-comment-modal2">
+                <div class="modal-header">
+                    <div class="mr-auto ml-auto">
+                        <h5 class="modal-title titulo-pl" id="exampleModalLabel">
+                            Tem certeza de que deseja apagar esse comentário?
+                        </h5>
+                    </div>
+                    <button (click)='limpar()' type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-            </div>
+                </div>
 
-            <div class="modal-body">
-                <label for="" class="label-modal">Comentário</label>
-                <h5 class="card-title text-center label-modal">{{commentModif.text}}</h5>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button (click)='limpar()' type="button" class="btn fechar mr-3" data-dismiss="modal">Não</button>
-                <button (click)='deletarComment()' type="button" class="btn postar" data-dismiss="modal">Sim</button>
+                <div class="modal-body">
+                    <label for="" class="label-modal">Comentário</label>
+                    <h5 class="card-title text-center label-modal">{{commentModif.text}}</h5>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button (click)='limpar()' type="button" class="btn fechar mr-3" data-dismiss="modal">Não</button>
+                    <button (click)='deletarComment()' type="button" class="btn postar" data-dismiss="modal">Sim</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<!-- Modal remover tag favorita-->
-<div class="modal fade bg-tag-modal" id="removeTag" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-tag-modal2">
-            <div class="modal-header">
-                <div class="mr-auto ml-auto">
-                    <h5 class="modal-title titulo-pl" id="exampleModalLabel">Tem certeza que deseja remover essa tag?
-                    </h5>
-                </div>
-                <button (click)='limpar()' type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
+    <!-- Modal remover tag favorita-->
+    <div class="modal fade bg-tag-modal" id="removeTag" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-tag-modal2">
+                <div class="modal-header">
+                    <div class="mr-auto ml-auto">
+                        <h5 class="modal-title titulo-pl" id="exampleModalLabel">Tem certeza que deseja remover essa tag?
+                        </h5>
+                    </div>
+                    <button (click)='limpar()' type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-            </div>
-            <div *ngIf='tagChamada()' class="modal-body">
-                <div class="form-group">
-                    <p><b>#{{tagDelete.tagName}}</b></p>
                 </div>
-                <div class="form-group">
-                    <p> Existem {{tagDelete.posts.length}} postagens que estão utilizando essa tag!</p>
+                <div *ngIf='tagChamada()' class="modal-body">
+                    <div class="form-group">
+                        <p><b>#{{tagDelete.tagName}}</b></p>
+                    </div>
+                    <div class="form-group">
+                        <p class="color-p-tag"> Existem {{tagDelete.posts.length}} postagens que estão utilizando essa tag!</p>
+                    </div>
+                    <div class="form-group">
+                        <p class="color-p-tag"> Existem {{tagDelete.userTags.length}} usuários que estão seguindo essa tag!</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <p> Existem {{tagDelete.userTags.length}} usuários que estão seguindo essa tag!</p>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button (click)='limpar()' type="button" class="btn fechar mr-3" data-dismiss="modal">Não</button>
+                    <button (click)='deleteFavoriteTag()' type="button" class="btn postar" data-dismiss="modal">Sim</button>
                 </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button (click)='limpar()' type="button" class="btn fechar mr-3" data-dismiss="modal">Não</button>
-                <button (click)='deleteFavoriteTag()' type="button" class="btn postar" data-dismiss="modal">Sim</button>
             </div>
         </div>
     </div>
-</div>
 
 
 
-<!-- Modal tabela tag favorita-->
-<div class="modal fade bg-tag-modal" id="novaTagFav" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-tag-modal2">
-            <div class="modal-header">
-                <div class="mr-auto ml-auto">
-                    <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVA TAG FAVORITA</h5>
-                </div>
-                <button (click)='limpar()' type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
+    <!-- Modal tabela tag favorita-->
+    <div class="modal fade bg-tag-modal" id="novaTagFav" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-tag-modal2">
+                <div class="modal-header">
+                    <div class="mr-auto ml-auto">
+                        <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVA TAG FAVORITA</h5>
+                    </div>
+                    <button (click)='limpar()' type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-            </div>
-
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <label class="label-modal">Nome da tag</label>
-                    <input maxlength="25" [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Nome da tag">
                 </div>
 
-            </div>
+                <div class="modal-body">
 
-            <div class="modal-footer d-flex justify-content-center">
-                <button (click)='limpar()' type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
-                <button (click)='adicionarTag()' type="button" class="btn postar" data-dismiss="modal">Adicionar</button>
+                    <div class="form-group">
+                        <label class="label-modal">Nome da tag</label>
+                        <input [(ngModel)]='tema.tagName' class="form-control" id="tagFav" name="tagFav" minlength="3" maxlength="25" type="text" placeholder="Nome da tag">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center">
+                    <button (click)='limpar()' type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
+                    <button (click)='adicionarTag()' type="button" class="btn postar" data-dismiss="modal">Adicionar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<!-- Modal para comentario -->
+    <!-- Modal para comentario -->
 
-<div class="modal fade bg-comment-modal" id="comentado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-comment-modal2">
-            <div class="modal-header">
-                <div class="mr-auto ml-auto">
-                    <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVO COMENTÁRIO
+    <div class="modal fade bg-comment-modal" id="comentado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-comment-modal2">
+                <div class="modal-header">
+                    <div class="mr-auto ml-auto">
+                        <h5 class="modal-title titulo-pl" id="exampleModalLabel">NOVO COMENTÁRIO
 
-                    </h5>
-                </div>
-                <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
+                        </h5>
+                    </div>
+                    <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-            </div>
-
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <label class="label-modal">Comentário</label>
-                    <input maxlength="250" [(ngModel)]="comentarioNoPost.text" class="form-control" id="tagFav" name="tagFav" type="text" placeholder="Insira seu comentário aqui">
                 </div>
 
-            </div>
+                <div class="modal-body">
 
-            <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
-                <button (click)="comentar()" type="button" class="btn postar" data-dismiss="modal">Comentar</button>
+                    <div class="form-group">
+                        <label class="label-modal">Comentário</label>
+                        <textarea [(ngModel)]="comentarioNoPost.text" class="form-control borderInput" minlength="1" maxlength="155" id="exampleFormControlTextarea1" rows="3" placeholder="Comentário"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn fechar mr-3" data-dismiss="modal">Fechar</button>
+                    <button (click)="comentar()" type="button" class="btn postar" data-dismiss="modal">Comentar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>

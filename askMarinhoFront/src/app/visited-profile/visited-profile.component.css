@@ -3,9 +3,9 @@
 }
 
 .cover {
-    background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+    background-image: url(https://i.imgur.com/ISGR9fy.png);
     background-size: cover;
-    background-repeat: no-repeat
+    background-repeat: no-repeat;
 }
 
 .tag-style {
@@ -52,23 +52,6 @@ ul.list-style li {
     color: #6DD3CE;
 }
 
-a:link {
-    color: #6DD3CE;
-    text-decoration: none;
-}
-
-a:active {
-    color: #152e2d;
-}
-
-a:visited {
-    color: #51e7e0;
-}
-
-a:hover {
-    color: #8ee1dd
-}
-
 .warning-style {
     color: crimson;
     font-size: 20px;
@@ -104,9 +87,22 @@ a.maoe-style:hover {
     margin-left: 66px;
 }
 
+a.nome-post {
+    color: #929393;
+    font-size: 15px;
+    font-family: Roboto;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 a.nome-post:visited {
     color: #929393;
-    font-size: 20px;
+    font-size: 15px;
+    font-family: Roboto;
+}
+a.nome-post:hover {
+    color: #6dd3c3;
+    font-size: 15px;
     font-family: Roboto;
 }
 
@@ -122,37 +118,56 @@ a.nome-post:visited {
     background-color: #e8edec !important;
 }
 
+.bg-post-modal {
+    background: rgba(37, 136, 131, 0.686)
+}
+
+.bg-post-modal2 {
+    background: rgba(39, 133, 128, 0.774);
+    ;
+    border: none;
+}
+
+.bg-tag-modal {
+    background: rgba(37, 136, 131, 0.686)
+}
+
+.bg-tag-modal2 {
+    background: rgba(39, 133, 128, 0.774);
+    border: none;
+}
+
 .bg-comment-modal {
-    background: rgba(40, 48, 46, 0.87);
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-comment-modal2 {
-    background: rgba(45, 54, 52, 0.84);
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
 .fechar {
-    background-color: #ff844b;
-    color: #fff;
+    background-color: #ffd6c3;
+    color: #ee966e;
     font-weight: bold;
 }
 
 .fechar:hover {
-    background-color: #ffa47a;
-    border: 1px solid #fd7a3d;
+    background-color: #fad0bc;
+    border: 1px solid #dfb6a4;
 }
 
 .titulo-pl {
     font-family: Bebas Neue;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
-    color: #ffffff;
+    color: #6dd3ce;
 }
 
 .label-modal {
     font-family: Roboto;
     font-weight: bold;
-    color: #ffffff;
+    color: #6dd3ce;
 }
 
 .fechar:active {
@@ -161,17 +176,58 @@ a.nome-post:visited {
 }
 
 .postar {
-    background-color: #20ca7b;
-    color: #fff;
+    background-color: #8eece8;
+    color: #0db4ac;
     font-weight: bold;
 }
 
 .postar:hover {
-    background-color: #3ed48e;
-    border: 1px solid #17995c;
+    background-color: #aafaf6;
+    border: 1px solid #6dd3ce;
 }
 
 .postar:active {
-    background-color: #0a7041;
-    border: 1px solid #3ed48e;
+    background-color: #6dd3ce;
+    border: 1px solid #6dd3ce;
+}
+
+.font-style3 {
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 30px;
+    color: #6dd3ce;
+}
+
+.font-style3:hover {
+    color: #037771;
+}
+
+.font-style3:active {
+    color: #005547;
+}
+
+.text-area {
+    background-color: #f4f4f4;
+    border: none;
+}
+
+.color-navegacao {
+    font-family: Bebas Neue;
+    font-size: 25px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #4a8b88 !important;
+    border-color: #6dd3ce #6dd3ce #6dd3ce !important;
+}
+
+.nav-link {
+    color: #6dd3ce !important;
+}
+
+.nav-link:hover {
+    color: #83acaa !important;
 }

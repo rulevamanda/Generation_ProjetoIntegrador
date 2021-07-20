@@ -1,5 +1,5 @@
 .body {
-    background-color: white;
+    background-color: #e8edec;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -76,6 +76,14 @@ ul.list-style li {
     color: #6dd3ce;
 }
 
+.font-style3:hover {
+    color: #4a8b88;
+}
+
+.font-style3:active {
+    color: #005547;
+}
+
 .mano {
     font-family: Roboto;
     font-style: normal;
@@ -85,21 +93,8 @@ ul.list-style li {
     color: #6DD3CE;
 }
 
-a:link {
-    color: #000;
+a {
     text-decoration: none;
-}
-
-a:active {
-    color: #152e2d;
-}
-
-a:visited {
-    color: #000;
-}
-
-a:hover {
-    color: #8ee1dd
 }
 
 .plus-style {
@@ -138,29 +133,29 @@ a:hover {
 }
 
 .bg-post-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-post-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
 .bg-tag-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-tag-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
 .bg-comment-modal {
-    background: #94e2deaf;
+    background: rgba(37, 136, 131, 0.686)
 }
 
 .bg-comment-modal2 {
-    background: #e8edec;
+    background: rgba(39, 133, 128, 0.774);
     border: none;
 }
 
@@ -180,7 +175,7 @@ li {
 }
 
 .fechar {
-    background-color: #ffcab1;
+    background-color: #ffd6c3;
     color: #ee966e;
     font-weight: bold;
 }
@@ -196,7 +191,7 @@ li {
 }
 
 .postar {
-    background-color: #6dd3ce;
+    background-color: #8eece8;
     color: #0db4ac;
     font-weight: bold;
 }
@@ -210,6 +205,7 @@ li {
     background-color: #6dd3ce;
     border: 1px solid #6dd3ce;
 }
+
 
 /* estilo dos icones de like, report e comment */
 
@@ -242,6 +238,7 @@ li {
 }
 
 a.maoe-style {
+    color: #929393;
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
@@ -259,10 +256,22 @@ a.maoe-style:hover {
     color: red;
 }
 
+a.nome-post{
+    font-size: 15px;
+    font-family: Roboto;
+    text-decoration: none;
+}
+
 a.nome-post:visited {
     color: #929393;
-    font-size: 20px;
-    font-family: Roboto;
+}
+
+a.nome-post:link {
+    color: #929393;
+}
+
+a.nome-post:hover {
+    color: #6dd3c3;
 }
 
 .btn-delete {
@@ -285,6 +294,34 @@ a.nome-post:visited {
     background-color: #e8edec !important;
 }
 
+.bg-color:active {
+    background-color: #e8edec !important;
+}
+
 .borderline {
     border-radius: 15px;
+}
+
+.color-navegacao {
+    font-family: Bebas Neue;
+    font-size: 25px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #4a8b88 !important;
+    border-color: #6dd3ce #6dd3ce #6dd3ce !important;
+}
+
+.nav-link {
+    color: #6dd3ce !important;
+}
+
+.nav-link:hover {
+    color: #83acaa !important;
+}
+
+.text-area {
+    background-color: #f4f4f4;
+    border: none;
 }
