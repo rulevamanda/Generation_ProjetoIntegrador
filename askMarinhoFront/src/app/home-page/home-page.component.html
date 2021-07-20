@@ -1,35 +1,36 @@
 <div class="body">
     <div class="container py-5">
         <div class="row py-5 d-flex justify-content-center">
-            <div class="col-md-3 w-100 mt-4 mx-3">
-                <div class="tag-style-2">
+            <div>
+                <div class="col-md-3 w-100 mt-4 mx-3">
+                    <div class="tag-style-2">
 
-                    <ul class="py-0 px-2 text-center list-style">
+                        <ul class="py-0 px-2 text-center list-style">
 
-                        <li data-toggle="modal" data-target="#novaPostagem">
-                            <!-- Botão para acionar modal postagem -->
-                            <i class="fa fa-plus-circle plus-style" aria-hidden="true"></i>
-                            <p class="font-style3">NOVA POSTAGEM</p>
-                        </li>
+                            <li data-toggle="modal" data-target="#novaPostagem">
+                                <!-- Botão para acionar modal postagem -->
+                                <i class="fa fa-plus-circle plus-style" aria-hidden="true"></i>
+                                <p class="font-style3">NOVA POSTAGEM</p>
+                            </li>
 
-                    </ul>
-                </div>
-                <div class="tag-style">
-                    <ul class="py-3 px-2 text-center list-style">
+                        </ul>
+                    </div>
+                    <div class="tag-style">
+                        <ul class="py-3 px-2 text-center list-style">
 
-                        <h3 id="font-style">Tags favoritas</h3>
+                            <h3 id="font-style">Tags favoritas</h3>
 
-                        <li *ngFor='let tema of temas'>#{{tema.tagName}}</li>
+                            <li *ngFor='let tema of temas'>#{{tema.tagName}}</li>
 
-                        <!-- Botão para acionar modal de tag favorita -->
-                        <button type="button" class="btn postar mt-3" data-toggle="modal" data-target="#novaTagFav">
+                            <!-- Botão para acionar modal de tag favorita -->
+                            <button type="button" class="btn postar mt-3" data-toggle="modal" data-target="#novaTagFav">
                             Adicionar
                         </button>
-                    </ul>
+                        </ul>
+                    </div>
+
                 </div>
-
             </div>
-
 
 
 
