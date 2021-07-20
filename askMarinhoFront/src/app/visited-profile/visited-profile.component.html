@@ -65,7 +65,7 @@
                     <div class="tab-content d-flex justify-content-center mt-5" id="nav-tabContent">
                         <div class="tab-pane fade show active w-100" id="nav-minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
                             <div *ngFor='let postsUser of user.posts | orderBy : key : reverse'>
-                                <div class="card mb-5 borderline bg-postagem">
+                                <div class="card mb-2 borderline bg-postagem">
                                     <div class="card-body borderline bg-postagem">
 
                                         <img class="rounded-circle img-fluid mr-3" src="{{user.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
@@ -96,7 +96,7 @@
                                         Comentários
                                     </p>
                                 </div>
-                                <div class="collapse show" id="commentsUser">
+                                <div class="collapse show mb-5" id="commentsUser">
                                     <div *ngFor='let comentarios of postsUser.comment | orderBy : key : reverso' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="mr-3 rounded-circle img-fluid" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
