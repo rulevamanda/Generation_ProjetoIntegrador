@@ -43,6 +43,8 @@ export class HomePageComponent implements OnInit {
 
   key = 'date'
   reverse = true
+  reverso = false 
+
 
   constructor(
     private commentService: CommentService,

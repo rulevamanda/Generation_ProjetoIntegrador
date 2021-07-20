@@ -1,29 +1,17 @@
 .bg-footer{
-    background-color: #BAF2E9;    
-}
-
-.bg-footer2{
     background-color: #6DD3CE;    
 }
 
-a{
-  text-decoration: none; 
-   
+a {
+    color: #696969;
+    text-decoration: none;
 }
 
-a:link{
-    color:#000000 ;
+a:hover {
+    color: #ffcab1;
 }
 
-a:active{
-    color:#6DD3CE;
-}
-
-a:hover{
-    color: #ff651e;
-}
-
-.txt-rodape{
+.txt-rodape {
     font-family: Corbel;
     font-style: normal;
     font-weight: normal;
@@ -31,16 +19,16 @@ a:hover{
     line-height: 24px
 }
 
-.txt-askmarinho{
+.txt-askmarinho {
     font-family: Bebas Neue;
-    color: #6DD3CE;
+    color: #BAF2E9;
     font-style: normal;
     font-weight: normal;
     font-size: 30px;
     line-height: 24px
 }
 
-ul.style li{
+ul.style li {
     list-style: none;
 }
 .dark-mode {

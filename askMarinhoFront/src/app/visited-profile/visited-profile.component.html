@@ -23,25 +23,24 @@
             <div class="col-md-6 ">
                 <!-- Profile widget -->
                 <div class="bg-color rounded overflow-hidden">
-                    <div class="px-4 pt-0 pb-4 cover">
+                    <div class="px-5 pt-0 pb-4 cover">
                         <div class="media align-items-end profile-head">
-                            <div class="profile mr-3"><img src="{{user.urlImage}}" alt="..." width="155" class="img-fluid rounded-circle mb-2 img-thumbnail">
-                                <p class="small mb-4"> <i class="mr-2"></i> {{user.gender}}</p>
+                            <div class="profile mr-0">
+                                <img src="{{user.urlImage}}" alt="..." width="155" class="img-fluid rounded-circle mt-5 mb-2 text-center">
                             </div>
-                            <div class="media-body mb-5 text-white">
+                            <div class="pt-5 justify-content-center text-dark">
                                 <h4 class="mt-0 mb-0">{{user.name}}</h4>
-                                <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>New York</p>
+                                <p class="small mb-4"> <i class="mr-2">@{{user.userName}}</i></p>
                             </div>
                         </div>
                     </div>
 
                     <!-- ABOUT -->
-                    <div class="bg-light p-4 d-flex justify-content-center text-center">
+                    <div class="bg-postagem px-4 py-2 d-flex justify-content-center text-center">
                         <ul class="list-inline mb-0 mt-5">
                             <li class="list-inline-item">
-                                <h5 class="mb-0">Sobre {{user.name}}</h5>
-                                <div class="p-4 rounded shadow-sm bg-light">
-                                    <p class="font-italic mb-0">{{user.description}}</p>
+                                <div class="p-4 rounded">
+                                    <p class="text-left font-italic mb-0">{{user.description}}</p>
                                 </div>
                             </li>
                         </ul>
@@ -66,30 +65,28 @@
                     <div class="tab-content d-flex justify-content-center mt-5" id="nav-tabContent">
                         <div class="tab-pane fade show active w-100" id="nav-minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">
                             <div *ngFor='let postsUser of user.posts | orderBy : key : reverse'>
-                                <div class="card mb-5 borderline bg-postagem">
+                                <div class="card mb-2 borderline bg-postagem">
                                     <div class="card-body borderline bg-postagem">
 
                                         <img class="rounded-circle img-fluid mr-3" src="{{user.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                        <a class="name-post">{{user.name}}</a>
+                                        <a class="nome-post">{{user.name}}</a>
                                         <h5 class="card-title text-center">{{postsUser.title}}</h5>
                                         <p class="card-text">{{postsUser.description}}</p>
                                         <p class="card-text text-center"><small class="text-muted">{{postsUser.date | date:
                                             'dd/MM/yyyy'}} às {{postsUser.date | date: 'HH:mm a'}}</small></p>
-                                        <p class="text-center"><a *ngFor='let tagsDoPost of postsUser.tagRelation | orderBy : key : reverse' href="#" class="card-link">{{tagsDoPost.tagName}}</a></p>
+                                        <p class="text-center"><a *ngFor='let tagsDoPost of postsUser.tagRelation | orderBy : key : reverse' href="#" class="card-link">#{{tagsDoPost.tagName}}</a></p>
 
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(postsUser.idPost)' class="maoe-style mr-4">{{postsUser.userUpvotePost.length}}<i
-                                                    class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
+                                                <a (click)='upvotePost(postsUser.idPost)' class="maoe-style mr-4">{{postsUser.userUpvotePost.length}}  <i class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(postsUser.idPost)" class="comment-style mr-4"><i
                                                     class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                     data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(postsUser.idPost)' id="maoe" class="warning-style">{{postsUser.userReportPost.length}}<i
-                                                    class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+                                                <a (click)='reportPost(postsUser.idPost)' id="maoe" class="warning-style">{{postsUser.userReportPost.length}}  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -99,8 +96,8 @@
                                         Comentários
                                     </p>
                                 </div>
-                                <div class="collapse show" id="commentsUser">
-                                    <div *ngFor='let comentarios of postsUser.comment | orderBy : key : reverse' class="mb-2">
+                                <div class="collapse show mb-5" id="commentsUser">
+                                    <div *ngFor='let comentarios of postsUser.comment | orderBy : key : reverso' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="mr-3 rounded-circle img-fluid" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                             <a class="nome-post"><b>{{comentarios.userComment.name}}</b></a>
@@ -114,11 +111,9 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
-                                                        class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}  <i class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
-                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
-                                                        class="fa fa-exclamation-triangle"
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}  <i class="fa fa-exclamation-triangle"
                                                         aria-hidden="true"></i></a>
                                                 </div>
                                             </div>
@@ -137,7 +132,7 @@
 
 
                             <div *ngFor='let comments of user.comments | orderBy : key : reverse' class="card mb-5 borderline bg-postagem">
-                                <h3 class="text-center">Postagem</h3>
+                                <h3 class="text-center nav-comments-title mt-4">Postagem</h3>
 
                                 <div>
                                     <div class="card-body bg-postagem borderline">
@@ -163,15 +158,13 @@
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(comments.post.idPost)' class="maoe-style mr-4">{{comments.post.userUpvotePost.length}}<i
-                                                        class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
+                                                <a (click)='upvotePost(comments.post.idPost)' class="maoe-style mr-4">{{comments.post.userUpvotePost.length}}  <i class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(comments.post.idPost)" class="comment-style mr-4"><i
                                                         class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                         data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(comments.post.idPost)' id="maoe" class="warning-style">{{comments.post.userReportPost.length}}<i
-                                                        class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+                                                <a (click)='reportPost(comments.post.idPost)' id="maoe" class="warning-style">{{comments.post.userReportPost.length}}  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
 
                                             </div>
                                         </div>
@@ -193,10 +186,10 @@
 
                                     <div class="row">
                                         <div class="col-md-12 d-flex justify-content-center">
-                                            <a (click)='upvoteComment(comments.idComment)' class="maoe-style mr-4">{{comments.userUpvoteComment.length}}<i
+                                            <a (click)='upvoteComment(comments.idComment)' class="maoe-style mr-4">{{comments.userUpvoteComment.length}}  <i
                                                     class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
-                                            <a (click)='reportComment(comments.idComment)' id="maoe" class="warning-style">{{comments.userReportComment.length}}<i
+                                            <a (click)='reportComment(comments.idComment)' id="maoe" class="warning-style">{{comments.userReportComment.length}}  <i
                                                     class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
@@ -211,9 +204,9 @@
 
                         <div class="tab-pane fade w-100" id="nav-tagsFav" role="tabpanel" aria-labelledby="nav-tagsFav-tab">
                             <div *ngFor='let tema of user.favorites | orderBy : key : reverse' class="card mb-5 borderline">
-                                <div class="card-body text-center bg-white borderline">
+                                <div class="card-body text-center bg-postagem borderline">
 
-                                    <h5 class="card-title text-center bg-white">{{tema.tagName}}</h5>
+                                    <h5 class="card-title text-center bg-postagem">{{tema.tagName}}</h5>
 
                                 </div>
                             </div>

@@ -78,11 +78,11 @@
                                     <div class="card-body bg-postagem borderline">
                                         <div>
                                             <div class="row">
-                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                                                <div class="col-md-8 d-flex justify-content-start align-items-center">
                                                     <img class="rounded-circle img-fluid mr-3" src="{{usuario.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                                     <a routerLink="/profile" class="nome-post"><b>{{usuario.name}}</b></a>
                                                 </div>
-                                                <div class="col-md-8 d-flex justify-content-end align-items-center">
+                                                <div class="col-md-4 d-flex justify-content-end align-items-center">
                                                     <button (click)='idPostEdit(postsUser.idPost)' class="btn-editar mr-2 bg-postagem" data-toggle="modal" data-target="#editarPostagem"><i
                                                             class="fa fa-pencil-square-o editar" aria-hidden="true"></i>
                                                     </button>
@@ -103,15 +103,13 @@
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(postsUser.idPost)' class="maoe-style mr-4">{{postsUser.userUpvotePost.length}}<i
-                                                        class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
+                                                <a (click)='upvotePost(postsUser.idPost)' class="maoe-style mr-4">{{postsUser.userUpvotePost.length}}  <i class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(postsUser.idPost)" class="comment-style mr-4"><i
                                                         class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                         data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(postsUser.idPost)' id="maoe" class="warning-style">{{postsUser.userReportPost.length}}<i
-                                                        class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+                                                <a (click)='reportPost(postsUser.idPost)' id="maoe" class="warning-style">{{postsUser.userReportPost.length}}  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -123,7 +121,7 @@
                                     </p>
                                 </div>
                                 <div class="collapse show" id="commentsUser">
-                                    <div *ngFor='let comentarios of postsUser.comment | orderBy : key : reverse' class="mb-2">
+                                    <div *ngFor='let comentarios of postsUser.comment | orderBy : key : reverso' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="mr-3 rounded-circle img-fluid" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                             <a routerLink="/profile" class="nome-post"><b>{{comentarios.userComment.name}}</b></a>
@@ -137,11 +135,9 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
-                                                            class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}} <i class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
-                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
-                                                            class="fa fa-exclamation-triangle"
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}  <i class="fa fa-exclamation-triangle"
                                                             aria-hidden="true"></i></a>
                                                 </div>
                                             </div>
@@ -157,7 +153,7 @@
 
                         <div class="tab-pane fade mt-5 mb-5 w-100" id="nav-comentarios" role="tabpanel" aria-labelledby="nav-comentarios-tab">
                             <div *ngFor='let comments of commentsUsuario | orderBy : key : reverse' class="card mb-5 borderline bg-postagem">
-                                <h3 class="text-center">Postagem</h3>
+                                <h3 class="text-center nav-comments-title mt-4">Postagem</h3>
 
                                 <div>
                                     <div class="card-body bg-postagem borderline">
@@ -184,15 +180,13 @@
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(comments.post.idPost)' class="maoe-style mr-4">{{comments.post.userUpvotePost.length}}<i
-                                                        class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
+                                                <a (click)='upvotePost(comments.post.idPost)' class="maoe-style mr-4">{{comments.post.userUpvotePost.length}}  <i class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(comments.post.idPost)" class="comment-style mr-4"><i
                                                         class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                         data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(comments.post.idPost)' id="maoe" class="warning-style">{{comments.post.userReportPost.length}}<i
-                                                        class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+                                                <a (click)='reportPost(comments.post.idPost)' id="maoe" class="warning-style">{{comments.post.userReportPost.length}}  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
 
                                             </div>
                                         </div>
@@ -216,11 +210,9 @@
 
                                     <div class="row">
                                         <div class="col-md-12 d-flex justify-content-center">
-                                            <a (click)='upvoteComment(comments.idComment)' class="maoe-style mr-4">{{comments.userUpvoteComment.length}}<i
-                                                    class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
+                                            <a (click)='upvoteComment(comments.idComment)' class="maoe-style mr-4">{{comments.userUpvoteComment.length}}  <i class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
-                                            <a (click)='reportComment(comments.idComment)' id="maoe" class="warning-style">{{comments.userReportComment.length}}<i
-                                                    class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+                                            <a (click)='reportComment(comments.idComment)' id="maoe" class="warning-style">{{comments.userReportComment.length}}  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
                                     <hr>

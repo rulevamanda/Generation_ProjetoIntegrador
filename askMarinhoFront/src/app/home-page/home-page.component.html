@@ -65,14 +65,11 @@
                                     <div class="card-body bg-postagem borderline">
                                         <div>
                                             <div class="row">
-                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                                                <div class="col-md-8 d-flex justify-content-start align-items-center">
                                                     <img class="rounded-circle img-fluid mr-3" src="{{feed.userPost.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                                    <a [routerLink]="['/profile-visited', feed.userPost.idUser]"><b>{{feed.userPost.name}}</b></a>
+                                                    <a [routerLink]="['/profile-visited', feed.userPost.idUser]" class="nome-post">{{feed.userPost.name}}</a>
                                                 </div>
-                                                <div class="col-md-8 d-flex justify-content-end align-items-center">
 
-
-                                                </div>
                                             </div>
                                         </div>
                                         <h5 class="card-title text-left mt-2 ml-50">{{feed.title}}</h5>
@@ -87,14 +84,14 @@
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(feed.idPost)' class="maoe-style mr-4">{{feed.userUpvotePost.length}}<i
+                                                <a (click)='upvotePost(feed.idPost)' class="maoe-style mr-4">{{feed.userUpvotePost.length}}  <i
                                                         class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(feed.idPost)" class="comment-style mr-4"><i
                                                         class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                         data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(feed.idPost)' id="maoe" class="warning-style">{{feed.userReportPost.length}}<i
+                                                <a (click)='reportPost(feed.idPost)' id="maoe" class="warning-style">{{feed.userReportPost.length}}  <i
                                                         class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
@@ -109,7 +106,7 @@
                                     <div *ngFor='let comentarios of feed.comment | orderBy : key : reverse' class="mb-2">
                                         <div class="card-body borderline bg-postagem mx-5">
                                             <img class="rounded-circle img-fluid mr-3" src="{{comentarios.userComment.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
-                                            <a [routerLink]="['/profile-visited', comentarios.userComment.idUser]"><b>{{comentarios.userComment.name}}</b></a>
+                                            <a [routerLink]="['/profile-visited', comentarios.userComment.idUser]" class="nome-post">{{comentarios.userComment.name}}</a>
                                             <div class="row ml-5">
                                                 <div class="col-md-10 d-flex justify-content-start align-items-center">
 
@@ -129,10 +126,10 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}  <i
                                                             class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
-                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}  <i
                                                             class="fa fa-exclamation-triangle"
                                                             aria-hidden="true"></i></a>
                                                 </div>
@@ -160,7 +157,7 @@
                                     <div class="card-body bg-postagem borderline">
                                         <div>
                                             <div class="row">
-                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                                                <div class="col-md-8 d-flex justify-content-start align-items-center">
                                                     <img class="rounded-circle img-fluid mr-3" src="{{allPosts.userPost.urlImage}}" style="width: 50px; height: 50px;" alt="foto-perfil-usuario">
                                                     <a [routerLink]="['/profile-visited', allPosts.userPost.idUser]" class="nome-post"><b> {{allPosts.userPost.name}} </b></a>
                                                 </div>
@@ -184,14 +181,14 @@
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(allPosts.idPost)' class="maoe-style mr-4">{{allPosts.userUpvotePost.length}}<i
+                                                <a (click)='upvotePost(allPosts.idPost)' class="maoe-style mr-4">{{allPosts.userUpvotePost.length}}  <i
                                                             class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(allPosts.idPost)" class="comment-style mr-4"><i
                                                             class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                             data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(allPosts.idPost)' id="maoe" class="warning-style">{{allPosts.userReportPost.length}}<i
+                                                <a (click)='reportPost(allPosts.idPost)' id="maoe" class="warning-style">{{allPosts.userReportPost.length}}  <i
                                                             class="fa fa-exclamation-triangle"
                                                             aria-hidden="true"></i></a>
                                             </div>
@@ -225,11 +222,11 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}  <i
                                                                 class="fa fa-heart" aria-hidden="true"
                                                                 id="maoe"></i></a>
 
-                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}  <i
                                                                 class="fa fa-exclamation-triangle"
                                                                 aria-hidden="true"></i></a>
                                                 </div>
@@ -257,7 +254,7 @@
                                     <div class="card-body bg-postagem borderline">
                                         <div>
                                             <div class="row">
-                                                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                                                <div class="col-md-8 d-flex justify-content-start align-items-center">
                                                     <img class="rounded-circle img-fluid mr-3" src="{{postsTags.userPost.urlImage}}" style="width: 50px;height: 50px;" alt="foto-perfil-usuario">
                                                     <a [routerLink]="['/profile-visited', postsTags.userPost.idUser]" class="nome-post"><b>{{postsTags.userPost.name}}</b></a>
                                                 </div>
@@ -278,14 +275,14 @@
                                         <div class="row">
                                             <div class="col-md-12 d-flex justify-content-center">
 
-                                                <a (click)='upvotePost(postsTags.idPost)' class="maoe-style mr-4">{{postsTags.userUpvotePost.length}}<i
+                                                <a (click)='upvotePost(postsTags.idPost)' class="maoe-style mr-4">{{postsTags.userUpvotePost.length}}  <i
                                                             class="fa fa-heart" aria-hidden="true" id="maoe"></i></a>
 
                                                 <a (click)="chamou(postsTags.idPost)" class="comment-style mr-4"><i
                                                             class="fa fa-comment-o" aria-hidden="true" id="maoe"
                                                             data-toggle="modal" data-target="#comentado"></i></a>
 
-                                                <a (click)='reportPost(postsTags.idPost)' id="maoe" class="warning-style">{{postsTags.userReportPost.length}}<i
+                                                <a (click)='reportPost(postsTags.idPost)' id="maoe" class="warning-style">{{postsTags.userReportPost.length}}  <i
                                                             class="fa fa-exclamation-triangle"
                                                             aria-hidden="true"></i></a>
                                             </div>
@@ -321,11 +318,11 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12 d-flex justify-content-center">
-                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}<i
+                                                    <a (click)='upvoteComment(comentarios.idComment)' class="maoe-style mr-4">{{comentarios.userUpvoteComment.length}}  <i
                                                                 class="fa fa-heart" aria-hidden="true"
                                                                 id="maoe"></i></a>
 
-                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}<i
+                                                    <a (click)='reportComment(comentarios.idComment)' id="maoe" class="warning-style">{{comentarios.userReportComment.length}}  <i
                                                                 class="fa fa-exclamation-triangle"
                                                                 aria-hidden="true"></i></a>
                                                 </div>
