@@ -1,32 +1,24 @@
 .formulario {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
     background-color: white;
     border-radius: 10px;
-    padding: 5px 5px;
 }
 
 input[type=email],
 [type=password] {
     border: 1px solid #BAF2E9;
-    width: 369px;
-    height: 57px;
-    margin: 14px 16px;
+    height: 47px;
 }
 
 input[type=submit] {
-    width: 204px;
-    height: 57px;
+    height: 47px;
     background: #FFCAB1;
     border-radius: 5px;
-    margin: 14px 16px;
     border: none;
     font-family: Corbel;
     font-style: normal;
     font-weight: normal;
     font-size: 20px;
-    line-height: 30px;
+    line-height: 20px;
     color: #F27A7A;
 }
 
@@ -39,7 +31,7 @@ input[type=submit]:hover {
 }
 
 .hr-style {
-    width: 295px;
+    width: 320px;
     height: 0px;
     border: 1px solid #BAF2E9;
 }
@@ -64,17 +56,15 @@ a:hover {
 button {
     background-color: #6DD3CE;
     color: white;
-    width: 369px;
-    height: 57px;
+    height: 47px;
     border-radius: 5px;
     border: none;
     font-family: Corbel;
     font-style: normal;
     font-weight: normal;
     font-size: 25px;
-    line-height: 36px;
+    line-height: 26px;
     margin-bottom: 10px;
-    margin-left: 16px;
 }
 
 button:hover {
@@ -88,7 +78,7 @@ p {
     font-size: 25px;
     line-height: 30px;
     color: #929393;
-    width: 400px;
+    width: 340px;
     height: 111px;
 }
 
@@ -108,12 +98,14 @@ h1 {
 
 ul.style li {
     list-style: none;
+    margin: 0px;
+}
+
+ul.style {
+    margin: 0px;
+    padding: 0px;
 }
 
 .mt-80 {
     margin-top: 80px;
-}
-
-.ml-6 {
-    margin-left: 30px;
 }

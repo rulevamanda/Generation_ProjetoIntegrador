@@ -93,23 +93,29 @@ export class ProfilePageComponent implements OnInit {
   adicionarTag() {
     this.tagService.refreshToken()
     this.userService.refreshToken()
-    this.userService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
-      User) => {
-        
-        this.pegarPeloId()
-        this.tema = new Tag()
-        this.usuario = resp
-        this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
-      }, err => {
-        if (err.status == 500) {
-          this.alert.showAlertInfo("Por favor atualize a página")
-        } else if (err.status == 403) {
-          this.alert.showAlertDanger("A tag não pode conter caracteres especiais")
-        } else if (err.status == 400) {
-          this.alert.showAlertDanger("Usuário não existe, por favor recarregue a página")
-        }
-    })
-    
+
+    if (this.tema.tagName == undefined) {
+      this.alert.showAlertDanger("Tema não pode ser nulo!")
+    } else if (this.tema.tagName.length < 3 || this.tema.tagName.length > 25) {
+      this.alert.showAlertDanger("O tema deve ter entre 3 e 25 caracteres!")
+    } else {
+      this.userService.addFavorite(environment.id, this.tema.tagName).subscribe((resp: 
+        User) => {
+          
+          this.pegarPeloId()
+          this.tema = new Tag()
+          this.usuario = resp
+          this.alert.showAlertSuccess("Tag favorita adicionada com sucesso!")
+        }, err => {
+          if (err.status == 500) {
+            this.alert.showAlertInfo("Por favor atualize a página")
+          } else if (err.status == 403) {
+            this.alert.showAlertDanger("A tag não pode conter caracteres especiais")
+          } else if (err.status == 400) {
+            this.alert.showAlertDanger("Usuário não existe, por favor recarregue a página")
+          }
+      })
+    }
   }
 
   chamou(idPost: number) {
@@ -117,20 +123,27 @@ export class ProfilePageComponent implements OnInit {
   }
 
   adicionarNovoTema() {
-    this.postService.addTagPostagem(this.tagAdicionada.tagName, this.idPostEditar).subscribe((resp: Post) => {
-      this.alert.showAlertSuccess("Adicionada")
-      this.tagAdicionada = new Tag()
-      this.pegarPeloId()
-      this.findByIdPost()
-    }, err => {
-      if (err.status == 500) {
-        this.alert.showAlertDanger("Por favor atualize a página")
-      } else if (err.status == 403) {
-        this.alert.showAlertDanger("O nome da tag não pode conter caracteres especiais")
-      } else if (err.status == 400) {
-        this.alert.showAlertDanger("A postagem não existe")
-      }
-    })
+
+    if (this.tagAdicionada.tagName == undefined) {
+      this.alert.showAlertDanger("Tema não pode ser nulo!")
+    } else if (this.tagAdicionada.tagName.length < 3 || this.tagAdicionada.tagName.length > 25) {
+      this.alert.showAlertDanger("O tema deve ter entre 3 e 25 caracteres!")
+    } else {
+      this.postService.addTagPostagem(this.tagAdicionada.tagName, this.idPostEditar).subscribe((resp: Post) => {
+        this.alert.showAlertSuccess("Adicionada")
+        this.tagAdicionada = new Tag()
+        this.pegarPeloId()
+        this.findByIdPost()
+      }, err => {
+        if (err.status == 500) {
+          this.alert.showAlertDanger("Por favor atualize a página")
+        } else if (err.status == 403) {
+          this.alert.showAlertDanger("O nome da tag não pode conter caracteres especiais")
+        } else if (err.status == 400) {
+          this.alert.showAlertDanger("A postagem não existe")
+        }
+      })
+    }
   }
 
   idPostEdit(idPostagem: number) {
@@ -164,6 +177,17 @@ export class ProfilePageComponent implements OnInit {
     this.postagemEnviar.description = this.postagemEditada.description
     this.postagemEnviar.urlImage = this.postagemEditada.urlImage
 
+
+     if (this.postagemEditada.title == undefined) {
+      this.alert.showAlertDanger("Título não pode ser nulo!")
+    } else if (this.postagemEditada.title.length < 3 || this.postagemEditada.title.length > 100) {
+      this.alert.showAlertDanger("Título deve ter entre 3 e 100 caracteres!")
+    } else if (this.postagemEditada.description == undefined) {
+      this.alert.showAlertDanger("Descrição não pode ser nula!")
+    } else if (this.postagemEditada.description.length < 3 || this.postagemEditada.description.length > 500) {
+      this.alert.showAlertDanger("Descrição deve ter entre 3 e 500 caracteres!")
+    } else {
+
     this.postService.putPostagem(this.idPostEditar, this.postagemEnviar).subscribe((resp: Post) => {
       
       this.postagemEditada = new Post()
@@ -182,6 +206,7 @@ export class ProfilePageComponent implements OnInit {
         this.alert.showAlertDanger("A postagem não existe")
       }
     }) 
+  }
   }
 
   removerTagPost(idTag: number) {
@@ -257,20 +282,25 @@ export class ProfilePageComponent implements OnInit {
   editarComment() {
     this.comentarioEnviado.text = this.commentModif.text
     
-   
-    this.commentService.putComment(this.idCommentModif, this.comentarioEnviado).subscribe((resp: Comment) => {
-      
-      this.alert.showAlertSuccess("Comentário editado!")
-      this.pegarPeloId()
-    }, err => {
-      if (err.status == 500) {
-        this.alert.showAlertSuccess("Por favor atualize a página")
-      } else if (err.status == 403) {
-        this.alert.showAlertSuccess("O texto do comentário não pode ser vazio")
-      } else if (err.status == 404) {
-        this.alert.showAlertSuccess("O comentário não existe, por favor atualize a página")
-      }
-    })
+    if (this.comentarioEnviado.text == undefined) {
+      this.alert.showAlertDanger("Comentário não pode ser nulo!")
+    } else if (this.comentarioEnviado.text.length < 1 || this.comentarioEnviado.text.length > 155) {
+      this.alert.showAlertDanger("Comentário deve ter entre 1 e 155 caracteres!")
+    } else {
+      this.commentService.putComment(this.idCommentModif, this.comentarioEnviado).subscribe((resp: Comment) => {
+        
+        this.alert.showAlertSuccess("Comentário editado!")
+        this.pegarPeloId()
+      }, err => {
+        if (err.status == 500) {
+          this.alert.showAlertSuccess("Por favor atualize a página")
+        } else if (err.status == 403) {
+          this.alert.showAlertSuccess("O texto do comentário não pode ser vazio")
+        } else if (err.status == 404) {
+          this.alert.showAlertSuccess("O comentário não existe, por favor atualize a página")
+        }
+      })
+    }
   }
 
   deletarComment() {
@@ -375,24 +405,30 @@ export class ProfilePageComponent implements OnInit {
    }
 
    comentar() {
-    this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
-      this.comentarioNoPost = resp
-      this.alert.showAlertSuccess("Comentário adicionado com sucesso!")
-      
-      this.pegarPeloId()
-     
-      this.comentarioNoPost = new Comment()
-    }, err => {
-      if (err.status == 500) {
-        this.alert.showAlertDanger("Por favor atualize a página")
-      } else if (err.status == 403) {
-        this.alert.showAlertDanger("O texto não pode ser vazio")
-      } else if (err.status == 400) {
-        this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
-      } else if (err.status == 404) {
-        this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
-      }
-    })
-  }
 
+    if (this.comentarioNoPost.text == undefined) {
+      this.alert.showAlertDanger("Comentário não pode ser nulo!")
+    } else if (this.comentarioNoPost.text.length < 1 || this.comentarioNoPost.text.length > 155) {
+      this.alert.showAlertDanger("Comentário deve ter entre 1 e 155 caracteres!")
+    } else {
+      this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
+        this.comentarioNoPost = resp
+        this.alert.showAlertSuccess("Comentário adicionado com sucesso!")
+        
+        this.pegarPeloId()
+      
+        this.comentarioNoPost = new Comment()
+      }, err => {
+        if (err.status == 500) {
+          this.alert.showAlertDanger("Por favor atualize a página")
+        } else if (err.status == 403) {
+          this.alert.showAlertDanger("O texto não pode ser vazio")
+        } else if (err.status == 400) {
+          this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
+        } else if (err.status == 404) {
+          this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+        }
+      })
+    }
+  }
 }
