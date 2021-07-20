@@ -29,6 +29,7 @@ export class VisitedProfileComponent implements OnInit {
 
   key = 'date'
   reverse = true
+  reverso = false
   
   constructor(
     private router: Router,

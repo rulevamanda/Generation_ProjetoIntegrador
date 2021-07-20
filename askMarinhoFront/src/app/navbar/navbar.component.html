@@ -11,14 +11,14 @@
         <ul class="navbar-nav mr-0 text-center">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-cog" aria-hidden="true" style="font-size: 30px;"></i>
-                    <i style="font-size: 20px; margin-right: 15px;"> CONFIG</i>
+                    <i class="lupa fa fa-cog" aria-hidden="true" style="font-size: 30px;"></i>
+                    <i class="white" style="font-size: 20px; margin-right: 15px; margin-left: 10px;"> MENU</i>
                 </a>
                 <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="/profile">Meu Perfil</a>
-                    <a class="dropdown-item" [routerLink]="['/user-edit', idUser]">Editar perfil</a>
+                    <a class="white dropdown-item" routerLink="/profile">Meu Perfil</a>
+                    <a class="white dropdown-item" [routerLink]="['/user-edit', idUser]">Editar perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a (click)='sair()' class="dropdown-item">Sair</a>
+                    <a (click)='sair()' class="white dropdown-item">Sair</a>
                 </div>
             </li>
         </ul>

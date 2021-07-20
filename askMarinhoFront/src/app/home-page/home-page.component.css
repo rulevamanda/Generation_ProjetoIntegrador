@@ -93,21 +93,8 @@ ul.list-style li {
     color: #6DD3CE;
 }
 
-a:link {
-    color: #000;
+a {
     text-decoration: none;
-}
-
-a:active {
-    color: #152e2d;
-}
-
-a:visited {
-    color: #000;
-}
-
-a:hover {
-    color: #8ee1dd
 }
 
 .plus-style {
@@ -251,6 +238,7 @@ li {
 }
 
 a.maoe-style {
+    color: #929393;
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
@@ -268,10 +256,22 @@ a.maoe-style:hover {
     color: red;
 }
 
+a.nome-post{
+    font-size: 15px;
+    font-family: Roboto;
+    text-decoration: none;
+}
+
 a.nome-post:visited {
     color: #929393;
-    font-size: 20px;
-    font-family: Roboto;
+}
+
+a.nome-post:link {
+    color: #929393;
+}
+
+a.nome-post:hover {
+    color: #6dd3c3;
 }
 
 .btn-delete {

@@ -5,7 +5,6 @@
 .icon-nav {
     height: 50px;
     width: 50px;
-    /* margin-left: 85px; */
 }
 
 .txt-marinho {
@@ -15,8 +14,6 @@
     font-weight: normal;
     font-size: 40px;
     line-height: 48px;
-    /* margin-left: 30px;
-  margin-right: 30px; */
 }
 
 .txt-marinho:hover {
@@ -24,13 +21,8 @@
     text-decoration: none;
 }
 
-.input-style {
-    width: 380px;
-    height: 45px;
-}
-
 .lupa {
-    color: #BAF2E9;
+  color: #ffffff;
 }
 
 .dropdown-menu {
@@ -38,12 +30,13 @@
     background-color: #6DD3CE;
 }
 
-.dropdown-item {
+a.dropdown-item {
     background-color: #6DD3CE;
-    color: #BAF2E9;
+    color: #ffffff;
+    font-size: 15px;
 }
 
-.dropdown-item:hover {
+a.dropdown-item:hover {
     background-color: #95DCD1;
 }
 
@@ -55,20 +48,17 @@ li {
     list-style-type: none;
 }
 
-a:active {
-    color: #BAF2E9;
-}
-
-a:visited {
-    color: #BAF2E9;
-}
-
 a {
     cursor: pointer;
 }
 
 .mr-100 {
     margin-right: 100px;
+}
+
+
+i.white{
+  color: white;
 }
 
 .ml-100 {

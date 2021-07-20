@@ -49,6 +49,7 @@ export class ProfilePageComponent implements OnInit {
 
   key = 'date'
   reverse = true
+  reverso = false
   
   constructor(
     private router: Router,
