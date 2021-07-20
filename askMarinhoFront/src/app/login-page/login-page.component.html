@@ -1,8 +1,8 @@
 <div class="container-fluid mt-80">
 
-    <div class="row d-flex align-items-center justify-content-center">
+    <div class="row d-flex justify-content-center align-items-center">
         <!-- Logo Marinho -->
-        <div class="col-md-3 d-flex align-items-center justify-content-center">
+        <div class="col-md-3 d-flex justify-content-center align-items-center p-0 mx-3">
             <img src="../../assets/img/login-page/askMarinho-logo.svg" alt="logo askMarinho">
         </div>
         <!-- /Logo Marinho -->
@@ -24,28 +24,35 @@
 
 
 
+        <div class="col-md-4 d-flex justify-content-center align-items-center mt-5">
 
+            <div class="mb-5 mx-2 px-2">
 
-        <div class="col-md-4">
-            <div class="row d-flex justify-content-center">
-                <div class="formulario ml-6 mb-5">
-
-                    <form class="formulario" action="">
-                        <div>
-                            <input [(ngModel)]='userLogin.email' class="form-control" type="email" id="email" name="email" placeholder="Digite seu email">
-                            <input [(ngModel)]='userLogin.password' class="form-control" type="password" id="senha" name="senha" placeholder="Digite sua senha">
-                            <button (click)='entrar()' type="submit">Entrar</button>
+                <form class="formulario p-3" action="">
+                    <div class="text-center">
+                        <div class="form-group">
+                            <input [(ngModel)]='userLogin.email' class="form-control p-0 mt-3" type="email" id="email" name="email" placeholder="Digite seu email">
                         </div>
+                        <div class="form-group">
+                            <input [(ngModel)]='userLogin.password' class="form-control p-0 mt-4" type="password" id="senha" name="senha" placeholder="Digite sua senha">
+                        </div>
+                        <div class="form-group">
+                            <button (click)='entrar()' class="mt-3 form-control" type="submit">Entrar</button>
+                        </div>
+
                         <span><a href="#">Ih, esqueceu a senha?
 
                             </a></span>
                         <hr class="hr-style">
                         <div>
-                            <a routerLink="/signup-page"><input type="submit" value="Criar nova conta"></a>
+                            <a routerLink="/signup-page"><input type="submit" class="my-3" value="Criar nova conta"></a>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+
+
             </div>
+
         </div>
 
     </div>
