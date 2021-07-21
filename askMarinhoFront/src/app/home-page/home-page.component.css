@@ -123,39 +123,39 @@ a {
     font-family: Bebas Neue;
     font-size: 40px;
     font-weight: bold;
-    color: #6dd3ce;
+    color: #ffffff;
 }
 
 .label-modal {
     font-family: Roboto;
     font-weight: bold;
-    color: #6dd3ce;
+    color: #ffffff;
 }
 
 .bg-post-modal {
-    background: rgba(37, 136, 131, 0.686)
+    background: #5fb8b4c5;
 }
 
 .bg-post-modal2 {
-    background: rgba(39, 133, 128, 0.774);
+    background: #6dd3ce00;
     border: none;
 }
 
 .bg-tag-modal {
-    background: rgba(37, 136, 131, 0.686)
+    background: #5fb8b4c5;
 }
 
 .bg-tag-modal2 {
-    background: rgba(39, 133, 128, 0.774);
+    background: #6dd3ce00;
     border: none;
 }
 
 .bg-comment-modal {
-    background: rgba(37, 136, 131, 0.686)
+    background: #5fb8b4c5;
 }
 
 .bg-comment-modal2 {
-    background: rgba(39, 133, 128, 0.774);
+    background: #6dd3ce00;
     border: none;
 }
 
