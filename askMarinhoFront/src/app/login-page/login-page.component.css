@@ -31,7 +31,6 @@ input[type=submit]:hover {
 }
 
 .hr-style {
-    width: 320px;
     height: 0px;
     border: 1px solid #BAF2E9;
 }
