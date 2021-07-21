@@ -287,6 +287,14 @@ export class ProfilePageComponent implements OnInit {
       this.alert.showAlertDanger("Comentário não pode ser nulo!")
     } else if (this.comentarioEnviado.text.length < 1 || this.comentarioEnviado.text.length > 155) {
       this.alert.showAlertDanger("Comentário deve ter entre 1 e 155 caracteres!")
+    } else if (this.comentarioEnviado.text.includes("viado")) {
+      this.alert.showAlertYellow("\"viado\" é uma palavra imprópria.")
+    } else if (this.comentarioEnviado.text.includes("cuzão")) {
+        this.alert.showAlertYellow("\"cuzão\" é uma palavra imprópria.")
+    } else if (this.comentarioEnviado.text.includes("putinha")) {
+        this.alert.showAlertYellow("\"putinha\" é uma palavra imprópria.")
+    } else if (this.comentarioEnviado.text.includes("buceta")) {
+        this.alert.showAlertYellow("\"buceta\" é uma palavra imprópria.")
     } else {
       this.commentService.putComment(this.idCommentModif, this.comentarioEnviado).subscribe((resp: Comment) => {
         
@@ -411,25 +419,33 @@ export class ProfilePageComponent implements OnInit {
       this.alert.showAlertDanger("Comentário não pode ser nulo!")
     } else if (this.comentarioNoPost.text.length < 1 || this.comentarioNoPost.text.length > 155) {
       this.alert.showAlertDanger("Comentário deve ter entre 1 e 155 caracteres!")
+    } else if (this.comentarioNoPost.text.includes("viado")) {
+      this.alert.showAlertYellow("\"viado\" é uma palavra imprópria.")
+    } else if (this.comentarioNoPost.text.includes("cuzão")) {
+        this.alert.showAlertYellow("\"cuzão\" é uma palavra imprópria.")
+    } else if (this.comentarioNoPost.text.includes("putinha")) {
+        this.alert.showAlertYellow("\"putinha\" é uma palavra imprópria.")
+    } else if (this.comentarioNoPost.text.includes("buceta")) {
+        this.alert.showAlertYellow("\"buceta\" é uma palavra imprópria.")
     } else {
-      this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
-        this.comentarioNoPost = resp
-        this.alert.showAlertSuccess("Comentário adicionado com sucesso!")
+        this.commentService.postComment(environment.id, this.idPostComentado, this.comentarioNoPost).subscribe((resp: Comment) => {
+          this.comentarioNoPost = resp
+          this.alert.showAlertSuccess("Comentário adicionado com sucesso!")
+          
+          this.pegarPeloId()
         
-        this.pegarPeloId()
-      
-        this.comentarioNoPost = new Comment()
-      }, err => {
-        if (err.status == 500) {
-          this.alert.showAlertDanger("Por favor atualize a página")
-        } else if (err.status == 403) {
-          this.alert.showAlertDanger("O texto não pode ser vazio")
-        } else if (err.status == 400) {
-          this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
-        } else if (err.status == 404) {
-          this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
-        }
-      })
+          this.comentarioNoPost = new Comment()
+        }, err => {
+          if (err.status == 500) {
+            this.alert.showAlertDanger("Por favor atualize a página")
+          } else if (err.status == 403) {
+            this.alert.showAlertDanger("O texto não pode ser vazio")
+          } else if (err.status == 400) {
+            this.alert.showAlertDanger("Postagem não existe, por favor atualize a página")
+          } else if (err.status == 404) {
+            this.alert.showAlertDanger("Usuário não existe, por favor atualize a página")
+          }
+        })
     }
   }
 }
